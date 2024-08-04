@@ -134,11 +134,32 @@ export const kickMember = karin.command(/^#踢$/, async (e) => {
     return true
   }
 
+  /** 检查bot自身是否为管理员、群主 */
+  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  if (!(['owner', 'admin'].includes(info.role))) {
+    await e.reply('少女做不到呜呜~(>_<)~')
+    return true
+  }
+
   try {
     const res = await e.bot.GetGroupMemberInfo(e.group_id, userId)
     if (!res) {
       await e.reply('\n这个群好像没这个人', { at: true })
       return true
+    }
+
+    /** 检查对方的角色 */
+    if (res.role === 'owner') {
+      await e.reply('\n这个人是群主，少女做不到呜呜~(>_<)~', { at: true })
+      return true
+    }
+
+    if (res.role === 'admin') {
+      /** 需要是群主 */
+      if (info.role !== 'owner') {
+        await e.reply('\n这个人是管理员，少女做不到呜呜~(>_<)~', { at: true })
+        return true
+      }
     }
   } catch {
     return e.reply('\n这个群好像没这个人', { at: true })
