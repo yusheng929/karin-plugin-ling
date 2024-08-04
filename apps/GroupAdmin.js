@@ -1,115 +1,155 @@
-import { Plugin } from 'node-karin'
-import { UserID } from '../lib/index.js'
+import { karin, logger } from 'node-karin'
 
-export class UserBing extends Plugin {
-    constructor() {
-        super({
-            name: '群管',
-            dsc: '群管',
-            event: 'message',
-            priority: 300,
-            rule: [
-                {
-                    reg: '^#?全体(禁言|解禁)$',
-                    fnc: 'MuteAll'
-                },
-                {
-                    reg: '^#(设置|取消)管理(\\d+)?$',
-                    fnc: 'SetAdmin'
-                },
-                {
-                    reg: '^#(申请|我要)头衔',
-                    fnc: 'SetGroupTitle'
-                },
-                {
-                    reg: '^#踢(\\d+)?$',
-                    fnc: 'KickMember'
-                }
-            ]
-        })
+/**
+ * 全体禁言
+ */
+export const muteAll = karin.command(/^#?全体(禁言|解禁)$/, async (e) => {
+  /** 只有主人 群管理员可以使用 */
+  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
+    await e.reply('暂无权限，只有管理员才能操作')
+    return true
+  }
+
+  /** 检查bot自身是否为管理员、群主 */
+  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  if (!(['owner', 'admin'].includes(info.role))) {
+    await e.reply('少女做不到呜呜~(>_<)~')
+    return true
+  }
+
+  const isBan = /全体禁言/.test(e.msg)
+
+  try {
+    await e.bot.SetGroupWholeBan(e.group_id, isBan)
+    await e.reply(`已${isBan ? '开启' : '关闭'}全体禁言`)
+    return true
+  } catch (error) {
+    await e.reply('\n错误: 未知原因❌', { at: true })
+    return true
+  }
+})
+
+/**
+ * 设置/取消管理员
+ */
+export const setAdmin = karin.command(/^#(设置|取消)管理$/, async (e) => {
+  /** 只有主人可以使用 */
+  if (!e.isMaster) {
+    logger.warn(`[GroupAdmin] ${e.group_id}-${e.sender.user_id}(${e.sender.nick}) 无权限设置管理 已跳过`)
+    return false
+  }
+
+  /** 只有bot为群主才可以使用 */
+  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  if (!(['owner'].includes(info.role))) {
+    await e.reply('少女不是群主，做不到呜呜~(>_<)~')
+    return true
+  }
+
+  let userId = ''
+
+  /** 存在at */
+  if (e.at.length) {
+    userId = e.at[0]
+  } else {
+    userId = e.msg.replace(/#|(设置|取消)管理/, '').trim()
+  }
+
+  if (!userId || !(/\d{5,}/.test(userId))) {
+    await e.reply('\n貌似这个QQ号不对哦~', { at: true })
+    return true
+  }
+
+  try {
+    const res = await e.bot.GetGroupMemberInfo(e.group_id, userId)
+    if (!res) {
+      await e.reply('\n这个群好像没这个人', { at: true })
+      return true
+    }
+  } catch {
+    return e.reply('\n这个群好像没这个人', { at: true })
+  }
+
+  const isSet = e.msg.includes('设置')
+
+  try {
+    await e.bot.SetGroupAdmin(e.group_id, userId, isSet)
+    await e.reply(`\n${isSet ? '设置' : '取消'}管理员成功`, { at: true })
+    return true
+  } catch (error) {
+    await e.reply('\n错误: 未知原因❌', { at: true })
+    return true
+  }
+})
+
+/**
+ * 设置群头衔
+ */
+export const setGroupTitle = karin.command(/^#(申请|我要)头衔$/, async (e) => {
+  /** 只有bot为群主才可以使用 */
+  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  if (!(['owner'].includes(info.role))) {
+    await e.reply('少女不是群主，做不到呜呜~(>_<)~')
+    return true
+  }
+
+  const title = e.msg.replace(/#(申请|我要)头衔/, '').trim()
+  try {
+    if (!title) {
+      await e.bot.SetGroupUniqueTitle(e.group_id, e.user_id, title)
+      await e.reply('\n已经将你的头衔取消了~', { at: true })
+      return true
     }
 
-    async MuteAll(e) {
-        if (!(UserID.A.role === 'admin' || UserID.A.role === 'owner' || e.isMaster)) return e.reply('暂无权限，只有管理员才能操作')
-        if (!(UserID.B.role === 'admin' || UserID.B.role === 'owner')) return e.reply('少女做不到呜呜~(>_<)~')
+    await e.bot.SetGroupUniqueTitle(e.group_id, e.user_id, title)
+    await e.reply('\n换上了哦', { at: true })
+    return true
+  } catch (error) {
+    await e.reply(`\n错误:\n${error.message}`, { at: true })
+    return true
+  }
+})
 
-        let type = /全体禁言/.test(e.msg)
-        let res = await e.bot.SetGroupWholeBan(e.group_id, type)
+/**
+ * 踢人
+ */
+export const kickMember = karin.command(/^#踢$/, async (e) => {
+  /** 只有主人、群主、管理员可以使用 */
+  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
+    await e.reply('暂无权限，只有管理员才能操作')
+    return true
+  }
 
-        if (!res) return e.reply('错误: 未知原因❌', true)
+  let userId = ''
 
-        if (type) {
-            e.reply('已开启全体禁言')
-        } else {
-            e.reply('已关闭全体禁言')
-        }
+  /** 存在at */
+  if (e.at.length) {
+    userId = e.at[0]
+  } else {
+    userId = e.msg.replace(/#踢/g, '').trim()
+  }
 
-        return true
+  if (!userId || !(/\d{5,}/.test(userId))) {
+    await e.reply('\n貌似这个QQ号不对哦~', { at: true })
+    return true
+  }
+
+  try {
+    const res = await e.bot.GetGroupMemberInfo(e.group_id, userId)
+    if (!res) {
+      await e.reply('\n这个群好像没这个人', { at: true })
+      return true
     }
+  } catch {
+    return e.reply('\n这个群好像没这个人', { at: true })
+  }
 
-    async SetAdmin(e) {
-        if (!e.isMaster) return e.reply('暂无权限，只有主人才能操作')
-        if (!(UserID.B.role === 'owner')) return e.reply('少女做不到呜呜~(>_<)~')
-        let qq
-        e.at.forEach(at => {
-            if (at === e.self_id) return false
-            qq = at
-        })
-        const type = /设置管理/.test(e.msg)
-        if (!qq) qq = e.msg.replace(/#|(设置|取消)管理/g, '').trim()
-        if (!qq || !(/\d{5,}/.test(qq))) return e.reply('你QQ号真的输入正确了吗？')
-        try {
-            await e.bot.GetGroupMemberList(e.group_id, qq, true)
-        } catch {
-            return e.reply('这个群好像没这个人')
-        }
-        try {
-        await e.bot.SetGroupAdmin(e.group_id, qq, type)
-        } catch {
-        return e.reply('错误: 未知原因❌', true)
-        }
-        if (type) {
-            e.reply('设置管理员成功')
-        } else {
-            e.reply('已取消管理员')
-        }
-        return true
-    }
-
-    async SetGroupTitle(e) {
-    if (!(UserID.B.role === 'owner')) return e.reply('少女做不到呜呜~(>_<)~')
-        let Title = e.msg.replace(/#(申请|我要)头衔/g, '').trim()
-        try {
-            await e.bot.SetGroupUniqueTitle(e.group_id, e.user_id, Title)
-        } catch (error) {
-            return e.reply('错误:', error, true)
-
-        }
-        if (!Title) return e.reply('已经将你的头衔取消了', true)
-        e.reply(`已将你的头衔更换为「${Title}」`, true)
-        return true
-    }
-    async KickMember (e) {
-    if (!(UserID.A.role === 'admin' || UserID.A.role === 'owner' || e.isMaster)) return e.reply('暂无权限，只有管理员才能操作')
-    
-    let qq
-        e.at.forEach(at => {
-            if (at === e.self_id) return false
-            qq = at
-        })
-        if (!qq) qq = e.msg.replace(/#踢/g, '').trim()
-        if (!qq || !(/\d{5,}/.test(qq))) return e.reply('你QQ号真的输入正确了吗？')
-        try {
-            await e.bot.GetGroupMemberList(e.group_id, qq, true)
-        } catch {
-            return e.reply('这个群好像没这个人')
-        }
-        try {
-        await e.bot.KickMember(e.group_id, qq)
-        e.reply (`已经将用户『${qq}』踢出群聊`)
-        } catch {
-        return e.reply('错误: 未知原因❌', true)
-        }
-        return true
-    }
-}
+  try {
+    await e.bot.KickMember(e.group_id, userId)
+    await e.reply(`\n已经将用户『${userId}』踢出群聊`, { at: true })
+    return true
+  } catch (error) {
+    await e.reply('\n错误: 未知原因❌', { at: true })
+    return true
+  }
+})
