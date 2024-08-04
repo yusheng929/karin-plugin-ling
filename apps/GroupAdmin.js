@@ -20,6 +20,10 @@ export class UserBing extends Plugin {
                 {
                     reg: '^#(申请|我要)头衔',
                     fnc: 'SetGroupTitle'
+                },
+                {
+                    reg: '^#踢(\\d+)?$',
+                    fnc: 'KickMember'
                 }
             ]
         })
@@ -83,6 +87,29 @@ export class UserBing extends Plugin {
         }
         if (!Title) return e.reply('已经将你的头衔取消了', true)
         e.reply(`已将你的头衔更换为「${Title}」`, true)
+        return true
+    }
+    async KickMember (e) {
+    if (!(UserID.A.role === 'admin' || UserID.A.role === 'owner' || e.isMaster)) return e.reply('暂无权限，只有管理员才能操作')
+    
+    let qq
+        e.at.forEach(at => {
+            if (at === e.self_id) return false
+            qq = at
+        })
+        if (!qq) qq = e.msg.replace(/#踢/g, '').trim()
+        if (!qq || !(/\d{5,}/.test(qq))) return e.reply('你QQ号真的输入正确了吗？')
+        try {
+            await e.bot.GetGroupMemberList(e.group_id, qq, true)
+        } catch {
+            return e.reply('这个群好像没这个人')
+        }
+        try {
+        await e.bot.KickMember(e.group_id, qq)
+        e.reply (`已经将用户『${qq}』踢出群聊`)
+        } catch {
+        return e.reply('错误: 未知原因❌', true)
+        }
         return true
     }
 }
