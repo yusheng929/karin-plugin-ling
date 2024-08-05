@@ -27,9 +27,7 @@ export const muteAll = karin.command(/^#?全体(禁言|解禁)$/, async (e) => {
     await e.reply('\n错误: 未知原因❌', { at: true })
     return true
   }
-}
-{ name: "全体禁言", priority: "-1" }
-)
+}, { name: "全体禁言", priority: "-1" })
 
 /**
  * 设置/取消管理员
@@ -77,9 +75,7 @@ export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
     await e.reply('\n错误: 未知原因❌', { at: true })
     return true
   }
-}
-{ name: "设置管理", priority: "-1", permission: "master" }
-)
+}, { name: "设置管理", priority: "-1", permission: "master" })
 
 /**
  * 设置群头衔
@@ -107,9 +103,7 @@ export const setGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) 
     await e.reply(`\n错误:\n${error.message}`, { at: true })
     return true
   }
-}
-{ name: "设置头衔", priority: "-1" }
-)
+}, { name: "设置头衔", priority: "-1" })
 
 /**
  * 踢人
@@ -174,9 +168,7 @@ export const kickMember = karin.command(/^#踢/, async (e) => {
     await e.reply('\n错误: 未知原因❌', { at: true })
     return true
   }
-}
-{ name: "踢", priority: "-1" }
-)
+}, { name: "踢", priority: "-1" })
 
 
 /**
@@ -236,6 +228,4 @@ export const UnBanMember = karin.command(/^#解禁/, async (e) => {
     await e.reply('\n错误: 未知原因❌', { at: true })
     return true
   }
-}
-{ name: "禁言", priority: "-1" }
-)
+}, { name: "禁言", priority: "-1" })
