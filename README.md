@@ -34,3 +34,9 @@ git clone --depth=1 https://mirror.ghproxy.com/https://github.com/Circle-money-r
 - [ ] 禁言
 - [ ] 发群公告
 </details>
+
+## 致谢
+
+|Nickname|Contribution|
+|:------:|------------|
+|[yenai-plugin](https://github.com/yeyang52/yenai-plugin)|部分代码参考椰奶插件所实现|
