@@ -150,11 +150,8 @@ export const kickMember = karin.command(/^#踢/, async (e) => {
     }
 
     if (res.role === 'admin') {
-      /** 需要是群主 */
-      if (info.role !== 'owner') {
-        await e.reply('\n这个人是管理员，少女做不到呜呜~(>_<)~', { at: true })
+        await e.reply('\n少女不能踢出管理员呜呜~(>_<)~', { at: true })
         return true
-      }
     }
   } catch {
     return e.reply('\n这个群好像没这个人', { at: true })
