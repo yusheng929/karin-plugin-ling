@@ -1,4 +1,4 @@
-import { karin, logger, segment } from 'node-karin'
+import { karin, logger, segment, common } from 'node-karin'
 
 /**
  * 改群名
@@ -25,3 +25,18 @@ export const SeeImg = karin.command(/^#改群名/, async (e) => {
   }
   return true
 }, { name: "改群名", priority: "-1" })
+
+/**
+ * 获取禁言列表
+*/
+export const MuteList = karin.command(/^#?(获取|查看)?禁言列表$/, async (e) => {
+  let List = await e.bot.GetProhibitedUserList(e.group_id)
+  console.log(List)
+  const message = [
+    segment.text("禁言列表"),
+    segment.text(JSON.stringify(List, null, 2)),
+  ]
+  const content = common.makeForward(message, e.self_id, e.bot.account.name)
+  await e.bot.sendForwardMessage(e.contact, content)
+  return true
+})
