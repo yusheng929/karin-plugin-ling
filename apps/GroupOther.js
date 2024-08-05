@@ -17,6 +17,4 @@ let userId = ''
   }
   let Img = e.bot.getAvatarUrl(userId, 640);
   e.reply(segment.image(Img))
-}
-{ name: "看头像", priority: "-1" }
-)
+}, { name: "看头像", priority: "-1" })
