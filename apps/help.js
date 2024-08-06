@@ -1,6 +1,3 @@
-import { karin, segment, common } from 'node-karin'
-
-export const help = karin.command(/^#?群管帮助/, async (e) => {
- e.reply(segment.image(`file://karin-plugin-group/resources/help/help.jpg`))
-    return true
-  })
+import { karin, segment,common } from 'node-karin';
+const Path = common.absPath("./plugins/karin-plugin-group/resources/help", true, false);
+export const BCommand = karin.command('^#?群管帮助$', segment.image(Path + '/help.jpg'))
