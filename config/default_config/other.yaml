@@ -1,0 +1,5 @@
+# 进退群通知
+accept:
+  BlackGroup:
+    - 114514
+  cd: 30
