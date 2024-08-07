@@ -56,10 +56,10 @@ export const ModifyMemberCard = karin.command(/^#改群昵称/, async (e) => {
 
   try {
     await e.bot.ModifyMemberCard(e.group_id, e.self_id, Name)
-    e.reply(`已经将群昵称修改为『${Name}』`)
+    await e.reply(`已经将群昵称修改为『${Name}』`)
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
     return true
   }
   return true
-}, { name: "改群昵称", priority: "-1", permission: "master" })
+}, { name: '改群昵称', priority: '-1', permission: 'master' })
