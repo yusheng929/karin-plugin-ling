@@ -9,7 +9,7 @@ export const accept = karin.accept('notice.group_member_increase', async (e) => 
    if (e.user_id == e.bot.uin) return;
    const key = `Karin:newcomers:${e.group_id}`;
     if (await redis.get(key)) return;
-    await redis.set(key, "1", { EX: Other.accept.cd });
+    await redis.set(key, "1", { EX: Config.Other.accept.cd });
   await e.reply('\n欢迎加入本群୯(⁠*⁠´⁠ω⁠｀⁠*⁠)୬', { at: true })
   return true
 })
