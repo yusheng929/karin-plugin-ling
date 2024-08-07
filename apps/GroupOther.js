@@ -49,3 +49,17 @@ export const MuteList = karin.command(/^#?(获取|查看)?禁言列表$/, async 
   await e.bot.sendForwardMessage(e.contact, content)
   return true
 })
+
+export const ModifyMemberCard = karin.command(/^#改群昵称/, async (e) => {
+  const Name = e.msg.replace(/^#改群昵称/, '').trim()
+  if (!Name) return e.reply('群昵称不能为空', { at: true })
+
+  try {
+    await e.bot.ModifyMemberCard(e.group_id, e.self_id, Name)
+    e.reply(`已经将群昵称修改为『${Name}』`)
+  } catch (error) {
+    await e.reply('\n错误: 未知原因❌', { at: true })
+    return true
+  }
+  return true
+}, { name: "改群昵称", priority: "-1", permission: "master" })
