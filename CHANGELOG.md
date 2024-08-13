@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.1...v1.1.2) (2024-08-13)
+
+
+### Bug Fixes
+
+* 优化插件加载 ([869ea4b](https://github.com/Circle-money-run/karin-plugin-group/commit/869ea4b6232e6b72c89002a06149759f5489a695))
+
 ## [1.1.1](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.0...v1.1.1) (2024-08-13)
 
 
