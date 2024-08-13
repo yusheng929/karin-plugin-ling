@@ -1,4 +1,6 @@
 import { karin } from 'node-karin'
+const Numreg = '[零一壹二两三四五六七八九十百千万亿\\d]+'
+import Number from '../lib/Number.js'
 
 /**
  * 全体禁言
@@ -218,6 +220,70 @@ export const UnBanMember = karin.command(/^#解禁/, async (e) => {
   try {
     await e.bot.BanMember(e.group_id, userId, 0)
     await e.reply(`\n已经将用户『${userId}』解除禁言了`, { at: true })
+    return true
+  } catch (error) {
+    await e.reply('\n错误: 未知原因❌', { at: true })
+    return true
+  }
+}, { name: '解禁', priority: '-1' })
+
+export const BanMember = karin.command(/^#禁言\\s?((\\d+)\\s)?(${Numreg})?(分|分钟|时|小时|天)?$/, async (e) => {
+  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
+    await e.reply('暂无权限，只有管理员才能操作')
+    return true
+  }
+  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  if (!(['owner', 'admin'].includes(info.role))) {
+    await e.reply('少女做不到呜呜~(>_<)~')
+    return true
+  }
+  let reg = new RegExp(`^#禁言\\s?((\\d+)\\s)?(${Numreg})?(分|分钟|时|小时|天)?$`)
+  
+  let user_id = ''
+
+  /** 存在at */
+  if (e.at.length) {
+    user_id = e.at[0]
+  } else {
+    return e.reply('请艾特对方使用')
+  }
+   let time = Number.translateChinaNum(e.msg.match(reg)[3])
+
+  if (!user_id || !(/\d{5,}/.test(userId))) {
+    await e.reply('\n貌似这个QQ号不对哦~', { at: true })
+    return true
+  }
+  try {
+    const res = await e.bot.GetGroupMemberInfo(e.group_id, user_id)
+    if (res.role === 'owner') {
+      await e.reply('\n这个人是群主，少女做不到呜呜~(>_<)~', { at: true })
+      return true
+    }
+
+    if (res.role === 'admin') {
+      /** 需要是群主 */
+      if (info.role !== 'owner') {
+        await e.reply('\n这个人是管理员，少女做不到呜呜~(>_<)~', { at: true })
+        return true
+      }
+    }
+  } catch {
+    return e.reply('\n这个群好像没这个人', { at: true })
+  }
+  try {
+        let option = e.msg.match(reg)[4]
+        if (option == '分' || option == '分钟') {
+            let BanTime = time * 60
+            e.bot.BanMember(e.group_id, user_id, BanTime)
+        }
+        else if (option == '时' || option == '小时') {
+            let BanTime = time * 60 * 60
+            e.bot.BanMember(e.group_id, user_id, BanTime)
+        }
+        else if (option == '天') {
+            let BanTime = time * 60 * 60 * 24
+            e.bot.BanMember(e.group_id, user_id, BanTime)
+        }
     return true
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
