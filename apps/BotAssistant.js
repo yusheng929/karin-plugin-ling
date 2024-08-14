@@ -1,4 +1,4 @@
-import { karin, segment, common } from 'node-karin'
+import { karin, segment, common, level } from 'node-karin'
 
 /**
  * 退群
@@ -53,3 +53,40 @@ export const SeeGroupImg = karin.command(/^#(看|取)群头像/, async (e) => {
   await e.reply(segment.image(Img))
   return true
 }, { name: '看群头像', priority: '-1' })
+
+export const command = karin.command(/^#赞我$/, async e => {
+  const key = `VoteUser:${e.user_id}`
+  const time = await level.get(key)
+  if (time) {
+    //  检查是否为今天
+    if (new Date().toDateString() === new Date(Number(time)).toDateString()) {
+      e.reply(
+        [
+          segment.at(e.user_id, e.user_id),
+          ' 今天已经赞过了o(￣▽￣)ｄ',
+        ])
+      return true
+    }
+  }
+
+  let count = 10
+  const res = await e.bot.VoteUser(e.user_id, 10)
+  // 先点10次 看下是否成功
+  if (res.status === 'ok') {
+    // 继续尝试点10次
+    try {
+      const res = await e.bot.VoteUser(e.user_id, 10)
+      if (res) count += 10
+    } catch { }
+  }
+
+  if (!res) {
+    await e.reply('点赞失败了o(╥﹏╥)o', { at: true })
+    return true
+  }
+
+  // 成功后记录时间
+  await level.set(key, Date.now())
+  await e.reply(`\n已经成功为你点赞${count}次！`, { at: true })
+  return true
+}, { name: '赞我', priority: '-1' })
