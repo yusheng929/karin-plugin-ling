@@ -1,6 +1,6 @@
 import { karin } from 'node-karin'
 const Numreg = '[零一壹二两三四五六七八九十百千万亿\\d]+'
-import Number from '../lib/Number.js'
+import Number from '../components/Number.js'
 
 /**
  * 全体禁言

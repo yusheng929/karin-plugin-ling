@@ -2,7 +2,7 @@ import fs from 'fs'
 import { logger } from 'node-karin'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
-import { Version } from '../lib/index.js'
+import { Version } from '../components/index.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)

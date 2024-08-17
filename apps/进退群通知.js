@@ -1,5 +1,5 @@
 import { karin, YamlEditor } from 'node-karin'
-import { Config } from '../lib/index.js'
+import { Config } from '../components/index.js'
 
 const groupState = {}
 const cfgPath = './plugins/karin-plugin-group/config/config/other.yaml'
