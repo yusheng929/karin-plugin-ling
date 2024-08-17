@@ -72,6 +72,7 @@ const readLogFile = function (root, versionCount = 5) {
   } catch (e) {
     // do nth
   }
+  if (!currentVersion) currentVersion = fs.existsSync(`${root}/package.json`) ? JSON.parse(fs.readFileSync(`${root}/package.json`, 'utf8')).version : '0.0.0'
   return { changelogs, currentVersion }
 }
 
@@ -80,7 +81,7 @@ const pluginPath = join(__dirname, '..').replace(/\\/g, '/')
 const pluginName = basename(pluginPath)
 
 /**
- * @type 
+ * @type
  */
 
 const BotVersion = packageJson.version
@@ -93,5 +94,5 @@ export default {
   readLogFile,
   pluginName,
   pluginPath,
-  BotVersion
+  BotVersion,
 }

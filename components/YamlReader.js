@@ -1,6 +1,6 @@
 import fs from 'fs'
 import YAML from 'yaml'
-import _ from "lodash"
+import _ from 'lodash'
 
 /**
  * YamlReader类提供了对YAML文件的动态读写功能
@@ -42,17 +42,17 @@ export default class YamlReader {
     this.document.delete(key)
     this.write()
   }
-  
-  get(keyPath) {
+
+  get (keyPath) {
     return _.get(this.jsonData, keyPath)
   }
-  
-  addIn(keyPath, value) {
-    this.document.addIn(keyPath.split("."), value)
+
+  addIn (keyPath, value) {
+    this.document.addIn(keyPath.split('.'), value)
     this.write()
   }
-  
-  get jsonData() {
+
+  get jsonData () {
     if (!this.document) {
       return null
     }

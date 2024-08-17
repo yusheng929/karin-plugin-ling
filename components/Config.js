@@ -50,7 +50,7 @@ class Config {
     const config = this.getConfig(name)
     return { ...def, ...config }
   }
-  
+
   get package () {
     if (this._package) return this._package
     this._package = JSON.parse(fs.readFileSync(`${Version.pluginPath}/package.json`, 'utf8'))
@@ -135,7 +135,7 @@ class Config {
 
     return {
       differences,
-      result
+      result,
     }
   }
 }

@@ -7,7 +7,7 @@ const helpTheme = {
     return {
       main: resPath,
       bg: resPath,
-      style
+      style,
     }
   },
   async getThemeData (diyStyle) {
@@ -46,8 +46,8 @@ const helpTheme = {
     css('.help-table .tr:nth-child(even)', 'background', 'rowBgColor2', 'rgba(34, 41, 51, .4)')
     return {
       style: `<style>${ret.join('\n')}</style>`,
-      colCount
+      colCount,
     }
-  }
+  },
 }
 export default helpTheme

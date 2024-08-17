@@ -1,26 +1,9 @@
-import { Data, Render, Version } from '#components'
+import karin from 'node-karin'
 import lodash from 'lodash'
+import { Render, Version } from '#components'
 import { helpCfg, helpList, helpTheme } from '#models'
 
-const app = {
-  id: 'help',
-  name: '帮助'
-}
-
-const rule = {
-  help: {
-    reg: /^#?群管(帮助|菜单|help)$/i,
-    fnc: help
-  },
-  version: {
-    reg: /^#?群管(版本|version)$/i,
-    fnc: version
-  }
-}
-
-export const helpApp = new Data(app, rule).create()
-
-async function help (e) {
+export const help = karin.command(/^#?群管(帮助|菜单|help)$/i, async (e) => {
   const helpGroup = []
 
   lodash.forEach(helpList, (group) => {
@@ -46,16 +29,16 @@ async function help (e) {
     helpCfg,
     helpGroup,
     ...themeData,
-    scale: 1.2
+    scale: 1.2,
   })
   return await e.reply(img)
-}
+}, { name: '帮助', priority: '-1' })
 
-async function version (e) {
+export const version = karin.command(/^#?群管(版本|version)$/i, async (e) => {
   const img = await Render.render('help/version-info', {
     currentVersion: Version.version,
     changelogs: Version.changelogs,
-    scale: 1.2
+    scale: 1.2,
   })
   return await e.reply(img)
-}
+})

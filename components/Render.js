@@ -19,9 +19,9 @@ const Render = {
       defaultLayout: join(Version.pluginPath, 'resources', 'common', 'layout', 'default.html'),
       sys: {
         scale: scale(params.scale || 1),
-        copyright: params.copyright || `Created By <span class="version"> Karin v${Version.BotVersion} </span> & <span class="version"> ${Version.pluginName} v${Version.version} </span>`
+        copyright: params.copyright || `Created By <span class="version"> Karin v${Version.BotVersion} </span> & <span class="version"> ${Version.pluginName} v${Version.version} </span>`,
       },
-      ...params
+      ...params,
     }
     return await puppeteer.screenshot(path, data)
   },
@@ -32,7 +32,7 @@ const Render = {
       pluResPath: `${Version.pluginPath}/resources/`,
       saveId: path.split('/').pop(),
       imgType: 'jpeg',
-      ...params
+      ...params,
     }
     return await puppeteer.screenshot(path, data)
   },
