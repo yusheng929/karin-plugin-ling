@@ -9,6 +9,13 @@
 * 新增#赞我 ([4e4b2e1](https://github.com/Circle-money-run/karin-plugin-group/commit/4e4b2e15a6a560a3d18ce061f643e4e745ed3e8e))
 * 重构帮助图 ([81816f7](https://github.com/Circle-money-run/karin-plugin-group/commit/81816f7751511b4848ecfa413316c932f05617c7))
 
+## [1.1.4](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.3...v1.1.4) (2024-08-18)
+
+
+### Bug Fixes
+
+* 修改帮助图 ([ee6ce21](https://github.com/Circle-money-run/karin-plugin-group/commit/ee6ce212162c4b275828d81675a9dc4193df5537))
+
 ## [1.1.1](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.0...v1.1.1) (2024-08-13)
 
 
