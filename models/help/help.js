@@ -18,14 +18,14 @@ export const helpList = [
       },
       {
         icon: 2,
-        title: '#禁言@某某某14514分钟',
+        title: '#禁言<@QQ><时间>',
         desc: '字面意思'
       },
       {
         icon: 3,
         title: '#踢@114514',
         desc: '字面意思'
-      }
+      },
     ]
   }
 ]
