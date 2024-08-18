@@ -1,10 +1,3 @@
-## [1.1.2](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.1...v1.1.2) (2024-08-13)
-
-
-### Bug Fixes
-
-* 优化插件加载 ([869ea4b](https://github.com/Circle-money-run/karin-plugin-group/commit/869ea4b6232e6b72c89002a06149759f5489a695))
-
 ## [1.1.3](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.2...v1.1.3) (2024-08-17)
 
 
@@ -35,6 +28,15 @@
 * 新增#帮助 ([8379e9e](https://github.com/Circle-money-run/karin-plugin-group/commit/8379e9ed2d76bb821e8af44664849fefcf77d026))
 * 新增修改群昵称 ([e817edb](https://github.com/Circle-money-run/karin-plugin-group/commit/e817edbdf4d48e71a16a9afbfd2e777f1f3e6b46))
 * 新增进群通知，可单独群配置 ([ff92aae](https://github.com/Circle-money-run/karin-plugin-group/commit/ff92aae8859080042810687060ba5f3f7329a9f8))
+
+## [1.1.2](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.1...v1.1.2) (2024-08-13)
+
+
+### Bug Fixes
+
+* 优化插件加载 ([869ea4b](https://github.com/Circle-money-run/karin-plugin-group/commit/869ea4b6232e6b72c89002a06149759f5489a695))
+
+
 
 ## [1.1.0](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.0.1...v1.1.0) (2024-08-05)
 
