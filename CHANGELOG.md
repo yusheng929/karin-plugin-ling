@@ -5,6 +5,17 @@
 
 * 优化插件加载 ([869ea4b](https://github.com/Circle-money-run/karin-plugin-group/commit/869ea4b6232e6b72c89002a06149759f5489a695))
 
+## [1.1.3](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.2...v1.1.3) (2024-08-17)
+
+
+### Bug Fixes
+
+* error ([fca86c5](https://github.com/Circle-money-run/karin-plugin-group/commit/fca86c59e5bdc11086b46be6ab1c80278f4f109c))
+* 优化插件加载 ([4a8b461](https://github.com/Circle-money-run/karin-plugin-group/commit/4a8b4611cf43cf2fd39336956f8e011ff9239fde))
+* 修复版本无法显示的情况 ([a82cdb2](https://github.com/Circle-money-run/karin-plugin-group/commit/a82cdb25b5a0f9bb3c7c9942b8a0b0073e512b37))
+* 新增#赞我 ([4e4b2e1](https://github.com/Circle-money-run/karin-plugin-group/commit/4e4b2e15a6a560a3d18ce061f643e4e745ed3e8e))
+* 重构帮助图 ([81816f7](https://github.com/Circle-money-run/karin-plugin-group/commit/81816f7751511b4848ecfa413316c932f05617c7))
+
 ## [1.1.1](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.0...v1.1.1) (2024-08-13)
 
 
