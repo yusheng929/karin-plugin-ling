@@ -4,7 +4,7 @@
   "author": "",
   "type": "module",
   "dependencies": {
-    "@karinjs/md-html": "^1.1.3"
+    "@karinjs/md-html": "^1.1.3",
     "ps-node": "^0.1.6",
     "diskusage": "^1.2.0"
   },
