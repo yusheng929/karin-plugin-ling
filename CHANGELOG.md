@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.1.6](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.5...v1.1.6) (2024-08-19)
+
+
+### Bug Fixes
+
+* 1 ([44231c0](https://github.com/Circle-money-run/karin-plugin-group/commit/44231c0e9322b9ef7e65dcf3b2c590546ba49d52))
+* 1 ([809a15d](https://github.com/Circle-money-run/karin-plugin-group/commit/809a15d259e66812f0b71fd3fe8fbfca84029dcd))
+
 ## [1.1.5](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.4...v1.1.5) (2024-08-19)
 
 
