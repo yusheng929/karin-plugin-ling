@@ -1,5 +1,3 @@
-# Changelog
-
 ## [1.1.5](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.4...v1.1.5) (2024-08-19)
 
 
