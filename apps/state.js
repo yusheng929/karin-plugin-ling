@@ -14,6 +14,7 @@ export const State = karin.command(/^#系统信息$/, async (e) => {
     // 获取NodeJS版本
     const nodeVersion = state.getNodeVersion()
     const adapter = e.bot.adapter.name
+    const implementation = e.bot.version.app_name || e.bot.version.name
     const Disk = state.getDiskInfo()
 
     // 组装消息
@@ -25,7 +26,8 @@ CPU信息: ${CPUB}
 内存交换: ${RAMB}
 储存: ${Disk}
 运行环境：${nodeVersion}
-适配器: ${adapter}`
+适配器: ${adapter}
+实现: ${implementation}`
 
     // 回复消息
     return e.reply(msg)
