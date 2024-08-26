@@ -1,4 +1,4 @@
-import { state } from '#lib'
+import { state, CPU, RAM } from '#lib'
 import karin from 'node-karin'
 
 export const State = karin.command(/^#系统信息$/, async (e) => {
@@ -7,6 +7,10 @@ export const State = karin.command(/^#系统信息$/, async (e) => {
     const systemInfo = state.getSystemInfo()
     // 获取CPU信息
     const cpuInfo = state.getCPUInfo()
+    const CPUA = await CPU.CPUUsage()
+    const CPUB = await CPU.CPUInfo()
+    const RAMA = await RAM.RAM()
+    const RAMB = await RAM.SwapRAMUsage()
     // 获取NodeJS版本
     const nodeVersion = state.getNodeVersion()
     const adapter = e.bot.adapter.name
@@ -15,8 +19,10 @@ export const State = karin.command(/^#系统信息$/, async (e) => {
     // 组装消息
     const msg = 
 `系统架构：${systemInfo.system}
-CPU：${cpuInfo}
-内存：${systemInfo.memory}
+CPU：${CPUA}
+CPU信息: ${CPUB}
+内存：${RAMA}
+内存交换: ${RAMB}
 储存: ${Disk}
 运行环境：${nodeVersion}
 适配器: ${adapter}`
