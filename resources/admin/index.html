@@ -1,0 +1,56 @@
+{{extend defaultLayout}}
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/admin/index.css"/>
+{{/block}}
+{{block 'main'}}
+
+<div class="info_box">
+  <div class="head-box type{{bgType}}">
+    <div class="label">Karin设置管理</div>
+    <div class="title">Karin设置</div>
+  </div>
+</div>
+
+<div class="cfg-box">
+  <div class="cfg-group">基础设置</div>
+  <ul class="cfg-ul">
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+          黑名单
+          <span class="cfg-hint">Karin设置黑名单+开启/关闭</span>
+          {{@BlackList.users}}
+      </div>
+      <div class="cfg-desc">当黑名单关闭时，黑名单的用户配置将不生效</div>
+    </li>
+    
+    <li class="cfg-li">
+      <div class="cfg-line">
+        黑名单群
+        <span class="cfg-hint">Karin设置黑名单群+开启/关闭</span>
+        {{@BlackList.groups}}
+      </div>
+      <div class="cfg-desc">当黑名单群关闭时，黑名单的群配置将不生效</div>
+    </li>
+    
+    <li class="cfg-li">
+      <div class="cfg-line">
+        白名单
+        <span class="cfg-hint">#Karin设置白名单+开启/关闭</span>
+        {{@WhiteList.users}}
+      </div>
+      <div class="cfg-desc">当白名单关闭时，白名单的用户配置将不生效</div>
+    </li>
+    
+    <li class="cfg-li">
+      <div class="cfg-line">
+        白名单群
+        <span class="cfg-hint">#Karin设置过码+开启/关闭</span>
+        {{@WhiteList.groups}}
+      </div>
+      <div class="cfg-desc">当白名单群关闭时，白名单的群配置将不生效</div>
+    </li>
+
+  </ul>
+</div>
+{{/block}}
