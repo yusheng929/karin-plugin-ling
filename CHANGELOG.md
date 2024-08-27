@@ -1,5 +1,15 @@
 # 更新日志
 
+## [1.3.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.0...v1.3.1) (2024-08-27)
+
+
+### Bug Fixes
+
+* 优化帮助图 ([9fbad4e](https://github.com/yusheng929/karin-plugin-ling/commit/9fbad4e6ebdda7f1c6c333170019501fa3a1556b))
+* 新增#设置主人 ([843f46f](https://github.com/yusheng929/karin-plugin-ling/commit/843f46f33ed00d70ab3a1f629b286a67feb23aeb))
+* 新增#铃更新 ([1dfaf3b](https://github.com/yusheng929/karin-plugin-ling/commit/1dfaf3bc539bfb9f886e2a2a707da43ed4d0f897))
+* 更改插件名 ([1412c7d](https://github.com/yusheng929/karin-plugin-ling/commit/1412c7d4ca0a1796c9ce26bd82b7ae6160c6a00c))
+
 ## [1.3.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.2.0...v1.3.0) (2024-08-27)
 
 
