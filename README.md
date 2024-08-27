@@ -40,3 +40,4 @@ git clone --depth=1 https://mirror.ghproxy.com/https://github.com/yusheng929/kar
 |Nickname|Contribution|
 |:------:|------------|
 |[yenai-plugin](https://github.com/yeyang52/yenai-plugin)|部分代码参考椰奶插件所实现|
+|[shijinn520](https://github.com/shijinn520)|提供技术支持|
