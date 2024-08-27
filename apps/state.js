@@ -26,8 +26,8 @@ CPU信息: ${CPUB}
 内存交换: ${RAMB}
 储存: ${Disk}
 运行环境：${nodeVersion}
-适配器: ${adapter}
-实现: ${implementation}`
+标准协议: ${adapter}
+适配器: ${implementation}`
 
     // 回复消息
     return e.reply(msg)
