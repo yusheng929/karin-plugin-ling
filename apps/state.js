@@ -1,4 +1,4 @@
-import { state, CPU, RAM } from '#lib'
+import { state, CPU, RAM } from '#state'
 import karin from 'node-karin'
 
 export const State = karin.command(/^#系统信息$/, async (e) => {

@@ -2,7 +2,7 @@ import { karin, YamlEditor, Cfg, segment } from 'node-karin'
 import { Config } from '../components/index.js'
 
 const groupState = {}
-const cfgPath = './plugins/karin-plugin-group/config/config/other.yaml'
+const cfgPath = './plugins/karin-plugin-ling/config/config/other.yaml'
 
 /**
  * 检查并更新群组状态
