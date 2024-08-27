@@ -1,4 +1,4 @@
-import { karin, YamlEditor } from 'node-karin'
+import { karin, YamlEditor, config } from 'node-karin'
 
 /**
  * 更新群组通知状态
@@ -35,8 +35,10 @@ const Edit = async (e, type, isRemoval, targetType, id) => {
     if (!isRemoval) {
       if (targetType === 'Group') {
         yaml.append(`${type === 'White' ? 'WhiteList.groups' : 'BlackList.groups'}`, String(id))
+        if ((type === 'White' && !config.App.WhiteList.groups) || type === 'Black' && !config.App.WhiteList.groups) e.reply(`当前${type === 'White' ? "白" : "黑"}名单中的群配置未开启，黑白名单将无效，可前往config/config/App.yaml中启用`)
       } else {
         yaml.append(`${type === 'White' ? 'WhiteList.users' : 'BlackList.users'}`, String(id))
+        if ((type === 'White' && !config.App.WhiteList.users) || type === 'Black' && !config.App.WhiteList.users) e.reply(`当前${type === 'White' ? "白" : "黑"}名单中的用户配置未开启，黑白名单将无效，可前往config/config/App.yaml中启用`)
       }
       await e.reply(`已经将${targetType === 'Group' ? "群" : "用户"}『${id}』${type === 'White' ? "拉白" : "拉黑"}掉了`)
     } else {
