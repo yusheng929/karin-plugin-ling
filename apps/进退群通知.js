@@ -176,8 +176,8 @@ export const deal_group_apply = karin.accept('request.group_apply',
 
 export const CloseNotification = karin.command(/^#关闭进群通知/, async (e) => {
   return await updateNotificationStatus(e, 'add', '已经关闭群『{group_id}』的进群通知', '群『{group_id}』的进群通知目前已经处于关闭状态啦，无需重复关闭！')
-}, { name: '关闭进群通知', priority: '-1', permission: 'group.admin' })
+}, { name: '关闭进群通知', priority: '-1', permission: 'master' })
 
 export const ActivateNotification = karin.command(/^#开启进群通知/, async (e) => {
   return await updateNotificationStatus(e, 'remove', '已经开启群『{group_id}』的进群通知', '群『{group_id}』的进群通知目前已经处于开启状态啦，无需重复开启！')
-}, { name: '开启进群通知', priority: '-1', permission: 'group.admin' })
+}, { name: '开启进群通知', priority: '-1', permission: 'master' })
