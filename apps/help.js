@@ -5,7 +5,7 @@ import { Render, Version } from '#components'
 import { helpCfg, helpList, helpTheme } from '#models'
 import { markdown } from '@karinjs/md-html'
 
-export const help = karin.command(/^#?群管(帮助|菜单|help)$/i, async (e) => {
+export const help = karin.command(/^#?铃(帮助|菜单|help)$/i, async (e) => {
   const helpGroup = []
 
   lodash.forEach(helpList, (group) => {
@@ -36,7 +36,7 @@ export const help = karin.command(/^#?群管(帮助|菜单|help)$/i, async (e) =
   return await e.reply(img)
 }, { name: '帮助', priority: '-1' })
 
-export const version = karin.command(/^#?群管(版本|version)$/i, async (e) => {
+export const version = karin.command(/^#?铃(版本|version)$/i, async (e) => {
   const changelogs = fs.readFileSync(Version.pluginPath + '/CHANGELOG.md', 'utf8')
     const html = markdown(changelogs, {
       gitcss: 'github-markdown-dark.css'
