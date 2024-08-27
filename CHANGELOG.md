@@ -1,5 +1,18 @@
 # 更新日志
 
+## [1.3.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.2.0...v1.3.0) (2024-08-27)
+
+
+### Features
+
+* add implementation info to state ([#13](https://github.com/yusheng929/karin-plugin-ling/issues/13)) ([02583f2](https://github.com/yusheng929/karin-plugin-ling/commit/02583f26676ab026024314c9b53ed673e55866e7))
+* automatically agree group request ([#14](https://github.com/yusheng929/karin-plugin-ling/issues/14)) ([8603adb](https://github.com/yusheng929/karin-plugin-ling/commit/8603adbc9f93ce0d07ca6ecab8db15e9f6381a0c))
+
+
+### Bug Fixes
+
+* dependency missing ([#12](https://github.com/yusheng929/karin-plugin-ling/issues/12)) ([66068ea](https://github.com/yusheng929/karin-plugin-ling/commit/66068ea32ac33f94dfae52536017ea0b9cc035ab))
+
 ## [1.2.0](https://github.com/Circle-money-run/karin-plugin-group/compare/v1.1.5...v1.2.0) (2024-08-26)
 
 
