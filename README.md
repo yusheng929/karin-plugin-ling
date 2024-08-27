@@ -1,9 +1,9 @@
 <p align="center">
-  <a href="https://github.com/Circle-money-run/karin-plugin-group/commits/dev" style="text-decoration: none;">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/babanbang/Genshin?color=%23114514&style=flat-square">
+  <a href="https://github.com/yusheng929/karin-plugin-ling/commits/dev" style="text-decoration: none;">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/yusheng929/ling?color=%23114514&style=flat-square">
   </a>
-  <a href="https://github.com/Circle-money-run/karin-plugin-group" style="text-decoration: none;">
-    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Circle-money-run/karin-plugin-group?style=flat-square">
+  <a href="https://github.com/yusheng929/karin-plugin-ling" style="text-decoration: none;">
+    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/yusheng929/karin-plugin-ling?style=flat-square">
   </a>
 </p>
 
@@ -12,11 +12,11 @@ karin目录执行以下命令克隆仓库到本地
 >根据你的网络选择使用`GitHub`或`ghproxy`
 1. 使用GitHub(国外推荐)
 ```bash
-git clone --depth=1 https://github.com/Circle-money-run/karin-plugin-group.git ./plugins/karin-plugin-group
+git clone --depth=1 https://github.com/yusheng929/karin-plugin-ling.git ./plugins/karin-plugin-ling
 ```
 2. 使用ghproxy(国内推荐)
 ```bash
-git clone --depth=1 https://mirror.ghproxy.com/https://github.com/Circle-money-run/karin-plugin-group.git ./plugins/karin-plugin-group
+git clone --depth=1 https://mirror.ghproxy.com/https://github.com/yusheng929/karin-plugin-ling.git ./plugins/karin-plugin-ling
 ```
 
 ---
@@ -31,7 +31,7 @@ git clone --depth=1 https://mirror.ghproxy.com/https://github.com/Circle-money-r
 - [x] 踢
 - [x] 解禁
 - [x] 看(群)头像
-- [ ] 禁言
+- [×] 禁言
 - [ ] 发群公告
 </details>
 
