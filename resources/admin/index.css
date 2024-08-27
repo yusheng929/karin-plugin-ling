@@ -1,14 +1,18 @@
 body {
   transform: scale(1);
+  width: 830px;
 }
+
 .container {
   background: url('./imgs/bg.jpg') top left no-repeat;
   background-size: 100% auto;
   width: 830px;
 }
+
 .head-box {
   margin: 0 0 80px 0;
 }
+
 .cfg-box {
   border-radius: 15px;
   margin-top: 20px;
@@ -20,12 +24,14 @@ body {
   position: relative;
   background: rgba(35, 38, 57, 0.8);
 }
+
 .cfg-group {
   color: #ceb78b;
   font-size: 18px;
   font-weight: bold;
   padding: 10px 20px;
 }
+
 .cfg-li {
   border-radius: 18px;
   min-height: 36px;
@@ -34,6 +40,7 @@ body {
   margin-bottom: 10px;
   background: rgba(203, 196, 190, 0);
 }
+
 .cfg-line {
   color: #4e5769;
   line-height: 36px;
@@ -44,12 +51,14 @@ body {
   background: url("./imgs/cfg-right.jpg") right top #cbc4be no-repeat;
   background-size: auto 36px;
 }
+
 .cfg-hint {
   font-size: 12px;
   font-weight: normal;
   margin-top: 3px;
   margin-bottom: -3px;
 }
+
 .cfg-status {
   position: absolute;
   top: 0;
@@ -63,12 +72,15 @@ body {
   font-weight: bold;
   border-radius: 0 16px 16px 0;
 }
+
 .cfg-status.status-off {
   color: #a95151;
 }
+
 .cfg-desc {
   font-size: 12px;
   color: #cbc4be;
   margin: 5px 0 5px 20px;
 }
+
 /*# sourceMappingURL=index.css.map */

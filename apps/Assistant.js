@@ -19,25 +19,24 @@ export const 黑白名单 = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, as
 }, { name: '取消拉黑拉白群', priority: '-1', permission: 'master' })
 
 export const 修改日志等级 = karin.command(/^#(修改|设置)日志等级/, async (e) => {
-  const 日志等级列表 = [ "trace", "debug", "info", "warn", "fatal", "mark", "error", "off" ]
-  const 日志等级 = e.msg.replace(/^#?(设置|修改)日志等级/, "").trim()
-  if (!日志等级列表.includes(日志等级)) return e.reply("❎ 请输入正确的参数，可选：\ntrace,debug,info,warn,fatal,mark,error,off")
+  const 日志等级列表 = ['trace', 'debug', 'info', 'warn', 'fatal', 'mark', 'error', 'off']
+  const 日志等级 = e.msg.replace(/^#?(设置|修改)日志等级/, '').trim()
+  if (!日志等级列表.includes(日志等级)) return e.reply('❎ 请输入正确的参数，可选：\ntrace,debug,info,warn,fatal,mark,error,off')
   return await 编辑文件.编辑文件(e, 'config.yaml', 日志等级, 'log4jsCfg.level', '日志等级')
 }, { name: '修改日志等级', priority: '-1', permission: 'master' })
 
 export const 修改黑白名单 = karin.command(/^#(开启|关闭)(黑|白)名单(群)?$/, async (e) => {
-  let 修改值 = e.msg.includes('开启') ? true : false
-  
+  const 修改值 = !!e.msg.includes('开启')
+
   let 配置项
-  
-  if (e.msg.includes('群')){
-  配置项 = e.msg.includes('黑') ? 'BlackList.groups' : 'WhiteList.groups'
+
+  if (e.msg.includes('群')) {
+    配置项 = e.msg.includes('黑') ? 'BlackList.groups' : 'WhiteList.groups'
   } else {
-  配置项 = e.msg.includes('黑') ? 'BlackList.users' : 'WhiteList.users'
+    配置项 = e.msg.includes('黑') ? 'BlackList.users' : 'WhiteList.users'
   }
-  
-  let 修改内容 = e.msg.includes('黑') ? '黑名单' : '白名单'
-  
+
+  const 修改内容 = e.msg.includes('黑') ? '黑名单' : '白名单'
+
   return await 编辑文件.编辑文件(e, 'App.yaml', 修改值, 配置项, 修改内容)
-  
 }, { name: '修改黑白名单配置', priority: '-1', permission: 'master' })

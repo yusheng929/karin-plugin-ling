@@ -6,7 +6,6 @@ export const State = karin.command(/^#系统信息$/, async (e) => {
     // 获取系统信息
     const systemInfo = state.getSystemInfo()
     // 获取CPU信息
-    const cpuInfo = state.getCPUInfo()
     const CPUA = await CPU.CPUUsage()
     const CPUB = await CPU.CPUInfo()
     const RAMA = await RAM.RAM()
@@ -18,13 +17,12 @@ export const State = karin.command(/^#系统信息$/, async (e) => {
     const Disk = state.getDiskInfo()
 
     // 组装消息
-    const msg = 
-`系统架构：${systemInfo.system}
+    const msg = `系统架构：${systemInfo.system}
 CPU：${CPUA}
 CPU信息: ${CPUB}
 内存：${RAMA}
 内存交换: ${RAMB}
-储存: ${Disk}
+储存: \n${Disk}
 运行环境：${nodeVersion}
 标准协议: ${adapter}
 适配器: ${implementation}`

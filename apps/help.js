@@ -38,13 +38,13 @@ export const help = karin.command(/^#?铃(帮助|菜单|help)$/i, async (e) => {
 
 export const version = karin.command(/^#?铃(版本|version)$/i, async (e) => {
   const changelogs = fs.readFileSync(Version.pluginPath + '/CHANGELOG.md', 'utf8')
-    const html = markdown(changelogs, {
-      gitcss: 'github-markdown-dark.css'
-    })
-    fs.writeFileSync(Version.pluginPath + '/resources/help/changelogs.html', html)
-    const img = await Render.render('help/changelogs', {
-      scale: 1.2,
-    })
-    await e.reply(img)
-    return true
+  const html = markdown(changelogs, {
+    gitcss: 'github-markdown-dark.css',
+  })
+  fs.writeFileSync(Version.pluginPath + '/resources/help/changelogs.html', html)
+  const img = await Render.render('help/changelogs', {
+    scale: 1.2,
+  })
+  await e.reply(img)
+  return true
 })

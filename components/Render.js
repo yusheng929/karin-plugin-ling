@@ -13,6 +13,7 @@ const Render = {
   async render (path, params) {
     path = path.replace(/.html$/, '')
     const data = {
+      _res_path: `${Version.pluginPath}/resources/`,
       tplFile: `${Version.pluginPath}/resources/${path}.html`,
       pluResPath: `${Version.pluginPath}/resources/`,
       saveId: path.split('/').pop(),
