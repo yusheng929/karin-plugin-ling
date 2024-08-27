@@ -1,4 +1,4 @@
-import { state, CPU, RAM } from '#state'
+import { CPU, RAM, Disk } from '#state'
 import karin from 'node-karin'
 
 export const State = karin.command(/^#系统信息$/, async (e) => {
@@ -10,11 +10,9 @@ export const State = karin.command(/^#系统信息$/, async (e) => {
     const CPUB = await CPU.CPUInfo()
     const RAMA = await RAM.RAM()
     const RAMB = await RAM.SwapRAMUsage()
-    // 获取NodeJS版本
-    const nodeVersion = state.getNodeVersion()
     const adapter = e.bot.adapter.name
     const implementation = e.bot.version.app_name || e.bot.version.name
-    const Disk = state.getDiskInfo()
+    const Disk = Disk.Disk()
 
     // 组装消息
     const msg = `系统架构：${systemInfo.system}
@@ -23,7 +21,7 @@ CPU信息: ${CPUB}
 内存：${RAMA}
 内存交换: ${RAMB}
 储存: \n${Disk}
-运行环境：${nodeVersion}
+运行环境：NodeJS ${process.version}
 标准协议: ${adapter}
 适配器: ${implementation}`
 

@@ -1,34 +1,4 @@
-import os from 'os'
-import { execSync } from 'child_process'
-
-const getCPUInfo = () => {
-  try {
-    const cpuInfo = execSync('lscpu').toString()
-    const cpuModel = cpuInfo.match(/Model name:\s+(.+)/)[1].trim()
-    const cpuFreq = cpuInfo.match(/CPU MHz:\s+(.+)/)[1].trim()
-    const cpuCores = os.cpus().length
-    return `${cpuCores}核 ${cpuModel} (${cpuFreq}MHz)`
-  } catch (error) {
-    return 'CPU 信息获取失败'
-  }
-}
-
-const getSystemInfo = () => {
-  const platform = os.platform()
-  const release = os.release()
-  const architecture = os.arch()
-  const memoryTotal = (os.totalmem() / (1000 * 1000 * 1000)).toFixed(2)
-  const memoryFree = (os.freemem() / (1000 * 1000 * 1000)).toFixed(2)
-  const memoryUsed = (memoryTotal - memoryFree).toFixed(2)
-  const memoryUsage = ((memoryUsed / memoryTotal) * 100).toFixed(2)
-
-  return {
-    system: `${platform} ${release} ${architecture}`,
-    memory: `${memoryUsed} GiB / ${memoryTotal} GiB (${memoryUsage}%)`,
-  }
-}
-
-const getDiskInfo = () => {
+const Disk = () => {
   try {
     let output = ''
     const platform = os.platform()
@@ -63,7 +33,7 @@ const getDiskInfo = () => {
       const available = data[3]
       const usage = data[4]
 
-      return `Used: ${used}, Available: ${available}, Total: ${totalSize}, Usage: ${usage}`
+      return `已使用: ${used}, 未使用: ${available}, 总共: ${totalSize}, 使用百分比: ${usage}`
     } else {
       return '不支持的操作系统'
     }
@@ -72,12 +42,6 @@ const getDiskInfo = () => {
   }
 }
 
-const getNodeVersion = () => {
-  return `NodeJS ${process.version}`
-}
 export default {
-  getCPUInfo,
-  getSystemInfo,
-  getNodeVersion,
-  getDiskInfo,
+  getDisk
 }

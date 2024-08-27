@@ -12,12 +12,12 @@ export class MusicUpdate extends plugin {
       priority: 1000,
       rule: [
         {
-          reg: '^#?铃(插件)?(强制)?更新$',
+          reg: '^#?(铃|ling|零|玲)(插件)?(强制)?更新$',
           fnc: 'update',
           permission: 'master',
         },
         {
-          reg: '^#?铃(插件)?更新日志$',
+          reg: '^#?(铃|ling|零|玲)(插件)?更新日志$',
           fnc: 'update_log',
           permission: 'master',
         },

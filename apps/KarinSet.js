@@ -4,20 +4,20 @@ import { Config } from '#lib'
 import { Render } from '#components'
 
 const cfgMap = {
-  黑名单: 'App_BlackList.users',
+  黑名单用户: 'App_BlackList.users',
   黑名单群: 'App_BlackList.groups',
-  白名单: 'App_WhiteList.users',
+  白名单用户: 'App_WhiteList.users',
   白名单群: 'App_WhiteList.groups',
 }
 
-const CfgReg = `^#?Karin设置\\s*(${lodash.keys(cfgMap).join('|')})?\\s*(.*)$`
+const CfgReg = `^#?(Karin|karin|卡莲)设置\\s*(${lodash.keys(cfgMap).join('|')})?\\s*(.*)$`
 
 export const set = karin.command(CfgReg, async (e) => {
   const reg = new RegExp(CfgReg).exec(e.msg)
 
-  if (reg && reg[2]) {
-    let val = reg[3] || ''
-    let cfgKey = cfgMap[reg[2]]
+  if (reg && reg[1]) {
+    let val = reg[2] || ''
+    let cfgKey = cfgMap[reg[1]]
     if (val.includes('开启') || val.includes('关闭')) {
       val = !/关闭/.test(val)
     } else {

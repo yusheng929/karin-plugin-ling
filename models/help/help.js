@@ -1,7 +1,7 @@
 export const helpCfg = {
   themeSet: false,
   title: '铃帮助',
-  subTitle: '',
+  subTitle: '提供便携式操作',
   colCount: 3,
   colWidth: 265,
   theme: 'all',
@@ -134,8 +134,8 @@ export const helpList = [
       },
       {
         icon: 22,
-        title: '#(开启/关闭)(黑/白)名单',
-        desc: '开启或关闭黑白名单的配置',
+        title: '#Karin设置',
+        desc: '可对Karin的配置文件进行控制',
       },
       {
         icon: 23,
