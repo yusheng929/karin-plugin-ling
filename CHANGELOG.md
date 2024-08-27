@@ -1,5 +1,16 @@
 # 更新日志
 
+## [1.3.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.1...v1.3.2) (2024-08-27)
+
+
+### Bug Fixes
+
+* 优化帮助图 ([121cbcf](https://github.com/yusheng929/karin-plugin-ling/commit/121cbcf41a4fe9a4aec5061a99089216dec3c5d5))
+* 优化状态显示 ([e26d7df](https://github.com/yusheng929/karin-plugin-ling/commit/e26d7df595c1bcc64c068cdbf83aacd0dd89c141))
+* 修改帮助图 ([2d25545](https://github.com/yusheng929/karin-plugin-ling/commit/2d25545fd00bd703cd4e0b96bbf569e41979c45b))
+* 新增如果黑白名单未启用会进行提示 ([3c462d9](https://github.com/yusheng929/karin-plugin-ling/commit/3c462d994b06412bc7cbc0f0d86897a8a944d5dc))
+* 新增黑白名单开关 ([76beebf](https://github.com/yusheng929/karin-plugin-ling/commit/76beebf9b391db6b8500551888da9dbcf6d7a5b8))
+
 ## [1.3.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.0...v1.3.1) (2024-08-27)
 
 
