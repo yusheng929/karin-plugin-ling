@@ -12,7 +12,7 @@
 </div>
 
 <div class="cfg-box">
-  <div class="cfg-group">基础设置</div>
+  <div class="cfg-group">应用配置</div>
   <ul class="cfg-ul">
 
     <li class="cfg-li">
@@ -49,6 +49,22 @@
         {{@WhiteList_groups}}
       </div>
       <div class="cfg-desc">当白名单群关闭时，白名单的群配置将不生效</div>
+    </li>
+
+  </ul>
+</div>
+
+<div class="cfg-box">
+  <div class="cfg-group">通用配置</div>
+  <ul class="cfg-ul">
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        日志等级
+        <span class="cfg-hint">Karin设置日志等级</span>
+        {{@log4jsCfg_level}}
+      </div>
+      <div class="cfg-desc">日志等级trace, debug, info, warn, fatal, mark, error, off</div>
     </li>
 
   </ul>

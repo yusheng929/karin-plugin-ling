@@ -8,6 +8,7 @@ const cfgMap = {
   黑名单群: 'App_BlackList.groups',
   白名单用户: 'App_WhiteList.users',
   白名单群: 'App_WhiteList.groups',
+  日志等级: 'config_log4jsCfg.level',
 }
 
 const CfgReg = `^#?(Karin|karin|卡莲)设置\\s*(${lodash.keys(cfgMap).join('|')})?\\s*(.*)$`
@@ -17,7 +18,13 @@ export const set = karin.command(CfgReg, async (e) => {
   if (reg && reg[2]) {
     let val = reg[3] || ''
     let cfgKey = cfgMap[reg[2]]
-    if (val.includes('开启') || val.includes('关闭')) {
+    if (cfgKey == 'config_log4jsCfg.level') {
+			let level = ['trace', 'debug', 'info', 'warn', 'fatal', 'mark', 'error', 'off']
+			if (!level.includes(val)) {
+				e.reply('请输入正确的日志等级，可选：\ntrace,debug,info,warn,fatal,mark,error,off', true)
+				return true;
+			}
+		} else if (val.includes('开启') || val.includes('关闭')) {
       val = !/关闭/.test(val)
     } else {
       cfgKey = ''
