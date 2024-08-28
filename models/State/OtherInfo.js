@@ -49,7 +49,7 @@ function getPluginNum (e) {
   )
   const plugins = plugin?.length
   // 获取js插件数量，以.js结尾的文件视为一个插件
-  const jsDir = path.join(dir, 'example')
+  const jsDir = path.join(dir, 'karin-plugin-example')
   let js = 0
   try {
     js = fs.readdirSync(jsDir)
