@@ -1,5 +1,16 @@
 # 更新日志
 
+## [1.3.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.3...v1.3.4) (2024-08-28)
+
+
+### Bug Fixes
+
+* 修复状态pro失效的问题 ([1410cba](https://github.com/yusheng929/karin-plugin-ling/commit/1410cbae96b1e5eb29c351c5438f7a55e6bb5413))
+* 修复铃状态显示的版本错误 ([aff2549](https://github.com/yusheng929/karin-plugin-ling/commit/aff2549761838dc22ab9b2fd4c5d134efe0f3499))
+* 新增#铃状态 ([7a91f39](https://github.com/yusheng929/karin-plugin-ling/commit/7a91f3964dc5b1ca3c68d494faa5acbe10c18351))
+* 新增Karin配置修改 ([08fd37b](https://github.com/yusheng929/karin-plugin-ling/commit/08fd37b52a1ec3a80d944b9633a2ef395759cf35))
+* 新增开源协议GPL3.0 ([194efd1](https://github.com/yusheng929/karin-plugin-ling/commit/194efd1bd85d203cf965f55ad1a56aeaaa2178af))
+
 ## [1.3.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.2...v1.3.3) (2024-08-28)
 
 
