@@ -14,10 +14,9 @@ const CfgReg = `^#?(Karin|karin|卡莲)设置\\s*(${lodash.keys(cfgMap).join('|'
 
 export const set = karin.command(CfgReg, async (e) => {
   const reg = new RegExp(CfgReg).exec(e.msg)
-
-  if (reg && reg[1]) {
-    let val = reg[2] || ''
-    let cfgKey = cfgMap[reg[1]]
+  if (reg && reg[2]) {
+    let val = reg[3] || ''
+    let cfgKey = cfgMap[reg[2]]
     if (val.includes('开启') || val.includes('关闭')) {
       val = !/关闭/.test(val)
     } else {
@@ -57,9 +56,7 @@ const setCfg = function (rote, value, def = false) {
   const arr = rote?.split('_') || []
   if (arr.length > 0) {
     const type = arr[0]; const name = arr[1]
-    const data = Cfg.getYaml(def ? 'defSet' : 'config', type) || {}
-    data[name] = value
-    Config.save(type, def ? 'defSet' : 'config', data)
+    Config.save(type, def ? 'defSet' : 'config', name, value)
   }
 }
 
@@ -70,11 +67,16 @@ const getStatus = function (rote, def = false) {
   if (arr.length > 0) {
     const type = arr[0]; const name = arr[1]
     const data = Cfg.getYaml(def ? 'defSet' : 'config', type) || {}
-    if (data[name] === true || data[name] === false) {
-      _class = data[name] === false ? `${_class}  status-off` : _class
-      value = data[name] === true ? '已开启' : '已关闭'
+    const keys = name.split('.')
+    let datas = data
+for (const types of keys) {
+  datas = datas[types];
+}
+    if (datas === true || datas === false) {
+      _class = datas === false ? `${_class}  status-off` : _class
+      value = datas === true ? '已开启' : '已关闭'
     } else {
-      value = data[name]
+      value = datas
     }
   }
   if (!value) {

@@ -43,5 +43,5 @@ const Disk = () => {
 }
 
 export default {
-  getDisk
+  Disk
 }
