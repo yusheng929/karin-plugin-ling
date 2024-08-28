@@ -6,7 +6,7 @@ import { getImgPalette } from './utils.js'
 export default async function getBotState (e) {
   const botList = _getBotList(e)
   const dataPromises = botList.map(async (i) => {
-    const bot = Bot.getBot(i)
+    const bot = await Bot.getBot(i)
     const uin = bot?.account?.uin || bot?.uin
     if (!uin) return false
 
@@ -89,8 +89,12 @@ async function getMessageCount (bot) {
 }
 
 async function getCountContacts (bot) {
-  const friend = (await bot.GetFriendList?.())?.length || bot.fl?.size || 0
-  const group = (await bot.GetGroupList?.())?.length || bot.gl?.size || 0
+ let friend = 0
+ let group = 0
+try {
+  friend = (await bot.GetFriendList?.())?.length || bot.fl?.size || 0
+  group = (await bot.GetGroupList?.())?.length || bot.gl?.size || 0
+  } catch (error) { }
   const groupMember = Array.from(bot?.gml?.values() || []).reduce((acc, curr) => acc + curr.size, 0)
   return {
     friend: friend > 0 ? '好友: ' + friend : 0,
