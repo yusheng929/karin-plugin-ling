@@ -6,8 +6,10 @@ import { Render } from '#components'
 const cfgMap = {
   黑名单用户: 'App_BlackList.users',
   黑名单群: 'App_BlackList.groups',
+  黑名单群日志统计: 'App_BlackList.GroupMsgLog',
   白名单用户: 'App_WhiteList.users',
   白名单群: 'App_WhiteList.groups',
+  白名单群日志统计: 'App_WhiteList.GroupMsgLog',
   日志等级: 'config_log4jsCfg.level',
 }
 

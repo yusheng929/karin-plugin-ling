@@ -78,8 +78,8 @@ export const helpList = [
       },
       {
         icon: 13,
-        title: '#系统信息',
-        desc: '查看当前服务器占用等数据',
+        title: '#铃状态(pro)',
+        desc: '查看当前服务器数据',
       },
     ],
   },
