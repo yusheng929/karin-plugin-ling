@@ -1,5 +1,15 @@
 # 更新日志
 
+## [1.3.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.2...v1.3.3) (2024-08-28)
+
+
+### Bug Fixes
+
+* 修正已知问题 ([0fb5e73](https://github.com/yusheng929/karin-plugin-ling/commit/0fb5e73394153b896976d689f34bfaeba487d478))
+* 新增#Karin设置 ([7a40879](https://github.com/yusheng929/karin-plugin-ling/commit/7a408798b4e10ab5a4b06f4083227335028538b6))
+* 新增修改日志等级 ([8ef7c99](https://github.com/yusheng929/karin-plugin-ling/commit/8ef7c994e930c7af227bb1d3c9fad3e976f93e69))
+* 日志等级设置支持中英设置 ([ba95100](https://github.com/yusheng929/karin-plugin-ling/commit/ba951009a0187303ce4875996681f0c2ac2e2784))
+
 ## [1.3.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.1...v1.3.2) (2024-08-27)
 
 
