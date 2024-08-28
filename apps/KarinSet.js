@@ -19,9 +19,24 @@ export const set = karin.command(CfgReg, async (e) => {
     let val = reg[3] || ''
     let cfgKey = cfgMap[reg[2]]
     if (cfgKey == 'config_log4jsCfg.level') {
-			let level = ['trace', 'debug', 'info', 'warn', 'fatal', 'mark', 'error', 'off']
-			if (!level.includes(val)) {
-				e.reply('请输入正确的日志等级，可选：\ntrace,debug,info,warn,fatal,mark,error,off', true)
+    if (containsAny(val, ['信息', 'INFO'])) {
+      val = 'info'
+    } else if (containsAny(val, ['警告', 'WARN'])) {
+      val = 'warn'
+    } else if (containsAny(val, ['错误', '异常', 'ERROR'])) {
+      val = 'error'
+    } else if (containsAny(val, ['标记', 'mark'])) {
+      val = 'mark'
+    } else if (containsAny(val, ['追踪', 'trace'])) {
+      val = 'trace'
+    } else if (containsAny(val, ['调试', 'debug'])) {
+      val = 'debug'
+    } else if (containsAny(val, ['致命', 'fatal'])) {
+      val = 'fatal'
+    } else if (containsAny(val, ['关闭', 'off'])){
+      val = 'off'
+    } else {
+		e.reply('请输入正确的日志等级，可选：\n追踪(trace), 调试(debug), 信息(info), 警告(warn), 致命(fatal), 标记(mark), 错误(error), 关闭(off)', true)
 				return true;
 			}
 		} else if (val.includes('开启') || val.includes('关闭')) {
@@ -92,4 +107,10 @@ for (const types of keys) {
   }
 
   return `<div class="${_class}">${value}</div>`
+}
+
+function containsAny(str, substrings) {
+  return substrings.some(substring =>
+    str.toLowerCase().includes(substring.toLowerCase())
+  )
 }
