@@ -5,7 +5,7 @@ import path from 'path'
 import { Version } from '#components'
 import moment from 'moment'
 import { osInfo, si } from './utils.js'
-import { logger } from 'node-karin'
+import { logger, Cfg } from 'node-karin'
 
 let loader = null
 try {
@@ -75,7 +75,7 @@ function getPluginNum (e) {
 
 export async function getCopyright () {
   const { node, v8, git, redis } = await si.versions('node,v8,git,redis')
-  let v = `Created By ${Version.BotName}<span class="version">${Version.BotVersion}</span> & ${Version.pluginName}<span class="version">v${Version.version}</span>`
+  let v = `Created By Karin<span class="version">${Cfg.package.version}</span> & ${Version.pluginName}<span class="version">v${Version.version}</span>`
   v += '<br>'
   v += `Node <span class="version">v${node}</span> & V8 <span class="version">v${v8}</span>`
   if (git) {
