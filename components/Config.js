@@ -43,6 +43,10 @@ class Config {
   get Other () {
     return this.getDefOrConfig('other')
   }
+  
+  get state () {
+    return this.getDefOrConfig('state')
+  }
 
   /** 默认配置和用户配置 */
   getDefOrConfig (name) {
