@@ -1,14 +1,14 @@
 import os from 'os'
 import { execSync } from 'child_process'
 
-const Disk = async () => {
+const Disk = () => {
   try {
     let output = ''
     const platform = os.platform()
 
     if (platform === 'win32') {
       // Windows 系统使用 wmic 命令
-      output = await execSync('wmic logicaldisk get size,freespace,caption').toString()
+      output = execSync('wmic logicaldisk get size,freespace,caption').toString()
       const lines = output.trim().split('\n')
 
       const diskInfo = []
@@ -28,7 +28,7 @@ const Disk = async () => {
       return diskInfo.length > 0 ? diskInfo.join('\n') : '无法获取磁盘信息'
     } else if (platform === 'linux' || platform === 'darwin') {
       // Linux 和 macOS 系统使用 df 命令
-      output = await execSync('df -h /').toString()
+      output = execSync('df -h /').toString()
       const lines = output.trim().split('\n')
       const data = lines[1].split(/\s+/)
       const totalSize = data[1]

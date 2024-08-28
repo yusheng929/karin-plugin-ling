@@ -9,7 +9,7 @@ export const State = karin.command(/^#系统信息$/, async (e) => {
     const RAMB = await RAM.SwapRAMUsage()
     const adapter = e.bot.adapter.name
     const implementation = e.bot.version.app_name || e.bot.version.name
-    const disk = await Disk.Disk()
+    const disk = Disk.Disk()
     const system = System.System()
 
     // 组装消息
