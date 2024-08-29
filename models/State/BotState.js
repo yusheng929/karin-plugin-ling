@@ -7,15 +7,15 @@ export default async function getBotState (e) {
   const botList = _getBotList(e)
   const dataPromises = botList.map(async (i) => {
     const bot = await Bot.getBot(i)
-    const uin = bot?.account?.uin || bot?.uin
+    const uin = bot.account.uin
     if (!uin) return false
 
     const { status = 11, version } = bot
 
-    const nickname = bot.nickname || bot.account.name || '未知'
+    const nickname = bot.account.name || '未知'
 
     // 头像
-    const avatarUrl = bot.avatar ?? (Number(uin) ? `https://q1.qlogo.cn/g?b=qq&s=0&nk=${uin}` : 'default')
+    const avatarUrl = (bot.getAvatarUrl(uin)) ?? (Number(uin) ? `https://q1.qlogo.cn/g?b=qq&s=0&nk=${uin}` : 'default')
     const avatar = await getAvatarColor(avatarUrl)
 
     const platform = version?.version ?? '未知'
