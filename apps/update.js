@@ -30,6 +30,7 @@ export class MusicUpdate extends plugin {
       e.reply(`正在更新${Version.pluginName}，请稍后...`)
       return false
     }
+    e.reply(`开始执行更新操作...`)
     uping = true
     setTimeout(() => {
       uping = false
