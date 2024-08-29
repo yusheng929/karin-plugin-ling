@@ -18,13 +18,13 @@ export default async function getBotState (e) {
     const avatarUrl = (bot.getAvatarUrl(uin)) ?? (Number(uin) ? `https://q1.qlogo.cn/g?b=qq&s=0&nk=${uin}` : 'default')
     const avatar = await getAvatarColor(avatarUrl)
 
-    const platform = version?.version ?? '未知'
+    const platform = version.version ?? '未知'
 
     const messageCount = await getMessageCount(bot)
 
     const countContacts = await getCountContacts(bot)
 
-    let startTime = bot?.stat?.start_time || bot.adapter?.start_time || Math.floor(Date.now() / 1000)
+    let startTime = bot.adapter?.start_time || Math.floor(Date.now() / 1000)
     if (startTime > 999999999) {
       startTime = Math.floor(startTime / 1000)
     }
