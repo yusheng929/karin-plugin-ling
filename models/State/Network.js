@@ -7,8 +7,7 @@ const defList = [
   { name: 'Baidu', url: 'https://baidu.com' },
   { name: 'Google', url: 'https://google.com' },
   { name: 'Github', url: 'https://github.com' },
-  { name: 'Gitee', url: 'https://gitee.com' },
-  { name: 'TRSS', url: 'https://trss.me' }
+  { name: 'Gitee', url: 'https://gitee.com' }
 ]
 /**
  * 获取网络测试列表。

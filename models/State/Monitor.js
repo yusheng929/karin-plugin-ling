@@ -34,7 +34,7 @@ export default new class monitor {
       mem: 'active',
       fsStats: 'wx_sec,rx_sec'
     }
-    this.chartDataKey = 'HuaYer:state:chartData'
+    this.chartDataKey = 'Ling:state:chartData'
 
     this.init()
   }

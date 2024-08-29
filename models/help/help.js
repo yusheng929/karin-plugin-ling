@@ -137,11 +137,6 @@ export const helpList = [
         title: '#Karin设置',
         desc: '可对Karin的配置文件进行控制',
       },
-      {
-        icon: 23,
-        title: '#修改日志等级<日志等级>',
-        desc: '修改控制台日志的输出等级',
-      },
     ],
   },
 ]
