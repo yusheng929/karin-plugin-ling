@@ -1,5 +1,18 @@
 # 更新日志
 
+## [1.3.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.4...v1.3.5) (2024-08-30)
+
+
+### Bug Fixes
+
+* bug ([78dcb55](https://github.com/yusheng929/karin-plugin-ling/commit/78dcb554f931f8acf299a9e7b50e3d6000347a44))
+* 修复js显示0的问题 ([24fae25](https://github.com/yusheng929/karin-plugin-ling/commit/24fae25afa3d25f7a6ee8005335c9a89958be6fe))
+* 修复qqbot头像不显示的问题 ([b8ec118](https://github.com/yusheng929/karin-plugin-ling/commit/b8ec118c3f5cd330cf84c88e2647302a16b96c76))
+* 修改文件名字 ([0557e36](https://github.com/yusheng929/karin-plugin-ling/commit/0557e36c3cd6132e7209d46520fbcd48199c4258))
+* 删除无用代码 ([9f27d0c](https://github.com/yusheng929/karin-plugin-ling/commit/9f27d0cfaee907e8454811f7fb08aa71a063cada))
+* 去除默认背景api,去除部分网址测试项目 ([#21](https://github.com/yusheng929/karin-plugin-ling/issues/21)) ([a53a54a](https://github.com/yusheng929/karin-plugin-ling/commit/a53a54a99ec0838e8dd3152c3813536ccd6cca94))
+* 新增更新提示 ([e91a34c](https://github.com/yusheng929/karin-plugin-ling/commit/e91a34cf34582ff3d2c5242c632cd74ef194eeaa))
+
 ## [1.3.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.3...v1.3.4) (2024-08-28)
 
 
