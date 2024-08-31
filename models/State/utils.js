@@ -19,7 +19,7 @@ export async function initDependence () {
   } catch (error) {
     if (error.stack?.includes('Cannot find package')) {
       logger.warn('--------状态依赖缺失--------')
-      logger.warn(`${Version.pluginName} 缺少依赖将无法使用 ${logger.yellow('花花状态')}`)
+      logger.warn(`${Version.pluginName} 缺少依赖将无法使用 ${logger.yellow('铃状态')}`)
       logger.warn(`如需使用请运行：${logger.red('pnpm add systeminformation -w')}`)
       logger.warn('---------------------------')
       logger.debug(decodeURI(error.stack))
