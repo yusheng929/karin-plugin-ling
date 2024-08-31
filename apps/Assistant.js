@@ -18,6 +18,10 @@ export const 黑白名单 = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, as
   return await 编辑文件.编辑黑白名单(e, type, isRemoval, targetType, id)
 }, { name: '取消拉黑拉白群', priority: '-1', permission: 'master' })
 export const 撤回 = karin.command(/^#撤回/, async (e) => {
+ if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
+    await e.reply('暂无权限，只有管理员才能操作')
+    return true
+  }
   e.bot.RecallMessage(e.contact, e.reply_id)
   e.bot.RecallMessage(e.contact, e.message_id)
 }, { name: '撤回', priority: '-1' })
