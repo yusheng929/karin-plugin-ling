@@ -21,7 +21,7 @@ statusTask: true
 statusPowerShellStart: false
 
 # 背景图片api，设置为false则一直使用默认背景
-backdrop: ""
+backdrop: "https://yusheng929.us.kg/image/help"
 
 # 当api请求失败时使用的默认背景图，请放置在resources/state/img/bg目录下
 # random - 随机选择state/img/bg目录里的一张图片
