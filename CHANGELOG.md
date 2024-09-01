@@ -1,5 +1,20 @@
 # 更新日志
 
+## [1.3.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.5...v1.3.6) (2024-09-01)
+
+
+### Bug Fixes
+
+* 1 ([2166d04](https://github.com/yusheng929/karin-plugin-ling/commit/2166d040055f6350b9a209713429fd2540d0782e))
+* 优化群发报错处理 ([94bb1db](https://github.com/yusheng929/karin-plugin-ling/commit/94bb1dbf8e66c806b9b7f2916d15a9ae38991776))
+* 增加撤回的权限判断 ([d0cf299](https://github.com/yusheng929/karin-plugin-ling/commit/d0cf29994496a542ba0fa9819238713e55105416))
+* 整合文件 ([43da97a](https://github.com/yusheng929/karin-plugin-ling/commit/43da97a0d71e17fe2f72a00c8b38cdb9f0555e79))
+* 新增#撤回 ([f86e667](https://github.com/yusheng929/karin-plugin-ling/commit/f86e66789d882624aa75e25bc47cc33e2e8009a3))
+* 新增清屏撤回 ([82cacb5](https://github.com/yusheng929/karin-plugin-ling/commit/82cacb5bf0548eea49927986542eeacc8989bb1f))
+* 新增群发功能 ([535e55c](https://github.com/yusheng929/karin-plugin-ling/commit/535e55c4316bb7350ee9e983b5d68a69169aaf9e))
+* 新增群发支持回复发送 ([fcdba1a](https://github.com/yusheng929/karin-plugin-ling/commit/fcdba1a4b1f10bd8ea830f39669ccb4c1cf93175))
+* 细节优化 ([f8513ce](https://github.com/yusheng929/karin-plugin-ling/commit/f8513ce858444babc72ee9480f12406fe54a1263))
+
 ## [1.3.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.4...v1.3.5) (2024-08-30)
 
 
