@@ -129,7 +129,11 @@ export const command = karin.command(/^#赞我$/, async e => {
 }, { name: '赞我', priority: '-1' })
 export const 群发 = karin.command(/^#群发/, async (e) => {
   let msg = e.msg.replace(/#群发/, '').trim()
-  if (!msg) return e.reply('请带上需要发送的消息')
+  if (!msg && !e.reply_id) return e.reply('请带上需要发送的消息')
+  if (!msg && e.reply_id) {
+   let data = await e.bot.GetMessage(e.contact, e.reply_id)
+   msg = data.elements[0].text
+  }
   const elements = [
   segment.text(msg)
 ]
