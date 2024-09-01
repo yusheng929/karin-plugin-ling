@@ -141,8 +141,10 @@ export const 群发 = karin.command(/^#群发/, async (e) => {
   let group_id_list = group_list.map(item => item.group_id)
   console.log(group_id_list)
  for (const group_id of group_id_list) {
-   const contact = karin.contactGroup(group_id)
-    await e.bot.SendMessage(contact, elements)
+   try {
+      const contact = karin.contactGroup(group_id);
+      await e.bot.SendMessage(contact, elements);
+   } catch (error) { }
   }
   e.reply('发送完成')
   return true
