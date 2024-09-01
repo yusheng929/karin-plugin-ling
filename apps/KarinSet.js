@@ -10,6 +10,13 @@ const cfgMap = {
   白名单用户: 'App_WhiteList.users',
   白名单群: 'App_WhiteList.groups',
   白名单群日志统计: 'App_WhiteList.GroupMsgLog',
+  群聊消息冷却: 'App_GroupConfig.GroupCD',
+  群聊个人消息冷却: 'App_GroupConfig.GroupUserCD',
+  机器人响应模式: 'App_GroupConfig.mode',
+  机器人前缀: 'App_GroupConfig.alias',
+  白名单功能: 'App_GroupConfig.enable',
+  黑名单功能: 'App_GroupConfig.disable',
+  机器人私聊: 'App_PrivateConfig.enable',
   日志等级: 'config_log4jsCfg.level',
 }
 

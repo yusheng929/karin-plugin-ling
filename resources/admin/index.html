@@ -67,6 +67,69 @@
       </div>
       <div class="cfg-desc">设置后不会打印该群的消息日志</div>
     </li>
+    
+    <li class="cfg-li">
+      <div class="cfg-line">
+        群聊消息冷却
+        <span class="cfg-hint">Karin设置群聊消息冷却+开启/关闭</span>
+        {{@GroupConfig_GroupCD}}
+      </div>
+      <div class="cfg-desc">开启后群聊中所有消息冷却时间会有配置文件控制</div>
+    </li>
+    
+    <li class="cfg-li">
+      <div class="cfg-line">
+        群聊个人消息冷却
+        <span class="cfg-hint">Karin设置群聊个人消息冷却+开启/关闭</span>
+        {{@GroupConfig_GroupUserCD}}
+      </div>
+      <div class="cfg-desc">开启后群聊中所有人的消息冷却时间有配置文件控制</div>
+    </li>
+    
+    <li class="cfg-li">
+      <div class="cfg-line">
+        机器人响应模式
+        <span class="cfg-hint">Karin设置机器人响应模式+开启/关闭</span>
+        {{@GroupConfig_mode}}
+      </div>
+      <div class="cfg-desc">开启后响应模式将会由配置文件控制</div>
+    </li>
+    
+    <li class="cfg-li">
+      <div class="cfg-line">
+        机器人前缀
+        <span class="cfg-hint">Karin设置机器人前缀+开启/关闭</span>
+        {{@GroupConfig_alias}}
+      </div>
+      <div class="cfg-desc">设置后机器人前缀由配置文件控制</div>
+    </li>
+    
+    <li class="cfg-li">
+      <div class="cfg-line">
+        白名单功能
+        <span class="cfg-hint">Karin设置白名单功能+开启/关闭</span>
+        {{@GroupConfig_enable}}
+      </div>
+      <div class="cfg-desc">设置后白名单功能配置将可使用</div>
+    </li>
+    
+    <li class="cfg-li">
+      <div class="cfg-line">
+        黑名单功能
+        <span class="cfg-hint">Karin设置黑名单功能+开启/关闭</span>
+        {{@GroupConfig_disable}}
+      </div>
+      <div class="cfg-desc">设置后可配置黑名单功能</div>
+    </li>
+    
+    <li class="cfg-li">
+      <div class="cfg-line">
+        机器人私聊
+        <span class="cfg-hint">Karin设置机器人私聊+开启/关闭</span>
+        {{@PrivateConfig_enable}}
+      </div>
+      <div class="cfg-desc">设置后机器人私聊将会启用</div>
+    </li>
 
   </ul>
 </div>
