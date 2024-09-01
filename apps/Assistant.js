@@ -127,3 +127,19 @@ export const command = karin.command(/^#赞我$/, async e => {
   await e.reply(`\n已经成功为你点赞${count}次！`, { at: true })
   return true
 }, { name: '赞我', priority: '-1' })
+export const 群发 = karin.command(/^#群发/, async (e) => {
+  let msg = e.msg.replace(/#群发/, '').trim()
+  if (!msg) return e.reply('请带上需要发送的消息')
+  const elements = [
+  segment.text(msg)
+]
+  let group_list = await e.bot.GetGroupList()
+  let group_id_list = group_list.map(item => item.group_id)
+  console.log(group_id_list)
+ for (const group_id of group_id_list) {
+   const contact = karin.contactGroup(group_id)
+    await e.bot.SendMessage(contact, elements)
+  }
+  e.reply('发送完成')
+  return true
+}, { name: '群发', priority: '-1', permission: 'master' })
