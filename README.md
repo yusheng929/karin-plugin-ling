@@ -46,6 +46,9 @@ Karin/plugins/karin-plugin-ling/config
 - 仅供交流学习娱乐
 - 如有侵权请联系（issues）看到会立即删除
 
+#联系方式
+欢迎加入群聊: 636023444
+
 ## 致谢
 
 |Nickname|Contribution|
