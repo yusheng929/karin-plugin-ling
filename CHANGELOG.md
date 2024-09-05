@@ -1,5 +1,15 @@
 # 更新日志
 
+## [1.3.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.6...v1.3.7) (2024-09-05)
+
+
+### Bug Fixes
+
+* Karin新增设置 ([7b5a72c](https://github.com/yusheng929/karin-plugin-ling/commit/7b5a72c64b3aa7b6211dd6d4b4a967c0c951a0e4))
+* 优化代码 ([dc44a01](https://github.com/yusheng929/karin-plugin-ling/commit/dc44a01ca00a376694705526cae1fd5968639d88))
+* 修复进退群通知无法使用的问题 ([5b0a768](https://github.com/yusheng929/karin-plugin-ling/commit/5b0a768f30fc27138367d74547d284c9ffd27f12))
+* 新增上下班功能 ([a70a5a9](https://github.com/yusheng929/karin-plugin-ling/commit/a70a5a976e385fccf4f5c7cf8f219beb66c86967))
+
 ## [1.3.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.5...v1.3.6) (2024-09-01)
 
 
