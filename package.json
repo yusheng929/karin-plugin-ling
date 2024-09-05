@@ -1,7 +1,7 @@
 {
   "name": "karin-plugin-ling",
   "version": "1.3.6",
-  "author": "",
+  "author": "yusheng",
   "type": "module",
   "dependencies": {
     "@karinjs/md-html": "^1.1.3",
