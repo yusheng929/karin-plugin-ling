@@ -1,45 +1,14 @@
 import { karin, YamlEditor, Cfg, segment } from 'node-karin'
-import { Config } from '../components/index.js'
+import { Config } from '#components'
 
-const groupState = {}
 const cfgPath = './plugins/karin-plugin-ling/config/config/other.yaml'
-
-/**
- * 检查并更新群组状态
- * @param e 事件对象
- * @param type 通知类型
- * @returns 是否继续处理
- */
-const checkAndUpdateGroupState = async (e, type) => {
-  if (e.user_id === e.bot.account.uid) return false
-  const cfg = Config.Other.accept
-  /** 将数据str化 */
-  cfg.BlackGroup = cfg.BlackGroup.map(String)
-
-  if (cfg.BlackGroup.includes(e.group_id)) return false
-
-  const key = `${type}.${e.group_id}`
-  if (!groupState[key]) return false
-
-  /** cd中 */
-  if (Date.now() - groupState[key] < Number(cfg.cd) * 1000) return false
-
-  const time = Date.now()
-  groupState[key] = time
-
-  /** 检查时间戳 一致则删除 */
-  setTimeout(() => {
-    if (groupState[key] === time) delete groupState[key]
-  }, Number(cfg.cd + 1) * 1000)
-
-  return true
-}
 
 /**
  * 进群通知
  */
 export const accept = karin.accept('notice.group_member_increase', async (e) => {
-  if (!(await checkAndUpdateGroupState(e, 'increase'))) return false
+let data = Config.Other.accept.BlackGroup
+  if (data.includes(e.group_id)) return false
   await e.reply('\n欢迎加入本群୯(⁠*⁠´⁠ω⁠｀⁠*⁠)୬', { at: true })
   return true
 }, { name: '进群通知', priority: '-1' })
@@ -48,7 +17,8 @@ export const accept = karin.accept('notice.group_member_increase', async (e) => 
  * 退群通知
  */
 export const unaccept = karin.accept('notice.group_member_decrease', async (e) => {
-  if (!(await checkAndUpdateGroupState(e, 'decrease'))) return false
+   let data = Config.Other.accept.BlackGroup
+  if (data.includes(e.group_id)) return false
   await e.reply(`用户『${e.user_id}』丢下我们一个人走了(╥_╥)`)
   return true
 }, { name: '退群通知', priority: '-1' })
