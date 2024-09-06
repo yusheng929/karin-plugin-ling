@@ -1,17 +1,39 @@
 import { karin, YamlEditor, Cfg, segment } from 'node-karin'
-import { Config } from '#components'
-
-const cfgPath = './plugins/karin-plugin-ling/config/config/other.yaml'
+import { Config, Edit } from '#components'
 
 /**
  * 进群通知
  */
 export const accept = karin.accept('notice.group_member_increase', async (e) => {
 let data = Config.Other.accept.BlackGroup
-  if (data.includes(e.group_id)) return false
-  await e.reply('\n欢迎加入本群୯(⁠*⁠´⁠ω⁠｀⁠*⁠)୬', { at: true })
+let data1 = Config.Other.Test
+  if (data.includes(e.group_id) && !data1.includes(e.group_id)) return false
+ if (!data.includes(e.group_id)) await e.reply('\n欢迎加入本群୯(⁠*⁠´⁠ω⁠｀⁠*⁠)୬', { at: true })
+  if (!data1.includes(e.group_id)) return false
+  let num = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
+  let user_id = e.user_id
+  await e.reply(`\n为确保你不是机器人\n请在3分钟内输入下方验证码\n『${num}』`, { at: true })
+  try {
+  for (let i = 3; i >= 0; i--) {
+   if (i == 0) {
+   await e.reply('验证失败，你将会被踢出群聊', { at: true })
+   await e.bot.KickMember(e.group_id, user_id)
+   return true
+   }
+   const event = await karin.ctx(e, { time: 120, reply: false})
+  if (event.msg == num) {
+  await e.reply('\n验证通过，欢迎加入群聊', { at: true })
   return true
-}, { name: '进群通知', priority: '-1' })
+  } else {
+   await e.reply(`验证码错误，请重新输入\n你还有${i - 1}次机会`)
+  }
+}
+} catch (error) {
+  await e.reply('输入超时，你将会被踢出群聊', { at: true })
+  await e.bot.KickMember(e.group_id, user_id)
+  return true
+}
+}, { name: '进群', priority: '-1' })
 
 /**
  * 退群通知
@@ -22,49 +44,6 @@ export const unaccept = karin.accept('notice.group_member_decrease', async (e) =
   await e.reply(`用户『${e.user_id}』丢下我们一个人走了(╥_╥)`)
   return true
 }, { name: '退群通知', priority: '-1' })
-
-/**
- * 更新群组通知状态
- * @param e 事件对象
- * @param action 动作 ('add' 或 'remove')
- * @param successMessage 成功消息
- * @param alreadyMessage 已经存在消息
- * @returns 是否继续处理
- */
-const updateNotificationStatus = async (e, action, successMessage, alreadyMessage) => {
-  const group_id = e.msg.replace(/#(关闭|开启)进群通知/, '').trim() || e.group_id
-
-  try {
-    const yaml = new YamlEditor(cfgPath)
-    const data = yaml.get('accept.BlackGroup')
-    if (!Array.isArray(data)) {
-      await e.reply('\n配置文件格式错误❌', { at: true })
-      return true
-    }
-
-    if ((action === 'add' && data.includes(group_id)) || (action === 'remove' && !data.includes(group_id))) {
-      await e.reply(alreadyMessage.replace('{group_id}', group_id))
-      return true
-    }
-
-    if (action === 'add') {
-      yaml.append('accept.BlackGroup', String(group_id))
-    } else {
-      const res = yaml.remove('accept.BlackGroup', String(group_id))
-      if (!res) {
-        await e.reply('失败: 未知错误❌')
-        return true
-      }
-    }
-    yaml.save()
-    await e.reply(successMessage.replace('{group_id}', group_id))
-    return true
-  } catch (error) {
-    await e.reply('失败: 未知错误❌')
-    logger.error(error)
-    return true
-  }
-}
 
 export const deal_invited_group = karin.accept('request.invited_group',
   async (e) => {
@@ -144,10 +123,21 @@ export const deal_group_apply = karin.accept('request.group_apply',
   }
 )
 
-export const CloseNotification = karin.command(/^#关闭进群通知/, async (e) => {
-  return await updateNotificationStatus(e, 'add', '已经关闭群『{group_id}』的进群通知', '群『{group_id}』的进群通知目前已经处于关闭状态啦，无需重复关闭！')
-}, { name: '关闭进群通知', priority: '-1', permission: 'master' })
+export const Notification = karin.command(/^#(开启|关闭)进群通知/, async (e) => {
+  let group_id = e.msg.replace(/#(开启|关闭)进群通知/, '').trim() || e.group_id
+  if (e.msg.includes('关闭')) {
+  return await Edit.EditAdd(e, 'add', `已经关闭群『${group_id}』的进群通知`, `群『${group_id}』的进群通知已经处于关闭状态`, 'accept.BlackGroup', group_id, 'other')
+  }
+  if (e.msg.includes('开启'))
+  return await Edit.EditAdd(e, 'remove', `已经开启群『${group_id}』的进群通知`, `群『${group_id}』的进群通知目前已经处于开启状态`, 'accept.BlackGroup', group_id, 'other')
+}, { permission: 'master' })
 
-export const ActivateNotification = karin.command(/^#开启进群通知/, async (e) => {
-  return await updateNotificationStatus(e, 'remove', '已经开启群『{group_id}』的进群通知', '群『{group_id}』的进群通知目前已经处于开启状态啦，无需重复开启！')
-}, { name: '开启进群通知', priority: '-1', permission: 'master' })
+export const test = karin.command(/^#(开启|关闭)进群验证$/, async (e) => {
+  if (e.msg.includes('关闭')) {
+    return await Edit.EditAdd(e, 'remove', '已关闭进群验证', '进群验证已经处于关闭状态', 'Test', e.group_id, 'other')
+  }
+
+  if (e.msg.includes('开启')) {
+  return await Edit.EditAdd(e, 'add', '已开启进群验证', '进群验证已经处于开启状态', 'Test', e.group_id, 'other')
+  }
+}, { permission: 'master' })

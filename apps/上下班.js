@@ -29,7 +29,7 @@ const EditWork = async (e, type, onMsg, offMsg) => {
     }
 
     if ((type === 'add' && data.includes(e.group_id)) || (type === 'remove' && !data.includes(e.group_id))) {
-      await e.reply(onMsg)
+      await e.reply(offMsg)
       return true
     }
 
