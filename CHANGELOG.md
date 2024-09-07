@@ -1,5 +1,16 @@
 # 更新日志
 
+## [1.3.8](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.7...v1.3.8) (2024-09-07)
+
+
+### Bug Fixes
+
+* 优化代码 ([68253ca](https://github.com/yusheng929/karin-plugin-ling/commit/68253ca30cb7d6ae9b63bc92956deccea6193623))
+* 修复进群验证无法使用 ([b430b7b](https://github.com/yusheng929/karin-plugin-ling/commit/b430b7bfb1d8060d08c22085b5849e3ab3d4c5f8))
+* 修改进群验证的权限判断 ([ca0b764](https://github.com/yusheng929/karin-plugin-ling/commit/ca0b7649cf72658dda96506bd9d88765181750bf))
+* 增加私聊群聊判断 ([c47afb8](https://github.com/yusheng929/karin-plugin-ling/commit/c47afb8ba14a850c103ee1b285bcbd860609defb))
+* 新增进群验证(bug先别用) ([5813cb6](https://github.com/yusheng929/karin-plugin-ling/commit/5813cb659bebbb690ec511b25bf936b1a5e28908))
+
 ## [1.3.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.6...v1.3.7) (2024-09-05)
 
 
