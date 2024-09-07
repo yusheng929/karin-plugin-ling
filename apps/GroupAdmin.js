@@ -6,6 +6,7 @@ import Number from '../components/Number.js'
  * 全体禁言
  */
 export const muteAll = karin.command(/^#?全体(禁言|解禁)$/, async (e) => {
+if (!e.isGroup) return e.reply('请在群聊中执行')
   /** 只有主人 群管理员可以使用 */
   if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
     await e.reply('暂无权限，只有管理员才能操作')
@@ -35,6 +36,7 @@ export const muteAll = karin.command(/^#?全体(禁言|解禁)$/, async (e) => {
  * 设置/取消管理员
  */
 export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
+ if (!e.isGroup) return e.reply('请在群聊中执行')
   /** 只有bot为群主才可以使用 */
   const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
   if (!(['owner'].includes(info.role))) {
@@ -82,6 +84,7 @@ export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
  * 设置群头衔
  */
 export const setGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) => {
+ if (!e.isGroup) return e.reply('请在群聊中执行')
   /** 只有bot为群主才可以使用 */
   const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
   if (!(['owner'].includes(info.role))) {
@@ -110,6 +113,7 @@ export const setGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) 
  * 踢人
  */
 export const kickMember = karin.command(/^#踢/, async (e) => {
+ if (!e.isGroup) return e.reply('请在群聊中执行')
   /** 只有主人、群主、管理员可以使用 */
   if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
     await e.reply('暂无权限，只有管理员才能操作')
@@ -172,6 +176,7 @@ export const kickMember = karin.command(/^#踢/, async (e) => {
  * 解禁
  */
 export const UnBanMember = karin.command(/^#解禁/, async (e) => {
+ if (!e.isGroup) return e.reply('请在群聊中执行')
   if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
     await e.reply('暂无权限，只有管理员才能操作')
     return true
@@ -230,6 +235,7 @@ export const UnBanMember = karin.command(/^#解禁/, async (e) => {
 export const BanMember = karin.command(
   /^#?禁言(\d+|[零一壹二两三四五六七八九十百千万亿]+)(秒|分|分钟|时|小时|天)?/,
   async (e) => {
+  if (!e.isGroup) return e.reply('请在群聊中执行')
     if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
       await e.reply('暂无权限，只有管理员才能操作')
       return true

@@ -5,6 +5,7 @@ import { karin, segment, common } from 'node-karin'
  * 改群名
  */
 export const ModifyGroupName = karin.command(/^#改群名/, async (e) => {
+  if (!e.isGroup) return e.reply('请在群聊中执行')
   if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
     await e.reply('暂无权限，只有管理员才能操作')
     return true
@@ -31,6 +32,7 @@ export const ModifyGroupName = karin.command(/^#改群名/, async (e) => {
  * 获取禁言列表
 */
 export const MuteList = karin.command(/^#?(获取|查看)?禁言列表$/, async (e) => {
+  if (!e.isGroup) return e.reply('请在群聊中执行')
   const lsit = []
   const res = await e.bot.GetProhibitedUserList(e.group_id)
   if (!res.length) return e.reply('\n没有被禁言的人哦~', { at: true })
@@ -51,6 +53,7 @@ export const MuteList = karin.command(/^#?(获取|查看)?禁言列表$/, async 
 })
 
 export const ModifyMemberCard = karin.command(/^#改群昵称/, async (e) => {
+  if (!e.isGroup) return e.reply('请在群聊中执行')
   const Name = e.msg.replace(/^#改群昵称/, '').trim()
   if (!Name) return e.reply('群昵称不能为空', { at: true })
 

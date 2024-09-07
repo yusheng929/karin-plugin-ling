@@ -7,7 +7,7 @@ export const test = karin.command(/^测试/, async (e) => {
   try {
   for (let i = 3; i >= 0; i--) {
    const event = await karin.ctx(e, { time: 10, reply: false})
-   if (!(event.msg == num) && (i == 1) {
+   if (!(event.msg == num) && (i == 1)) {
    await e.reply('验证失败，你将会被踢出群聊', { at: true })
    return true
    }
