@@ -46,6 +46,11 @@ export const helpList = [
         title: '#改群昵称<昵称>',
         desc: '修改自己在当前群的昵称',
       },
+      {
+        icon: 24,
+        title: '#开启/关闭进群验证',
+        desc: '开启进群验证后，新进入的用户需要输入验证码',
+      },
     ],
   },
   {
@@ -136,6 +141,11 @@ export const helpList = [
         icon: 22,
         title: '#Karin设置',
         desc: '可对Karin的配置文件进行控制',
+      },
+      {
+        icon: 23,
+        title: '#上/下班',
+        desc: '处于下班群聊将不会处理任何消息',
       },
     ],
   },

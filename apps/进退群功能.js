@@ -135,6 +135,7 @@ export const Notification = karin.command(/^#(开启|关闭)进群通知/, async
 
 export const test = karin.command(/^#(开启|关闭)进群验证$/, async (e) => {
 if (!e.isGroup) return e.reply('请在群聊中执行')
+  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) return await e.reply('暂无权限，只有管理员才能操作')
   if (e.msg.includes('关闭')) {
     return await Edit.EditDel(e, '已关闭进群验证', '进群验证已经处于关闭状态', 'Test', e.group_id, 'other')
   }
@@ -142,4 +143,4 @@ if (!e.isGroup) return e.reply('请在群聊中执行')
   if (e.msg.includes('开启')) {
   return await Edit.EditDel(e, '已开启进群验证', '进群验证已经处于开启状态', 'Test', e.group_id, 'other')
   }
-}, { permission: 'master' })
+})

@@ -1,5 +1,5 @@
 import { karin } from 'node-karin'
-// 仅用于开发者测试部分功能实现，无其他作用
+// 仅用于开发者测试部分功能实现，无其他作用(请勿使用，后果自负)
 export const test = karin.command(/^测试/, async (e) => {
   let num = 2
   let user_id = e.user_id
