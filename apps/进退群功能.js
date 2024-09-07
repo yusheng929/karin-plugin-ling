@@ -141,6 +141,6 @@ if (!e.isGroup) return e.reply('请在群聊中执行')
   }
 
   if (e.msg.includes('开启')) {
-  return await Edit.EditDel(e, '已开启进群验证', '进群验证已经处于开启状态', 'Test', e.group_id, 'other')
+  return await Edit.EditAdd(e, '已开启进群验证', '进群验证已经处于开启状态', 'Test', e.group_id, 'other')
   }
 })
