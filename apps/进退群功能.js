@@ -1,50 +1,6 @@
 import { karin, Cfg, segment } from 'node-karin'
 import { Config, Edit } from '#components'
 
-/**
- * 进群通知
- */
-export const accept = karin.accept('notice.group_member_increase', async (e) => {
-let data = Config.Other.accept.BlackGroup
-let data1 = Config.Other.Test
-  if (data.includes(e.group_id) && !data1.includes(e.group_id)) return false
- if (!data.includes(e.group_id)) await e.reply('\n欢迎加入本群୯(⁠*⁠´⁠ω⁠｀⁠*⁠)୬', { at: true })
-  if (!data1.includes(e.group_id)) return false
-  let num = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
-  let user_id = e.user_id
-  await e.reply(`\n为确保你不是机器人\n请在3分钟内输入下方验证码\n『${num}』`, { at: true })
-  try {
-  for (let i = 3; i >= 0; i--) {
-  const event = await karin.ctx(e, { time: 120, reply: false})
-   if (i == 1 && !(event.msg == num)) {
-   await e.reply('验证失败，你将会被踢出群聊', { at: true })
-   await e.bot.KickMember(e.group_id, user_id)
-   return true
-   }
-  if (event.msg == num) {
-  await e.reply('\n验证通过，欢迎加入群聊', { at: true })
-  return true
-  } else {
-   await e.reply(`验证码错误，请重新输入\n你还有${i - 1}次机会`)
-  }
-}
-} catch (error) {
-  await e.reply('输入超时，你将会被踢出群聊', { at: true })
-  await e.bot.KickMember(e.group_id, user_id)
-  return true
-}
-}, { name: '进群', priority: '-1' })
-
-/**
- * 退群通知
- */
-export const unaccept = karin.accept('notice.group_member_decrease', async (e) => {
-   let data = Config.Other.accept.BlackGroup
-  if (data.includes(e.group_id)) return false
-  await e.reply(`用户『${e.user_id}』丢下我们一个人走了(╥_╥)`)
-  return true
-}, { name: '退群通知', priority: '-1' })
-
 export const deal_invited_group = karin.accept('request.invited_group',
   async (e) => {
     const opts = Config.Other.DealRequest.InvitedJoinGroup

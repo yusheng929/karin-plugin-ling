@@ -11,6 +11,12 @@
     "#components": "./components/index.js",
     "#models": "./models/index.js",
     "#lib": "./lib/index.js",
-    "#state": "./state/index.js"
+    "#state": "./state/index.js",
+    "#tools": "./apps/tools/index.js"
+  },
+  "karin": {
+    "apps": [
+      "apps/events"
+    ]
   }
 }

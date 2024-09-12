@@ -1,4 +1,4 @@
-import { Version, Config } from './components/index.js'
+import { Version, Config } from '#components'
 import { logger } from 'node-karin'
 
 logger.info('-----------------')
