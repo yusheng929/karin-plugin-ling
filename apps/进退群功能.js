@@ -83,20 +83,20 @@ export const Notification = karin.command(/^#(开启|关闭)进群通知/, async
   let group_id = e.msg.replace(/#(开启|关闭)进群通知/, '').trim() || e.group_id
   if (!group_id) return e.reply('请输入正确的群号')
   if (e.msg.includes('关闭')) {
-  return await Edit.EditAdd(e, `已经关闭群『${group_id}』的进群通知`, `群『${group_id}』的进群通知已经处于关闭状态`, 'accept.BlackGroup', group_id, 'other')
+  return await Edit.EditAddend(e, `已经关闭群『${group_id}』的进群通知`, `群『${group_id}』的进群通知已经处于关闭状态`, 'accept.BlackGroup', group_id, 'other')
   }
   if (e.msg.includes('开启'))
-  return await Edit.EditDel(e, `已经开启群『${group_id}』的进群通知`, `群『${group_id}』的进群通知目前已经处于开启状态`, 'accept.BlackGroup', group_id, 'other')
+  return await Edit.EditRemove(e, `已经开启群『${group_id}』的进群通知`, `群『${group_id}』的进群通知目前已经处于开启状态`, 'accept.BlackGroup', group_id, 'other')
 }, { permission: 'master' })
 
 export const test = karin.command(/^#(开启|关闭)进群验证$/, async (e) => {
 if (!e.isGroup) return e.reply('请在群聊中执行')
   if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) return await e.reply('暂无权限，只有管理员才能操作')
   if (e.msg.includes('关闭')) {
-    return await Edit.EditDel(e, '已关闭进群验证', '进群验证已经处于关闭状态', 'Test', e.group_id, 'other')
+    return await Edit.EditRemove(e, '已关闭进群验证', '进群验证已经处于关闭状态', 'Test', e.group_id, 'other')
   }
 
   if (e.msg.includes('开启')) {
-  return await Edit.EditAdd(e, '已开启进群验证', '进群验证已经处于开启状态', 'Test', e.group_id, 'other')
+  return await Edit.EditAddend(e, '已开启进群验证', '进群验证已经处于开启状态', 'Test', e.group_id, 'other')
   }
 })

@@ -1,0 +1,10 @@
+default:
+  rule: 1    # 拦截规则0为模糊拦截1为精准拦截
+  words: [] # 违禁词
+  enable: false # 是否启用
+## 单独群设置
+114514:
+  rule: 1
+  words:
+    - 测试
+  enable: false
