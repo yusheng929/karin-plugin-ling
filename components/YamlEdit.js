@@ -6,7 +6,6 @@ const EditAddend = async (e, Msg1, Msg2, term, value, path) => {
   try {
     const yaml = new YamlEditor(`${CfgPath}/${path}.yaml`)
     const data = yaml.get(term)
-    if (!data) return await EditSet(e, 'array', term, path, value, Msg1)
     if (!Array.isArray(data)) {
       await e.reply('\n配置文件格式错误❌', { at: true })
       return true
@@ -47,15 +46,14 @@ const EditRemove = async (e, Msg1, Msg2, term, value, path) => {
     return true
   }
 }
-const EditSet = async (e, type, term, path, value, Msg1) => {
+const EditSet = async (e, Msg1, Msg2, term, value, path) => {
   try {
     const yaml = new YamlEditor(`${CfgPath}/${path}.yaml`)
-    if (type == 'array') {
-    value = [`${value}`]
+    const data = yaml.get(term)
+    if (data === value) return await e.reply(Msg2)
     yaml.set(term, value)
     yaml.save()
     await e.reply(Msg1)
-    }
     return true
   } catch (error) {
     await e.reply('失败: 未知错误❌')
@@ -80,5 +78,6 @@ const EditTest = async (e) => {
 export default {
   EditAddend,
   EditRemove,
-  EditTest
+  EditTest,
+  EditSet
 }
