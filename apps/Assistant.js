@@ -175,16 +175,19 @@ for (const key in data) {
   const msg = common.makeForward(msgs, e.self_id, e.bot.account.name)
 return await e.bot.sendForwardMessage(e.contact, msg)
 }
-let rules = (data[`${e.group_id}`] && data[`${e.group_id}`]['words']) || ''
+let datas = e.group_id
+datas = data[`${datas}`] ? e.group_id : 'default'
+let rules = (data[`${datas}`] && data[`${datas}`]['words']) || ''
 if (!rules) return e.reply('暂无违禁词')
 let rule = rules.join('\n')
 let msgs = []
-let type = data[`${e.group_id}`]['enable']
-let types = data[`${e.group_id}`]['rule']
+let type = data[`${datas}`]['enable']
+let types = data[`${datas}`]['rule']
 let typess = types == 0 ? '模糊拦截' : '精准拦截'
 msgs.push([segment.text(`是否启用: ${type}`)])
 msgs.push([segment.text(`拦截规则: ${typess}`)])
 msgs.push([segment.text(`违禁词: \n${rule}`)])
+if (datas == 'default') msgs.unshift(segment.text(`当前群为配置违禁词，将使用默认违禁词`))
 const msg = await common.makeForward(msgs, e.self_id, e.bot.account.name)
 return await e.bot.sendForwardMessage(e.contact, msg)
 }
