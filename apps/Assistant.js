@@ -151,10 +151,30 @@ export const 群发 = karin.command(/^#群发/, async (e) => {
   e.reply('发送完成')
   return true
 }, { name: '群发', priority: '-1', permission: 'master' })
-export const ProhibitedWords = karin.command(/^#(添加|删除|查看)违禁词/, async (e) => {
+export const ProhibitedWords = karin.command(/^#(添加|删除|查看)(所有)?违禁词/, async (e) => {
 if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) return e.reply('暂无权限，只有管理员才能操作')
 if (e.msg.includes('查看')) {
 let data = Config.GroupYaml
+if (e.msg.includes('所有')) {
+if (!e.isMaster) return e.reply('暂无权限，只有主人才能操作')
+let msgs = []
+for (const key in data) {
+  if (data.hasOwnProperty(key)) {
+    let type = data[key]['enable']
+    let ruleid = data[key]['rule']
+    let rule = ruleid == 0 ? '模糊拦截' : '精准拦截'
+    let words = (data[key]['words']).join('\n')
+    msgs.push([
+    segment.text(`id: ${key}`),
+    segment.text(`\n是否启用: ${type}`),
+    segment.text(`\n拦截规则: ${rule}`),
+    segment.text(`\n违禁词列表: \n${words}`),
+    ])
+  }
+}
+  const msg = common.makeForward(msgs, e.self_id, e.bot.account.name)
+return await e.bot.sendForwardMessage(e.contact, msg)
+}
 let rules = (data[`${e.group_id}`] && data[`${e.group_id}`]['words']) || ''
 if (!rules) return e.reply('暂无违禁词')
 let rule = rules.join('\n')
@@ -165,10 +185,10 @@ let typess = types == 0 ? '模糊拦截' : '精准拦截'
 msgs.push([segment.text(`是否启用: ${type}`)])
 msgs.push([segment.text(`拦截规则: ${typess}`)])
 msgs.push([segment.text(`违禁词: \n${rule}`)])
-const msg = common.makeForward(msgs, e.self_id, e.bot.account.name)
+const msg = await common.makeForward(msgs, e.self_id, e.bot.account.name)
 return await e.bot.sendForwardMessage(e.contact, msg)
 }
- let word = e.msg.replace(/#(添加|删除|查看)违禁词/, '').trim()
+ let word = e.msg.replace(/#(添加|删除|查看)(所有)?违禁词/, '').trim()
  if (!word) return e.reply('请带上违禁词')
   if (!e.isGroup) return e.reply('请在群聊中执行')
    let term = `${e.group_id}.words`
@@ -184,3 +204,35 @@ return await e.bot.sendForwardMessage(e.contact, msg)
   return await Edit.EditRemove(e, '删除成功', '没有这个违禁词', term, word, 'group')
   }
 }, { name: '违禁词', priority: '-1' })
+export const DefaultProhibitedWords = karin.command(/^#全局(添加|删除|查看)违禁词/, async (e) => {
+if (e.msg.includes('查看')) {
+let data = Config.GroupYaml
+let rules = (data['default'] && data['default']['words']) || ''
+if (!rules) return e.reply('暂无违禁词')
+let rule = rules.join('\n')
+let msgs = []
+let type = data['default']['enable']
+let types = data['default']['rule']
+let typess = types == 0 ? '模糊拦截' : '精准拦截'
+msgs.push([segment.text(`是否启用: ${type}`)])
+msgs.push([segment.text(`拦截规则: ${typess}`)])
+msgs.push([segment.text(`违禁词: \n${rule}`)])
+const msg = await common.makeForward(msgs, e.self_id, e.bot.account.name)
+return await e.bot.sendForwardMessage(e.contact, msg)
+}
+ let word = e.msg.replace(/#全局(添加|删除|查看)违禁词/, '').trim()
+ if (!word) return e.reply('请带上违禁词')
+  if (!e.isGroup) return e.reply('请在群聊中执行')
+   let term = 'default.words'
+   let data = Config.GroupYaml
+   let rules = data['default'] || ''
+ if (!rules) {
+ await Edit.EditTest(e)
+ }
+  if (e.msg.includes('添加')) {
+  return await Edit.EditAddend(e, '添加成功', '已经添加过了', term, word, 'group')
+  }
+  if (e.msg.includes('删除')) {
+  return await Edit.EditRemove(e, '删除成功', '没有这个违禁词', term, word, 'group')
+  }
+}, { name: '全局违禁词', priority: '-1', permission: 'master' })

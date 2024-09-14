@@ -6,11 +6,13 @@ const ProhibitedWords = async (e) => {
     logger.debug('不在群聊，跳过监听')
     return false
   }
+  let type = e.group_id
   let data = Config.GroupYaml
-  let rules = (data[`${e.group_id}`] && data[`${e.group_id}`]['enable']) || ''
+  type = data[`${type}`] ? type : 'default'
+  let rules = (data[`${type}`] && data[`${type}`]['enable']) || ''
   if (!rules) return false
-  let words = data[`${e.group_id}`]['words']
-  let match = data[`${e.group_id}`]['rule']
+  let words = data[`${type}`]['words']
+  let match = data[`${type}`]['rule']
   if (match == 0 && words.some(word => e.msg.includes(word))) {
     if ((['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
     return false
