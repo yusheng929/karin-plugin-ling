@@ -88,7 +88,7 @@ export const SeeImg = karin.command(/^#(看|取)头像/, async (e) => {
 export const SeeGroupImg = karin.command(/^#(看|取)群头像/, async (e) => {
   const group_id = e.msg.replace(/^#?(看|取)群头像/, '').trim() || e.group_id
   if (!group_id) return e.reply('请输入正确的群号')
-  const Img = e.bot.getGroupAvatar(group_id, 640)
+  const Img = e.bot.getGroupAvatarUrl(group_id, 640)
   await e.reply(segment.image(Img))
   return true
 }, { name: '看群头像', priority: '-1' })
