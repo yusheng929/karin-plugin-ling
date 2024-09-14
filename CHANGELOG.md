@@ -1,5 +1,18 @@
 # 更新日志
 
+## [1.3.9](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.8...v1.3.9) (2024-09-14)
+
+
+### Bug Fixes
+
+* 优化代码 ([5b7f6c7](https://github.com/yusheng929/karin-plugin-ling/commit/5b7f6c70227fb4dd3c5515371e233edede9c0f1b))
+* 修复e.bot.getGroupAvatar is not a function的bug ([6b2874e](https://github.com/yusheng929/karin-plugin-ling/commit/6b2874ef9caa156cf5e5fa79f5422b3e078dfcfe))
+* 修复当前群未配置违禁词时，不显示默认违禁词 ([2caef4c](https://github.com/yusheng929/karin-plugin-ling/commit/2caef4cf869cc8564465caac8c5fc9bf2ce78d1c))
+* 修复无法开启进群验证的bug ([4691804](https://github.com/yusheng929/karin-plugin-ling/commit/469180416ab5d1cc41cfaa1bc9bcb88331c718b3))
+* 新增default违禁词设置 ([367146b](https://github.com/yusheng929/karin-plugin-ling/commit/367146b920f6c22f1e0350132c618f436c1aee81))
+* 新增违禁词开关设置 ([82b8cff](https://github.com/yusheng929/karin-plugin-ling/commit/82b8cff1ed17f0f503b9980d01faf52e9332e78f))
+* 新增违禁词拦截 ([49ddfcc](https://github.com/yusheng929/karin-plugin-ling/commit/49ddfcc1d4be8eeab5219a805ee10129f7dd5e4b))
+
 ## [1.3.8](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.7...v1.3.8) (2024-09-07)
 
 
