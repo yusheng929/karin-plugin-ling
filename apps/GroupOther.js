@@ -68,8 +68,10 @@ export const ModifyMemberCard = karin.command(/^#改群昵称/, async (e) => {
 }, { name: '改群昵称', priority: '-1', permission: 'master' })
 export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
   if (!e.isGroup) return e.reply('请在群聊中执行')
-  if (!e.reply_id) return e.reply('请回复需要设置精华的消息')
   if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) return await e.reply('暂无权限，只有管理员才能操作')
+  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  if (!(['owner', 'admin'].includes(info.role))) return await e.reply('少女做不到呜呜~(>_<)~')
+    if (!e.reply_id) return e.reply('请回复需要设置精华的消息')
   try {
     await e.bot.SetEssenceMessage(e.group_id, e.reply_id)
     await e.reply('设置精华成功')
@@ -78,4 +80,4 @@ export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
     return true
   }
   return true
-}, { name: '设置精华', priority: '-1')
+}, { name: '设置精华', priority: '-1'})
