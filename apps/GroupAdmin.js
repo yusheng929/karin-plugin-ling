@@ -233,7 +233,7 @@ export const UnBanMember = karin.command(/^#解禁/, async (e) => {
 }, { name: '解禁', priority: '-1' })
 
 export const BanMember = karin.command(
-  /^#?禁言(\d+|[零一壹二两三四五六七八九十百千万亿]+)(秒|分|分钟|时|小时|天)?/,
+  /^#?禁言(\d+|[零一壹二两三四五六七八九十百千万亿]+)?(秒|分|分钟|时|小时|天)?/,
   async (e) => {
   if (!e.isGroup) return e.reply('请在群聊中执行')
     if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
@@ -279,9 +279,9 @@ export const BanMember = karin.command(
       return e.reply('\n这个群好像没这个人', { at: true })
     }
 
-    const match = e.msg.match(/^#?禁言(\d+|[零一壹二两三四五六七八九十百千万亿]+)(秒|分|分钟|时|小时|天)?/)
+    const match = e.msg.match(/^#?禁言(\d+|[零一壹二两三四五六七八九十百千万亿]+)?(秒|分|分钟|时|小时|天)?/)
     if (match) {
-      const timeStr = match[1]
+      const timeStr = match[1] || 600
       const unit = match[2] || '秒'  // 默认为秒
       const time = Number.translateChinaNum(timeStr)
       let timeInSeconds
