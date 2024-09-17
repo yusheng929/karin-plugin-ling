@@ -314,3 +314,10 @@ export const 发好友 = karin.command(/^#发好友/, async (e) => {
   e.reply('发送完成')
   return true
 }, { name: '发好友', priority: '-1', permission: 'master' })
+export const 获取群列表 = karin.command(/^#(查看|获取)群列表$/, async (e) => {
+  let group_list = await e.bot.GetGroupList()
+  let match = group_list.length
+  let msgs = []
+  for (const group_id of group_list) {
+  }
+}, { name: '获取群列表', priority: '-1', permission: 'master' })
