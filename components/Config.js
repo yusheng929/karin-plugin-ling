@@ -44,6 +44,10 @@ class Config {
     return this.getDefOrConfig('other')
   }
   
+  get Cof () {
+    return this.getDefOrConfig('COF')
+  }
+  
   get state () {
     return this.getDefOrConfig('state')
   }
