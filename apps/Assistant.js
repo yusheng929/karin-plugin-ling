@@ -293,3 +293,24 @@ export const Botprefix = karin.command(/^#(添加|删除|查看)(所有)?前缀/
   }
 }
 }, { name: '前缀', priority: '-1', permission: 'master' })
+export const 发好友 = karin.command(/^#发好友/, async (e) => {
+  let msg = e.msg.replace(/#发好友/, '').trim()
+  if (!msg && !e.reply_id) return e.reply('请带上需要发送的消息')
+  if (!msg && e.reply_id) {
+   let data = await e.bot.GetMessage(e.contact, e.reply_id)
+   msg = data.elements[0].text
+  }
+  const elements = [
+  segment.text(msg)
+]
+  let friend_list = await e.bot.GetFriendList()
+  let firend_id_list = friend_list.map(item => item.uid)
+ for (const friend_id of friend_id_list) {
+   try {
+      const contact = karin.contactFriend(friend_id)
+      await e.bot.SendMessage(contact, elements)
+   } catch (error) { }
+  }
+  e.reply('发送完成')
+  return true
+}, { name: '发好友', priority: '-1', permission: 'master' })
