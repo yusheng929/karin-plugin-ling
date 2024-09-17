@@ -1,6 +1,8 @@
 import { karin, segment, common, level } from 'node-karin'
 import { Edit, Config } from '#components'
 import { 编辑文件 } from '#lib'
+import fs from 'fs'
+import YAML from 'yaml'
 
 export const 黑白名单 = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   let id
@@ -241,3 +243,53 @@ if (e.msg.includes('关闭')) return await Edit.EditSet(e, '已关闭默认违�
   if (e.msg.includes('添加')) return await Edit.EditAddend(e, '添加成功', '已经添加过了', term, word, 'group')
   if (e.msg.includes('删除')) return await Edit.EditRemove(e, '删除成功', '没有这个违禁词', term, word, 'group')
 }, { name: '全局违禁词', priority: '-1', permission: 'master' })
+export const Botprefix = karin.command(/^#(添加|删除|查看)(所有)?前缀/, async (e) => {
+   if (e.msg.includes('查看')) {
+   if (e.msg.includes('所有')) {
+  const data = fs.readFileSync('config/config/group.yaml', 'utf8')
+  const datas = YAML.parse(data)
+  const Default = datas.default
+  const botKeys = Object.keys(datas).filter(key => key.startsWith('Bot:'))
+  
+  let msgs = []
+
+  for (const key of botKeys) {
+    if (key === 'Bot:self_id' || key === 'Bot:self_id:group_id') {
+      continue
+    }
+    
+    const rest = key.substring(4)
+    
+    if (rest.includes(':')) {
+      let [id, group_id] = rest.split(':')
+      let mode = datas[key].mode
+      let alias = datas[key].alias
+      msgs.push([
+        segment.text(`Bot: ${id}`),
+        segment.text(`\n群: ${group_id}`),
+        segment.text(`\n前缀状态: ${mode === 0 ? "无前缀所有人可响应" : mode === 1 ? "仅响应艾特Bot" : mode === 2 ? "仅响应主人" : mode === 3 ? "仅回应前缀" : mode === 4 ? "仅响应前缀和艾特Bot" : mode === 5 ? "主人无前缀，其余人需前缀或者艾特Bot" : "未知"}`),
+        segment.text(`\n前缀:\n ${alias || ''}`)
+      ])
+    } else {
+      const id = rest
+      let mode = datas[key].mode
+      let alias = datas[key].alias
+      msgs.push([
+        segment.text(`Bot: ${id}`),
+        segment.text(`\n群: 所有群均使用该规则`),
+        segment.text(`\n前缀状态: ${mode === 0 ? "无前缀所有人可响应" : mode === 1 ? "仅响应艾特Bot" : mode === 2 ? "仅响应主人" : mode === 3 ? "仅回应前缀" : mode === 4 ? "仅响应前缀和艾特Bot" : mode === 5 ? "主人无前缀，其余人需前缀或者艾特Bot" : "未知"}`),
+        segment.text(`\n前缀:\n ${alias || ''}`)
+      ])
+    }
+  }
+  msgs.unshift([
+    segment.text('全局默认配置:'),
+    segment.text(`\n前缀状态: ${Default.mode === 0 ? "无前缀所有人可响应" : Default.mode === 1 ? "仅响应艾特Bot" : Default.mode === 2 ? "仅响应主人" : Default.mode === 3 ? "仅回应前缀" : Default.mode === 4 ? "仅响应前缀和艾特Bot" : Default.mode === 5 ? "主人无前缀，其余人需前缀或者艾特Bot" : "未知"}`),
+    segment.text(`\n前缀: \n${Default.alias || ''}`)
+  ])
+
+  const msg = await common.makeForward(msgs, e.self_id, e.bot.account.name)
+  return await e.bot.sendForwardMessage(e.contact, msg)
+  }
+}
+}, { name: '前缀', priority: '-1', permission: 'master' })

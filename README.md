@@ -39,6 +39,9 @@ pnpm install --filter=karin-plugin-ling
 Karin/plugins/karin-plugin-ling/config
 ```
 
+## 未来计划
+- [ ] Bot的前缀快捷设置
+- [ ] 增加进群申请通知
 # 负责声明
 - 功能仅限内部交流与小范围使用
 - 严禁将本插件用于任何商业用途或盈利

@@ -51,6 +51,7 @@ export const deal_private_apply = karin.accept('request.private_apply',
 
 export const deal_group_apply = karin.accept('request.group_apply',
   async (e) => {
+  console.log(`${e.request_id}`)
     const opts = Array.isArray(Config.Other.DealRequest.Group) ? Config.Other.DealRequest.Group.find(group => group[e.group_id])[e.group_id] : Config.Other.DealRequest.Group
     if (!opts) return
     if (opts.accept) {
