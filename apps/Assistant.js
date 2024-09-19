@@ -316,8 +316,11 @@ export const 发好友 = karin.command(/^#发好友/, async (e) => {
 }, { name: '发好友', priority: '-1', permission: 'master' })
 export const 获取群列表 = karin.command(/^#(查看|获取)群列表$/, async (e) => {
   let group_list = await e.bot.GetGroupList()
-  let match = group_list.length
-  let msgs = []
-  for (const group_id of group_list) {
-  }
+let msgs = []
+let data = group_list.map((item, index) => `${index + 1}. ${item.group_name} (${item.group_id})`).join('\n')
+msgs.push(segment.text(data))
+msgs.push(segment.text("可使用 *#退群1234567890* 来退出群聊"))
+msgs.unshift(segment.text(`群列表如下: 总共${group_list.length}个群`))
+const msg = await common.makeForward(msgs, e.self_id, e.bot.account.name)
+  return await e.bot.sendForwardMessage(e.contact, msg)
 }, { name: '获取群列表', priority: '-1', permission: 'master' })
