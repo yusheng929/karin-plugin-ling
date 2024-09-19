@@ -2,3 +2,5 @@ node_modules/
 config/config/
 pnpm-lock.yaml
 package-lock.json
+resources/List/Group_List.txt
+resources/List/Friend_List.txt
