@@ -316,31 +316,39 @@ export const 发好友 = karin.command(/^#发好友/, async (e) => {
 }, { name: '发好友', priority: '-1', permission: 'master' })
 export const 获取群列表 = karin.command(/^#(查看|获取|保存)(群|好友)列表$/, async (e) => {
 let msgs = []
+let data;
 let path = `${Version.pluginPath}/resources/List`
 if (e.msg.includes('群')) {
  let group_list = await e.bot.GetGroupList()
- let data = group_list.map((item, index) => `${index + 1}. ${item.group_name} (${item.group_id})`).join('\n')
- if (e.msg.includes('保存')) {
-   if (fs.existsSync(`${path}Group_List.txt`)) {
-   e.reply('检测到已存在群名单文件，你可以执行以下操作:\n覆盖\n添加')
-   const event = await karin.ctx(e)
-   if (event.msg == '覆盖') {
-    await fs.promises.writeFile(`${path}/Group_List.txt`, data)
-    return e.reply(`文件已保存，可执行\n#上传群名单\n来上传文件`)
-    } else {
-    if (event.msg == '添加') {
-    await fs.promises.appendFile(`${path}/Group_List.txt`, data)
-     return e.reply(`文件已保存，可执行\n#上传群名单\n来上传文件`)
-    } else return await e.reply('指令错误，退出操作')
-    }
-  } else {
-  await fs.promises.writeFile(`${path}/Group_List.txt`, data)
-     return e.reply(`文件已保存，可执行\n#上传群名单\n来上传文件`)
-  }
-}
+ data = group_list.map((item, index) => `${index + 1}. ${item.group_name} (${item.group_id})`).join('\n')
 msgs.push(segment.text(data))
 msgs.push(segment.text("可使用 *#退群1234567890* 来退出群聊"))
 msgs.unshift(segment.text(`群列表如下: 总共${group_list.length}个群`))
+} else {
+  if (e.msg.includes('好友')) {
+  let friend_list = await e.bot.GetFriendList()
+ data = friend_list.map((item, index) => `${index + 1}. ${item.nick || "未知"} (${item.uin})`).join('\n')
+ msgs.push(segment.text(data))
+msgs.unshift(segment.text(`好友列表如下: 总共${friend_list.length}个好友`))
+  }
+}
+if (e.msg.includes('保存')) {
+   if (fs.existsSync(`${path}/${e.msg.includes('群') ? "Group_List.txt" : "Friend_List.txt"}`)) {
+   e.reply(`检测到已存在文件，你可以执行以下操作:\n覆盖\n添加`)
+   const event = await karin.ctx(e)
+   if (event.msg == '覆盖') {
+    await fs.promises.writeFile(`${path}/${e.msg.includes('群') ? "Group_List.txt" : "Friend_List.txt"}`, data)
+    return e.reply(`文件已保存，可执行\n#上传(群/好友)名单\n来上传文件`)
+    } else {
+    if (event.msg == '添加') {
+    await fs.promises.appendFile(`${path}/${e.msg.includes('群') ? "Group_List.txt" : "Friend_List.txt"}`, data)
+     return e.reply(`文件已保存，可执行\n#上传(群/好友)名单\n来上传文件`)
+    } else return await e.reply('指令错误，退出操作')
+    }
+  } else {
+  await fs.promises.writeFile(`${path}/${e.msg.includes('群') ? "Group_List.txt" : "Friend_List.txt"}`, data)
+     return e.reply(`文件已保存，可执行\n#上传(群/好友)名单\n来上传文件`)
+  }
 }
 const msg = await common.makeForward(msgs, e.self_id, e.bot.account.name)
   return await e.bot.sendForwardMessage(e.contact, msg)
@@ -350,9 +358,9 @@ let path = `${Version.pluginPath}/resources/List`
 let txtPath = `${path}/${e.msg.includes('群') ? 'Group_List.txt' : 'Friend_List.txt'}`
 if (e.isGroup){
 if (!(fs.existsSync(txtPath))) return e.reply('你还未保存文件，请先执行\n#保存(群|好友)列表')
-return e.bot.UploadPrivateFile(e.group_id, txtPath, `${e.msg.includes == '群' ? 'Group_List.txt' : 'Friend_List.txt'}`)
+return await e.bot.UploadGroupFile(e.group_id, txtPath, `${e.msg.includes('群') ? '群列表.txt' : '好友列表.txt'}`)
 } else {
 if (!(fs.existsSync(txtPath))) return e.reply('你还未保存文件，请先执行\n#保存(群|好友)列表\n')
-return e.bot.UploadPrivateFile(e.group_id, txtPath, `${e.msg.includes == '群' ? 'Group_List.txt' : 'Friend_List.txt'}`)
+return await e.bot.UploadPrivateFile(e.group_id, txtPath, `${e.msg.includes('群') ? '群列表.txt' : '好友列表.txt'}`)
 }
 }, { name: '上传群好友列表', priority: '-1', permission: 'master' })
