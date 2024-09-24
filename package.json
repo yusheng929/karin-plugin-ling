@@ -17,7 +17,8 @@
   },
   "karin": {
     "apps": [
-      "apps/events"
+      "apps/events",
+      "apps/QuickCode"
     ]
   }
 }
