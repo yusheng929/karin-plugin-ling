@@ -45,3 +45,22 @@ try {
    await e.reply(`文件上传错误：${error.message}`, true)
    }
 }, { name: '文件上传', priority: '-1', permission: 'master' })
+export const FileMove = karin.command(/^文件移动/, async (e) => {
+await e.reply('请发送文件路径', {at: true})
+const Path1 = await karin.ctx(e)
+let Path = Path1.msg
+let name = path.basename(Path)
+await e.reply('请发送移动路径', true)
+const Path2 = await karin.ctx(e)
+let FinalPath = Path2.msg
+if (FinalPath == '') FinalPath = process.cwd()
+ if (!(fs.existsSync(Path))) return e.reply('文件不存在',true)
+ await e.reply('开始移动文件',true)
+try {
+   await Ling.move(Path, `${FinalPath}/${name}`)
+   await e.reply(`移动完成，文件原位置:\n${process.cwd()}/${Path}\n文件当前位置:\n${FinalPath}/${name}`,true)
+} catch (error) {
+   logger.error(`文件移动错误：${error.message}`)
+   await e.reply(`文件移动错误：${error.message}`, true)
+   }
+}, { name: '文件上传', priority: '-1', permission: 'master' })
