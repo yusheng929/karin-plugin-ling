@@ -1,5 +1,23 @@
 # 更新日志
 
+## [1.3.10](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.9...v1.3.10) (2024-09-24)
+
+
+### Bug Fixes
+
+* 修复GroupOther.js加载错误 ([9b5b921](https://github.com/yusheng929/karin-plugin-ling/commit/9b5b92186b662bad3b224565d95a512f39c21a80))
+* 刨坑咕咕咕 ([492a797](https://github.com/yusheng929/karin-plugin-ling/commit/492a7973ed92a67047638f63e21a5293628f5677))
+* 新增#禁言未指定时间时，默认禁言10分钟 ([34cce60](https://github.com/yusheng929/karin-plugin-ling/commit/34cce6007f981f458c9d66b33ea63e4b3b322b0c))
+* 新增保存群名单 ([f426152](https://github.com/yusheng929/karin-plugin-ling/commit/f426152c9f070bf57a6ae0b93f3b66208320bf9a))
+* 新增批量发送好友消息 ([6e24a01](https://github.com/yusheng929/karin-plugin-ling/commit/6e24a0129b3a25293a9f84dec7fd4a2977a38777))
+* 新增文件上传 ([307e43a](https://github.com/yusheng929/karin-plugin-ling/commit/307e43ab5c77c2aabde5cdbb6d3d9cba7d532b91))
+* 新增生成二维码 ([2efe015](https://github.com/yusheng929/karin-plugin-ling/commit/2efe0155f965063bd80af256ef61b152681e46c5))
+* 新增续火 ([4da9a7f](https://github.com/yusheng929/karin-plugin-ling/commit/4da9a7f4484c477dcac8074f924d9e534ed673c7))
+* 新增获取好友列表 ([2f868fa](https://github.com/yusheng929/karin-plugin-ling/commit/2f868faa70c6ff39a33ffa8ed76d1ad135dac149))
+* 新增获取群列表 ([70387d2](https://github.com/yusheng929/karin-plugin-ling/commit/70387d27b9d7ca1595ec60937e627f83c4efaa7e))
+* 新增设置群精华 ([a34b085](https://github.com/yusheng929/karin-plugin-ling/commit/a34b085d06fb2714eb4648b040afe654ed7d4b2a))
+* 续火支持随机文案 ([829cda0](https://github.com/yusheng929/karin-plugin-ling/commit/829cda0a5e8b8018f163bde84f4da82b028b2b1f))
+
 ## [1.3.9](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.8...v1.3.9) (2024-09-14)
 
 
