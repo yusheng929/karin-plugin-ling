@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.3.12](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.11...v1.3.12) (2024-09-24)
+
+
+### Bug Fixes
+
+* 新增文件移动 ([0917a3d](https://github.com/yusheng929/karin-plugin-ling/commit/0917a3d322d8d3c4a4d5121670fcf80b514ed570))
+
 ## [1.3.11](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.10...v1.3.11) (2024-09-24)
 
 
