@@ -361,6 +361,6 @@ if (!(fs.existsSync(txtPath))) return e.reply('你还未保存文件，请先执
 return await e.bot.UploadGroupFile(e.group_id, txtPath, `${e.msg.includes('群') ? '群列表.txt' : '好友列表.txt'}`)
 } else {
 if (!(fs.existsSync(txtPath))) return e.reply('你还未保存文件，请先执行\n#保存(群|好友)列表\n')
-return await e.bot.UploadPrivateFile(e.group_id, txtPath, `${e.msg.includes('群') ? '群列表.txt' : '好友列表.txt'}`)
+return await e.bot.UploadPrivateFile(e.user_id, txtPath, `${e.msg.includes('群') ? '群列表.txt' : '好友列表.txt'}`)
 }
 }, { name: '上传群好友列表', priority: '-1', permission: 'master' })
