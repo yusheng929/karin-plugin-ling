@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.3.11](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.10...v1.3.11) (2024-09-24)
+
+
+### Bug Fixes
+
+* 优化好友/群列表保存 ([01b5869](https://github.com/yusheng929/karin-plugin-ling/commit/01b58692f7c1b1a974583612276455b55629a0bc))
+* 新增文件上传 ([4acd10a](https://github.com/yusheng929/karin-plugin-ling/commit/4acd10af9a0b890b34085e19ad3312d83bed2968))
+
 ## [1.3.10](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.9...v1.3.10) (2024-09-24)
 
 
