@@ -22,7 +22,7 @@ let url
    logger.error(`文件下载错误：${error.message}`)
    await e.reply(`文件下载错误：${error.message}`, true)
    }
-}, { name: '文件下载', priority: '-1' })
+}, { name: '文件下载', priority: '-1', permission: 'master' })
 export const UploadDownload = karin.command(/^文件上传/, async (e) => {
 let Path = e.msg.replace(/文件上传/, '').trim()
 if (!Path) {
@@ -44,4 +44,4 @@ try {
    logger.error(`文件上传错误：${error.message}`)
    await e.reply(`文件上传错误：${error.message}`, true)
    }
-}, { name: '文件上传', priority: '-1' })
+}, { name: '文件上传', priority: '-1', permission: 'master' })

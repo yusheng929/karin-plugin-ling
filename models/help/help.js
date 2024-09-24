@@ -109,7 +109,7 @@ export const helpList = [
     ],
   },
   {
-    group: '设置相关',
+    group: '主人可用',
     auth: 'master',
     list: [
       {
@@ -146,6 +146,21 @@ export const helpList = [
         icon: 23,
         title: '#上/下班',
         desc: '处于下班群聊将不会处理任何消息',
+      },
+      {
+        icon: 25,
+        title: '文件上传/下载',
+        desc: '用于上传文件到q群或下载文件到本地',
+      },
+      {
+        icon: 26,
+        title: '#保存群/好友列表',
+        desc: '保存当前Bot的好友/群列表',
+      },
+      {
+        icon: 27,
+        title: '#上传群/好友名单',
+        desc: '上传保存的好友/群名单',
       },
     ],
   },
