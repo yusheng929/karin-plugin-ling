@@ -33,9 +33,9 @@
     .hljs-line::before {
       content: attr(data-line-number);
       display: inline-block;
-      width: 2em;
-      margin-left: -2.5em;
-      text-align: right;
+      width: 2.2em;
+      margin-left: -2.0em;
+      text-align: left;
       color: #999;
       border-right: 1px solid #ddd;
       padding-right: 0.5em;
@@ -46,7 +46,7 @@
     .hljs .hljs-line {
       display: block;
       padding-right: 0.5em;
-      padding-left: 0.5em;
+      padding-left: 1.5em;
       line-height: 0;
       margin: 0;
     }
@@ -1278,6 +1278,39 @@ code.hljs {
 <body>
   <article class="markdown-body">
     <h1>更新日志</h1>
+<h2><a href="https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.10...v1.3.11">1.3.11</a> (2024-09-24)</h2>
+<h3>Bug Fixes</h3>
+<ul>
+<li>优化好友/群列表保存 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/01b58692f7c1b1a974583612276455b55629a0bc">01b5869</a>)</li>
+<li>新增文件上传 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/4acd10af9a0b890b34085e19ad3312d83bed2968">4acd10a</a>)</li>
+</ul>
+<h2><a href="https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.9...v1.3.10">1.3.10</a> (2024-09-24)</h2>
+<h3>Bug Fixes</h3>
+<ul>
+<li>修复GroupOther.js加载错误 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/9b5b92186b662bad3b224565d95a512f39c21a80">9b5b921</a>)</li>
+<li>刨坑咕咕咕 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/492a7973ed92a67047638f63e21a5293628f5677">492a797</a>)</li>
+<li>新增#禁言未指定时间时，默认禁言10分钟 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/34cce6007f981f458c9d66b33ea63e4b3b322b0c">34cce60</a>)</li>
+<li>新增保存群名单 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/f426152c9f070bf57a6ae0b93f3b66208320bf9a">f426152</a>)</li>
+<li>新增批量发送好友消息 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/6e24a0129b3a25293a9f84dec7fd4a2977a38777">6e24a01</a>)</li>
+<li>新增文件上传 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/307e43ab5c77c2aabde5cdbb6d3d9cba7d532b91">307e43a</a>)</li>
+<li>新增生成二维码 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/2efe0155f965063bd80af256ef61b152681e46c5">2efe015</a>)</li>
+<li>新增续火 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/4da9a7f4484c477dcac8074f924d9e534ed673c7">4da9a7f</a>)</li>
+<li>新增获取好友列表 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/2f868faa70c6ff39a33ffa8ed76d1ad135dac149">2f868fa</a>)</li>
+<li>新增获取群列表 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/70387d27b9d7ca1595ec60937e627f83c4efaa7e">70387d2</a>)</li>
+<li>新增设置群精华 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/a34b085d06fb2714eb4648b040afe654ed7d4b2a">a34b085</a>)</li>
+<li>续火支持随机文案 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/829cda0a5e8b8018f163bde84f4da82b028b2b1f">829cda0</a>)</li>
+</ul>
+<h2><a href="https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.8...v1.3.9">1.3.9</a> (2024-09-14)</h2>
+<h3>Bug Fixes</h3>
+<ul>
+<li>优化代码 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/5b7f6c70227fb4dd3c5515371e233edede9c0f1b">5b7f6c7</a>)</li>
+<li>修复e.bot.getGroupAvatar is not a function的bug (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/6b2874ef9caa156cf5e5fa79f5422b3e078dfcfe">6b2874e</a>)</li>
+<li>修复当前群未配置违禁词时，不显示默认违禁词 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/2caef4cf869cc8564465caac8c5fc9bf2ce78d1c">2caef4c</a>)</li>
+<li>修复无法开启进群验证的bug (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/469180416ab5d1cc41cfaa1bc9bcb88331c718b3">4691804</a>)</li>
+<li>新增default违禁词设置 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/367146b920f6c22f1e0350132c618f436c1aee81">367146b</a>)</li>
+<li>新增违禁词开关设置 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/82b8cff1ed17f0f503b9980d01faf52e9332e78f">82b8cff</a>)</li>
+<li>新增违禁词拦截 (<a href="https://github.com/yusheng929/karin-plugin-ling/commit/49ddfcc1d4be8eeab5219a805ee10129f7dd5e4b">49ddfcc</a>)</li>
+</ul>
 <h2><a href="https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.7...v1.3.8">1.3.8</a> (2024-09-07)</h2>
 <h3>Bug Fixes</h3>
 <ul>

@@ -68,6 +68,8 @@ const EditTest = async (e) => {
     yaml.set(`${e.group_id}.rule`, 1)
     yaml.set(`${e.group_id}.words`, value)
     yaml.set(`${e.group_id}.enable`, true)
+    yaml.set(`${e.group_id}.ban`, true)
+    yaml.set(`${e.group_id}.time`, 600)
     yaml.save()
     return true
   } catch (error) {
