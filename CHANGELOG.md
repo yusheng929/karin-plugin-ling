@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.3.13](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.12...v1.3.13) (2024-09-27)
+
+
+### Bug Fixes
+
+* 先挖坑，新增违禁词更多配置 ([defa8f1](https://github.com/yusheng929/karin-plugin-ling/commit/defa8f1b1098d8400edce0bd534af3c140a04424))
+* 开始重构违禁词设置 ([1e75887](https://github.com/yusheng929/karin-plugin-ling/commit/1e758873eacd6e1804c4e05ffecf49a32359ce23))
+
 ## [1.3.12](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.11...v1.3.12) (2024-09-24)
 
 
