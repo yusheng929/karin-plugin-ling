@@ -1,5 +1,14 @@
 # 更新日志
 
+## [1.3.14](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.13...v1.3.14) (2024-10-01)
+
+
+### Bug Fixes
+
+* 修复#铃更新日志获取失败的问题 ([501095d](https://github.com/yusheng929/karin-plugin-ling/commit/501095d94b9f0a1a78e0439886859e142ee506a1))
+* 少女祈祷中 ([b25b60a](https://github.com/yusheng929/karin-plugin-ling/commit/b25b60ac38edc1086e524b83309143168e4dce1a))
+* 测试 ([1da6d81](https://github.com/yusheng929/karin-plugin-ling/commit/1da6d8132b854d88fc7a122b216e54de65cac062))
+
 ## [1.3.13](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.12...v1.3.13) (2024-09-27)
 
 
