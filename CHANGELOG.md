@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.3.15](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.14...v1.3.15) (2024-10-01)
+
+
+### Bug Fixes
+
+* 修复违禁词失效的问题 ([bc7abb3](https://github.com/yusheng929/karin-plugin-ling/commit/bc7abb38a8217f8841e623fc19eea0ca5951bc4a))
+
 ## [1.3.14](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.13...v1.3.14) (2024-10-01)
 
 
