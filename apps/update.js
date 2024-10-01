@@ -1,5 +1,5 @@
-import { Update, plugin, common } from 'node-karin'
-import { Restart, makeForwardMsg } from '#lib'
+import { Update, plugin, common, exec } from 'node-karin'
+import { Restart } from '#lib'
 import { Version } from '#components'
 import _ from 'lodash'
 
@@ -61,15 +61,18 @@ export class MusicUpdate extends plugin {
 
   async update_log (e = this.e) {
     try {
-      const data = (await Update.getCommit({ path: Version.pluginPath, count: 10 })).replace(/\n\s*\n/g, '\n')
-      const commitlist = data
+    let cmd = `git --no-pager log -20 --format="[%ad]%s %n" --date="format:%m-%d %H:%M"`
+      const commits = await exec(cmd, false, { cwd: Version.pluginPath })
+      let commit = commits.stdout.trim()
+      const data = commit.replace(/\n\s*\n/g, '\n')
+      const commitlist = commit
         .split('\n')
         .filter(Boolean)
         .map((item) => item.trimEnd())
-      e.reply(await makeForwardMsg(e, commitlist))
+      this.replyForward(common.makeForward(commitlist))
       return true
-    } catch {
-      await e.reply(`\n获取更新日志失败：\n${e.msg}`, { at: true })
+    } catch(error) {
+      await e.reply(`\n获取更新日志失败：\n${error.message}`, { at: true })
       return true
     }
   }
