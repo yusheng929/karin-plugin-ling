@@ -3,6 +3,7 @@ import { Edit, Config } from '#components'
 
 
 export const ProhibitedWords = karin.command(/^#查看(所有)?违禁词/, async (e) => {
+let data = Config.GroupYaml
    if (e.msg.includes('所有')) {
 if (!e.isMaster) return e.reply('暂无权限，只有主人才能操作')
 let msgs = []
@@ -46,5 +47,4 @@ msgs.push([segment.text(`违禁词: \n${rule}`)])
 if (datas == 'default') msgs.unshift(segment.text(`当前群为配置违禁词，将使用默认违禁词`))
 const msg = await common.makeForward(msgs, e.self_id, e.bot.account.name)
 return await e.bot.sendForwardMessage(e.contact, msg)
-}
 }, { name: '查看违禁词', priority: '-1' })
