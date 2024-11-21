@@ -2,7 +2,7 @@ name: Release and Publish # 发布和发布的工作流程名称
 on:
   push:
     branches:
-      - dev # 仅当推送到 main 分支时触发
+      - dev # 仅当推送到 dev 分支时触发
 permissions:
   contents: write # 设置内容的权限为写
   pull-requests: write # 设置拉取请求的权限为写
