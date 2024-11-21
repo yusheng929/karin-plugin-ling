@@ -20,7 +20,7 @@ class Config {
 
   /** 初始化配置 */
   initCfg () {
-    const path = `${Version.pluginPath}/config/config/`
+    const path = `config/plugin/karin-plugin-ling/`
     if (!fs.existsSync(path)) fs.mkdirSync(path)
     const pathDef = `${Version.pluginPath}/config/default_config/`
     const files = fs.readdirSync(pathDef).filter(file => file.endsWith('.yaml'))
