@@ -1,14 +1,6 @@
 declare const _default: {
-    EditAddend: (e: {
-        reply: (arg0: string, arg1: {
-            at: boolean;
-        } | undefined) => any;
-    }, Msg1: any, Msg2: any, term: string, value: any, path: any) => Promise<boolean>;
-    EditRemove: (e: {
-        reply: (arg0: string, arg1: {
-            at: boolean;
-        } | undefined) => any;
-    }, Msg1: any, Msg2: any, term: string, value: any, path: any) => Promise<boolean>;
+    EditAddend: (e: any, Msg1: any, Msg2: any, term: string, value: any, path: any) => Promise<boolean>;
+    EditRemove: (e: any, Msg1: any, Msg2: any, term: string, value: any, path: any) => Promise<boolean>;
     EditTest: (e: {
         group_id: any;
     }) => Promise<boolean>;
