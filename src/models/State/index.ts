@@ -82,7 +82,7 @@ export async function getData (e: any) {
   )
 
   // 配置
-  const { closedChart } = Config.state
+  const { closedChart } = Config.getYaml('config', 'state')
 
   return {
     BotStatusList,
@@ -93,7 +93,7 @@ export async function getData (e: any) {
     fsStats: getDiskSpeed(),
     copyright: await getCopyright(),
     network: getNetwork(),
-    Config: JSON.stringify(Config.state),
+    Config: JSON.stringify(Config.getYaml('config', 'state')),
     FastFetch,
     HardDisk,
     style,

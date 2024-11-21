@@ -28,7 +28,7 @@ export default async function getFastFetch(e: any): Promise<string> {
 }
 
 function isFeatureVisible(isPro: any): boolean {
-  const { showFastFetch } = Config.state;
+  const { showFastFetch } = Config.getYaml('config', 'state')
   if (showFastFetch === true) return true;
   if (showFastFetch === 'pro' && isPro) return true;
   if (showFastFetch === 'default') {

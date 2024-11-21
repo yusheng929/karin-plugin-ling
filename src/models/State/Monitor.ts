@@ -68,9 +68,9 @@ export default new class monitor {
     if (!await initDependence()) return
     await this.getRedisChartData()
     // 给有问题的用户关闭定时器
-    if (!Config.state.statusTask) return
+    if (!(Config.getYaml('config', 'state')).statusTask) return
 
-    if (Config.state.statusPowerShellStart) si.powerShellStart()
+    if ((Config.getYaml('config', 'state')).statusPowerShellStart) si.powerShellStart()
     // 初始化数据
     this.getData()
     // 网速

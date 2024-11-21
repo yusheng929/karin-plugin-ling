@@ -4,7 +4,7 @@ import { Circle, getFileSize } from './utils.js'
 
 /** 获取nodejs内存情况 */
 export default async function getNodeInfo () {
-  if (Config.state.closedNodeInfo) return false
+  if ((Config.getYaml('config', 'state')).closedNodeInfo) return false
   const memory = process.memoryUsage()
   // 总共
   const rss = getFileSize(memory.rss)

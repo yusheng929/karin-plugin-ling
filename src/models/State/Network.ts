@@ -15,7 +15,7 @@ const defList = [
  * @returns {Promise<Array>} 返回一个Promise，该Promise解析为网络测试结果的数组。
  */
 export function getNetworkTestList (e: any) {
-  const { psTestSites, psTestTimeout } = Config.state
+  const { psTestSites, psTestTimeout } = Config.getYaml('config', 'state')
   if (!psTestSites) {
     return Promise.resolve([])
   }

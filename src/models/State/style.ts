@@ -10,7 +10,7 @@ export default async function getStyle () {
   }
 }
 export async function getBackground () {
-  const { backdrop, backdropDefault } = Config.state
+  const { backdrop, backdropDefault } = Config.getYaml('config', 'state')
   const { controller, clearTimeout } = await createAbortCont(5000)
   try {
     if (!backdrop) throw Error('配置项backdrop为假')
