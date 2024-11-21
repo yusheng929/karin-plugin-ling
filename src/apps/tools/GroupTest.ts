@@ -1,8 +1,8 @@
-import { karin, KarinMessage } from 'node-karin'
+import { karin } from 'node-karin'
 import { Config } from '@/components'
 
 const GroupTest = async (e: any, group_id: any, user_id: any) => {
-let data = Config.Other.Test
+let data = (Config.getYaml('config', 'other')).Test
   if (!data.includes(group_id)) return false
   let num = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
   await e.reply(`\n为确保你不是机器人\n请在3分钟内输入下方验证码\n『${num}』`, { at: true })

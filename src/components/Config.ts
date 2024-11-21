@@ -1,158 +1,171 @@
-import _ from 'lodash'
-import YAML from 'yaml'
-import fs from 'node:fs'
-import { logger } from 'node-karin'
-import chokidar from 'chokidar'
-import Version from './Version.js'
-import YamlReader from './YamlReader.js'
+import fs from 'fs'
+import Yaml from 'yaml'
+import chokidar from 'node-karin/chokidar'
+import Version from './Version'
+import { logger, YamlEditor } from 'node-karin'
 
-interface Config {
-  [key: string]: any; // 表示可以使用字符串索引，值可以是任何类型
-}
 class Config {
+  /** 配置文件跟路径 */
+  dir: string
+  /** 默认配置文件根路径 */
+  defdir: string
+  /** 缓存 不经常用的不建议缓存 */
+  change: Map<string, any>
+  /** 监听文件 */
+  watcher: Map<string, any>
   constructor () {
-    this.config = {}
-    /** 监听文件 */
-    this.watcher = { config: {}, defSet: {} }
-
+    this.dir = `./config/plugin/${Version.pluginName}`
+    this.defdir = `${Version.pluginPath}/config`
+    this.change = new Map()
+    this.watcher = new Map()
     this.initCfg()
   }
 
   /** 初始化配置 */
-  initCfg () {
-    const path = `config/plugin/karin-plugin-ling/`
-    if (!fs.existsSync(path)) fs.mkdirSync(path)
-    const pathDef = `${Version.pluginPath}/config/default_config/`
-    const files = fs.readdirSync(pathDef).filter(file => file.endsWith('.yaml'))
+  async initCfg () {
+    /** 读取默认配置的所有yaml */
+    const files = fs.readdirSync(this.defdir).filter(file => file.endsWith('.yaml'))
     for (const file of files) {
-      if (!fs.existsSync(`${path}${file}`)) {
-        fs.copyFileSync(`${pathDef}${file}`, `${path}${file}`)
-      } else {
-        const config = YAML.parse(fs.readFileSync(`${path}${file}`, 'utf8'))
-        const defConfig = YAML.parse(fs.readFileSync(`${pathDef}${file}`, 'utf8'))
-        const { differences, result } = this.mergeObjectsWithPriority(config, defConfig)
-        if (differences) {
-          fs.copyFileSync(`${pathDef}${file}`, `${path}${file}`)
-          for (const key in result) {
-            this.modify(file.replace('.yaml', ''), key, result[key])
-          }
-        }
-      }
-      this.watch(`${path}${file}`, file.replace('.yaml', ''), 'config')
+      const dirPath = `${this.dir}/${file}`
+      const defPath = `${this.defdir}/${file}`
+      if (!fs.existsSync(dirPath)) fs.copyFileSync(defPath, dirPath)
     }
+
+    this.updateYaml(`${this.dir}/COF.yaml`, [
+      { key: 'cron', val: '0 0 * * *', comment: 'corn表达式', type: true },
+      { key: 'msg', val: '["续火"]', comment: '回复消息', type: true },
+      { key: 'List', val: '[]', comment: '续火对象列表', type: true },
+    ],
+  )
   }
 
-  /** 其他 */
-  get Other () {
-    return this.getDefOrConfig('other')
+  /**
+ * 更新yaml文件
+ * @param filePath - 文件路径
+ * @param settings - 设置项
+ */
+  updateYaml (filePath: string, settings: {
+    /** 键路径 */
+    key: string,
+    /** 要写入的 */
+    val: any,
+    /** 需要写入的注释 */
+    comment: string,
+    /** 是否添加到顶部 否则添加到同一行 */
+    type: boolean
+  }[]) {
+    let yaml = new YamlEditor(filePath)
+
+    /** 先添加内容 */
+    settings.forEach(({ key, val }) => {
+      try {
+        if (!yaml.has(key)) yaml.set(key, val)
+      } catch (error: any) {
+        logger.error(`[common] 更新yaml文件时出错：${error.stack || error.message || error}`)
+      }
+    })
+    /** 先保存 */
+    yaml.save()
+
+    /** 重新解析 再次写入注释 直接写入注释会报错 写入的不是node节点模式 */
+    yaml = new YamlEditor(filePath)
+    settings.forEach(({ key, comment, type }) => {
+      try {
+        yaml.comment(key, comment, type)
+      } catch (error: any) {
+        logger.error(`[common] 更新yaml文件时出错：${error.stack || error.message || error}`)
+      }
+    })
+    yaml.save()
   }
 
-  get Cof () {
-    return this.getDefOrConfig('COF')
+  /**
+   * 基本配置
+   */
+  get Config (): {
+    /** 实例配置1 */
+    keya: string
+    /** 实例配置2 */
+    Keyb: {
+      a: string
+    }
+  } {
+    const key = 'change.config'
+    const res = this.change.get(key)
+    /** 取缓存 */
+    if (res) return res
+
+    /** 取配置 */
+    const config = this.getYaml('config', 'config', true)
+    const defSet = this.getYaml('defSet', 'config', false)
+    const data = { ...defSet, ...config }
+    /** 缓存 */
+    this.change.set(key, data)
+    return data
   }
 
-  get state () {
-    return this.getDefOrConfig('state')
-  }
-
-  get GroupYaml () {
-    return this.getDefOrConfig('group')
-  }
-
-  /** 默认配置和用户配置 */
-  getDefOrConfig (name: string) {
-    const def = this.getdefSet(name)
-    const config = this.getConfig(name)
-    return { ...def, ...config }
-  }
-
-  get package () {
-    if (this._package) return this._package
-    this._package = JSON.parse(fs.readFileSync(`${Version.pluginPath}/package.json`, 'utf8'))
-    return this._package
-  }
-
-  /** 默认配置 */
-  getdefSet (name: any) {
-    return this.getYaml('default_config', name)
-  }
-
-  /** 用户配置 */
-  getConfig (name: any) {
-    return this.getYaml('config', name)
+  /**
+   * packageon
+   * 这里建议采用实时读取 不建议缓存
+   */
+  get package (): any {
+    const data = fs.readFileSync(this.defdir + '/package.json', 'utf8')
+    const pkg = JSON.parse(data)
+    return pkg
   }
 
   /**
    * 获取配置yaml
-   * @param type 默认跑配置-defSet，用户配置-config
-   * @param name 名称
    */
-  getYaml (type: string | undefined, name: any) {
-    const file = `${Version.pluginPath}/config/${type}/${name}.yaml`
-    const key = `${type}.${name}`
-
-    if (this.config[key]) return this.config[key]
-
-    this.config[key] = YAML.parse(
-      fs.readFileSync(file, 'utf8')
-    )
-
-    this.watch(file, name, type)
-
-    return this.config[key]
-  }
-
-  /** 监听配置文件 */
-  watch (file: string | readonly string[], name: string, type = 'default_config') {
-    const key = `${type}.${name}`
-    if (this.watcher[key]) return
-
-    const watcher = chokidar.watch(file)
-    watcher.on('change', async path => {
-      delete this.config[key]
-      logger.mark(`[${Version.pluginName}][修改配置文件][${type}][${name}]`)
-    })
-
-    this.watcher[key] = watcher
+  getYaml (type: 'defSet' | 'config', name: string, isWatch = false) {
+    /** 文件路径 */
+    const file = type === 'defSet' ? `${this.defdir}/${name}.yaml` : `${this.dir}/${name}.yaml`
+    /** 读取文件 */
+    const data = Yaml.parse(fs.readFileSync(file, 'utf8'))
+    /** 监听文件 */
+    if (isWatch) this.watch(type, name, file)
+    return data
   }
 
   /**
-   * 修改设置
-   * @param {String} name 文件名
-   * @param {String} key 修改的key值
-   * @param {String|Number} value 修改的value值
-   * @param {'config'|'default_config'} type 配置文件或默认
+   * 监听配置文件
+   * @param {'defSet'|'config'} type 类型
+   * @param {string} name 文件名称 不带后缀
+   * @param {string} file 文件路径
    */
-  modify (name: string, key: string, value: any, type = 'config') {
-    const path = `${Version.pluginPath}/config/${type}/${name}.yaml`
-    new YamlReader(path).set(key, value)
-    delete this.config[`${type}.${name}`]
-  }
+  async watch (type: 'defSet' | 'config', name: string, file: string) {
+    const key = `change.${name}`
+    /** 已经监听过了 */
+    const res = this.change.get(key)
+    if (res) return true
+    /** 监听文件 */
+    const watcher = chokidar.watch(file)
+    /** 监听文件变化 */
+    watcher.on('change', () => {
+      this.change.delete(key)
+      logger.mark(`[修改配置文件][${type}][${name}]`)
 
-  mergeObjectsWithPriority (objA: any, objB: any) {
-    let differences = false
+      /** 文件修改后调用对应的方法 请自行使用 */
 
-    function customizer (objValue: undefined, srcValue: any, key: any, object: any, source: any, stack: any) {
-      if (_.isArray(objValue) && _.isArray(srcValue)) {
-        return objValue
-      } else if (_.isPlainObject(objValue) && _.isPlainObject(srcValue)) {
-        if (!_.isEqual(objValue, srcValue)) {
-          return _.mergeWith({}, objValue, srcValue, customizer)
-        }
-      } else if (!_.isEqual(objValue, srcValue)) {
-        differences = true
-        return objValue !== undefined ? objValue : srcValue
-      }
-      return objValue !== undefined ? objValue : srcValue
-    }
+      // switch (`change_${name}`) {
+      //   case 'change_App':
+      //     this.change_App()
+      //     break
+      //   case 'change_config':
+      //     this.change_config()
+      //     break
+      //   case 'change_group':
+      //     this.change_group()
+      //     break
+      // }
+    })
 
-    const result = _.mergeWith({}, objA, objB, customizer)
-
-    return {
-      differences,
-      result,
-    }
+    /** 缓存 防止重复监听 */
+    this.watcher.set(key, watcher)
   }
 }
 
+/**
+ * 配置文件
+ */
 export default new Config()

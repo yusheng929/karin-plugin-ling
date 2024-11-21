@@ -7,7 +7,7 @@ const ProhibitedWords = async (e: { isGroup: any; group_id: any; msg: string | a
     return false
   }
   let type = e.group_id
-  let data = Config.GroupYaml
+  let data = Config.getYaml('config', 'group')
   type = data[`${type}`] ? type : 'default'
   let rules = (data[`${type}`] && data[`${type}`]['enable']) || ''
   if (!rules) return false

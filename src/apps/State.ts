@@ -6,7 +6,7 @@ import { getData, getMonitorData } from '../models/State/index.js'
 let interval = false
 
 export const State = karin.command(/^#(铃)?(状态|status)(pro)?(debug)?$/i, async (e) => {
-  if (!/铃/.test(e.msg) && !Config.state.default) return false
+  if (!/铃/.test(e.msg) && !(Config.getYaml('config','state')).default) return false
 
   if (!si) {
     e.reply('没有检测到systeminformation依赖，请运行："pnpm add systeminformation -w"进行安装')

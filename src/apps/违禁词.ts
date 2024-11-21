@@ -3,7 +3,7 @@ import { Edit, Config } from '@/components'
 
 
 export const ProhibitedWords = karin.command(/^#查看(所有)?违禁词/, async (e) => {
-let data = Config.GroupYaml
+let data = Config.getYaml('config', 'group')
    if (e.msg.includes('所有')) {
 if (!e.isMaster) {
   e.reply('暂无权限，只有主人才能操作')

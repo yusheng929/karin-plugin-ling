@@ -3,7 +3,7 @@ import { Config, Edit } from '@/components'
 
 export const deal_invited_group = karin.accept('request.invited_group',
   async (e) => {
-    const opts = Config.Other.DealRequest.InvitedJoinGroup
+    const opts = (Config.getYaml('config', 'other')).DealRequest.InvitedJoinGroup
     if (opts.accept) {
       await e.bot.SetInvitedJoinGroupResult(e.raw_event.flag, true)
     }
@@ -32,7 +32,7 @@ export const deal_invited_group = karin.accept('request.invited_group',
 
 export const deal_private_apply = karin.accept('request.private_apply',
   async (e) => {
-    const opts = Config.Other.DealRequest.Friend
+    const opts = (Config.getYaml('config', 'other')).DealRequest.Friend
     if (opts.accept) {
       await e.bot.SetFriendApplyResult(e.raw_event.flag, true)
     }
@@ -61,7 +61,7 @@ export const deal_private_apply = karin.accept('request.private_apply',
 export const deal_group_apply = karin.accept('request.group_apply',
   async (e: any) => {
   console.log(`${e.request_id}`)
-    const opts = Array.isArray(Config.Other.DealRequest.Group) ? Config.Other.DealRequest.Group.find((group: { [x: string]: any }) => group[e.group_id])[e.group_id] : Config.Other.DealRequest.Group
+    const opts = Array.isArray((Config.getYaml('config', 'other')).DealRequest.Group) ? (Config.getYaml('config', 'other')).DealRequest.Group.find((group: { [x: string]: any }) => group[e.group_id])[e.group_id] : (Config.getYaml('config', 'other')).DealRequest.Group
     if (!opts) return false
     if (opts.accept) {
       await e.bot.SetGroupApplyResult(e.raw_event.flag, true)
