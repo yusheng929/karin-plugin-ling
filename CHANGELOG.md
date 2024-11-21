@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.4.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.4.1...v1.4.2) (2024-11-21)
+
+
+### Bug Fixes
+
+* npm ([34677ab](https://github.com/yusheng929/karin-plugin-ling/commit/34677ab1d18b1891433e58845bafd83d20c5b530))
+
 ## [1.4.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.4.0...v1.4.1) (2024-11-21)
 
 
