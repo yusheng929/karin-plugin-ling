@@ -1,8 +1,9 @@
-import { Version, Config } from './components/index.js';
-import { logger } from 'node-karin';
-logger.info('-----------------');
-logger.info(`${Version.pluginName}${Config.package.version}初始化~`);
-logger.info('\x1b[34m少女祈祷中...\x1b[0m');
+import { Version, Config } from '@/components'
+import { logger } from 'node-karin'
+
+logger.info('-----------------')
+logger.info(`${Version.pluginName}${Config.package.version}初始化~`)
+logger.info('\x1b[34m少女祈祷中...\x1b[0m')
 logger.info(`\x1b[34m
                  .::::..
       ::::rrr7QQJi::i:iirijQBBBQB.
@@ -26,5 +27,5 @@ logger.info(`\x1b[34m
    QB  .:5.71Si..........  .sr7ivi:U
    7BJ .7: i2. ........:..  sJ7Lvr7s
     jBBdD. :. ........:r... YB  Bi
-       :7j1.                 :  :\x1b[0m`);
-logger.info('-------^_^-------');
+       :7j1.                 :  :\x1b[0m`)
+logger.info('-------^_^-------')
