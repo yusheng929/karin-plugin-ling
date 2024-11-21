@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.4.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.4.2...v1.4.3) (2024-11-21)
+
+
+### Bug Fixes
+
+* 修改配置文件路径 ([ada0015](https://github.com/yusheng929/karin-plugin-ling/commit/ada0015b8a22ca286ff60375baea91b059cbfa1f))
+
 ## [1.4.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.4.1...v1.4.2) (2024-11-21)
 
 
