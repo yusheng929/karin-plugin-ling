@@ -19,7 +19,7 @@ jobs:
           release-type: node
           # 设置包名
           package-name: karin-plugin-ling
-          # 设置发起PR的默认分支
+          # 设置发起PR的默认分支.
           default-branch: dev
       # 检出代码
       - uses: actions/checkout@v4
