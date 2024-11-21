@@ -1,5 +1,17 @@
 # 更新日志
 
+## [1.4.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.14...v1.4.0) (2024-11-21)
+
+
+### Features
+
+* 重构插件 ([dd537c1](https://github.com/yusheng929/karin-plugin-ling/commit/dd537c16e3ccae24c423fb2d428e7e430c9f5027))
+
+
+### Bug Fixes
+
+* 修复违禁词失效的问题 ([bc7abb3](https://github.com/yusheng929/karin-plugin-ling/commit/bc7abb38a8217f8841e623fc19eea0ca5951bc4a))
+
 ## [1.3.14](https://github.com/yusheng929/karin-plugin-ling/compare/v1.3.13...v1.3.14) (2024-10-01)
 
 
