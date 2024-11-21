@@ -14,17 +14,9 @@ lerna-debug.log*
 # 编辑器配置
 .idea/
 .vscode/
-
-# 临时文件
-/logs/
-/temp/
-
-# 配置
-/lib
-
 # 依赖
 node_modules/
+src/
 config/config/
-
 resources/List/Group_List.txt
 resources/List/Friend_List.txt
