@@ -12,12 +12,9 @@
       "@/*": [
         "src/*"
       ],
-      "@tools": [
-        "src/apps/tools/*"
-      ],
-      "@#components": [
-        "src/components/*"
-      ],
+      "Ling": [
+        "src/Ling.ts"
+      ]
     },
     "types": [
       "@types/node"
