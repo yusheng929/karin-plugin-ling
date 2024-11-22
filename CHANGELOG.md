@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.5.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.5.0...v1.5.1) (2024-11-22)
+
+
+### Bug Fixes
+
+* 修复上下班配置文件报错 ([272317f](https://github.com/yusheng929/karin-plugin-ling/commit/272317f1ae8ceec0e83b9d0201cf85e93023b388))
+* 新增指令快捷操作 ([8dbe53e](https://github.com/yusheng929/karin-plugin-ling/commit/8dbe53e25ca611cb69782eb1fe2ad7faf4a4fe54))
+
 ## [1.5.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.4.0...v1.5.0) (2024-11-21)
 
 
