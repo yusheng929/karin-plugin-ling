@@ -34,7 +34,7 @@ pnpm install --filter=karin-plugin-ling
 
 ## npm安装插件（跟克隆仓库二选一）
 ``` bash
-npm install karin-plugin-ling
+pnpm install karin-plugin-ling
 ```
 # 当前功能
 ![HELP](resources/help.png)
