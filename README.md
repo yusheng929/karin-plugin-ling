@@ -13,6 +13,7 @@
 
 # 安装教程
 在Karin根目录执行即可
+## 克隆仓库（跟npm安装插件二选一）
 ## GitHub安装(国外推荐)
 ``` bash
 git clone --depth=1 https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
@@ -31,12 +32,21 @@ git clone --depth=1 https://gitee.com/yusheng929/karin-plugin-ling ./plugins/kar
 pnpm install --filter=karin-plugin-ling
 ```
 
+## npm安装插件（跟克隆仓库二选一）
+``` bash
+npm install karin-plugin-ling
+```
 # 当前功能
 ![HELP](resources/help.png)
 
 ## 配置文件
+### 克隆插件
 ``` js
 Karin/plugins/karin-plugin-ling/config
+```
+### npm插件
+``` js
+Karin/config/plugin/karin-plugin-ling
 ```
 
 ## 未来计划
