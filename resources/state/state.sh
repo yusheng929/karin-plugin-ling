@@ -3,12 +3,12 @@
 echo -n "<div class='box' data-boxInfo='fastFetch'>"
 if type fastfetch &>/dev/null; then
   if [ "$(uname)" = Linux ]; then
-    fastfetch --pipe
+    fastfetch --pipe -l none
   else
     fastfetch --stdout
   fi
 else
-  bash <(curl -L https://gitee.com/TimeRainStarSky/neofetch/raw/master/neofetch) --stdout
+  bash <(curl -L https://gitea.fuxuan.org/lyln/neofetch/raw/branch/master/neofetch) --stdout
 fi | \
 sed -n 's|: |</p><p>|p' | \
 while read i; do
