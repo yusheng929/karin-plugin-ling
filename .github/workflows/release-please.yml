@@ -24,8 +24,6 @@ jobs:
           package-name: karin-plugin-ling
           # 设置发布PR分支
           default-branch: dev
-          prerelease: true
-          draft: true
       # 检出代码
       - uses: actions/checkout@v4
         if: ${{ steps.release.outputs.release_created }}
