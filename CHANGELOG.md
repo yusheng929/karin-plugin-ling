@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.0...v1.7.1) (2024-11-23)
+
+
+### Bug Fixes
+
+* 修复无法获取系统信息 ([6c8723f](https://github.com/yusheng929/karin-plugin-ling/commit/6c8723fd54b8eb31a3ba419eabf9f4588feecaf9))
+
 ## [1.7.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.6.0...v1.7.0) (2024-11-23)
 
 
