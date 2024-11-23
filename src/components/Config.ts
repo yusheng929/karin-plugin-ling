@@ -22,7 +22,7 @@ class Config {
   initCfg () {
     const path = `./config/plugin/${Version.pluginName}/`
     if (!fs.existsSync(path)) fs.mkdirSync(path)
-    const pathDef = `${Version.pluginPath}/config/default_config/`
+    const pathDef = `${Version.pluginPath}/config/`
     const files = fs.readdirSync(pathDef).filter(file => file.endsWith('.yaml'))
     for (const file of files) {
       if (!fs.existsSync(`${path}${file}`)) {
@@ -90,7 +90,7 @@ class Config {
   getYaml (type: string | undefined, name: any) {
     let file = ''
     if (type === 'default_config') {
-      file = `${Version.pluginPath}/config/${type}/${name}.yaml`
+      file = `${Version.pluginPath}/config/${name}.yaml`
     } else if (type === 'config') {
       file = `./config/plugin/${Version.pluginName}/${name}.yaml`
     }
@@ -133,7 +133,7 @@ class Config {
     if (type === 'config') {
       path = `./config/plugin/${Version.pluginName}/${name}.yaml`
     } else if (type === 'default_config') {
-      path = `${Version.pluginPath}/config/${type}/${name}.yaml`
+      path = `${Version.pluginPath}/config/${name}.yaml`
     }
     new YamlReader(path).set(key, value)
     delete this.config[`${type}.${name}`]
