@@ -3,7 +3,7 @@ import { YamlEditor } from 'node-karin'
 
 class Config {
   getFilePath (name: any, type: any) {
-    const config_path = `config/${type}/`
+    const config_path = `./config/${type}/`
     const file = `${config_path}${name}.yaml`
     try {
       if (!fs.existsSync(file)) {

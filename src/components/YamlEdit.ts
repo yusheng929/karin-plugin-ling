@@ -1,7 +1,7 @@
 import { YamlEditor, logger } from 'node-karin'
 import Version from './Version.js'
 
-const CfgPath = `${Version.pluginPath}/config/config`
+const CfgPath = `./config/plugin/${Version.pluginName}`
 const EditAddend = async (e: any, Msg1: any, Msg2: any, term: string, value: any, path: any) => {
   try {
     const yaml = new YamlEditor(`${CfgPath}/${path}.yaml`)
