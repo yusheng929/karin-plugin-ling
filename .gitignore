@@ -16,6 +16,6 @@ lerna-debug.log*
 .vscode/
 # 依赖
 node_modules/
-lib/
+/lib/
 resources/List/Group_List.txt
 resources/List/Friend_List.txt

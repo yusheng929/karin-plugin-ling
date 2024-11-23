@@ -1,0 +1,246 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" href="{{pluResPath}}state/css/index.css">
+<script src="{{pluResPath}}state/js/modules/echarts.min.js"></script>
+<style>
+    .container {
+        background-image:url({{backdrop}})
+    }
+    .head-box {
+        margin-top: 0;
+    }
+</style>
+{{/block}}
+{{block 'main'}}
+<div class="info-box">
+    <div class="head-box">
+        <div class="title">监控</div>
+        <div class="label">CPU & RAM & Network & FsStats</div>
+    </div>
+</div>
+<script>
+    var chartData = JSON.parse('{{@chartData}}')
+    var chartCfg = JSON.parse('{{@chartCfg}}')
+    echarts.registerTheme('westeros', chartCfg.echarts_theme)
+    var formatByte = (num = 1) => {
+        return (value) => {
+            value = value?.value ?? value
+            let units = ['B', 'KB', 'MB', 'GB', 'TB'] // 定义单位数组
+            let unitIndex = 0
+            while (value >= 1024 && unitIndex < units.length - 1) {
+                value /= 1024
+                unitIndex++
+            }
+            return value.toFixed(num) + units[unitIndex] // 返回带有动态单位标签的字符串
+        }
+    }
+    var publicOption = {
+        animation: false,
+        textStyle: {
+            fontFamily: 'FZB, Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif'
+        },
+        legend: {},
+        grid: {
+            left: '1%',
+            right: '1%',
+            bottom: '0',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'time'
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                axisLabel: {
+                    formatter: formatByte()
+                }
+            }
+        ],
+    }
+</script>
+
+<div class="box">
+    <div id="cpu" style="height: 300px;"></div>
+    <script>
+        let cpuElement = document.getElementById("cpu");
+        if (chartData.ram.length == 0) {
+            cpuElement.parentNode.parentNode.removeChild(cpuElement.parentNode);
+        }
+        const cpuChart = echarts.init(cpuElement, 'westeros', {
+            renderer: 'svg'
+        })
+        cpuChart.setOption(publicOption)
+        cpuChart.setOption({
+            title: {
+                text: 'CPU'
+            },
+            legend: {
+                show: false
+            },
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: (value) => value.toFixed(1) + '%'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: 'CPU',
+                    type: 'line',
+                    areaStyle: {},
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: 'Max', label: { formatter: (value) => value.value.toFixed(1) + '%' } }
+                        ]
+                    },
+                    data: chartData.cpu
+                }
+            ]
+        })
+    </script>
+</div>
+<div class="box">
+    <div id="ram" style="height: 300px;"></div>
+    <script>
+        let ramElement = document.getElementById("ram");
+        if (chartData.ram.length == 0) {
+            ramElement.parentNode.parentNode.removeChild(ramElement.parentNode);
+        }
+        const ramChart = echarts.init(ramElement, 'westeros', {
+            renderer: 'svg'
+        })
+        ramChart.setOption(publicOption)
+        ramChart.setOption({
+            title: {
+                text: 'RAM'
+            },
+            legend: {
+                show: false
+            },
+            series: [
+                {
+                    name: 'RAM',
+                    type: 'line',
+                    areaStyle: {},
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: 'Max', label: { formatter: formatByte() } }
+                        ]
+                    },
+                    stack: 'total',
+                    data: chartData.ram
+                }
+            ]
+        })
+    </script>
+</div>
+<div class="box">
+    <div id="network" style="height: 300px;"></div>
+    <script>
+        let { upload, download } = chartData.network
+        let networkElement = document.getElementById("network");
+        if (upload.length == 0 && download.length == 0) {
+            networkElement.parentNode.parentNode.removeChild(networkElement.parentNode);
+        }
+        const networkChart = echarts.init(networkElement, 'westeros', {
+            renderer: 'svg'
+        })
+        networkChart.setOption(publicOption)
+        networkChart.setOption({
+            title: {
+                text: 'Network'
+            },
+            series: [
+                {
+                    name: '上行',
+                    type: 'line',
+                    // areaStyle: {},
+                    showSymbol: false,
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: 'Max', label: { formatter: formatByte() } }
+                        ]
+                    },
+                    data: upload
+                },
+                {
+                    name: '下行',
+                    type: 'line',
+                    // areaStyle: {},
+                    showSymbol: false,
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: 'Max', label: { formatter: formatByte() } }
+                        ]
+                    },
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: download
+                },
+            ]
+        })
+    </script>
+</div>
+<div class="box">
+    <div id="fsStats" style="height: 300px;"></div>
+    <script>
+        let { readSpeed, writeSpeed } = chartData.fsStats
+        let fsStatsElement = document.getElementById("fsStats");
+        if (readSpeed.length == 0 && writeSpeed.length == 0) {
+            fsStatsElement.parentNode.parentNode.removeChild(fsStatsElement.parentNode);
+        }
+        const fsStatsChart = echarts.init(fsStatsElement, 'westeros', {
+            renderer: 'svg'
+        })
+        fsStatsChart.setOption(publicOption)
+        fsStatsChart.setOption({
+            title: {
+                text: 'FsStats'
+            },
+            series: [
+                {
+                    name: '读',
+                    type: 'line',
+                    // areaStyle: {},
+                    showSymbol: false,
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: 'Max', label: { formatter: formatByte() } }
+                        ]
+                    },
+                    data: readSpeed
+                },
+                {
+                    name: '写',
+                    type: 'line',
+                    // areaStyle: {},
+                    showSymbol: false,
+                    markPoint: {
+                        data: [
+                            {
+                                type: 'max',
+                                name: 'Max',
+                                label: {
+                                    formatter: formatByte()
+                                }
+                            }
+                        ]
+                    },
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: writeSpeed
+                },
+            ]
+        })
+    </script>
+</div>
+
+{{/block}}

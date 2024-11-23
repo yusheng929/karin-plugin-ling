@@ -1,0 +1,165 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" href="{{pluResPath}}state/css/index.css" />
+<style>
+    .container {
+        background-image:url({{style.backdrop}})
+    }
+</style>
+{{/block}}
+
+{{block 'main'}}
+<script>
+    var chartData = JSON.parse('{{@chartData}}')
+    var chartCfg = JSON.parse('{{@chartCfg}}')
+    var Config = JSON.parse('{{@Config}}')
+    var pluResPath = '{{pluResPath}}'
+</script>
+{{each BotStatusList}}
+<div class="box">
+    <div class="botInfo">
+        <div class="avatar-box">
+            <div class="avatar" style="
+                --avatar-similar-color1: {{$value.avatar?.similarColor1}};
+                --avatar-similar-color2: {{$value.avatar?.similarColor2}};
+                ">
+                <img src="{{$value.avatar?.path}}">
+            </div>
+            <div class="info">
+                <div class="onlineStatus">
+                    <img src="{{pluResPath}}state/icon/{{$value.status}}.png">
+                </div>
+                <div class="platform">{{$value.platform}}</div>
+            </div>
+        </div>
+        <div class="header">
+            <h1>{{$value.nickname}}</h1>
+            <hr noshade>
+            <p>
+                <span style="background: #d799de">
+                    {{$value.botVersion}}
+                </span>
+                <span style="background: #CBC7C8">
+                    Bot已运行 {{$value.botRunTime}}
+                </span>
+            </p>
+            <p>
+                {{each $value.countContacts v i}}
+                {{if v}}
+                <span>
+                    <img src="{{pluResPath}}state/icon/{{i}}.png">
+                    {{v}}
+                </span>
+                {{/if}}
+                {{/each}}
+                {{each $value.messageCount v i}}
+                {{if v}}
+                <span>
+                    <img src="{{pluResPath}}state/icon/{{i}}.png">
+                    {{v}}
+                </span>
+                {{/if}}
+                {{/each}}
+            </p>
+        </div>
+    </div>
+</div>
+{{/each}}
+<div class="box" data-boxInfo="主硬件">
+    <div class="time">{{time}} {{isPro ? '状态Pro' : ''}}</div>
+    <ul class="mainHardware">
+        {{each visualData group i}}
+        <li class="li">
+            <div class="container-box" data-num="{{group.inner}}" id="box">
+                <div class="circle-outer"></div>
+                <svg>
+                    <!-- <defs>
+                        <radialGradient id="gradient{{i}}" cx="50%" cy="50%" r="60%" fx="50%" fy="50%">
+                            <stop offset="30%" stop-color="var({{group.color}}-dark)" />
+                            <stop offset="100%" stop-color="var({{group.color}}-light)" />
+                        </radialGradient>
+                    </defs> -->
+                    {{if group.title == "RAM" && group?.buffcache?.isBuff}}
+                    <circle id="circle" stroke="{{group.buffcache?.color}}"
+                        style="stroke-dashoffset:{{group.buffcache?.per}}"></circle>
+                    {{/if}}
+                    <circle id="circle" stroke="{{group.color}}" style="stroke-dashoffset:{{group.per}}"></circle>
+                </svg>
+            </div>
+            <article>
+                <summary>{{group.title}}</summary>
+                {{each group.info info}}
+                <p>{{info}}</p>
+                {{/each}}
+            </article>
+        </li>
+        {{/each}}
+    </ul>
+</div>
+
+{{if HardDisk}}
+<div class="box memory" data-boxInfo="磁盘">
+    <ul>
+        {{each HardDisk}}
+        <li class="HardDisk_li">
+            <div class="word mount">{{$value.mount}}</div>
+            <div class="progress">
+                <div class="word">{{$value.used}} / {{$value.size}}</div>
+                <div class="current" style="width:{{$value.use}}%;background:{{$value.color}}"></div>
+            </div>
+            <div class="percentage">{{$value.use}}%</div>
+        </li>
+        {{/each}}
+    </ul>
+    {{if fsStats}}
+    <div class="speed">
+        <p>fsStats</p>
+        <p>读 {{fsStats.rx_sec}}/s | 写 {{fsStats.wx_sec}}/s</p>
+    </div>
+    {{/if}}
+</div>
+{{/if}}
+
+<script src="{{pluResPath}}state/js/style.js"></script>
+
+{{if chartData}}
+<div class="box" data-boxInfo="图表">
+    <div id="Chart" style="height: 300px"></div>
+    <script src="{{pluResPath}}state/js/modules/echarts.min.js"></script>
+    <script src="{{pluResPath}}state/js/chart.js"></script>
+</div>
+{{/if}}
+
+{{if network || psTest}}
+<div class="box" data-boxInfo="网络">
+    {{if network}} {{each network}}
+    <div class="speed">
+        <p>{{$value.first}}</p>
+        <p>{{@$value.tail}}</p>
+    </div>
+    {{/each}} {{/if}} {{if network && psTest}}
+    <hr style="margin: 5px 0" />
+    {{/if}} {{if psTest}} {{each psTest}}
+    <div class="speed">
+        <p>{{$value.first}}</p>
+        <p>{{@$value.tail}}</p>
+    </div>
+    {{/each}} {{/if}}
+</div>
+{{/if}}
+
+{{if otherInfo}}
+<div class="box" data-boxInfo="其他">
+    {{each otherInfo}}
+    <div class="speed">
+        <p>{{$value.first}}</p>
+        <p>{{@$value.tail}}</p>
+    </div>
+    {{/each}}
+</div>
+{{/if}}
+
+{{@FastFetch}}
+
+{{/block}}
