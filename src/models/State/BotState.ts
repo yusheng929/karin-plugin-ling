@@ -3,11 +3,13 @@ import { Version } from '@/components'
 import karin, { redis } from 'node-karin'
 import { getImgPalette } from './utils.js'
 
-export default async function getBotState (e: { bot: any; self_id?: any; isPro?: any }) {
-  const botList = _getBotList(e)
-  const dataPromises = botList.map(async (i) => {
-    const bot = e.bot
-    const uin = e.bot.account.uin
+export default async function getBotState (e: { bot: any; isPro: any }) {
+  let botList = [e.bot]
+  if (e.isPro) {
+    botList = karin.getBotAll()
+  }
+  const dataPromises = botList.map(async (bot: any) => {
+    const uin = bot.account.uin
     if (!uin) return false
 
     const { status = 11, version } = bot
@@ -101,17 +103,6 @@ async function getCountContacts (bot: { GetFriendList: () => any; fl: { size: an
     group: group > 0 ? '群: ' + group : 0,
     groupMember
   }
-}
-
-function _getBotList (e: { bot?: { getBot: (arg0: any) => any }; self_id?: any; isPro?: any }) {
-  /** bot列表 */
-  let BotList = [e.self_id]
-
-  // TODO: 多账号支持
-  if (e.isPro) {
-    BotList = karin.getBotAll().map((i: any) => i.account.uin)
-  }
-  return BotList
 }
 
 function formatDuration (seconds: moment.DurationInputArg1) {
