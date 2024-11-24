@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.5.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.5.6...v1.5.7) (2024-11-24)
+
+
+### Bug Fixes
+
+* path ([afa3ffa](https://github.com/yusheng929/karin-plugin-ling/commit/afa3ffae17403c23cf729211acac584c37bf24b5))
+
 ## [1.5.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.5.5...v1.5.6) (2024-11-24)
 
 
