@@ -14,6 +14,7 @@
 # 安装教程(两种方法二选一)
 在Karin根目录执行即可
 <details> <summary>克隆安装</summary>
+
 ## GitHub安装(国外推荐)
 ``` bash
 git clone --depth=1 https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
@@ -33,6 +34,7 @@ pnpm install --filter=karin-plugin-ling
 </details>
 
 <details> <summary>pnpm安装</summary>
+
 ``` bash
 pnpm install karin-plugin-ling
 ```
