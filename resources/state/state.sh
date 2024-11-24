@@ -8,7 +8,7 @@ if type fastfetch &>/dev/null; then
     fastfetch --stdout
   fi
 else
-  bash ./neofetch.sh --stdout
+  bash node_modules/karin-plugin-ling/resources/state/neofetch.sh --stdout
 fi | \
 sed -n 's|: |</p><p>|p' | \
 while read i; do
