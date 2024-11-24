@@ -15,7 +15,7 @@ type ExecResult = {
 export default async function getFastFetch(e: any): Promise<string> {
   if (!isFeatureVisible(e.isPro)) return '';
   
-  const ret: ExecResult = await execSync(`bash plugins/${Version.pluginName}/resources/state/state.sh`);
+  const ret: ExecResult = await execSync(`bash ${Version.pluginPath}/resources/state/state.sh`);
   
   if (ret.error) {
     logger.error(
