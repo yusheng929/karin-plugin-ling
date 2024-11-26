@@ -117,7 +117,7 @@ export const setGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) 
     await e.reply(`\n错误:\n${error.message}`, { at: true })
     return true
   }
-}, { name: '设置头衔', priority: -1 })
+}, { name: '申请头衔', priority: -1 })
 
 /**
  * 踢人
