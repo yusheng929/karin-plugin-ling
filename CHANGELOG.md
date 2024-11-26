@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.5.10](https://github.com/yusheng929/karin-plugin-ling/compare/v1.5.9...v1.5.10) (2024-11-26)
+
+
+### Bug Fixes
+
+* 新增编码转码 ([2a179ef](https://github.com/yusheng929/karin-plugin-ling/commit/2a179efa606f03e50e4537b3b8afab8844764151))
+
 ## [1.5.9](https://github.com/yusheng929/karin-plugin-ling/compare/v1.5.8...v1.5.9) (2024-11-24)
 
 
