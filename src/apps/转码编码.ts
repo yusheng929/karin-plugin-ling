@@ -35,8 +35,8 @@ export const base64 = karin.command(/^#?base64(编码|解码)(.*)/i, async (e) =
     return true
 }, { name: "base64编码/解码", priority: -1 })
 
-export const md5 = karin.command(/^#?md5编码(.*)/i, async (e) => {
-    let md5 = e.msg.replace(/^#?md5编码/i, "").trim()
+export const md5 = karin.command(/^#?md5加密(.*)/i, async (e) => {
+    let md5 = e.msg.replace(/^#?md5加密/i, "").trim()
     md5 = crypto.createHash("md5").update(md5).digest("hex")
     await e.reply(md5)
     return true
