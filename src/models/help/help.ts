@@ -106,6 +106,11 @@ export const helpList = [
         title: 'md5加密',
         desc: '字符串进行md5加密 加密后不可逆转回原始字符串',
       },
+      {
+        icon: 18,
+        title: 'unicode编码/解码',
+        desc: '字符串进行unicode编码/解码',
+        },
     ],
   },
   {
