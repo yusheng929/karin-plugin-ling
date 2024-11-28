@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.6.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.6.2...v1.6.3) (2024-11-28)
+
+
+### Bug Fixes
+
+* 新增unicode编码解码 ([4c156cb](https://github.com/yusheng929/karin-plugin-ling/commit/4c156cba117af4eb901d187b1d39838e62a7a632))
+
 ## [1.6.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.6.1...v1.6.2) (2024-11-28)
 
 
