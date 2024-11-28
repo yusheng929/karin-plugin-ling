@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.6.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.5.10...v1.6.0) (2024-11-28)
+
+
+### Features
+
+* 更改配置文件路径 ([bc87c6d](https://github.com/yusheng929/karin-plugin-ling/commit/bc87c6db18e1a86ce0527bd87c2750a636f43304))
+
 ## [1.5.10](https://github.com/yusheng929/karin-plugin-ling/compare/v1.5.9...v1.5.10) (2024-11-26)
 
 
