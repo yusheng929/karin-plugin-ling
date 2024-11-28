@@ -15,6 +15,7 @@
 
 1. 克隆安装
 <details> <summary>点击展开</summary>
+
 karin根目录下执行
 ## GitHub安装(国外推荐)
 ``` bash
@@ -36,6 +37,7 @@ pnpm install --filter=karin-plugin-ling
 
 2. 使用包管理器安装
 <details> <summary>点击展开</summary>
+
 karin根目录下执行
 ``` bash
 pnpm install karin-plugin-ling
@@ -44,6 +46,7 @@ pnpm install karin-plugin-ling
 
 3. 使用 release 发行版编译安装 (不推荐)
 <details> <summary>点击展开</summary>
+
 极其不推荐，需要自行编译，且后续无法通过 Git 或者包管理器更新。
  * 打开 [release](https://github.com/yusheng929/karin-plugin-ling/releases) 页面
  * 下载最新版本的插件压缩包
@@ -65,6 +68,7 @@ pnpm install karin-plugin-ling
 
 4. 克隆 npm 分支编译安装 (不推荐)
 <details> <summary>点击展开</summary>
+
  * 克隆仓库到本地
  ``` bash
  git clone --depth=1 -b npm https://github.com/yusheng929/karin-plugin-ling.git ./plugins/karin-plugin-ling
