@@ -3,7 +3,8 @@
   "version": "1.5.10",
   "author": "yusheng",
   "type": "module",
-  "description": "karin plugin",
+  "main": "lib/index.js",
+  "description": "基于Karin编写的便携操作插件",
   "homepage": "https://github.com/yusheng929/karin-plugin-ling",
   "bugs": {
     "url": "https://github.com/yusheng929/karin-plugin-ling/issues"
@@ -47,6 +48,7 @@
     "/lib/**/*.d.ts",
     "/config/*.yaml",
     "resources",
+    "CHANGELOG.md",
     "LICENSE",
     "package.json",
     "README.md"

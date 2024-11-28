@@ -21,12 +21,18 @@ class Config {
   /** 初始化配置 */
   initCfg () {
     const path = `./config/plugin/${Version.pluginName}/`
+  /** 迁移旧配置 */
+    const oldpath = `${Version.pluginPath}/config/config/`
     if (!fs.existsSync(path)) fs.mkdirSync(path)
     const pathDef = `${Version.pluginPath}/config/`
     const files = fs.readdirSync(pathDef).filter(file => file.endsWith('.yaml'))
     for (const file of files) {
       if (!fs.existsSync(`${path}${file}`)) {
+        if (fs.existsSync(`${oldpath}${file}`)) {
+          fs.renameSync(`${oldpath}${file}`, `${path}${file}`)
+        } else {
         fs.copyFileSync(`${pathDef}${file}`, `${path}${file}`)
+        }
       } else {
         const config = YAML.parse(fs.readFileSync(`${path}${file}`, 'utf8'))
         const defConfig = YAML.parse(fs.readFileSync(`${pathDef}${file}`, 'utf8'))
