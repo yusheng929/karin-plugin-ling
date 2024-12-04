@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.6.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.6.3...v1.6.4) (2024-12-04)
+
+
+### Bug Fixes
+
+* 新增添加主人跟删除主人 ([b499071](https://github.com/yusheng929/karin-plugin-ling/commit/b4990711bcbcb3a7b66126f95f7e370ba6c29dd9))
+
 ## [1.6.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.6.2...v1.6.3) (2024-11-28)
 
 
