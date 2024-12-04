@@ -202,6 +202,16 @@ export const helpList = [
         title: 'fm+<任意字符>',
         desc: '发送转发消息',
       },
+      {
+        icon: 31,
+        title: '#新增主人+<@QQ>',
+        desc: '新增主人',
+      },
+      {
+        icon: 32,
+        title: '#删除主人+<@QQ>',
+        desc: '删除主人',
+      },
     ],
   },
 ]

@@ -1,4 +1,4 @@
-import { YamlEditor, karin, logger, segment } from 'node-karin'
+import { YamlEditor, karin, logger, segment, Cfg } from 'node-karin'
 import crypto from 'crypto' // 确保您导入了 crypto
 
 interface SignEntry {
@@ -30,3 +30,39 @@ export const Master = karin.command(/^#设置主人$/, async (e) => {
     return true
   }
 }, { name: '设置主人', priority: -1 })
+
+export const addMaster = karin.command(/^#新增主人/, async (e) => {
+  let user_id = e.at[0]
+  if (!user_id) {
+    e.reply('请艾特需要添加的主人')
+    return true
+  }
+      let master_list = Cfg.master
+  if (master_list.includes(user_id)) {
+    e.reply(`[${user_id}] 已经是主人`, { reply: true })
+    return true
+  }
+  const yaml = new YamlEditor('config/config/config.yaml')
+  yaml.append('master', String(user_id))
+    yaml.save()
+    e.reply(`已将用户[${user_id}]设置为主人`, { reply: true })
+    return true
+}, { name: '添加主人', priority: -1 , permission: 'master'})
+
+export const delMaster = karin.command(/^#删除主人/, async (e) => {
+  let user_id = e.at[0]
+  if (!user_id) {
+    e.reply('请艾特需要删除的主人')
+    return true
+  }
+  let master_list = Cfg.master
+  if (!master_list.includes(user_id)) {
+    e.reply(`[${user_id}] 非主人`, { reply: true })
+    return true
+  }
+  const yaml = new YamlEditor('config/config/config.yaml')
+  yaml.remove('master', String(user_id))
+  yaml.save()
+  e.reply(`已将用户[${user_id}]从主人列表中移除`, { reply: true })
+  return true
+}, { name: '删除主人', priority: -1, permission: 'master' })
