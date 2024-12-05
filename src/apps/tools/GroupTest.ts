@@ -1,4 +1,4 @@
-import { karin, KarinMessage } from 'node-karin'
+import { karin } from 'node-karin'
 import { Config } from '@/components'
 
 const GroupTest = async (e: any, group_id: any, user_id: any) => {

@@ -1,5 +1,5 @@
 import { karin, segment, common, KarinElement } from 'node-karin'
-import { Edit, Config } from '@/components'
+import { Config } from '@/components'
 
 
 export const ProhibitedWords = karin.command(/^#查看(所有)?违禁词/, async (e) => {

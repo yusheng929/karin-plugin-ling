@@ -60,17 +60,27 @@ const updateCfg = async (e: any, type: string, isRemoval: any, targetType: strin
     return true
   }
 }
-const UpdateFile = async (e: any, 文件: any, 修改的值: string | number | boolean | object | any[], 配置项: string, 修改内容: any) => {
+
+/**
+ * 更新配置文件
+ * @param e 事件对象
+ * @param name 配置文件名
+ * @param type 类型
+ * @param item 项
+ * @param content 内容
+ * @returns 是否继续处理
+ */
+const UpdateFile = async (e: any, name: any, type: string | number | boolean | object | any[], item: string, content: any) => {
   try {
-    const 配置文件 = new YamlEditor(`./config/config/${文件}`)
-    const 获取配置项 = 配置文件.get(配置项)
-    if (获取配置项 === 修改的值) {
-      e.reply(`当前${修改内容}已是${修改的值}，无需修改`)
+    const yaml = new YamlEditor(`./config/config/${name}`)
+    const data = yaml.get(item)
+    if (data === type) {
+      e.reply(`当前${content}已是${type}，无需修改`)
       return true
     }
-    配置文件.set(配置项, 修改的值)
-    e.reply(`${修改内容}已经被修改为${修改的值}`)
-    配置文件.save()
+    yaml.set(item, type)
+    e.reply(`${content}已经被修改为${type}`)
+    yaml.save()
     return true
   } catch (error) {
     e.reply('失败: 未知错误❌')
@@ -80,6 +90,6 @@ const UpdateFile = async (e: any, 文件: any, 修改的值: string | number | b
 }
 
 export default {
-  编辑黑白名单: updateCfg,
-  编辑文件: UpdateFile,
+  updateCfg,
+  UpdateFile,
 }

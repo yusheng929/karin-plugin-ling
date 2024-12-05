@@ -1,5 +1,5 @@
-import { karin, YamlEditor, logger } from 'node-karin'
-import { Config, Edit } from '@/components'
+import { karin } from 'node-karin'
+import { Edit } from '@/components'
 
 export const test = karin.command(/^#(上班|下班)$/, async (e) => {
 if (!e.isGroup) {

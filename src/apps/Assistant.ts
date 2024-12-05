@@ -1,6 +1,6 @@
 import { karin, segment, common, level } from 'node-karin'
 import { Version } from '@/components'
-import { 编辑文件 } from '@/lib'
+import { YamlEdit } from '@/lib'
 import fs from 'fs'
 import YAML from 'yaml'
 
@@ -21,7 +21,7 @@ export const 黑白名单 = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, as
   const isRemoval = e.msg.includes('取消')
   const targetType = e.msg.includes('群') ? 'Group' : 'User'
 
-  await 编辑文件.编辑黑白名单(e, type, isRemoval, targetType, id)
+  await YamlEdit.updateCfg(e, type, isRemoval, targetType, id)
   return true
 }, { name: '取消拉黑拉白群', priority: -1, permission: 'master' })
 export const 撤回 = karin.command(/^#?撤回$/, async (e) => {
