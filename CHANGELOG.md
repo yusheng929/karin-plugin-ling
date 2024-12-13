@@ -1,5 +1,17 @@
 # 更新日志
 
+## [1.7.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.6.4...v1.7.0) (2024-12-13)
+
+
+### Features
+
+* 重构代码 ([af082c8](https://github.com/yusheng929/karin-plugin-ling/commit/af082c805a49923cac7f96e11c073b8a341c284c))
+
+
+### Bug Fixes
+
+* 功能赞我新增开关 ([849fd77](https://github.com/yusheng929/karin-plugin-ling/commit/849fd77408e6236eeb8282b76b5bb5a81881ec99))
+
 ## [1.6.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.6.3...v1.6.4) (2024-12-04)
 
 
