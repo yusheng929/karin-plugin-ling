@@ -8,6 +8,8 @@ accept:
 NoWork:
   - "636023444"
 
+praise: false
+
 # 进群验证
 Test:
   - "114514"

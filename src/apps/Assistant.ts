@@ -1,5 +1,5 @@
 import { karin, segment, common, level } from 'node-karin'
-import { Version } from '@/components'
+import { Version, Config } from '@/components'
 import { YamlEdit } from '@/lib'
 import fs from 'fs'
 import YAML from 'yaml'
@@ -104,6 +104,9 @@ export const SeeGroupImg = karin.command(/^#(看|取)群头像/, async (e) => {
 }, { name: '看群头像', priority: -1 })
 
 export const command = karin.command(/^#赞我$/, async e => {
+  if (!Config.Other.praise) {
+    return false
+  }
   const key = `VoteUser:${e.user_id}`
   const time = await level.get(key)
   if (time) {
