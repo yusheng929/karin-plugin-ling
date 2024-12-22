@@ -1,5 +1,5 @@
 import karin from 'node-karin'
-import lodash from 'lodash'
+import lodash from 'node-karin/lodash'
 import fs from 'fs'
 import { Render, Version } from '@/components'
 import { helpCfg, helpList, helpTheme } from '@/models'

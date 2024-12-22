@@ -18,13 +18,10 @@
     "pub": "npm publish --access public"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/lodash": "^4.17.7",
     "@types/node": "^20.14.11",
-    "@types/node-schedule": "^2.1.7",
-    "@types/ws": "^8.5.11",
     "eslint": "^9.7.0",
     "neostandard": "^0.11.1",
+    "node-karin": "0.12.25-beta.pr.206.1-1734897459",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.5.3"
   },
@@ -34,14 +31,31 @@
     "systeminformation": "^5.23.5"
   },
   "karin": {
+    "main": "src/index.ts",
     "apps": [
       "lib/apps",
       "lib/apps/events",
       "lib/apps/QuickCode",
       "lib/apps/tools"
     ],
-    "outDir": "lib",
-    "rootDir": "src"
+    "ts-apps": [
+      "src/apps"
+    ],
+    "static": [
+      "resources"
+    ],
+    "files": [
+      "config",
+      "data",
+      "resources"
+    ],
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "lib/**/*",
+      "@karinjs/**/*"
+    ]
   },
   "files": [
     "/lib/**/*.js",

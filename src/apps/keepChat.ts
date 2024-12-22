@@ -1,7 +1,7 @@
 import { karin, segment } from 'node-karin'
 import { Config } from '@/components'
 
-export const 续火 = karin.task("续火", Config.Cof.corn || "0 0 * * *", async (e: any) => {
+export const keepChat = karin.task("续火", Config.Cof.corn || "0 0 * * *", async (e: any) => {
     for (const id of Config.Cof.List || '') {
    try {
    let msgs = Config.Cof.msg
@@ -12,4 +12,4 @@ export const 续火 = karin.task("续火", Config.Cof.corn || "0 0 * * *", async
       await e.bot.SendMessage(contact, elements)
    } catch (error) { }
   }
-}, { name: "续火" })
+})

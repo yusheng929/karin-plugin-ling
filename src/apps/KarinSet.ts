@@ -1,5 +1,5 @@
 import { karin, Cfg } from 'node-karin'
-import lodash from 'lodash'
+import lodash from 'node-karin/lodash'
 import { Config } from '@/lib'
 import { Render } from '@/components'
 

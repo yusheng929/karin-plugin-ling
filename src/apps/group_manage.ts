@@ -1,4 +1,4 @@
-import { karin, Cfg, segment } from 'node-karin'
+import { karin, config, segment } from 'node-karin'
 import { Config, Edit } from '@/components'
 
 export const deal_invited_group = karin.accept('request.invited_group',
@@ -9,10 +9,11 @@ export const deal_invited_group = karin.accept('request.invited_group',
     }
     if (!opts.notify) return false
     const AvatarUrl = e.bot.getGroupAvatarUrl(e.group_id)
-    Cfg.master.concat(Cfg.admin).forEach(master => {
+    config.master().concat(config.admin()).forEach(master => {
       try {
-        e.bot.SendMessage({
-          scene: 'friend', peer: master,
+        e.bot.sendMsg({
+          scene: 'friend',
+          peer: master,
           sub_peer: null
         }, [
           segment.image(AvatarUrl),
@@ -41,7 +42,8 @@ export const deal_private_apply = karin.accept('request.private_apply',
     Cfg.master.concat(Cfg.admin).forEach(master => {
       try {
         e.bot.SendMessage({
-          scene: 'friend', peer: master,
+          scene: 'friend',
+          peer: master,
           sub_peer: null
         }, [
           segment.image(AvatarUrl),
@@ -60,7 +62,7 @@ export const deal_private_apply = karin.accept('request.private_apply',
 
 export const deal_group_apply = karin.accept('request.group_apply',
   async (e: any) => {
-  console.log(`${e.request_id}`)
+    console.log(`${e.request_id}`)
     const opts = Array.isArray(Config.Other.DealRequest.Group) ? Config.Other.DealRequest.Group.find((group: { [x: string]: any }) => group[e.group_id])[e.group_id] : Config.Other.DealRequest.Group
     if (!opts) return false
     if (opts.accept) {
@@ -72,7 +74,8 @@ export const deal_group_apply = karin.accept('request.group_apply',
     Cfg.master.concat(Cfg.admin).forEach(master => {
       try {
         e.bot.SendMessage({
-          scene: 'friend', peer: master,
+          scene: 'friend',
+          peer: master,
           sub_peer: null
         }, [
           segment.image(GroupAvatarUrl),
@@ -81,7 +84,8 @@ export const deal_group_apply = karin.accept('request.group_apply',
       } catch (error) { }
     })
     e.bot.SendMessage({
-      scene: 'group', peer: e.group_id,
+      scene: 'group',
+      peer: e.group_id,
       sub_peer: null
     }, [
       segment.image(AvatarUrl),
@@ -97,13 +101,13 @@ export const deal_group_apply = karin.accept('request.group_apply',
 )
 
 export const Notification = karin.command(/^#(开启|关闭)进群通知/, async (e) => {
-  let group_id = e.msg.replace(/#(开启|关闭)进群通知/, '').trim() || e.group_id
+  const group_id = e.msg.replace(/#(开启|关闭)进群通知/, '').trim() || e.group_id
   if (!group_id) {
     e.reply('请输入正确的群号')
     return false
   }
   if (e.msg.includes('关闭')) {
-  await Edit.EditAddend(e, `已经关闭群『${group_id}』的进群通知`, `群『${group_id}』的进群通知已经处于关闭状态`, 'accept.BlackGroup', group_id, 'other')
+    await Edit.EditAddend(e, `已经关闭群『${group_id}』的进群通知`, `群『${group_id}』的进群通知已经处于关闭状态`, 'accept.BlackGroup', group_id, 'other')
     return true
   }
   if (e.msg.includes('开启')) {
@@ -114,10 +118,10 @@ export const Notification = karin.command(/^#(开启|关闭)进群通知/, async
 }, { permission: 'master' })
 
 export const test = karin.command(/^#(开启|关闭)进群验证$/, async (e) => {
-if (!e.isGroup) {
-  e.reply('请在群聊中执行')
-  return false
-}
+  if (!e.isGroup) {
+    e.reply('请在群聊中执行')
+    return false
+  }
   if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
     await e.reply('暂无权限，只有管理员才能操作')
     return false
@@ -128,8 +132,8 @@ if (!e.isGroup) {
   }
 
   if (e.msg.includes('开启')) {
-  await Edit.EditAddend(e, '已开启进群验证', '进群验证已经处于开启状态', 'Test', e.group_id, 'other')
-  return true
+    await Edit.EditAddend(e, '已开启进群验证', '进群验证已经处于开启状态', 'Test', e.group_id, 'other')
+    return true
   }
   return true
 })

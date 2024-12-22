@@ -1,4 +1,6 @@
-cron: "0 0 * * *"  # cron表达式
-msg: 
-  - "续火"   # 回复文本
-List: []   # 续火对象列表
+# 是否启用
+enable: false
+cron: "0 0 * * *" # cron表达式
+msg:
+  - "续火" # 回复文本
+list: [] # 续火对象列表

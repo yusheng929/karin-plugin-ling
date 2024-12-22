@@ -2,10 +2,10 @@ import { karin } from 'node-karin'
 import { Edit } from '@/components'
 
 export const test = karin.command(/^#(上班|下班)$/, async (e) => {
-if (!e.isGroup) {
-  e.reply('请在群聊中执行')
-  return false
-}
+  if (!e.isGroup) {
+    e.reply('请在群聊中执行')
+    return false
+  }
   if (e.msg.includes('上班')) {
     await Edit.EditRemove(e, '开始上班(T^T)', '已经是上班状态咯~', 'NoWork', e.group_id, 'other')
     return true
