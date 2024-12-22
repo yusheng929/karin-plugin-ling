@@ -13,8 +13,8 @@ export const ModifyGroupName = karin.command(/^#改群名/, async (e) => {
     await e.reply('暂无权限，只有管理员才能操作')
     return true
   }
-  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
-  if (!(['owner', 'admin'].includes(info.role))) {
+  const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
+  if (!info.role || !(['owner', 'admin'].includes(info.role))) {
     await e.reply('少女做不到呜呜~(>_<)~')
     return true
   }
@@ -25,7 +25,7 @@ export const ModifyGroupName = karin.command(/^#改群名/, async (e) => {
   }
 
   try {
-    await e.bot.ModifyGroupName(e.group_id, Name)
+    await e.bot.setGroupName(e.groupId, Name)
     e.reply(`已经将群名修改为『${Name}』`)
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
@@ -43,24 +43,24 @@ export const MuteList = karin.command(/^#?(获取|查看)?禁言列表$/, async 
     return true
   }
   const lsit = []
-  const res = await e.bot.GetProhibitedUserList(e.group_id)
-  if (!res.length) {
+  const result = await e.bot.getGroupMuteList(e.groupId)
+  if (!result.length) {
     e.reply('\n没有被禁言的人哦~', { at: true })
     return true
   }
 
-  res.forEach((item) => {
-    lsit.push([
-      segment.image(e.bot.getAvatarUrl(item.uid)),
-      segment.text(`\nQQ号: ${item.uid}`),
-      segment.text(`\n禁言剩余: ${moment(item.prohibited_time - Date.now()).format('HH:mm:ss')}`),
-      segment.text(`\n禁言到期: ${moment(item.prohibited_time * 1000).format('YYYY-MM-DD HH:mm:ss')}`),
+  for (const item of result) {
+    lsit.push(...[
+      segment.image(await e.bot.getAvatarUrl(item.userId)),
+      segment.text(`\nQQ号: ${item.userId}`),
+      segment.text(`\n禁言剩余: ${moment(item.muteTime - Date.now()).format('HH:mm:ss')}`),
+      segment.text(`\n禁言到期: ${moment(item.muteTime * 1000).format('YYYY-MM-DD HH:mm:ss')}`),
     ])
-  })
+  }
 
-  lsit.unshift(segment.text(`禁言列表如下(共${res.length}人):`))
-  const content = common.makeForward(lsit, e.self_id, e.bot.account.name)
-  await e.bot.sendForwardMessage(e.contact, content)
+  lsit.unshift(segment.text(`禁言列表如下(共${result.length}人):`))
+  const content = common.makeForward(lsit, e.selfId, e.bot.account.name)
+  await e.bot.sendForwardMsg(e.contact, content)
   return true
 })
 
@@ -76,7 +76,7 @@ export const ModifyMemberCard = karin.command(/^#改群昵称/, async (e) => {
   }
 
   try {
-    await e.bot.ModifyMemberCard(e.group_id, e.self_id, Name)
+    await e.bot.setGroupMemberCard(e.groupId, e.selfId, Name)
     await e.reply(`已经将群昵称修改为『${Name}』`)
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
@@ -84,6 +84,7 @@ export const ModifyMemberCard = karin.command(/^#改群昵称/, async (e) => {
   }
   return true
 }, { name: '改群昵称', priority: -1, permission: 'master' })
+
 export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
   if (!e.isGroup) {
     e.reply('请在群聊中执行')
@@ -93,21 +94,23 @@ export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
     await e.reply('暂无权限，只有管理员才能操作')
     return true
   }
-  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
-  if (!(['owner', 'admin'].includes(info.role))) {
+  const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
+  if (!info.role || !(['owner', 'admin'].includes(info.role))) {
     await e.reply('少女做不到呜呜~(>_<)~')
     return true
   }
-  if (!e.reply_id) {
+  if (!e.replyId) {
     e.reply('请回复需要设置精华的消息')
     return true
   }
+
   try {
-    await e.bot.SetEssenceMessage(e.group_id, e.reply_id)
-    await e.reply('设置精华成功')
+    await e.bot.setGgroupHighlights(e.groupId, e.replyId, e.msg.includes('加') || e.msg.includes('设'))
+    await e.reply('操作成功', { at: true })
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
     return true
   }
+
   return true
-}, { name: '设置精华', priority: -1 })
+}, { name: '处理精华消息', priority: -1 })

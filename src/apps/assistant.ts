@@ -9,7 +9,7 @@ export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, 
   if (!e.msg.includes('群')) {
     id = e.at.length ? e.at[0] : e.msg.replace(/#(取消)?(拉黑|拉白)/, '').trim()
   } else {
-    id = e.msg.replace(/#(取消)?(拉黑|拉白)群/, '').trim() || e.group_id
+    id = e.msg.replace(/#(取消)?(拉黑|拉白)群/, '').trim() || e.groupId
   }
 
   if (!id) {
@@ -30,7 +30,7 @@ export const recall = karin.command(/^#?撤回$/, async (e) => {
     await e.reply('暂无权限，只有管理员才能操作')
     return true
   }
-  e.bot.recallMsg(e.contact, e.reply_id)
+  e.bot.recallMsg(e.contact, e.replyId)
   e.bot.recallMsg(e.contact, e.message_id)
   return true
 }, { name: '撤回', priority: -1, event: 'message.group' })
@@ -52,7 +52,7 @@ export const clearScreenRecall = karin.command(/^#清屏(\d+)?/, async (e) => {
 }, { name: '清屏', priority: -1, event: 'message.group' })
 
 export const QuitGroup = karin.command(/^#?退群/, async (e) => {
-  const groupId = e.msg.replace(/#?退群/g, '').trim() || e.group_id
+  const groupId = e.msg.replace(/#?退群/g, '').trim() || e.groupId
 
   try {
     await e.bot.getGroupInfo(groupId)
@@ -96,7 +96,7 @@ export const SeeImg = karin.command(/^#(看|取)头像/, async (e) => {
  * 看群头像
  */
 export const SeeGroupImg = karin.command(/^#(看|取)群头像/, async (e) => {
-  const groupId = e.msg.replace(/^#?(看|取)群头像/, '').trim() || e.group_id
+  const groupId = e.msg.replace(/^#?(看|取)群头像/, '').trim() || e.groupId
   if (!groupId) {
     e.reply('请输入正确的群号')
     return true
@@ -111,7 +111,7 @@ export const command = karin.command(/^#赞我$/, async e => {
   if (!Config.Other.praise) {
     return false
   }
-  const key = `VoteUser:${e.user_id}`
+  const key = `VoteUser:${e.userId}`
   const time = await level.get(key)
   if (time) {
     // 检查是否为今天
@@ -271,12 +271,12 @@ export const Botprefix = karin.command(/^#(添加|删除|查看)前缀/, async (
 
 export const friendBroadcast = karin.command(/^#发好友/, async (e) => {
   let msg = e.msg.replace(/#发好友/, '').trim()
-  if (!msg && !e.reply_id) {
+  if (!msg && !e.replyId) {
     e.reply('请带上需要发送的消息')
     return true
   }
   if (!msg && e.replyId) {
-    const data = await e.bot.getMsg(e.contact, e.reply_id)
+    const data = await e.bot.getMsg(e.contact, e.replyId)
     if (data.elements[0].type === 'text') {
       msg = data.elements[0].text
     }
@@ -307,7 +307,7 @@ export const getGroupList = karin.command(/^#(查看|获取|保存)(群|好友)�
     msgs.push(segment.text('可使用 *#退群1234567890* 来退出群聊'))
     msgs.unshift(segment.text(`群列表如下: 总共${list.length}个群`))
 
-    const msg = common.makeForward(msgs, e.self_id, e.bot.account.name)
+    const msg = common.makeForward(msgs, e.selfId, e.bot.account.name)
     await e.bot.sendForwardMsg(e.contact, msg)
     return true
   }
@@ -336,7 +336,7 @@ export const getGroupList = karin.command(/^#(查看|获取|保存)(群|好友)�
     }
   }
 
-  const msg = common.makeForward(msgs, e.self_id, e.bot.account.name)
+  const msg = common.makeForward(msgs, e.selfId, e.bot.account.name)
   await e.bot.sendForwardMsg(e.contact, msg)
   return true
 }, { name: '获取群列表', priority: -1, permission: 'master' })

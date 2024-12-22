@@ -14,9 +14,9 @@ export const FileDownload = karin.command(/^文件下载/, async (e) => {
   }
   let url
   if (!e.isGroup) {
-    url = await (e.bot as any).super.pickFriend(e.user_id).getFileUrl(file.fid)
+    url = await (e.bot as any).super.pickFriend(e.userId).getFileUrl(file.fid)
   } else {
-    url = await (e.bot as any).super.pickGroup(e.group_id).getFileUrl(file.fid)
+    url = await (e.bot as any).super.pickGroup(e.groupId).getFileUrl(file.fid)
   }
   if (!url) {
     e.reply('获取链接失败', { at: true })

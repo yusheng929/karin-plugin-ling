@@ -7,11 +7,11 @@ export const test = karin.command(/^#(上班|下班)$/, async (e) => {
     return false
   }
   if (e.msg.includes('上班')) {
-    await Edit.EditRemove(e, '开始上班(T^T)', '已经是上班状态咯~', 'NoWork', e.group_id, 'other')
+    await Edit.EditRemove(e, '开始上班(T^T)', '已经是上班状态咯~', 'NoWork', e.groupId, 'other')
     return true
   }
   if (e.msg.includes('下班')) {
-    await Edit.EditAddend(e, '下班咯~', '已经是下班状态咯~', 'NoWork', e.group_id, 'other')
+    await Edit.EditAddend(e, '下班咯~', '已经是下班状态咯~', 'NoWork', e.groupId, 'other')
     return true
   }
   return true

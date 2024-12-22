@@ -27,12 +27,12 @@ export const ProhibitedWords = karin.command(/^#查看(所有)?违禁词/, async
         ])
       }
     }
-    const msg = common.makeForward(msgs as unknown as KarinElement[], e.self_id, e.bot.account.name)
+    const msg = common.makeForward(msgs as unknown as KarinElement[], e.selfId, e.bot.account.name)
     await e.bot.sendForwardMessage(e.contact, msg)
     return true
   }
-  let datas = e.group_id
-  datas = data[`${datas}`] ? e.group_id : 'default'
+  let datas = e.groupId
+  datas = data[`${datas}`] ? e.groupId : 'default'
   const rules = (data[`${datas}`] && data[`${datas}`]['words']) || ''
   if (!rules) {
     e.reply('暂无违禁词')
@@ -51,7 +51,7 @@ export const ProhibitedWords = karin.command(/^#查看(所有)?违禁词/, async
   msgs.push([segment.text(`禁言时长: ${time}`)])
   msgs.push([segment.text(`违禁词: \n${rule}`)])
   if (datas == 'default') msgs.unshift(segment.text('当前群为配置违禁词，将使用默认违禁词'))
-  const msg = common.makeForward(msgs as unknown as KarinElement[], e.self_id, e.bot.account.name)
+  const msg = common.makeForward(msgs as unknown as KarinElement[], e.selfId, e.bot.account.name)
   await e.bot.sendForwardMessage(e.contact, msg)
   return true
 }, { name: '查看违禁词', priority: -1 })

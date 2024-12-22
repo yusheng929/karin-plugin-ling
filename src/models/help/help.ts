@@ -110,7 +110,7 @@ export const helpList = [
         icon: 18,
         title: 'unicode编码/解码',
         desc: '字符串进行unicode编码/解码',
-        },
+      },
     ],
   },
   {

@@ -17,7 +17,7 @@ export const muteAll = karin.command(/^#?全体(禁言|解禁)$/, async (e) => {
   }
 
   /** 检查bot自身是否为管理员、群主 */
-  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  const info = await e.bot.GetGroupMemberInfo(e.groupId, e.selfId)
   if (!(['owner', 'admin'].includes(info.role))) {
     await e.reply('少女做不到呜呜~(>_<)~')
     return true
@@ -26,7 +26,7 @@ export const muteAll = karin.command(/^#?全体(禁言|解禁)$/, async (e) => {
   const isBan = /全体禁言/.test(e.msg)
 
   try {
-    await e.bot.SetGroupWholeBan(e.group_id, isBan)
+    await e.bot.SetGroupWholeBan(e.groupId, isBan)
     await e.reply(`已${isBan ? '开启' : '关闭'}全体禁言`)
     return true
   } catch (error) {
@@ -44,7 +44,7 @@ export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
     return true
   }
   /** 只有bot为群主才可以使用 */
-  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  const info = await e.bot.GetGroupMemberInfo(e.groupId, e.selfId)
   if (!(['owner'].includes(info.role))) {
     await e.reply('少女不是群主，做不到呜呜~(>_<)~')
     return true
@@ -65,7 +65,7 @@ export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
   }
 
   try {
-    const res = await e.bot.GetGroupMemberInfo(e.group_id, userId)
+    const res = await e.bot.GetGroupMemberInfo(e.groupId, userId)
     if (!res) {
       await e.reply('\n这个群好像没这个人', { at: true })
       return true
@@ -78,7 +78,7 @@ export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
   const isSet = e.msg.includes('设置')
 
   try {
-    await e.bot.SetGroupAdmin(e.group_id, userId, isSet)
+    await e.bot.SetGroupAdmin(e.groupId, userId, isSet)
     await e.reply(`\n${isSet ? '设置' : '取消'}管理员成功`, { at: true })
     return true
   } catch (error) {
@@ -96,7 +96,7 @@ export const setGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) 
     return true
   }
   /** 只有bot为群主才可以使用 */
-  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  const info = await e.bot.GetGroupMemberInfo(e.groupId, e.selfId)
   if (!(['owner'].includes(info.role))) {
     await e.reply('少女不是群主，做不到呜呜~(>_<)~')
     return true
@@ -105,12 +105,12 @@ export const setGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) 
   const title = e.msg.replace(/#(申请|我要)头衔/, '').trim()
   try {
     if (!title) {
-      await e.bot.SetGroupUniqueTitle(e.group_id, e.user_id, title)
+      await e.bot.SetGroupUniqueTitle(e.groupId, e.userId, title)
       await e.reply('\n已经将你的头衔取消了~', { at: true })
       return true
     }
 
-    await e.bot.SetGroupUniqueTitle(e.group_id, e.user_id, title)
+    await e.bot.SetGroupUniqueTitle(e.groupId, e.userId, title)
     await e.reply('\n换上了哦', { at: true })
     return true
   } catch (error: any) {
@@ -148,14 +148,14 @@ export const kickMember = karin.command(/^#踢/, async (e) => {
   }
 
   /** 检查bot自身是否为管理员、群主 */
-  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  const info = await e.bot.GetGroupMemberInfo(e.groupId, e.selfId)
   if (!(['owner', 'admin'].includes(info.role))) {
     await e.reply('少女做不到呜呜~(>_<)~')
     return true
   }
 
   try {
-    const res = await e.bot.GetGroupMemberInfo(e.group_id, userId)
+    const res = await e.bot.GetGroupMemberInfo(e.groupId, userId)
     if (!res) {
       await e.reply('\n这个群好像没这个人', { at: true })
       return true
@@ -177,7 +177,7 @@ export const kickMember = karin.command(/^#踢/, async (e) => {
   }
 
   try {
-    await e.bot.KickMember(e.group_id, userId)
+    await e.bot.KickMember(e.groupId, userId)
     await e.reply(`\n已经将用户『${userId}』踢出群聊`, { at: true })
     return true
   } catch (error) {
@@ -198,7 +198,7 @@ export const UnBanMember = karin.command(/^#解禁/, async (e) => {
     await e.reply('暂无权限，只有管理员才能操作')
     return true
   }
-  const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+  const info = await e.bot.GetGroupMemberInfo(e.groupId, e.selfId)
   if (!(['owner', 'admin'].includes(info.role))) {
     await e.reply('少女做不到呜呜~(>_<)~')
     return true
@@ -217,7 +217,7 @@ export const UnBanMember = karin.command(/^#解禁/, async (e) => {
     return true
   }
   try {
-    const res = await e.bot.GetGroupMemberInfo(e.group_id, userId)
+    const res = await e.bot.GetGroupMemberInfo(e.groupId, userId)
     if (!res) {
       await e.reply('\n这个群好像没这个人', { at: true })
       return true
@@ -241,7 +241,7 @@ export const UnBanMember = karin.command(/^#解禁/, async (e) => {
     return true
   }
   try {
-    await e.bot.BanMember(e.group_id, userId, 0)
+    await e.bot.BanMember(e.groupId, userId, 0)
     await e.reply(`\n已经将用户『${userId}』解除禁言了`, { at: true })
     return true
   } catch (error) {
@@ -262,7 +262,7 @@ export const BanMember = karin.command(
       return true
     }
 
-    const info = await e.bot.GetGroupMemberInfo(e.group_id, e.self_id)
+    const info = await e.bot.GetGroupMemberInfo(e.groupId, e.selfId)
     if (!(['owner', 'admin'].includes(info.role))) {
       await e.reply('少女做不到呜呜~(>_<)~')
       return true
@@ -284,7 +284,7 @@ export const BanMember = karin.command(
     }
 
     try {
-      const res = await e.bot.GetGroupMemberInfo(e.group_id, user_id)
+      const res = await e.bot.GetGroupMemberInfo(e.groupId, user_id)
       if (res.role === 'owner') {
         await e.reply('\n这个人是群主，少女做不到呜呜~(>_<)~', { at: true })
         return true
@@ -327,7 +327,7 @@ export const BanMember = karin.command(
         default:
           timeInSeconds = time
       }
-      e.bot.BanMember(e.group_id, user_id, timeInSeconds)
+      e.bot.BanMember(e.groupId, user_id, timeInSeconds)
       await e.reply(`\n已经将用户『${user_id}』禁言了`, { at: true })
       return true
     }

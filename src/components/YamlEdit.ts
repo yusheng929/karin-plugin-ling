@@ -65,11 +65,11 @@ const EditTest = async (e: any) => {
   try {
     const yaml = new YamlEditor(`${CfgPath}/group.yaml`)
     const value: string | number | boolean | object = []
-    yaml.set(`${e.group_id}.rule`, 1)
-    yaml.set(`${e.group_id}.words`, value)
-    yaml.set(`${e.group_id}.enable`, true)
-    yaml.set(`${e.group_id}.ban`, true)
-    yaml.set(`${e.group_id}.time`, 600)
+    yaml.set(`${e.groupId}.rule`, 1)
+    yaml.set(`${e.groupId}.words`, value)
+    yaml.set(`${e.groupId}.enable`, true)
+    yaml.set(`${e.groupId}.ban`, true)
+    yaml.set(`${e.groupId}.time`, 600)
     yaml.save()
     return true
   } catch (error) {

@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.14.11",
+    "@types/punycode": "^2.1.4",
     "eslint": "^9.7.0",
     "neostandard": "^0.11.1",
     "node-karin": "0.12.25-beta.pr.206.1-1734897459",
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "@karinjs/md-html": "^1.1.3",
+    "punycode": "^2.3.1",
     "qrcode": "^1.5.4",
     "systeminformation": "^5.23.5"
   },
