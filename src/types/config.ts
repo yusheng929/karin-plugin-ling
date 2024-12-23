@@ -20,8 +20,10 @@ export interface Cof {
   cron: string
   /** 续火文本 */
   msg: string[]
-  /** 续火对象列表 */
-  list: string[]
+  /** 续火的群列表 */
+  group: string[]
+  /** 续火的好友列表 */
+  friend: string[]
 }
 
 /** `other.yaml` 文件的类型定义 */

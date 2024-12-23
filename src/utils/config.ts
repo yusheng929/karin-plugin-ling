@@ -1,14 +1,18 @@
+import path from 'node:path'
 import { dirPath } from '@/utils/dir'
-import type { Cof, Gorup, Other, State } from '@/types/config'
 import {
   watch,
   basePath,
   filesByExt,
   copyConfigSync,
   requireFileSync,
+  existsSync,
+  yaml,
 } from 'node-karin'
+import type { Cof, Gorup, Other, State } from '@/types/config'
 
-const enum KV {
+/** 文件名称枚举 */
+export const enum KV {
   Group = 'group.yaml',
   Cof = 'cof.yaml',
   Other = 'other.yaml',
@@ -39,7 +43,7 @@ const pluginName = pkg().name.replace(/\//g, '-')
 /** 用户配置 */
 const dirConfig = `${basePath}/${pluginName}/config`
 /** 默认配置 */
-const defConfig = `${dirPath}/config`
+const defConfig = `${dirPath}/config/config`
 
 /**
  * @description 初始化配置文件
@@ -119,6 +123,19 @@ export const state = (): State => {
   const result: State = { ...def, ...user }
   cacheList[name] = result
   return result
+}
+
+/**
+ * @description 修改配置
+ * @param name 文件名称
+ * @param data 配置数据
+ */
+export const setYaml = (name: `${KV}`, data: unknown) => {
+  const file = path.join(dirConfig, `${name}.yaml`)
+  const comment = path.join(dirConfig, '../', 'comment', `${name}.json`)
+  if (!existsSync(file)) return false
+  yaml.save(file, data, existsSync(comment) ? comment : undefined)
+  return true
 }
 
 /**

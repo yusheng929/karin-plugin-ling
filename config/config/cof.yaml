@@ -3,4 +3,7 @@ enable: false
 cron: "0 0 * * *" # cron表达式
 msg:
   - "续火" # 回复文本
-list: [] # 续火对象列表
+# 续火的群列表
+group: []
+# 续火的好友列表
+friend: []

@@ -1,5 +1,5 @@
 import { karin, config, segment, logger } from 'node-karin'
-import { other } from '@/utils/config'
+import { KV, other, setYaml } from '@/utils/config'
 import { sendToAllAdmin } from '@/utils/common'
 
 export const groupInvite = karin.accept('request.groupInvite', async (e) => {
@@ -100,39 +100,55 @@ export const Notification = karin.command(/^#(开启|关闭)进群通知/, async
   if (e.isGroup) groupId = groupId || e.groupId
 
   if (!groupId) {
-    await e.reply('请输入正确的群号')
+    await e.reply('\n请输入正确的群号', { at: true })
     return false
   }
 
+  const cfg = other()
   if (e.msg.includes('关闭')) {
-    await Edit.EditAddend(e, `已经关闭群『${groupId}』的进群通知`, `群『${groupId}』的进群通知已经处于关闭状态`, 'accept.BlackGroup', groupId, 'other')
+    if (!cfg.accept.blackGroup.includes(groupId)) {
+      await e.reply(`\n群『${groupId}』的进群通知已经处于关闭状态`, { at: true })
+      return true
+    }
+
+    cfg.accept.blackGroup = cfg.accept.blackGroup.filter(v => v !== groupId)
+    setYaml(KV.Other, cfg)
+    await e.reply(`\n已经关闭群『${groupId}』的进群通知`, { at: true })
     return true
   }
 
-  if (e.msg.includes('开启')) {
-    await Edit.EditRemove(e, `已经开启群『${groupId}』的进群通知`, `群『${groupId}』的进群通知目前已经处于开启状态`, 'accept.BlackGroup', groupId, 'other')
+  if (cfg.accept.blackGroup.includes(groupId)) {
+    await e.reply(`\n群『${groupId}』的进群通知目前已经处于开启状态`, { at: true })
     return true
   }
+
+  cfg.accept.blackGroup.push(groupId)
+  setYaml(KV.Other, cfg)
+  await e.reply(`\n已经开启群『${groupId}』的进群通知`, { at: true })
   return true
 }, { permission: 'master' })
 
 export const test = karin.command(/^#(开启|关闭)进群验证$/, async (e) => {
-  if (!e.isGroup) {
-    e.reply('请在群聊中执行')
-    return false
-  }
-  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-    await e.reply('暂无权限，只有管理员才能操作')
-    return false
-  }
+  const cfg = other()
   if (e.msg.includes('关闭')) {
-    await Edit.EditRemove(e, '已关闭进群验证', '进群验证已经处于关闭状态', 'Test', e.groupId, 'other')
+    if (!cfg.joinGroup.includes(e.groupId)) {
+      await e.reply('\n进群验证已经处于关闭状态', { at: true })
+      return true
+    }
+
+    cfg.joinGroup = cfg.joinGroup.filter(v => v !== e.groupId)
+    setYaml(KV.Other, cfg)
+    await e.reply('\n已关闭进群验证', { at: true })
     return true
   }
 
-  if (e.msg.includes('开启')) {
-    await Edit.EditAddend(e, '已开启进群验证', '进群验证已经处于开启状态', 'Test', e.groupId, 'other')
+  if (cfg.joinGroup.includes(e.groupId)) {
+    await e.reply('\n进群验证已经处于开启状态', { at: true })
     return true
   }
+
+  cfg.joinGroup.push(e.groupId)
+  setYaml(KV.Other, cfg)
+  await e.reply('\n已开启进群验证', { at: true })
   return true
-})
+}, { name: '进群验证', perm: 'group.admin', event: 'message.group' })
