@@ -26,30 +26,21 @@ export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, 
 }, { name: '取消拉黑拉白群', priority: -1, permission: 'master', event: 'message.group' })
 
 export const recall = karin.command(/^#?撤回$/, async (e) => {
-  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-    await e.reply('暂无权限，只有管理员才能操作')
-    return true
-  }
   e.bot.recallMsg(e.contact, e.replyId)
-  e.bot.recallMsg(e.contact, e.message_id)
+  e.bot.recallMsg(e.contact, e.messageId)
   return true
-}, { name: '撤回', priority: -1, event: 'message.group' })
+}, { name: '撤回', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 export const clearScreenRecall = karin.command(/^#清屏(\d+)?/, async (e) => {
-  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-    await e.reply('暂无权限，只有管理员才能操作')
-    return true
-  }
-
   const match = Number(e.msg.replace(/#清屏/, '').trim() || 50)
-  const list = await e.bot.getHistoryMsg(e.contact, e.message_id, match)
+  const list = await e.bot.getHistoryMsg(e.contact, e.messageId, match)
   const msgIds = list.map(item => item.messageId)
   await e.reply('开始执行清屏操作，请确保我有管理员')
   for (const id of msgIds) {
     await e.bot.recallMsg(e.contact, id)
   }
   return true
-}, { name: '清屏', priority: -1, event: 'message.group' })
+}, { name: '清屏', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 export const QuitGroup = karin.command(/^#?退群/, async (e) => {
   const groupId = e.msg.replace(/#?退群/g, '').trim() || e.groupId

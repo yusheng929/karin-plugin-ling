@@ -32,12 +32,12 @@ export const Master = karin.command(/^#设置主人$/, async (e) => {
 }, { name: '设置主人', priority: -1 })
 
 export const addMaster = karin.command(/^#新增主人/, async (e) => {
-  let user_id = e.at[0]
+  const user_id = e.at[0]
   if (!user_id) {
     e.reply('请艾特需要添加的主人')
     return true
   }
-  let master_list = Cfg.master
+  const master_list = Cfg.master
   if (master_list.includes(user_id)) {
     e.reply(`[${user_id}] 已经是主人`, { reply: true })
     return true
@@ -50,12 +50,12 @@ export const addMaster = karin.command(/^#新增主人/, async (e) => {
 }, { name: '添加主人', priority: -1, permission: 'master' })
 
 export const delMaster = karin.command(/^#删除主人/, async (e) => {
-  let user_id = e.at[0]
+  const user_id = e.at[0]
   if (!user_id) {
     e.reply('请艾特需要删除的主人')
     return true
   }
-  let master_list = Cfg.master
+  const master_list = Cfg.master
   if (!master_list.includes(user_id)) {
     e.reply(`[${user_id}] 非主人`, { reply: true })
     return true
