@@ -1,5 +1,5 @@
-export { helpCfg, helpList } from './help.js'
-import helpTheme from './theme.js'
+export { helpCfg, helpList } from './help'
+import helpTheme from './theme'
 
 export {
   helpTheme

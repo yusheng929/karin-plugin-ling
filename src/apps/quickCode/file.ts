@@ -1,7 +1,6 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { karin, common, logger } from 'node-karin'
-import fs from 'fs'
-import path from 'path'
-import Ling from '@/Ling'
 
 export const FileDownload = karin.command(/^文件下载/, async (e) => {
   e.reply('请发送文件', { at: true })
@@ -73,10 +72,11 @@ export const FileMove = karin.command(/^文件移动/, async (e) => {
   }
   await e.reply('开始移动文件', { reply: true })
   try {
-    Ling.move(Path, `${FinalPath}/${name}`)
+    await fs.promises.rename(Path, `${FinalPath}/${name}`)
     await e.reply(`移动完成，文件原位置:\n${process.cwd()}/${Path}\n文件当前位置:\n${FinalPath}/${name}`, { reply: true })
   } catch (error) {
-    logger.error(`文件移动错误：${error}`)
+    logger.error('文件移动错误：')
+    logger.error(error)
     await e.reply('文件下载错误：请前往控制台查询', { reply: true })
   }
   return true

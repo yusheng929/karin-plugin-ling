@@ -1,5 +1,5 @@
-import lodash from 'lodash'
-import { style } from './config.js'
+import lodash from 'node-karin/lodash'
+import { style } from './config'
 
 const helpTheme = {
   getThemeCfg () {
@@ -29,24 +29,24 @@ const helpTheme = {
         }
       }
     }
-    type ThemeStyleKeys = 'fontColor' | 'fontShadow' | 'descColor' | 'contBgColor' | 'headerBgColor' | 'rowBgColor1' | 'rowBgColor2' | 'contBgBlur'; // 确保添加了 contBgBlur
+    type ThemeStyleKeys = 'fontColor' | 'fontShadow' | 'descColor' | 'contBgColor' | 'headerBgColor' | 'rowBgColor1' | 'rowBgColor2' | 'contBgBlur' // 确保添加了 contBgBlur
 
-const css = function (sel: string, css: string, key: ThemeStyleKeys, def: string | number, fn: Function | undefined) {
-    let val = defFnc(themeStyle[key], diyStyle[key], def);
-    if (fn) {
-        val = fn(val);
+    const css = function (sel: string, css: string, key: ThemeStyleKeys, def: string | number, fn: Function | undefined) {
+      let val = defFnc(themeStyle[key], diyStyle[key], def)
+      if (fn) {
+        val = fn(val)
+      }
+      ret.push(`${sel}{${css}:${val}}`)
     }
-    ret.push(`${sel}{${css}:${val}}`);
-}
 
     css('.help-title,.help-group', 'color', 'fontColor', '#ceb78b', undefined)
-css('.help-title,.help-group', 'text-shadow', 'fontShadow', 'none', undefined)
-css('.help-desc', 'color', 'descColor', '#eee', undefined)
-css('.cont-box', 'background', 'contBgColor', 'rgba(43, 52, 61, 0.8)', undefined)
-css('.cont-box', 'backdrop-filter', 'contBgBlur', 3, (n: any) => diyStyle.bgBlur === false ? 'none' : `blur(${n}px)`)
-css('.help-group', 'background', 'headerBgColor', 'rgba(34, 41, 51, .4)', undefined)
-css('.help-table .tr:nth-child(odd)', 'background', 'rowBgColor1', 'rgba(34, 41, 51, .2)', undefined)
-css('.help-table .tr:nth-child(even)', 'background', 'rowBgColor2', 'rgba(34, 41, 51, .4)', undefined)
+    css('.help-title,.help-group', 'text-shadow', 'fontShadow', 'none', undefined)
+    css('.help-desc', 'color', 'descColor', '#eee', undefined)
+    css('.cont-box', 'background', 'contBgColor', 'rgba(43, 52, 61, 0.8)', undefined)
+    css('.cont-box', 'backdrop-filter', 'contBgBlur', 3, (n: any) => diyStyle.bgBlur === false ? 'none' : `blur(${n}px)`)
+    css('.help-group', 'background', 'headerBgColor', 'rgba(34, 41, 51, .4)', undefined)
+    css('.help-table .tr:nth-child(odd)', 'background', 'rowBgColor1', 'rgba(34, 41, 51, .2)', undefined)
+    css('.help-table .tr:nth-child(even)', 'background', 'rowBgColor2', 'rgba(34, 41, 51, .4)', undefined)
 
     return {
       style: `<style>${ret.join('\n')}</style>`,

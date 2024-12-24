@@ -1,8 +1,6 @@
 import fs from 'fs'
 import moment from 'node-karin/moment'
 import { karin, segment, common, level, config, Watch, ConfigMap } from 'node-karin'
-import { Version, Config } from '@/components'
-import { YamlEdit } from '@/lib'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   let id

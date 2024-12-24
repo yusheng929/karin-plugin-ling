@@ -1,5 +1,5 @@
 import { karin } from 'node-karin'
-import Number from '../components/Number.js'
+import { translateChinaNum } from '../components/Number'
 // const Numreg = '[零一壹二两三四五六七八九十百千万亿\\d]+'
 
 /**
@@ -306,7 +306,7 @@ export const BanMember = karin.command(
     if (match) {
       const timeStr = match[1] || 600
       const unit = match[2] || '秒'  // 默认为秒
-      const time = Number.translateChinaNum(timeStr)
+      const time = translateChinaNum(timeStr.toString())
       let timeInSeconds
 
       switch (unit) {

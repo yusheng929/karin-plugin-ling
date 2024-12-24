@@ -1,6 +1,6 @@
 {{extend defaultLayout}}
 {{block 'css'}}
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/admin/index.css" />
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}/admin/index.css" />
 {{/block}}
 {{block 'main'}}
 
@@ -67,7 +67,7 @@
       </div>
       <div class="cfg-desc">设置后不会打印该群的消息日志</div>
     </li>
-    
+
     <li class="cfg-li">
       <div class="cfg-line">
         群聊消息冷却
@@ -76,7 +76,7 @@
       </div>
       <div class="cfg-desc">开启后群聊中所有消息冷却时间会有配置文件控制</div>
     </li>
-    
+
     <li class="cfg-li">
       <div class="cfg-line">
         群聊个人消息冷却
@@ -85,7 +85,7 @@
       </div>
       <div class="cfg-desc">开启后群聊中所有人的消息冷却时间有配置文件控制</div>
     </li>
-    
+
     <li class="cfg-li">
       <div class="cfg-line">
         机器人响应模式
@@ -94,7 +94,7 @@
       </div>
       <div class="cfg-desc">开启后响应模式将会由配置文件控制</div>
     </li>
-    
+
     <li class="cfg-li">
       <div class="cfg-line">
         机器人前缀
@@ -103,7 +103,7 @@
       </div>
       <div class="cfg-desc">设置后机器人前缀由配置文件控制</div>
     </li>
-    
+
     <li class="cfg-li">
       <div class="cfg-line">
         白名单功能
@@ -112,7 +112,7 @@
       </div>
       <div class="cfg-desc">设置后白名单功能配置将可使用</div>
     </li>
-    
+
     <li class="cfg-li">
       <div class="cfg-line">
         黑名单功能
@@ -121,7 +121,7 @@
       </div>
       <div class="cfg-desc">设置后可配置黑名单功能</div>
     </li>
-    
+
     <li class="cfg-li">
       <div class="cfg-line">
         机器人私聊
@@ -144,7 +144,8 @@
         <span class="cfg-hint">#Karin设置日志等级</span>
         {{@log4jsCfg_level}}
       </div>
-      <div class="cfg-desc">日志等级: 追踪(trace), 调试(debug), 信息(info), 警告(warn), 致命(fatal), 标记(mark), 错误(error), 关闭(off)</div>
+      <div class="cfg-desc">日志等级: 追踪(trace), 调试(debug), 信息(info), 警告(warn), 致命(fatal), 标记(mark), 错误(error), 关闭(off)
+      </div>
     </li>
 
   </ul>
