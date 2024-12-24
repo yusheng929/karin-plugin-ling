@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/node": "^20.14.11",
     "@types/punycode": "^2.1.4",
+    "@types/qrcode": "^1.5.5",
     "eslint": "^9.7.0",
     "neostandard": "^0.11.1",
     "node-karin": "0.12.25-beta.pr.206.1-1734970902",
