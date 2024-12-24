@@ -17,5 +17,8 @@ lerna-debug.log*
 # 依赖
 node_modules/
 /lib/
+@karinjs/
+logs/
+index.js
 resources/List/Group_List.txt
 resources/List/Friend_List.txt

@@ -15,7 +15,8 @@
   },
   "scripts": {
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "pub": "npm publish --access public"
+    "pub": "npm publish --access public",
+    "dev": "karin ts -w"
   },
   "devDependencies": {
     "@types/node": "^20.14.11",
@@ -25,6 +26,7 @@
     "neostandard": "^0.11.1",
     "node-karin": "0.12.25-beta.pr.206.1-1735008730",
     "tsc-alias": "^1.8.10",
+    "tsx": "^4.19.2",
     "typescript": "^5.5.3"
   },
   "dependencies": {
