@@ -23,7 +23,7 @@
     "@types/qrcode": "^1.5.5",
     "eslint": "^9.7.0",
     "neostandard": "^0.11.1",
-    "node-karin": "0.12.25-beta.pr.206.1-1734970902",
+    "node-karin": "0.12.25-beta.pr.206.1-1735008730",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.5.3"
   },

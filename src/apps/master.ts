@@ -24,8 +24,8 @@ export const Master = karin.command(/^#(设置|新增)主人/, async (e) => {
   }
 
   const name = 'config' as const
-  const data = config.getYaml(name, 'user')
-  data.value.master.push(userId)
+  const data = config.getYaml(name, 'user').value
+  data.master.push(userId)
   config.setYaml(name, data)
 
   await e.reply(`\n新增主人: ${userId}`, { at: true })
@@ -45,8 +45,8 @@ export const delMaster = karin.command(/^#删除主人/, async (e) => {
   }
 
   const name = 'config' as const
-  const data = config.getYaml(name, 'user')
-  data.value.master = data.value.master.filter((v: string) => v !== userId)
+  const data = config.getYaml(name, 'user').value
+  data.master = data.master.filter((v: string) => v !== userId)
   config.setYaml(name, data)
 
   await e.reply(`\n删除主人: ${userId}`, { at: true })
