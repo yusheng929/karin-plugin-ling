@@ -1,0 +1,19 @@
+{
+  "default": "是否设置为默认状态",
+  "psTestSites": "测试访问的网址列表配置",
+  "psTestSites.show": "显示设置 true-显示 false-不显示 pro-只有pro显示",
+  "psTestSites.list": "测试站点列表",
+  "psTestSites.timeout": "测试超时时间",
+  "statusTask": "监控任务开关",
+  "statusPowerShellStart": "内存异常处理开关",
+  "backdrop": "背景图片api",
+  "backdropDefault": "默认背景图片设置",
+  "closedNodeInfo": "是否关闭node信息圈圈",
+  "closedChart": "是否关闭图表",
+  "showFastFetch": "FastFetch显示设置",
+  "botNameColor": "Bot昵称颜色",
+  "botNameColorGradient": "Bot昵称渐变色",
+  "highColor": "进度条严重状态颜色",
+  "mediumColor": "进度条警告状态颜色",
+  "lowColor": "进度条正常状态颜色"
+}

@@ -1,0 +1,35 @@
+# 进退群通知
+accept:
+  blackGroup:
+    - "636023444"
+
+# 开启入群验证的群聊列表
+joinGroup:
+  - "114514"
+
+# 好友相关配置
+friend:
+  # 自动通过好友请求
+  accept: false
+  # 给所有主人发送通知
+  notify: true
+  # 关闭点赞
+  closeLike: false
+
+# 上下班配置 下班的群聊列表 配置后该群将无法触发任何功能
+noWork:
+  - "636023444"
+
+# 群聊相关配置
+group:
+  # 自动同意邀请Bot入新群
+  invite: false
+  # 自动通过群聊的入群申请
+  accept: false
+  # 给所有主人发送通知
+  notify: true
+  # 单独群设置 缺失的字段将使用上方的全局配置
+  alone:
+    - groupId: "12345"
+      accept: false
+      notify: true

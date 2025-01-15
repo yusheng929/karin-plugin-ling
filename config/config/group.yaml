@@ -1,0 +1,15 @@
+default:
+  enable: false # 是否启用
+  rule: 1 # 拦截规则0为模糊拦截1为精准拦截
+  words: [] # 违禁词
+  ban: false # 是否禁言触发违禁后撤回并禁言
+  time: 600 # 禁言时长，默认10分钟
+
+## 单独群设置
+114514:
+  rule: 1
+  words:
+    - 测试
+  enable: false
+  ban: false
+  time: 600

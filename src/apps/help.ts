@@ -1,9 +1,10 @@
 import karin from 'node-karin'
-import lodash from 'lodash'
+import lodash from 'node-karin/lodash'
 import fs from 'fs'
-import { Render, Version } from '@/components'
-import { helpCfg, helpList, helpTheme } from '@/models'
+import { helpCfg, helpList, helpTheme } from '@/models/help/index'
 import { markdown } from '@karinjs/md-html'
+import { render } from '@/lib/puppeteer'
+import { dirPath } from '@/utils/dir'
 
 export const help = karin.command(/^#?(铃|ling)(帮助|菜单|help)$/i, async (e) => {
   const helpGroup: ({ group: string; list: { icon: number; title: string; desc: string }[]; auth?: undefined } | { group: string; auth: string; list: { icon: number; title: string; desc: string }[] })[] = []
@@ -16,23 +17,21 @@ export const help = karin.command(/^#?(铃|ling)(帮助|菜单|help)$/i, async (
     helpGroup.push(group)
   })
   const themeData = await helpTheme.getThemeData(helpCfg)
-  const img = await Render.render('help/index', {
+  const img = await render('help/index', {
     helpCfg,
     helpGroup,
     ...themeData,
     scale: 1.2,
-  } as any)
+  })
   await e.reply(img)
   return true
 }, { name: '帮助', priority: -1 })
 
 export const version = karin.command(/^#?(铃|ling)(版本|version)$/i, async (e) => {
-  const changelogs = fs.readFileSync(Version.pluginPath + '/CHANGELOG.md', 'utf8')
-  const html = markdown(changelogs, {
-    gitcss: 'github-markdown-dark.css',
-  })
-  fs.writeFileSync(Version.pluginPath + '/resources/help/changelogs.html', html)
-  const img = await Render.render('help/changelogs', {
+  const changelogs = fs.readFileSync(dirPath + '/CHANGELOG.md', 'utf8')
+  const html = markdown(changelogs, {})
+  fs.writeFileSync(dirPath + '/resources/help/changelogs.html', html)
+  const img = await render('help/changelogs', {
     scale: 1.2,
     copyright: 'karin-plugin-ling',
   })

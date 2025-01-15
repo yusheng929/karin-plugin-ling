@@ -1,68 +1,54 @@
-import { YamlEditor, karin, logger, segment, Cfg } from 'node-karin'
-import crypto from 'crypto' // 确保您导入了 crypto
+import crypto from 'crypto'
+import { karin, logger, config } from 'node-karin'
 
-interface SignEntry {
-  user_id: string;
-  sign: string;
-}
-
-const sign: Record<string, SignEntry> = {} // 使用 Record 定义
-
-export const Master = karin.command(/^#设置主人$/, async (e) => {
-  if (e.isMaster) {
-    e.reply(`[${e.user_id}] 已经是主人`, { reply: false })
+export const Master = karin.command(/^#(设置|新增)主人/, async (e) => {
+  const userId = e.at[0] || e.msg.replace(/^#(设置|新增)主人/, '').trim() || e.userId
+  if (userId === e.userId) {
+    if (e.isMaster) {
+      await e.reply(`\n[${e.userId}] 已经是主人`, { at: true })
+      return true
+    }
+  } else if (config.master().includes(userId)) {
+    await e.reply(`\n[${e.userId}] 已经是主人`, { at: true })
     return true
   }
-  const user_id = e.user_id
-  /** 生成验证码 */
-  sign[e.user_id] = { user_id, sign: crypto.randomUUID() }
-  logger.mark(`设置主人验证码：${logger.green(sign[e.user_id].sign)}`)
-  await e.reply([segment.at(e.user_id), '请输入控制台的验证码'])
+
+  const sign = crypto.randomUUID()
+  logger.mark(`设置主人验证码：${logger.green(sign)}`)
   const event = await karin.ctx(e)
-  if (event.msg === sign[e.user_id]?.sign) {
-    const yaml = new YamlEditor('config/config/config.yaml')
-    yaml.append('master', String(user_id))
-    yaml.save()
-    e.reply([segment.at(user_id), '设置主人成功'])
-    return true
-  } else {
-    e.reply([segment.at(e.user_id), '验证码错误'])
+  await e.reply('\n请输入控制台验证码', { at: true })
+
+  if (sign !== event.msg.trim()) {
+    await e.reply('验证码错误', { at: true })
     return true
   }
+
+  const name = 'config' as const
+  const data = config.getYaml(name, 'user')
+  data.master.push(userId)
+  config.setYaml(name, data)
+
+  await e.reply(`\n新增主人: ${userId}`, { at: true })
+  return true
 }, { name: '设置主人', priority: -1 })
 
-export const addMaster = karin.command(/^#新增主人/, async (e) => {
-  let user_id = e.at[0]
-  if (!user_id) {
-    e.reply('请艾特需要添加的主人')
-    return true
-  }
-      let master_list = Cfg.master
-  if (master_list.includes(user_id)) {
-    e.reply(`[${user_id}] 已经是主人`, { reply: true })
-    return true
-  }
-  const yaml = new YamlEditor('config/config/config.yaml')
-  yaml.append('master', String(user_id))
-    yaml.save()
-    e.reply(`已将用户[${user_id}]设置为主人`, { reply: true })
-    return true
-}, { name: '添加主人', priority: -1 , permission: 'master'})
-
 export const delMaster = karin.command(/^#删除主人/, async (e) => {
-  let user_id = e.at[0]
-  if (!user_id) {
-    e.reply('请艾特需要删除的主人')
+  const userId = e.at[0] || e.msg.replace(/^#删除主人/, '').trim() || e.userId
+  if (userId === e.userId) {
+    if (e.isMaster) {
+      await e.reply(`\n[${e.userId}] 不可以删除自己`, { at: true })
+      return true
+    }
+  } else if (!config.master().includes(userId)) {
+    await e.reply(`\n[${userId}] 不是主人`, { at: true })
     return true
   }
-  let master_list = Cfg.master
-  if (!master_list.includes(user_id)) {
-    e.reply(`[${user_id}] 非主人`, { reply: true })
-    return true
-  }
-  const yaml = new YamlEditor('config/config/config.yaml')
-  yaml.remove('master', String(user_id))
-  yaml.save()
-  e.reply(`已将用户[${user_id}]从主人列表中移除`, { reply: true })
+
+  const name = 'config' as const
+  const data = config.getYaml(name, 'user')
+  data.master = data.master.filter((v: string) => v !== userId)
+  config.setYaml(name, data)
+
+  await e.reply(`\n删除主人: ${userId}`, { at: true })
   return true
 }, { name: '删除主人', priority: -1, permission: 'master' })

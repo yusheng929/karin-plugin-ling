@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "target": "ESNext",
+    "module": "ES2022",
+    "target": "ES2022",
     "esModuleInterop": true,
     "moduleResolution": "Bundler",
     "outDir": "./lib",
@@ -11,9 +11,6 @@
     "paths": {
       "@/*": [
         "src/*"
-      ],
-      "Ling": [
-        "src/Ling.ts"
       ]
     },
     "types": [
@@ -29,7 +26,7 @@
     "resolveFullExtension": ".js"
   },
   "include": [
-    "src/**/*",
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
