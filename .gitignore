@@ -22,3 +22,4 @@ logs/
 index.js
 resources/List/Group_List.txt
 resources/List/Friend_List.txt
+.env

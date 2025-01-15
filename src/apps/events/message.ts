@@ -47,25 +47,25 @@ const handleViolation = async (e: any) => {
   return true
 }
 
-/**
- * @description 使用中间件监听消息事件
- */
-export const use = karin.use('recvMsg', async (e, pass, next, exit) => {
-  if (!pass) return next()
-  if (!e.isGroup) return next()
-  if (shouldSkipProcessing(e)) return next()
+// /**
+//  * @description 使用中间件监听消息事件
+//  */
+// export const use = karin.use('recvMsg', async (e, pass, next, exit) => {
+//   if (!pass) return next()
+//   if (!e.isGroup) return next()
+//   if (shouldSkipProcessing(e)) return next()
 
-  const list = group()
-  const config = list[e.groupId] || list.default
+//   const list = group()
+//   const config = list[e.groupId] || list.default
 
-  /** 规则不存在或者已禁用 */
-  if (!config || !config.enable) return next()
+//   /** 规则不存在或者已禁用 */
+//   if (!config || !config.enable) return next()
 
-  /** 检查发送的消息是否违规 */
-  const isViolating = checkViolation(config.words, config.rule, e.msg)
-  if (!isViolating) return next()
+//   /** 检查发送的消息是否违规 */
+//   const isViolating = checkViolation(config.words, config.rule, e.msg)
+//   if (!isViolating) return next()
 
-  /** 处理违规 */
-  const shouldExit = await handleViolation(e)
-  return shouldExit ? exit() : next()
-})
+//   /** 处理违规 */
+//   const shouldExit = await handleViolation(e)
+//   return shouldExit ? exit() : next()
+// })

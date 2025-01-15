@@ -2,7 +2,7 @@ import fs from 'fs'
 import moment from 'node-karin/moment'
 import { other } from '@/utils/config'
 import { basename } from '@/utils/dir'
-import { karin, segment, common, level, config, ConfigMap, root } from 'node-karin'
+import { karin, segment, common, level, config, basePath } from 'node-karin'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)/, '').trim()
@@ -12,67 +12,67 @@ export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, 
     return true
   }
 
-  const cfg = config.getYaml('config', 'user').value
+  const cfg = config.getYaml('config', 'user')
   // 兜底
-  if (!Array.isArray(cfg.disable.groups)) cfg.disable.groups = []
-  if (!Array.isArray(cfg.disable.users)) cfg.disable.users = []
+  if (!Array.isArray(cfg.group.disable_list)) cfg.group.disable_list = []
+  if (!Array.isArray(cfg.user.disable_list)) cfg.user.disable_list = []
 
   if (e.msg.includes('取消拉黑群')) {
-    if (!cfg.disable.groups.includes(userId)) {
+    if (!cfg.group.disable_list.includes(userId)) {
       e.reply('群不在黑名单中', { at: true })
       return true
     }
 
-    cfg.disable.groups = cfg.disable.groups.filter(item => item !== userId)
+    cfg.group.disable_list = cfg.group.disable_list.filter(item => item !== userId)
   } else if (e.msg.includes('取消拉白群')) {
-    if (!cfg.disable.groups.includes(userId)) {
+    if (!cfg.group.enable_list.includes(userId)) {
       e.reply('群不在白名单中', { at: true })
       return true
     }
 
-    cfg.disable.groups = cfg.disable.groups.filter(item => item !== userId)
+    cfg.group.disable_list = cfg.group.disable_list.filter(item => item !== userId)
   } else if (e.msg.includes('拉黑群')) {
-    if (cfg.disable.groups.includes(userId)) {
+    if (cfg.group.disable_list.includes(userId)) {
       e.reply('群已在黑名单中', { at: true })
       return true
     }
 
-    cfg.disable.groups.push(userId)
+    cfg.group.disable_list.push(userId)
   } else if (e.msg.includes('拉白群')) {
-    if (cfg.disable.groups.includes(userId)) {
+    if (cfg.group.enable_list.includes(userId)) {
       e.reply('群已在白名单中', { at: true })
       return true
     }
 
-    cfg.disable.groups.push(userId)
+    cfg.group.enable_list.push(userId)
   } if (e.msg.includes('取消拉黑')) {
-    if (!cfg.disable.users.includes(userId)) {
+    if (!cfg.user.disable_list.includes(userId)) {
       e.reply('用户不在黑名单中', { at: true })
       return true
     }
 
-    cfg.disable.users = cfg.disable.users.filter(item => item !== userId)
+    cfg.user.disable_list = cfg.user.disable_list.filter(item => item !== userId)
   } else if (e.msg.includes('取消拉白')) {
-    if (!cfg.disable.users.includes(userId)) {
+    if (!cfg.user.enable_list.includes(userId)) {
       e.reply('用户不在白名单中', { at: true })
       return true
     }
 
-    cfg.disable.users = cfg.disable.users.filter(item => item !== userId)
+    cfg.user.enable_list = cfg.user.enable_list.filter(item => item !== userId)
   } else if (e.msg.includes('拉黑')) {
-    if (cfg.disable.users.includes(userId)) {
+    if (cfg.user.disable_list.includes(userId)) {
       e.reply('用户已在黑名单中', { at: true })
       return true
     }
 
-    cfg.disable.users.push(userId)
+    cfg.user.disable_list.push(userId)
   } else if (e.msg.includes('拉白')) {
-    if (cfg.disable.users.includes(userId)) {
+    if (cfg.user.enable_list.includes(userId)) {
       e.reply('用户已在白名单中', { at: true })
       return true
     }
 
-    cfg.disable.users.push(userId)
+    cfg.user.enable_list.push(userId)
   }
 
   config.setYaml('config', cfg)
@@ -234,11 +234,12 @@ export const Botprefix = karin.command(/^#(添加|删除|查看)前缀/, async (
     return false
   }
 
-  const handler = async <T extends 'friendDirect' | 'groupGuild'> (
+  const handler = async <T extends 'groups' | 'privates'> (
     yamlKey: T,
-    cfg: ConfigMap[T],
-    fileCfg: ConfigMap[T][string]
+    fileCfg: T extends 'groups' ? ReturnType<typeof config.getGroupCfg> : ReturnType<typeof config.getFriendCfg>
   ) => {
+    let key = fileCfg.key
+    const cfg = config.getYaml(yamlKey, 'user', false)
     if (e.msg.includes('添加')) {
       const prefix = e.msg.replace(/#添加前缀/, '').trim()
       if (!prefix) {
@@ -246,18 +247,18 @@ export const Botprefix = karin.command(/^#(添加|删除|查看)前缀/, async (
         return true
       }
 
-      let key = fileCfg.key
       if (key === 'default') {
         if (e.isGroup) {
           key = `Bot:${e.selfId}:${e.groupId}`
-        } else if (e.isPrivate) {
+        } else if (e.isFriend) {
           key = `Bot:${e.selfId}:${e.userId}`
         } else if (e.isGuild) {
           key = `Bot:${e.selfId}:${e.guildId}`
         } else if (e.isDirect) {
           key = `Bot:${e.selfId}:${e.userId}`
         }
-        cfg[key] = fileCfg
+
+        cfg[key] = fileCfg as any
       }
 
       if (checkPrefix(prefix, cfg[key]?.alias || [])) return true
@@ -274,18 +275,18 @@ export const Botprefix = karin.command(/^#(添加|删除|查看)前缀/, async (
         return true
       }
 
-      if (!fileCfg.alias.includes(prefix)) {
+      if (!cfg[key].alias?.includes(prefix)) {
         e.reply('\n前缀不存在', { at: true })
         return true
       }
 
-      cfg[fileCfg.key].alias = cfg[fileCfg.key].alias.filter(item => item !== prefix)
+      cfg[key].alias = cfg[key].alias.filter((item: string) => item !== prefix)
       config.setYaml(yamlKey, cfg)
       await e.reply('\n删除前缀成功', { at: true })
       return true
     }
 
-    const alias = fileCfg.alias.join('\n')
+    const alias = cfg[key].alias?.join('\n')
     if (!alias) {
       await e.reply('暂无前缀')
       return true
@@ -296,27 +297,23 @@ export const Botprefix = karin.command(/^#(添加|删除|查看)前缀/, async (
   }
 
   if (e.isGroup) {
-    const cfg = config.getYaml('groupGuild', 'user', false)
     const groupCfg = config.getGroupCfg(e.groupId, e.selfId)
-    return await handler('groupGuild', cfg.value, groupCfg)
+    return await handler('groups', groupCfg)
   }
 
-  if (e.isPrivate) {
-    const cfg = config.getYaml('friendDirect', 'user', false)
+  if (e.isFriend) {
     const friendCfg = config.getFriendCfg(e.userId, e.selfId)
-    return await handler('friendDirect', cfg.value, friendCfg)
+    return await handler('privates', friendCfg)
   }
 
   if (e.isGuild) {
-    const cfg = config.getYaml('groupGuild', 'user', false)
     const guildCfg = config.getGuildCfg(e.guildId, e.channelId, e.selfId)
-    return await handler('groupGuild', cfg.value, guildCfg)
+    return await handler('groups', guildCfg)
   }
 
   if (e.isDirect) {
-    const cfg = config.getYaml('friendDirect', 'user', false)
     const directCfg = config.getDirectCfg(e.userId, e.selfId)
-    return await handler('friendDirect', cfg.value, directCfg)
+    return await handler('privates', directCfg)
   }
 
   return true
@@ -370,7 +367,7 @@ export const getGroupList = karin.command(/^#(查看|获取|保存)(群|好友)�
   msgs.unshift(segment.text(`好友列表如下: 总共${list.length}个好友`))
 
   if (e.msg.includes('保存')) {
-    const file = `${root.basePath}/${basename}/resources/list`
+    const file = `${basePath}/${basename}/resources/list`
 
     const filePath = `${file}/${e.msg.includes('群') ? `${e.selfId}_Group_List.txt` : `${e.selfId}_Friend_List.txt`}`
     if (fs.existsSync(filePath)) {
@@ -402,7 +399,7 @@ export const getGroupList = karin.command(/^#(查看|获取|保存)(群|好友)�
 }, { name: '获取群列表', priority: -1, permission: 'master' })
 
 export const uploadList = karin.command(/^#上传(群|好友)名单$/, async (e) => {
-  const path = `${root.basePath}/${basename}/resources/list`
+  const path = `${basePath}/${basename}/resources/list`
   const txtPath = `${path}/${e.msg.includes('群') ? `${e.selfId}_Group_List.txt` : `${e.selfId}_Friend_List.txt`}`
   if (e.isGroup) {
     if (!(fs.existsSync(txtPath))) {
