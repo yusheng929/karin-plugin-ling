@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.0...v1.7.1) (2025-01-16)
+
+
+### Bug Fixes
+
+* 删除多余文件 ([14b2b80](https://github.com/yusheng929/karin-plugin-ling/commit/14b2b80c2eb084dfbbd9e2d0cb98033c1676bbd0))
+
 ## [1.7.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.6.4...v1.7.0) (2024-12-13)
 
 
