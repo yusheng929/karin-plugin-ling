@@ -1,5 +1,5 @@
 import karin from 'node-karin'
-import punycode from 'punycode/'
+import punycode from 'punycode/punycode.js'
 import crypto from 'crypto'
 
 export const url = karin.command(/^#?url(编码|解码)(.*)/i, async (e) => {
