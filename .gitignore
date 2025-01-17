@@ -21,6 +21,5 @@ node_modules/
 plugins/
 logs/
 index.js
-resources/List/Group_List.txt
-resources/List/Friend_List.txt
+resources/help/changelogs.html
 .env
