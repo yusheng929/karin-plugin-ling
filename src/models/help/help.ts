@@ -59,7 +59,7 @@ export const helpList = [
       {
         icon: 8,
         title: '#退群<群号>',
-        desc: '退出指定群聊，为空默认当前群',
+        desc: '退出指定群聊',
       },
       {
         icon: 9,
@@ -80,11 +80,6 @@ export const helpList = [
         icon: 12,
         title: '#设置主人',
         desc: '输入控制台验证码设置主人',
-      },
-      {
-        icon: 13,
-        title: '#铃状态(pro)',
-        desc: '查看当前服务器数据',
       },
       {
         icon: 14,
@@ -164,7 +159,7 @@ export const helpList = [
       },
       {
         icon: 22,
-        title: '#Karin设置',
+        title: '#Karin设置(暂时无法使用)',
         desc: '可对Karin的配置文件进行控制',
       },
       {
@@ -176,16 +171,6 @@ export const helpList = [
         icon: 25,
         title: '文件上传/下载',
         desc: '用于上传文件到q群或下载文件到本地',
-      },
-      {
-        icon: 26,
-        title: '#保存群/好友列表',
-        desc: '保存当前Bot的好友/群列表',
-      },
-      {
-        icon: 27,
-        title: '#上传群/好友名单',
-        desc: '上传保存的好友/群名单',
       },
       {
         icon: 28,
