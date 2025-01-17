@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.2...v1.7.3) (2025-01-17)
+
+
+### Bug Fixes
+
+* 删除保存群列表功能 ([b980695](https://github.com/yusheng929/karin-plugin-ling/commit/b980695396e20d0edeb4967aadbb6c7443bcd9e0))
+
 ## [1.7.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.1...v1.7.2) (2025-01-17)
 
 
