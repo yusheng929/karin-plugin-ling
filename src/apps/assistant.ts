@@ -5,10 +5,10 @@ import { basename } from '@/utils/dir'
 import { karin, segment, common, level, config, basePath } from 'node-karin'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
-  const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)/, '').trim()
+  const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)(群)?/, '').trim()
 
   if (!userId) {
-    e.reply('请输入正确的账号', { at: true })
+    e.reply('请输入需要拉黑的用户或群', { at: true })
     return true
   }
 
@@ -104,12 +104,16 @@ export const clearScreenRecall = karin.command(/^#清屏(\d+)?/, async (e) => {
 }, { name: '清屏', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 export const QuitGroup = karin.command(/^#?退群/, async (e) => {
-  const groupId = e.msg.replace(/#?退群/g, '').trim() || e.groupId
+  const groupId = e.msg.replace(/#?退群/g, '').trim()
+  if (!groupId) {
+    await e.reply('请输入需要退出的群号', { at: true })
+    return true
+  }
 
   try {
     await e.bot.getGroupInfo(groupId)
   } catch (error) {
-    await e.reply('\n你好像没加入这个群', { at: true })
+    await e.reply('你好像没加入这个群', { at: true })
     return true
   }
 

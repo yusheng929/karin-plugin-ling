@@ -47,11 +47,12 @@
     "apps": [
       "lib/apps",
       "lib/apps/events",
-      "lib/apps/QuickCode",
-      "lib/apps/tools"
+      "lib/apps/quickCode"
     ],
     "ts-apps": [
-      "src/apps"
+      "src/apps",
+      "src/apps/events",
+      "src/apps/quickCode"
     ],
     "static": [
       "resources"
