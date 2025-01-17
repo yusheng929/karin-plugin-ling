@@ -73,7 +73,7 @@
   "files": [
     "/lib/**/*.js",
     "/lib/**/*.d.ts",
-    "/config/*.yaml",
+    "/config",
     "resources",
     "CHANGELOG.md",
     "LICENSE",
