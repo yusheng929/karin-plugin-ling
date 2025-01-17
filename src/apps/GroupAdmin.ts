@@ -1,4 +1,4 @@
-import { karin } from 'node-karin'
+import { config, karin } from 'node-karin'
 import { translateChinaNum } from '../components/Number'
 // const Numreg = '[零一壹二两三四五六七八九十百千万亿\\d]+'
 
@@ -285,6 +285,7 @@ export const BanMember = karin.command(
 
     try {
       const res = await e.bot.getGroupMemberInfo(e.groupId, userId)
+      const Master = config.master()
       if (res.role === 'owner') {
         await e.reply('\n这个人是群主，少女做不到呜呜~(>_<)~', { at: true })
         return true
@@ -296,6 +297,10 @@ export const BanMember = karin.command(
           await e.reply('\n这个人是管理员，少女做不到呜呜~(>_<)~', { at: true })
           return true
         }
+      }
+      if (Master.includes(userId)) {
+        await e.reply('不能禁言主人', { at: true })
+        return true
       }
     } catch {
       e.reply('\n这个群好像没这个人', { at: true })

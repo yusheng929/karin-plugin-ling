@@ -4,6 +4,11 @@ import { sendToAllAdmin } from '@/utils/common'
 
 export const groupInvite = karin.accept('request.groupInvite', async (e) => {
   const opts = other().group
+  if (e.isMaster) {
+    await e.bot.setInvitedJoinGroupResult(e.content.flag, true)
+    await e.reply('已同意邀群申请')
+    return true
+  }
   if (opts.invite) {
     await e.bot.setInvitedJoinGroupResult(e.content.flag, true)
   }
@@ -31,6 +36,11 @@ export const groupInvite = karin.accept('request.groupInvite', async (e) => {
 
 export const friendApply = karin.accept('request.friendApply', async (e) => {
   const opts = other().friend
+  if (e.isMaster) {
+    await e.bot.setFriendApplyResult(e.content.flag, true)
+    logger.info('已同意加好友申请')
+    return true
+  }
   if (opts.accept) {
     await e.bot.setFriendApplyResult(e.content.flag, true)
   }
