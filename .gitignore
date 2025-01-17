@@ -18,6 +18,7 @@ lerna-debug.log*
 node_modules/
 /lib/
 @karinjs/
+plugins/
 logs/
 index.js
 resources/List/Group_List.txt

@@ -1,10 +1,10 @@
 import path from 'node:path'
 import { pkg } from '@/utils/config'
-import { pluginName } from '@/utils/dir'
+import { dirPath, pluginName } from '@/utils/dir'
 import { segment, karin, config } from 'node-karin'
 
 /** 默认布局 */
-export const defaultLayout = path.join(pluginName, 'resources', 'common', 'layout', 'default.html')
+export const defaultLayout = path.join(dirPath, 'resources', 'common', 'layout', 'default.html')
 /** 默认参数 */
 export const copyright = `Created By <span class="version"> Karin v${config.pkg().version} </span> & <span class="version"> ${pluginName} v${pkg().version} </span>`
 
@@ -29,7 +29,7 @@ export const render = async (
   params: Record<string, any>
 ) => {
   name = name.replace(/.html$/, '')
-  const root = path.join(pluginName, 'resources')
+  const root = path.join(dirPath, 'resources')
   const img = await karin.render({
 
     name: path.basename(name),
