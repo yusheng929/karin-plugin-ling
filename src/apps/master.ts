@@ -27,8 +27,13 @@ export const Master = karin.command(/^#设置主人/, async (e) => {
 
 export const addMaster = karin.command(/^#新增主人/, async (e) => {
   const userId = e.at[0] || e.msg.replace(/^#新增主人/, '').trim()
-  if (userId === e.userId) {
-    await e.reply(`\n[${e.userId}] 已经是主人`, { at: true })
+  if (!userId) {
+    await e.reply('请输入需要新增主人的账号或者艾特ta', { at: true })
+    return true
+  }
+  const Master = config.master()
+  if (Master.includes(userId)) {
+    await e.reply(`[${userId}] 已经是主人`, { at: true })
     return true
   }
 
