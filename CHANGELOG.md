@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.8](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.7...v1.7.8) (2025-01-17)
+
+
+### Bug Fixes
+
+* 优化加群申请通知 ([15d66b2](https://github.com/yusheng929/karin-plugin-ling/commit/15d66b24dcd92a7d1f24e401860b76137d8649c7))
+
 ## [1.7.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.6...v1.7.7) (2025-01-17)
 
 
