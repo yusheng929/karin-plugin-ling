@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.6...v1.7.7) (2025-01-17)
+
+
+### Bug Fixes
+
+* 修复 npm 包无配置文件 ([9509eac](https://github.com/yusheng929/karin-plugin-ling/commit/9509eacc1592da0c204c08d8d9076ff5f813f1b4))
+
 ## [1.7.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.5...v1.7.6) (2025-01-17)
 
 
