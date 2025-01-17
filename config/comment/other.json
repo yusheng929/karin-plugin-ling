@@ -11,5 +11,6 @@
   "group.invite": "自动同意邀请Bot入新群",
   "group.accept": "自动通过群聊的入群申请",
   "group.notify": "给所有主人发送通知",
-  "group.alone": "单独群设置"
+  "group.alone": "单独群设置",
+  "group.list": "配置后当列表群中有人申请进入群聊会进行推送"
 }

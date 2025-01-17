@@ -63,6 +63,8 @@ export interface Other {
       /** 给所有主人发送通知 */
       notify: boolean
     }[]
+    /** 申请加群通知列表 */
+    list: string[]
   }
 }
 

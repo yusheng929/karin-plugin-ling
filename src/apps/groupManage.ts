@@ -1,4 +1,4 @@
-import { karin, config, segment, logger } from 'node-karin'
+import { karin, config, segment, logger, redis } from 'node-karin'
 import { KV, other, setYaml } from '@/utils/config'
 import { sendToAllAdmin } from '@/utils/common'
 
@@ -57,53 +57,80 @@ export const friendApply = karin.accept('request.friendApply', async (e) => {
 )
 
 export const groupApply = karin.accept('request.groupApply', async (e) => {
-  console.log(`${e.content.applierId} 申请加入群 ${e.groupId}: ${e.content.flag}`)
-
+  logger.info(`${e.content.applierId} 申请加入群 ${e.groupId}: ${e.content.flag}`)
   const opts = other().group
-  const cfg = { groupId: e.groupId, accept: opts.accept, notify: opts.notify }
+  if (!opts.list.includes(e.groupId)) return false
+  const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
 
-  for (const group of Array.isArray(opts.alone) ? opts.alone : []) {
-    if (group.groupId === e.groupId) {
-      cfg.accept = group.accept
-      cfg.notify = group.notify
-      break
-    }
-  }
-
-  if (!cfg) return false
-  if (opts.accept) {
-    await e.bot.setGroupApplyResult(e.content.flag, true)
-  }
-
-  if (!opts.notify) return false
-
-  // const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
-  const GroupAvatarUrl = await e.bot.getGroupAvatarUrl(e.groupId)
-
-  await sendToAllAdmin(e.selfId, [
-    segment.image(GroupAvatarUrl),
+  const msg = await e.reply([
+    segment.image(AvatarUrl),
     segment.text([
-      `接到群『${e.groupId}』的加群申请`,
-      `申请人: ${e.userId} 『${e.sender.nick || '未知'}』`,
-      `自动处理: ${opts.accept ? '是' : '否'}`,
-      `flag: ${e.content.flag}`,
-      `申请理由: ${e.content.reason}`
+      '接到新的的加群申请',
+      `QQ号: ${e.userId}`,
+      `昵称: ${e.sender.nick || '未知'}`,
+      `申请理由: ${e.content.reason}`,
+      '管理员可引用回复: 同意/拒绝 进行处理'
     ].join('\n'))
   ])
-
-  // 这里后续看下，感觉和加群通知有点重复
-  // await e.reply([
-  //   segment.image(AvatarUrl),
-  //   segment.text([
-  //     `接收${e.content.applierId}的加群申请`,
-  //     `目前${cfg.accept ? '已开启自动处理，已通过加群申请' : '未开启自动处理，请等待管理员手动处理'}`,
-  //     `申请理由: ${e.content.reason}`
-  //   ].join('\n'))
-  // ])
-
+  const messageId = msg.messageId
+  redis.set(messageId, e.content.flag, { EX: 86400 })
   return true
-}, { name: '处理加群申请' }
+}, { name: '加群申请通知' }
 )
+
+export const groupApplyReply = karin.command(/^#?(同意|拒绝)$/, async (e) => {
+  const opts = other().group
+  if (!e.reply) return false
+  if (!opts.list.includes(e.groupId)) return false
+  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
+    await e.reply('暂无权限，只有管理员才能操作')
+    return true
+  }
+  const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
+  if (!(['owner', 'admin'].includes(info.role))) {
+    await e.reply('少女做不到呜呜~(>_<)~')
+    return true
+  }
+  const messageId = e.replyId
+  const flag = await redis.get(messageId)
+  if (!flag) {
+    await e.reply('找不到这个请求啦！！！请手动同意吧')
+    return true
+  }
+  if (e.msg === '同意') {
+    await e.bot.setInvitedJoinGroupResult(flag, true)
+    await e.reply('已同意加群申请')
+  } else {
+    await e.bot.setInvitedJoinGroupResult(flag, false)
+    await e.reply('已拒绝加群申请')
+  }
+  await redis.del(messageId)
+  return true
+}, { name: '加群申请处理', priority: -1, event: 'message.group' })
+
+export const groupApplySwitch = karin.command(/^#(开启|关闭)加群通知$/, async (e) => {
+  const opts = other().group
+  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
+    await e.reply('暂无权限，只有管理员才能操作')
+    return true
+  }
+  if (e.msg.includes('关闭')) {
+    if (!opts.list.includes(e.groupId)) {
+      await e.reply('本群暂未开启加群申请通知')
+      return true
+    }
+    opts.list = opts.list.filter(v => v !== e.groupId)
+  } else {
+    if (opts.list.includes(e.groupId)) {
+      await e.reply('本群已开启加群申请通知')
+      return true
+    }
+    opts.list.push(e.groupId)
+  }
+  setYaml(KV.Other, opts)
+  await e.reply(`已${e.msg.includes('关闭') ? '关闭' : '开启'}[${e.groupId}]的加群申请通知`)
+  return true
+}, { name: '加群通知开关', priority: -1, event: 'message.group' })
 
 export const Notification = karin.command(/^#(开启|关闭)进群通知/, async (e) => {
   let groupId = e.msg.replace(/#(开启|关闭)进群通知/, '').trim()

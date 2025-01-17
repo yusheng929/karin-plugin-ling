@@ -105,6 +105,7 @@ export const other = (): Other => {
   }
 
   result.accept.blackGroup = result.accept.blackGroup.map(v => String(v))
+  result.group.list = result.group.list.map(v => String(v))
   result.joinGroup = result.joinGroup.map(v => String(v))
   result.noWork = result.noWork.map(v => String(v))
   cacheList[name] = result

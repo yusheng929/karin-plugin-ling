@@ -33,3 +33,5 @@ group:
     - groupId: "12345"
       accept: false
       notify: true
+  # 申请加群通知配置
+  list: []
