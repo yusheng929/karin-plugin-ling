@@ -1,5 +1,15 @@
 # 更新日志
 
+## [1.7.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.1...v1.7.2) (2025-01-17)
+
+
+### Bug Fixes
+
+* 修复新增主人功能异常 ([2bbf44c](https://github.com/yusheng929/karin-plugin-ling/commit/2bbf44ca2e11cf6291b630a404d2fd6a44b3894d))
+* 修复新增主人权限判断问题 ([595a249](https://github.com/yusheng929/karin-plugin-ling/commit/595a249af7e544f4dccec157a3a326efecaecffe))
+* 修复编码加载错误 ([23f3d15](https://github.com/yusheng929/karin-plugin-ling/commit/23f3d15d0dfea33fa432c38257f6ddc172965cdf))
+* 移除#退群不携带群号时，默认退出当前群 ([f47c996](https://github.com/yusheng929/karin-plugin-ling/commit/f47c99648690dee8df8cc411ec394d721de0ee9b))
+
 ## [1.7.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.0...v1.7.1) (2025-01-16)
 
 
