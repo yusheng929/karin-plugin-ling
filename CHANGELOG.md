@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.11](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.10...v1.7.11) (2025-01-18)
+
+
+### Bug Fixes
+
+* 新增设置头衔 ([3b4ae40](https://github.com/yusheng929/karin-plugin-ling/commit/3b4ae40a3282ffc231577af1290176068046ba5a))
+
 ## [1.7.10](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.9...v1.7.10) (2025-01-18)
 
 
