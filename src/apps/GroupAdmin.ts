@@ -90,7 +90,7 @@ export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
 /**
  * 设置群头衔
  */
-export const setGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) => {
+export const ApplyGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) => {
   if (!e.isGroup) {
     e.reply('请在群聊中执行')
     return true
@@ -119,6 +119,30 @@ export const setGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) 
   }
 }, { name: '申请头衔', priority: -1 })
 
+/**
+ * 设置头衔
+ */
+export const setGroupTitle = karin.command(/^#设置头衔/, async (e) => {
+  /** 只有bot为群主才可以使用 */
+  const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
+  if (!(['owner'].includes(info.role))) {
+    await e.reply('少女不是群主，做不到呜呜~(>_<)~')
+    return true
+  }
+  const userId = e.at[0]
+  if (!userId) {
+    await e.reply('请艾特对方使用')
+    return true
+  }
+  const title = e.msg.replace(/#设置头衔/, '').trim()
+  if (!title) {
+    await e.reply('请输入需要设置的头衔')
+    return true
+  }
+  await e.bot.setGroupMemberTitle(e.groupId, userId, title)
+  await e.reply(`\n已经将『${userId}』的头衔设置为『${title}』`, { at: true })
+  return true
+}, { name: '设置头衔', priority: -1, permission: 'master', event: 'message.group' })
 /**
  * 踢人
  */
