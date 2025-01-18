@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.10](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.9...v1.7.10) (2025-01-18)
+
+
+### Bug Fixes
+
+* 修复上下班失效的问题 ([51f1402](https://github.com/yusheng929/karin-plugin-ling/commit/51f14024c1e9ffc2da3c89a93d7b58a0ac3b778c))
+
 ## [1.7.9](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.8...v1.7.9) (2025-01-18)
 
 
