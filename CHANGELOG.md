@@ -1,5 +1,12 @@
 # 更新日志
 
+## 1.0.0 (2025-01-18)
+
+
+### Bug Fixes
+
+* 新增设置头衔 ([5e5c083](https://github.com/yusheng929/karin-plugin-ling/commit/5e5c083aa665bda2d2d3d57bd1b0bb0b3e6fbb29))
+
 ## [1.7.10](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.9...v1.7.10) (2025-01-18)
 
 
