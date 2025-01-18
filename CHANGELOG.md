@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.9](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.8...v1.7.9) (2025-01-18)
+
+
+### Bug Fixes
+
+* 修复配置文件修改无效的情况 ([8f836a3](https://github.com/yusheng929/karin-plugin-ling/commit/8f836a35bb9deca31429ddceea3132382690fb33))
+
 ## [1.7.8](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.7...v1.7.8) (2025-01-17)
 
 
