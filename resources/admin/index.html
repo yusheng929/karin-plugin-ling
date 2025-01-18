@@ -1,0 +1,153 @@
+{{extend defaultLayout}}
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}/admin/index.css" />
+{{/block}}
+{{block 'main'}}
+
+<div class="info_box">
+  <div class="head-box type{{bgType}}">
+    <div class="label">Karin设置管理</div>
+    <div class="title">Karin设置</div>
+  </div>
+</div>
+
+<div class="cfg-box">
+  <div class="cfg-group">应用配置</div>
+  <ul class="cfg-ul">
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        黑名单用户
+        <span class="cfg-hint">#Karin设置黑名单用户+开启/关闭</span>
+        {{@BlackList_users}}
+      </div>
+      <div class="cfg-desc">当黑名单关闭时，黑名单的用户配置将不生效</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        黑名单群
+        <span class="cfg-hint">#Karin设置黑名单群+开启/关闭</span>
+        {{@BlackList_groups}}
+      </div>
+      <div class="cfg-desc">当黑名单群关闭时，黑名单的群配置将不生效</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        消息日志黑名单群聊
+        <span class="cfg-hint">#Karin设置黑名单群日志统计+开启/关闭</span>
+        {{@BlackList_groups}}
+      </div>
+      <div class="cfg-desc">设置后不会打印该群的消息日志</div>
+    </li>
+    <li class="cfg-li">
+      <div class="cfg-line">
+        白名单用户
+        <span class="cfg-hint">#Karin设置白名单用户+开启/关闭</span>
+        {{@WhiteList_users}}
+      </div>
+      <div class="cfg-desc">当白名单关闭时，白名单的用户配置将不生效</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        白名单群
+        <span class="cfg-hint">#Karin设置白名单群+开启/关闭</span>
+        {{@WhiteList_groups}}
+      </div>
+      <div class="cfg-desc">当白名单群关闭时，白名单的群配置将不生效</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        消息日志白名单群聊
+        <span class="cfg-hint">Karin设置白名单群日志统计+开启/关闭</span>
+        {{@BlackList_groups}}
+      </div>
+      <div class="cfg-desc">设置后不会打印该群的消息日志</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        群聊消息冷却
+        <span class="cfg-hint">Karin设置群聊消息冷却+开启/关闭</span>
+        {{@GroupConfig_GroupCD}}
+      </div>
+      <div class="cfg-desc">开启后群聊中所有消息冷却时间会有配置文件控制</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        群聊个人消息冷却
+        <span class="cfg-hint">Karin设置群聊个人消息冷却+开启/关闭</span>
+        {{@GroupConfig_GroupUserCD}}
+      </div>
+      <div class="cfg-desc">开启后群聊中所有人的消息冷却时间有配置文件控制</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        机器人响应模式
+        <span class="cfg-hint">Karin设置机器人响应模式+开启/关闭</span>
+        {{@GroupConfig_mode}}
+      </div>
+      <div class="cfg-desc">开启后响应模式将会由配置文件控制</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        机器人前缀
+        <span class="cfg-hint">Karin设置机器人前缀+开启/关闭</span>
+        {{@GroupConfig_alias}}
+      </div>
+      <div class="cfg-desc">设置后机器人前缀由配置文件控制</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        白名单功能
+        <span class="cfg-hint">Karin设置白名单功能+开启/关闭</span>
+        {{@GroupConfig_enable}}
+      </div>
+      <div class="cfg-desc">设置后白名单功能配置将可使用</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        黑名单功能
+        <span class="cfg-hint">Karin设置黑名单功能+开启/关闭</span>
+        {{@GroupConfig_disable}}
+      </div>
+      <div class="cfg-desc">设置后可配置黑名单功能</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        机器人私聊
+        <span class="cfg-hint">Karin设置机器人私聊+开启/关闭</span>
+        {{@PrivateConfig_enable}}
+      </div>
+      <div class="cfg-desc">设置后机器人私聊将会启用</div>
+    </li>
+
+  </ul>
+</div>
+
+<div class="cfg-box">
+  <div class="cfg-group">通用配置</div>
+  <ul class="cfg-ul">
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        日志等级
+        <span class="cfg-hint">#Karin设置日志等级</span>
+        {{@log4jsCfg_level}}
+      </div>
+      <div class="cfg-desc">日志等级: 追踪(trace), 调试(debug), 信息(info), 警告(warn), 致命(fatal), 标记(mark), 错误(error), 关闭(off)
+      </div>
+    </li>
+
+  </ul>
+</div>
+{{/block}}

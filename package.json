@@ -1,0 +1,92 @@
+{
+  "name": "karin-plugin-ling",
+  "version": "1.7.10",
+  "author": "yusheng",
+  "type": "module",
+  "main": "lib/index.js",
+  "description": "基于Karin编写的便携操作插件",
+  "homepage": "https://github.com/yusheng929/karin-plugin-ling",
+  "bugs": {
+    "url": "https://github.com/yusheng929/karin-plugin-ling/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusheng929/karin-plugin-ling.git"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+    "clean": "npm lib/cli/pr.js clean",
+    "pub": "npm publish --access public",
+    "pub-beta": "npm publish --tag beta",
+    "pr": "node lib/cli/pr.js",
+    "commit": "node lib/cli/commit.js",
+    "sort": "npx sort-package-json",
+    "dev": "tsx watch --include \"src/**/*.ts\" src/index.ts",
+    "karin": "karin",
+    "app": "karin app",
+    "start": "karin start",
+    "pm2": "karin pm2",
+    "stop": "karin stop",
+    "rs": "karin rs",
+    "log": "karin log",
+    "watch": "karin watch"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/punycode": "^2.1.4",
+    "@types/qrcode": "^1.5.5",
+    "eslint": "^9.18.0",
+    "neostandard": "^0.12.0",
+    "node-karin": "1.1.4",
+    "tsc-alias": "^1.8.10",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@karinjs/md-html": "^1.1.6",
+    "punycode": "^2.3.1",
+    "qrcode": "^1.5.4"
+  },
+  "karin": {
+    "main": "src/index.ts",
+    "apps": [
+      "lib/apps",
+      "lib/apps/events",
+      "lib/apps/quickCode"
+    ],
+    "ts-apps": [
+      "src/apps",
+      "src/apps/events",
+      "src/apps/quickCode"
+    ],
+    "static": [
+      "resources"
+    ],
+    "files": [
+      "config",
+      "data",
+      "resources"
+    ],
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "lib/**/*",
+      "@karinjs/**/*"
+    ]
+  },
+  "files": [
+    "/lib/**/*.js",
+    "/lib/**/*.d.ts",
+    "/config",
+    "resources",
+    "CHANGELOG.md",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}

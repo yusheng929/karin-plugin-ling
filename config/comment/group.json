@@ -1,0 +1,8 @@
+{
+  "default": "全局默认配置",
+  "default.rule": "违禁词拦截规则 0-模糊拦截 1-精准拦截",
+  "default.words": "违禁词列表",
+  "default.enable": "是否启用违禁词拦截",
+  "default.ban": "是否启用撤回并禁言",
+  "default.time": "违禁词撤回并禁言的时间 单位秒"
+}
