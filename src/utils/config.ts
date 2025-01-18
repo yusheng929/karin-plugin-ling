@@ -8,15 +8,16 @@ import {
   requireFileSync,
   existsSync,
   yaml,
+  logger,
 } from 'node-karin'
 import type { Cof, Gorup, Other, State } from '@/types/config'
 
 /** 文件名称枚举 */
 export const enum KV {
-  Group = 'group.yaml',
-  Cof = 'cof.yaml',
-  Other = 'other.yaml',
-  State = 'state.yaml',
+  Group = 'group',
+  Cof = 'cof',
+  Other = 'other',
+  State = 'state',
 }
 
 interface Cache {
@@ -57,8 +58,8 @@ export const group = (): Gorup => {
   const name = KV.Group
   const cache = cacheList[name]
   if (cache) return cache
-  const user = requireFileSync<Gorup>(`${dirConfig}/${name}`)
-  const def = requireFileSync<Gorup>(`${defConfig}/${name}`)
+  const user = requireFileSync<Gorup>(`${dirConfig}/${name}.yaml`)
+  const def = requireFileSync<Gorup>(`${defConfig}/${name}.yaml`)
   const result: Gorup = { default: { ...def.default, ...user.default } }
   Object.keys(user).forEach(key => {
     if (key === 'default') return
@@ -76,8 +77,8 @@ export const cof = (): Cof => {
   const name = KV.Cof
   const cache = cacheList[name]
   if (cache) return cache
-  const user = requireFileSync<Cof>(`${dirConfig}/${name}`)
-  const def = requireFileSync<Cof>(`${defConfig}/${name}`)
+  const user = requireFileSync<Cof>(`${dirConfig}/${name}.yaml`)
+  const def = requireFileSync<Cof>(`${defConfig}/${name}.yaml`)
   const result: Cof = { ...def, ...user }
   cacheList[name] = result
   return result
@@ -90,8 +91,8 @@ export const other = (): Other => {
   const name = KV.Other
   const cache = cacheList[name]
   if (cache) return cache
-  const user = requireFileSync<Other>(`${dirConfig}/${name}`)
-  const def = requireFileSync<Other>(`${defConfig}/${name}`)
+  const user = requireFileSync<Other>(`${dirConfig}/${name}.yaml`)
+  const def = requireFileSync<Other>(`${defConfig}/${name}.yaml`)
   const result: Other = {
     accept: { ...def.accept, ...user.accept },
     joinGroup: user.joinGroup || def.joinGroup || [],
@@ -119,8 +120,8 @@ export const state = (): State => {
   const name = KV.State
   const cache = cacheList[name]
   if (cache) return cache
-  const user = requireFileSync<State>(`${dirConfig}/${name}`)
-  const def = requireFileSync<State>(`${defConfig}/${name}`)
+  const user = requireFileSync<State>(`${dirConfig}/${name}.yaml`)
+  const def = requireFileSync<State>(`${defConfig}/${name}.yaml`)
   const result: State = { ...def, ...user }
   cacheList[name] = result
   return result
@@ -134,7 +135,10 @@ export const state = (): State => {
 export const setYaml = (name: `${KV}`, data: unknown) => {
   const file = path.join(dirConfig, `${name}.yaml`)
   const comment = path.join(dirConfig, '../', 'comment', `${name}.json`)
-  if (!existsSync(file)) return false
+  if (!existsSync(file)) {
+    logger.error(`${file} 不存在`)
+    return false
+  }
   yaml.save(file, data, existsSync(comment) ? comment : undefined)
   return true
 }
