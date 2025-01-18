@@ -1,4 +1,4 @@
-import { other, setYaml } from '@/utils/config'
+import { KV, other, setYaml } from '@/utils/config'
 import { karin } from 'node-karin'
 
 export const test = karin.command(/^#(上班|下班)$/, async (e) => {
@@ -10,7 +10,7 @@ export const test = karin.command(/^#(上班|下班)$/, async (e) => {
     }
 
     cfg.noWork = cfg.noWork.filter((v) => v !== e.groupId)
-    setYaml('other.yaml', cfg)
+    setYaml(KV.Other, cfg)
     await e.reply('打起精神开始上班啦！为大家服务！ヾ(◍°∇°◍)ﾉﾞ')
     return true
   }
@@ -21,7 +21,7 @@ export const test = karin.command(/^#(上班|下班)$/, async (e) => {
   }
 
   cfg.noWork.push(e.groupId)
-  setYaml('other.yaml', cfg)
+  setYaml(KV.Other, cfg)
   await e.reply('终于可以休息啦！跟大家说晚安！(｡･ω･｡)ﾉ♡')
   return true
 }, { permission: 'master', event: 'message.group' })
