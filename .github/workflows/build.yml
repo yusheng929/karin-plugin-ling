@@ -101,9 +101,9 @@ jobs:
         run: |
           rm -rf ./../temp
 
-      - name: 从main分支复制文件到dev分支
+      - name: 从npm分支复制文件到dev分支
         run: |
-          git checkout main -- package.json CHANGELOG.md README.md config resources LICENSE
+          git checkout npm -- package.json CHANGELOG.md README.md config resources LICENSE
           
       - name: 删除依赖文件夹 node_modules
         run: |
