@@ -110,7 +110,7 @@ jobs:
 
       - name: 从main分支复制文件到dev分支
         run: |
-          git checkout npm -- package.json CHANGELOG.md README.md config resources LICENSE
+          git checkout main -- package.json CHANGELOG.md README.md config resources LICENSE
 
       - name: 修订版本号
         run: npm run commit all

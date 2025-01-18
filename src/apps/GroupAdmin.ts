@@ -1,4 +1,4 @@
-import { config, karin } from 'node-karin'
+import { config, karin, logger } from 'node-karin'
 import { translateChinaNum } from '../components/Number'
 // const Numreg = '[零一壹二两三四五六七八九十百千万亿\\d]+'
 
@@ -90,7 +90,7 @@ export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
 /**
  * 设置群头衔
  */
-export const setGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) => {
+export const ApplyGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) => {
   if (!e.isGroup) {
     e.reply('请在群聊中执行')
     return true
@@ -118,6 +118,39 @@ export const setGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) 
     return true
   }
 }, { name: '申请头衔', priority: -1 })
+
+/**
+ * 设置头衔
+ */
+export const setGroupTitle = karin.command(/^#设置头衔/, async (e) => {
+  /** 只有bot为群主才可以使用 */
+  const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
+  if (!(['owner'].includes(info.role))) {
+    await e.reply('少女不是群主，做不到呜呜~(>_<)~')
+    return true
+  }
+
+  const title = e.msg.replace(/#设置头衔/, '').trim()
+  const userId = e.at[0]
+  if (!userId) {
+    e.reply('请艾特需要修改头衔的用户')
+    return true
+  }
+  try {
+    if (!title) {
+      await e.bot.setGroupMemberTitle(e.groupId, userId, title)
+      await e.reply(`已经将用户[${userId}]的头衔取消了`, { at: true })
+      return true
+    }
+    await e.bot.setGroupMemberTitle(e.groupId, userId, title)
+    await e.reply(`已经将用户[${userId}]的头衔设置为[${title}]`, { at: true })
+    return true
+  } catch (error) {
+    await e.reply('\n错误: 未知原因❌', { at: true })
+    logger.error(error)
+    return true
+  }
+}, { name: '设置头衔', priority: -1, permission: 'master', event: 'message.group' })
 
 /**
  * 踢人

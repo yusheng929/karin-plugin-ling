@@ -122,6 +122,11 @@ export const helpList = [
         desc: '字面意思',
       },
       {
+        icon: 29,
+        title: '#设置头衔<@QQ><头衔>',
+        desc: '字面意思',
+      },
+      {
         icon: 15,
         title: '#设置管理<@QQ>',
         desc: '字面意思',
