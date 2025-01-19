@@ -101,11 +101,12 @@ export const other = (): Other => {
     group: {
       ...def.group,
       ...user.group,
-      alone: user.group?.alone || def.group.alone || [],
     },
+    notify: user.notify || def.notify
   }
 
-  result.accept.blackGroup = result.accept.blackGroup.map(v => String(v))
+  result.accept.enable_list = result.accept.enable_list.map(v => String(v))
+  result.accept.disable_list = result.accept.disable_list.map(v => String(v))
   result.group.list = result.group.list.map(v => String(v))
   result.joinGroup = result.joinGroup.map(v => String(v))
   result.noWork = result.noWork.map(v => String(v))

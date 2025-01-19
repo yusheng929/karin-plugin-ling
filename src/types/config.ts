@@ -30,42 +30,41 @@ export interface Cof {
 export interface Other {
   /** 进退群通知 */
   accept: {
+    /** 进退群通知开关 */
+    enable: boolean
+    /** 白名单 */
+    enable_list: string[]
     /** 黑名单 */
-    blackGroup: string[]
+    disable_list: string[]
   }
   /** 开启入群验证的群聊列表 */
   joinGroup: string[]
   /** 好友相关配置 */
   friend: {
-    /** 自动通过好友请求 */
-    accept: boolean
-    /** 给所有主人发送通知 */
+    /** 通知开关 */
     notify: boolean
+    /** 自动同意好友申请 */
+    enable: boolean
     /** 关闭点赞 */
     closeLike: boolean
+    /** 点赞文本 */
+    likeStart: string
+    /** 已点赞的文本 */
+    likeEnd: string
   }
   /** 上下班配置 下班的群聊列表 配置后该群将无法触发任何功能 */
   noWork: string[]
   /** 群聊相关配置 */
   group: {
+    /** 通知开关 */
+    notify: boolean
     /** 自动同意邀请Bot入新群 */
     invite: boolean
-    /** 自动通过群聊的入群申请 */
-    accept: boolean
-    /** 给所有主人发送通知 */
-    notify: boolean
-    /** 单独群设置 */
-    alone: {
-      /** 群号 */
-      groupId: string
-      /** 自动通过群聊的入群申请 */
-      accept: boolean
-      /** 给所有主人发送通知 */
-      notify: boolean
-    }[]
     /** 申请加群通知列表 */
     list: string[]
   }
+  /** 给所有主人发送通知 */
+  notify: boolean
 }
 
 /** `state.yaml` 文件的类型定义 */

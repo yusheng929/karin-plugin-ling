@@ -1,20 +1,30 @@
 # 进退群通知
 accept:
-  blackGroup:
+  # 黑白名单优先级：白名单>黑名单
+  # 进退群通知开关
+  enable: true
+  # 白名单
+  enable_list: []
+  # 黑名单
+  disable_list:
     - "636023444"
 
-# 开启入群验证的群聊列表
+# 开启进群验证的群聊列表
 joinGroup:
   - "114514"
 
 # 好友相关配置
 friend:
+  # 通知开关
+  notify: false
   # 自动通过好友请求
-  accept: false
-  # 给所有主人发送通知
-  notify: true
+  enable: false
   # 关闭点赞
   closeLike: false
+  # 点赞自定义文本
+  likeStart: "已为你点赞{{likeCount}}次"
+  # 已经点赞后，触发功能时发送的文本
+  likeEnd: "已经给你赞过了"
 
 # 上下班配置 下班的群聊列表 配置后该群将无法触发任何功能
 noWork:
@@ -22,16 +32,12 @@ noWork:
 
 # 群聊相关配置
 group:
+  # 通知开关
+  notify: false
   # 自动同意邀请Bot入新群
   invite: false
-  # 自动通过群聊的入群申请
-  accept: false
-  # 给所有主人发送通知
-  notify: true
-  # 单独群设置 缺失的字段将使用上方的全局配置
-  alone:
-    - groupId: "12345"
-      accept: false
-      notify: true
-  # 申请加群通知配置
+  # 加群通知列表
   list: []
+
+# 将通知发送给所有主人，false为只发送第一个主人
+notify: true

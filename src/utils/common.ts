@@ -18,3 +18,17 @@ export const sendToAllAdmin = async (selfId: string, message: Parameters<typeof 
     }
   }
 }
+
+export const sendToFirstAdmin = async (selfId: string, message: Parameters<typeof karin.sendMsg>[2]) => {
+  const list = config.admin()
+  let master = list[0]
+  if (master === 'console') {
+    master = list[1]
+  }
+  try {
+    await karin.sendMaster(selfId, master, message)
+  } catch (error) {
+    logger.bot('info', selfId, `[${master}] 发送主动消息失败:`)
+    logger.error(error)
+  }
+}

@@ -1,111 +1,71 @@
-import { karin, config, segment, logger, redis } from 'node-karin'
+import { karin, redis } from 'node-karin'
 import { KV, other, setYaml } from '@/utils/config'
-import { sendToAllAdmin } from '@/utils/common'
 
-export const groupInvite = karin.accept('request.groupInvite', async (e) => {
-  const opts = other().group
-  if (e.isMaster) {
-    await e.bot.setInvitedJoinGroupResult(e.content.flag, true)
-    await e.reply('已同意邀群申请')
-    return true
-  }
-  if (opts.invite) {
-    await e.bot.setInvitedJoinGroupResult(e.content.flag, true)
-  }
-
-  if (!opts.notify) return false
-  const AvatarUrl = await e.bot.getGroupAvatarUrl(e.groupId)
-  const list = [...config.master(), ...config.admin()]
-  for (const id of list) {
-    try {
-      const contact = karin.contactFriend(id)
-      const message = [
-        segment.image(AvatarUrl),
-        segment.text(`接到群『${e.groupId}』的邀请， ${opts.accept ? '已处理' : ''} 识别号: ${e.content.flag}`)
-      ]
-
-      await karin.sendMsg(e.selfId, contact, message)
-    } catch (error) {
-      logger.error('[处理邀请Bot加群] 发送主人消息失败:')
-      logger.error(error)
-    }
-  }
-  return true
-}, { name: '处理邀请Bot加群申请' }
-)
-
-export const friendApply = karin.accept('request.friendApply', async (e) => {
-  const opts = other().friend
-  if (e.isMaster) {
-    await e.bot.setFriendApplyResult(e.content.flag, true)
-    logger.info('已同意加好友申请')
-    return true
-  }
-  if (opts.accept) {
-    await e.bot.setFriendApplyResult(e.content.flag, true)
-  }
-
-  if (!opts.notify) return false
-  const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
-  await sendToAllAdmin(e.selfId, [
-    segment.image(AvatarUrl),
-    segment.text(`接到『${e.content.applierId}』的好友申请， ${opts.accept ? '已处理' : ''} 识别号: ${e.content.flag}`)
-  ])
-
-  return true
-}, { name: '处理加好友申请', priority: 100, }
-)
-
-export const groupApply = karin.accept('request.groupApply', async (e) => {
-  logger.info(`${e.content.applierId} 申请加入群 ${e.groupId}: ${e.content.flag}`)
-  const opts = other().group
-  if (!opts.list.includes(e.groupId)) return false
-  const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
-
-  const msg = await e.reply([
-    segment.image(AvatarUrl),
-    segment.text([
-      '接到新的的加群申请',
-      `QQ号: ${e.userId}`,
-      `昵称: ${e.sender.nick || '未知'}`,
-      `申请理由: ${e.content.reason}`,
-      '管理员可引用回复: 同意/拒绝 进行处理'
-    ].join('\n'))
-  ])
-  const messageId = msg.messageId
-  redis.set(messageId, e.content.flag, { EX: 86400 })
-  return true
-}, { name: '加群申请通知' }
-)
-
-export const groupApplyReply = karin.command(/^#?(同意|拒绝)$/, async (e) => {
-  const opts = other().group
-  if (!e.reply) return false
-  if (!opts.list.includes(e.groupId)) return false
-  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-    await e.reply('暂无权限，只有管理员才能操作')
-    return true
-  }
-  const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
-  if (!(['owner', 'admin'].includes(info.role))) {
-    await e.reply('少女做不到呜呜~(>_<)~')
-    return true
-  }
-  const messageId = e.replyId
-  const flag = await redis.get(messageId)
+const handle = async (e:any, key: string, yes: boolean, type: string) => {
+  const flag = await redis.get(key)
   if (!flag) {
     await e.reply('找不到这个请求啦！！！请手动同意吧')
     return true
   }
-  if (e.msg === '同意') {
-    await e.bot.setInvitedJoinGroupResult(flag, true)
-    await e.reply('已同意加群申请')
+  if (type === 'groupinvite') {
+    await e.bot.setInvitedJoinGroupResult(flag, yes)
+    await e.reply(`已${yes ? '同意' : '拒绝'}加群申请`)
   } else {
-    await e.bot.setInvitedJoinGroupResult(flag, false)
-    await e.reply('已拒绝加群申请')
+    await e.bot.setFriendApplyResult(flag, yes)
+    await e.reply(`已${yes ? '同意' : '拒绝'}好友申请`)
   }
-  await redis.del(messageId)
+  await redis.del(key)
   return true
+}
+export const groupApplyReply = karin.command(/^#?(同意|拒绝)$/, async (e) => {
+  const opts = other()
+  if (!e.reply) return false
+  if (e.isGroup) {
+    if (!opts.group.list.includes(e.groupId)) return false
+    if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
+      await e.reply('暂无权限，只有管理员才能操作')
+      return true
+    }
+    const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
+    if (!(['owner', 'admin'].includes(info.role))) {
+      await e.reply('少女做不到呜呜~(>_<)~')
+      return true
+    }
+    const key = `Ling:groupinvite:${e.replyId}`
+    const flag = await redis.get(key)
+    if (!flag) {
+      await e.reply('找不到这个请求啦！！！请手动同意吧')
+      return true
+    }
+    if (e.msg === '同意') {
+      await e.bot.setInvitedJoinGroupResult(flag, true)
+      await e.reply('已同意加群申请')
+    } else {
+      await e.bot.setInvitedJoinGroupResult(flag, false)
+      await e.reply('已拒绝加群申请')
+    }
+    await redis.del(key)
+    return true
+  } else {
+    const messageId = e.replyId
+    const msgs = await e.bot.getMsg(e.contact, messageId)
+    const textContent = msgs.elements.find(element => element.type === 'text')?.text
+    const msg = textContent ? textContent.split('\n') : []
+    const groupId = msg[1].match(/[1-9]\d*/g)
+    const userId = msg[3].match(/[1-9]\d*/g)
+    if (msg[0].includes('邀请加群')) {
+      const key = `Ling:groupinvite:${groupId}:${userId}`
+      const yes = /同意/.test(e.msg)
+      await handle(e, key, yes, 'groupinvite')
+    } else {
+      if (msg[0].includes('好友申请')) {
+        const key = `Ling:friendapply:${userId}`
+        const yes = /同意/.test(e.msg)
+        await handle(e, key, yes, 'friendapply')
+      }
+    }
+    return true
+  }
 }, { name: '加群申请处理', priority: -1, event: 'message.group' })
 
 export const groupApplySwitch = karin.command(/^#(开启|关闭)加群通知$/, async (e) => {
@@ -143,23 +103,23 @@ export const Notification = karin.command(/^#(开启|关闭)进群通知/, async
 
   const cfg = other()
   if (e.msg.includes('关闭')) {
-    if (!cfg.accept.blackGroup.includes(groupId)) {
+    if (!cfg.accept.disable_list.includes(groupId)) {
       await e.reply(`\n群『${groupId}』的进群通知已经处于关闭状态`, { at: true })
       return true
     }
 
-    cfg.accept.blackGroup = cfg.accept.blackGroup.filter(v => v !== groupId)
+    cfg.accept.disable_list = cfg.accept.disable_list.filter(v => v !== groupId)
     setYaml(KV.Other, cfg)
     await e.reply(`\n已经关闭群『${groupId}』的进群通知`, { at: true })
     return true
   }
 
-  if (cfg.accept.blackGroup.includes(groupId)) {
+  if (cfg.accept.enable_list.includes(groupId)) {
     await e.reply(`\n群『${groupId}』的进群通知目前已经处于开启状态`, { at: true })
     return true
   }
 
-  cfg.accept.blackGroup.push(groupId)
+  cfg.accept.enable_list.push(groupId)
   setYaml(KV.Other, cfg)
   await e.reply(`\n已经开启群『${groupId}』的进群通知`, { at: true })
   return true

@@ -1,16 +1,19 @@
 {
   "accept": "进退群通知",
-  "accept.blackGroup": "黑名单群",
+  "accept.enable": "进退群通知开关",
+  "accept.enable_list": "白名单",
+  "accept.disable_list": "黑名单",
   "joinGroup": "开启入群验证的群聊列表",
   "friend": "好友相关配置",
-  "friend.accept": "自动通过好友请求",
-  "friend.notify": "给所有主人发送通知",
+  "friend.notify": "通知开关",
+  "friend.enable": "自动通过好友请求",
   "friend.closeLike": "关闭点赞",
+  "friend.likeStart": "点赞自定义文本",
+  "friend.likeEnd": "已经点赞后，触发功能时发送的文本",
   "noWork": "上下班配置 下班的群聊列表 配置后该群将无法触发任何功能",
   "group": "群聊相关配置",
+  "group.notify": "通知开关",
   "group.invite": "自动同意邀请Bot入新群",
-  "group.accept": "自动通过群聊的入群申请",
-  "group.notify": "给所有主人发送通知",
-  "group.alone": "单独群设置",
-  "group.list": "配置后当列表群中有人申请进入群聊会进行推送"
+  "group.list": "配置后当列表群中有人申请进入群聊会进行推送",
+  "notify": "将通知发送给所有主人,false为只发送第一个主人"
 }
