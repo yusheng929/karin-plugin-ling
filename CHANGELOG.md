@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.12](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.11...v1.7.12) (2025-01-19)
+
+
+### Bug Fixes
+
+* 优化群事件处理逻辑 ([83718a0](https://github.com/yusheng929/karin-plugin-ling/commit/83718a03e5a01f8239935bbbeaacb7d65cd126e9))
+
 ## [1.7.11](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.10...v1.7.11) (2025-01-18)
 
 
