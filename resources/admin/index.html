@@ -6,148 +6,113 @@
 
 <div class="info_box">
   <div class="head-box type{{bgType}}">
-    <div class="label">Karin设置管理</div>
-    <div class="title">Karin设置</div>
+    <div class="label">铃设置</div>
+    <div class="title">铃设置</div>
   </div>
 </div>
 
 <div class="cfg-box">
-  <div class="cfg-group">应用配置</div>
+  <div class="cfg-group">申请通知配置</div>
   <ul class="cfg-ul">
 
     <li class="cfg-li">
       <div class="cfg-line">
-        黑名单用户
-        <span class="cfg-hint">#Karin设置黑名单用户+开启/关闭</span>
-        {{@BlackList_users}}
+        好友申请
+        <span class="cfg-hint">#铃设置好友通知+开启/关闭</span>
+        {{@friend_notify}}
       </div>
-      <div class="cfg-desc">当黑名单关闭时，黑名单的用户配置将不生效</div>
+      <div class="cfg-desc">当加Bot好友时,通知主人</div>
     </li>
 
     <li class="cfg-li">
       <div class="cfg-line">
-        黑名单群
-        <span class="cfg-hint">#Karin设置黑名单群+开启/关闭</span>
-        {{@BlackList_groups}}
+        邀请加群
+        <span class="cfg-hint">#铃设置群邀请+开启/关闭</span>
+        {{@group_notify}}
       </div>
-      <div class="cfg-desc">当黑名单群关闭时，黑名单的群配置将不生效</div>
+      <div class="cfg-desc">当邀请Bot加群时,通知主人</div>
     </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        消息日志黑名单群聊
-        <span class="cfg-hint">#Karin设置黑名单群日志统计+开启/关闭</span>
-        {{@BlackList_groups}}
-      </div>
-      <div class="cfg-desc">设置后不会打印该群的消息日志</div>
-    </li>
-    <li class="cfg-li">
-      <div class="cfg-line">
-        白名单用户
-        <span class="cfg-hint">#Karin设置白名单用户+开启/关闭</span>
-        {{@WhiteList_users}}
-      </div>
-      <div class="cfg-desc">当白名单关闭时，白名单的用户配置将不生效</div>
-    </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        白名单群
-        <span class="cfg-hint">#Karin设置白名单群+开启/关闭</span>
-        {{@WhiteList_groups}}
-      </div>
-      <div class="cfg-desc">当白名单群关闭时，白名单的群配置将不生效</div>
-    </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        消息日志白名单群聊
-        <span class="cfg-hint">Karin设置白名单群日志统计+开启/关闭</span>
-        {{@BlackList_groups}}
-      </div>
-      <div class="cfg-desc">设置后不会打印该群的消息日志</div>
-    </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        群聊消息冷却
-        <span class="cfg-hint">Karin设置群聊消息冷却+开启/关闭</span>
-        {{@GroupConfig_GroupCD}}
-      </div>
-      <div class="cfg-desc">开启后群聊中所有消息冷却时间会有配置文件控制</div>
-    </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        群聊个人消息冷却
-        <span class="cfg-hint">Karin设置群聊个人消息冷却+开启/关闭</span>
-        {{@GroupConfig_GroupUserCD}}
-      </div>
-      <div class="cfg-desc">开启后群聊中所有人的消息冷却时间有配置文件控制</div>
-    </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        机器人响应模式
-        <span class="cfg-hint">Karin设置机器人响应模式+开启/关闭</span>
-        {{@GroupConfig_mode}}
-      </div>
-      <div class="cfg-desc">开启后响应模式将会由配置文件控制</div>
-    </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        机器人前缀
-        <span class="cfg-hint">Karin设置机器人前缀+开启/关闭</span>
-        {{@GroupConfig_alias}}
-      </div>
-      <div class="cfg-desc">设置后机器人前缀由配置文件控制</div>
-    </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        白名单功能
-        <span class="cfg-hint">Karin设置白名单功能+开启/关闭</span>
-        {{@GroupConfig_enable}}
-      </div>
-      <div class="cfg-desc">设置后白名单功能配置将可使用</div>
-    </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        黑名单功能
-        <span class="cfg-hint">Karin设置黑名单功能+开启/关闭</span>
-        {{@GroupConfig_disable}}
-      </div>
-      <div class="cfg-desc">设置后可配置黑名单功能</div>
-    </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        机器人私聊
-        <span class="cfg-hint">Karin设置机器人私聊+开启/关闭</span>
-        {{@PrivateConfig_enable}}
-      </div>
-      <div class="cfg-desc">设置后机器人私聊将会启用</div>
-    </li>
-
   </ul>
 </div>
 
 <div class="cfg-box">
-  <div class="cfg-group">通用配置</div>
+  <div class="cfg-group">群聊配置</div>
   <ul class="cfg-ul">
 
     <li class="cfg-li">
       <div class="cfg-line">
-        日志等级
-        <span class="cfg-hint">#Karin设置日志等级</span>
-        {{@log4jsCfg_level}}
+        进退群通知
+        <span class="cfg-hint">#铃设置进退群通知+开启/关闭</span>
+        {{@accept_enable}}
       </div>
-      <div class="cfg-desc">日志等级: 追踪(trace), 调试(debug), 信息(info), 警告(warn), 致命(fatal), 标记(mark), 错误(error), 关闭(off)
-      </div>
+      <div class="cfg-desc">当进退群时,在当前群提示某某加入退出群聊</div>
     </li>
 
+    <li class="cfg-li">
+      <div class="cfg-line">
+        自动同意邀群
+        <span class="cfg-hint">#铃设置自动同意邀群+开启/关闭</span>
+        {{@group_invite}}
+      </div>
+      <div class="cfg-desc">当邀请Bot加群时,自动同意</div>
+    </li>
+  </ul>
+</div>
+
+<div class="cfg-box">
+  <div class="cfg-group">好友配置</div>
+  <ul class="cfg-ul">
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        自动同意好友申请
+        <span class="cfg-hint">#铃设置自动同意好友申请+开启/关闭</span>
+        {{@friend_enable}}
+      </div>
+      <div class="cfg-desc">当有好友申请时,自动同意</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        点赞
+        <span class="cfg-hint">#铃设置点赞+开启/关闭</span>
+        {{@friend_closeLike}}
+      </div>
+      <div class="cfg-desc">开启关闭点赞</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        未点赞文本
+        <span class="cfg-hint">#铃设置未点赞文本+文本</span>
+        {{@friend_likeStart}}
+      </div>
+      <div class="cfg-desc">未点赞时发送的文本</div>
+    </li>
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        已点赞文本
+        <span class="cfg-hint">#铃设置已点赞文本+文本</span>
+        {{@friend_likeEnd}}
+      </div>
+      <div class="cfg-desc">已点赞后发送的文本</div>
+    </li>
+  </ul>
+</div>
+
+<div class="cfg-box">
+  <div class="cfg-group">系统配置</div>
+  <ul class="cfg-ul">
+
+    <li class="cfg-li">
+      <div class="cfg-line">
+        通知全部主人
+        <span class="cfg-hint">#铃设置全部通知+开启/关闭</span>
+        {{@notify}}
+      </div>
+      <div class="cfg-desc">开启是通知全部主人关闭则通知第一个主人</div>
+    </li>
   </ul>
 </div>
 {{/block}}

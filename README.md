@@ -23,19 +23,19 @@ karin根目录下执行
 GitHub安装(国外推荐)
 
 ```bash
-git clone --depth=1 https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
+git clone --depth=1 -b dev https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
 ```
 
 ghproxy安装(国内推荐)(镜像源)
 
 ```bash
-git clone --depth=1 https://mirror.ghproxy.com/https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
+git clone --depth=1 -b dev https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
 ```
 
 Gitee安装(国内推荐)(镜像源)
 
 ```bash
-git clone --depth=1 https://gitee.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
+git clone --depth=1 -b dev https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
 ```
 
 安装依赖
@@ -88,7 +88,7 @@ pnpm install --filter=karin-plugin-ling -P
 
 </details>
 
-### 4. 克隆 npm 分支编译安装 (不推荐)
+### 4. 克隆 源码 分支编译安装 (不推荐)
 
 <details> <summary>点击展开</summary>
 

@@ -1,5 +1,7 @@
 import path from 'node:path'
 import { dirPath } from '@/utils/dir'
+import Yaml from 'yaml'
+import fs from 'node:fs'
 import {
   watch,
   basePath,
@@ -7,31 +9,27 @@ import {
   copyConfigSync,
   requireFileSync,
   existsSync,
-  yaml,
   logger,
 } from 'node-karin'
-import type { Cof, Gorup, Other, State } from '@/types/config'
+import type { Cof, Gorup, Other } from '@/types/config'
 
 /** 文件名称枚举 */
 export const enum KV {
   Group = 'group',
   Cof = 'cof',
   Other = 'other',
-  State = 'state',
 }
 
 interface Cache {
   [KV.Group]: Gorup | undefined
   [KV.Cof]: Cof | undefined
   [KV.Other]: Other | undefined
-  [KV.State]: State | undefined
 }
 
 const cacheList: Cache = {
   [KV.Group]: undefined,
   [KV.Cof]: undefined,
   [KV.Other]: undefined,
-  [KV.State]: undefined,
 }
 
 /**
@@ -50,6 +48,16 @@ const defConfig = `${dirPath}/config/config`
  * @description 初始化配置文件
  */
 copyConfigSync(defConfig, dirConfig, ['.yaml'])
+
+/**
+ * @description 监听配置文件
+ */
+const list = filesByExt(dirConfig, '.yaml', 'abs')
+list.forEach(file => watch(file, (old, now) => {
+  const name = path.basename(file, '.yaml') as `${KV}`
+  const cache = cacheList[name]
+  if (cache) cacheList[name] = undefined
+}))
 
 /**
  * @description 群违禁词配置
@@ -96,13 +104,13 @@ export const other = (): Other => {
   const result: Other = {
     accept: { ...def.accept, ...user.accept },
     joinGroup: user.joinGroup || def.joinGroup || [],
+    notify: user.notify || def.notify,
     friend: { ...def.friend, ...user.friend },
     noWork: user.noWork || def.noWork || [],
     group: {
       ...def.group,
       ...user.group,
-    },
-    notify: user.notify || def.notify
+    }
   }
 
   result.accept.enable_list = result.accept.enable_list.map(v => String(v))
@@ -115,43 +123,97 @@ export const other = (): Other => {
 }
 
 /**
- * @description 状态配置
- */
-export const state = (): State => {
-  const name = KV.State
-  const cache = cacheList[name]
-  if (cache) return cache
-  const user = requireFileSync<State>(`${dirConfig}/${name}.yaml`)
-  const def = requireFileSync<State>(`${defConfig}/${name}.yaml`)
-  const result: State = { ...def, ...user }
-  cacheList[name] = result
-  return result
-}
-
-/**
  * @description 修改配置
  * @param name 文件名称
- * @param data 配置数据
+ * @param key 配置键
+ * @param value 配置值
+ * @returns 布尔值
  */
-export const setYaml = (name: `${KV}`, data: unknown) => {
+export const setYaml = async (name: string, key: string, value: boolean | string | number) => {
   const file = path.join(dirConfig, `${name}.yaml`)
-  const comment = path.join(dirConfig, '../', 'comment', `${name}.json`)
   if (!existsSync(file)) {
     logger.error(`${file} 不存在`)
     return false
   }
-  yaml.save(file, data, existsSync(comment) ? comment : undefined)
+  const datas = fs.readFileSync(file, 'utf8')
+  const data = Yaml.parse(datas)
+  const keys = key.split('.')
+  let a = data
+  keys.forEach((key, index) => {
+    if (index === keys.length - 1) {
+      a[key] = value
+    } else {
+      a = a[key]
+    }
+  })
+  fs.writeFileSync(file, Yaml.stringify(data), 'utf8')
   return true
 }
 
 /**
- * @description 监听配置文件
+ * @description 添加值
+ * @param name 文件名称
+ * @param key 配置键
+ * @param value 配置值
+ * @returns 布尔值，操作成功返回 true，否则返回 false
  */
-setTimeout(() => {
-  const list = filesByExt(dirConfig, '.yaml', 'abs')
-  list.forEach(file => watch(file, (old, now) => {
-    const name = file.split('/').pop() as KV
-    const cache = cacheList[name]
-    if (cache) cacheList[name] = undefined
-  }))
-}, 2000)
+export const addYaml = (name: string, key: string, value: string | number) => {
+  const file = path.join(dirConfig, `${name}.yaml`)
+  if (!existsSync(file)) {
+    logger.error(`${file} 不存在`)
+    return false
+  }
+  const datas = fs.readFileSync(file, 'utf8')
+  const data = Yaml.parse(datas)
+  const keys = key.split('.')
+  let a = data
+
+  keys.forEach((key, index) => {
+    if (index === keys.length - 1) {
+      if (!Array.isArray(a[key])) {
+        a[key] = []
+      }
+      a[key].push(value)
+    } else {
+      a = a[key]
+    }
+  })
+  fs.writeFileSync(file, Yaml.stringify(data), 'utf8')
+  return true
+}
+
+/**
+ * @description 删除值
+ * @param name 文件名称
+ * @param key 配置键
+ * @param value 配置值，要删除的值
+ * @returns 布尔值，操作成功返回 true，否则返回 false
+ */
+export const delYaml = (name: string, key: string, value: string | number) => {
+  const file = path.join(dirConfig, `${name}.yaml`)
+  if (!existsSync(file)) {
+    logger.error(`${file} 不存在`)
+    return false
+  }
+  const datas = fs.readFileSync(file, 'utf8')
+  const data = Yaml.parse(datas)
+  const keys = key.split('.')
+  let a = data
+  keys.forEach((key, index) => {
+    if (index === keys.length - 1) {
+      if (Array.isArray(a[key])) {
+        const indexToRemove = a[key].indexOf(value)
+        if (indexToRemove !== -1) {
+          a[key].splice(indexToRemove, 1)
+        }
+      } else {
+        logger.error('删除失败，未找到该配置项')
+        return false
+      }
+    } else {
+      a = a[key]
+    }
+  })
+  fs.writeFileSync(file, Yaml.stringify(data), 'utf8')
+  return true
+}

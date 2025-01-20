@@ -1,5 +1,5 @@
 import { karin, redis } from 'node-karin'
-import { KV, other, setYaml } from '@/utils/config'
+import { addYaml, delYaml, other } from '@/utils/config'
 
 const handle = async (e:any, key: string, yes: boolean, type: string) => {
   const flag = await redis.get(key)
@@ -79,15 +79,14 @@ export const groupApplySwitch = karin.command(/^#(开启|关闭)加群通知$/, 
       await e.reply('本群暂未开启加群申请通知')
       return true
     }
-    opts.list = opts.list.filter(v => v !== e.groupId)
+    delYaml('other', 'group.list', e.groupId)
   } else {
     if (opts.list.includes(e.groupId)) {
       await e.reply('本群已开启加群申请通知')
       return true
     }
-    opts.list.push(e.groupId)
+    addYaml('other', 'group.list', e.groupId)
   }
-  setYaml(KV.Other, opts)
   await e.reply(`已${e.msg.includes('关闭') ? '关闭' : '开启'}[${e.groupId}]的加群申请通知`)
   return true
 }, { name: '加群通知开关', priority: -1, event: 'message.group' })
@@ -107,9 +106,7 @@ export const Notification = karin.command(/^#(开启|关闭)进群通知/, async
       await e.reply(`\n群『${groupId}』的进群通知已经处于关闭状态`, { at: true })
       return true
     }
-
-    cfg.accept.disable_list = cfg.accept.disable_list.filter(v => v !== groupId)
-    setYaml(KV.Other, cfg)
+    addYaml('other', 'accept.disable_list', groupId)
     await e.reply(`\n已经关闭群『${groupId}』的进群通知`, { at: true })
     return true
   }
@@ -118,9 +115,7 @@ export const Notification = karin.command(/^#(开启|关闭)进群通知/, async
     await e.reply(`\n群『${groupId}』的进群通知目前已经处于开启状态`, { at: true })
     return true
   }
-
-  cfg.accept.enable_list.push(groupId)
-  setYaml(KV.Other, cfg)
+  delYaml('other', 'accept.disable_list', groupId)
   await e.reply(`\n已经开启群『${groupId}』的进群通知`, { at: true })
   return true
 }, { permission: 'master' })
@@ -132,9 +127,7 @@ export const test = karin.command(/^#(开启|关闭)进群验证$/, async (e) =>
       await e.reply('\n进群验证已经处于关闭状态', { at: true })
       return true
     }
-
-    cfg.joinGroup = cfg.joinGroup.filter(v => v !== e.groupId)
-    setYaml(KV.Other, cfg)
+    delYaml('other', 'joinGroup', e.groupId)
     await e.reply('\n已关闭进群验证', { at: true })
     return true
   }
@@ -143,9 +136,7 @@ export const test = karin.command(/^#(开启|关闭)进群验证$/, async (e) =>
     await e.reply('\n进群验证已经处于开启状态', { at: true })
     return true
   }
-
-  cfg.joinGroup.push(e.groupId)
-  setYaml(KV.Other, cfg)
+  addYaml('other', 'joinGroup', e.groupId)
   await e.reply('\n已开启进群验证', { at: true })
   return true
 }, { name: '进群验证', perm: 'group.admin', event: 'message.group' })

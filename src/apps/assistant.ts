@@ -171,7 +171,8 @@ export const command = karin.command(/^#赞我$/, async e => {
   if (time) {
     // 检查是否为今天
     if (moment().format('YYYY-MM-DD') === moment(Number(time)).format('YYYY-MM-DD')) {
-      e.reply('\n今天已经赞过了o(￣▽￣)ｄ', { at: true })
+      const likeEnd = other().friend.likeEnd || '今天已经赞过了o(￣▽￣)ｄ'
+      await e.reply(likeEnd, { at: true })
       return true
     }
   }
@@ -190,7 +191,9 @@ export const command = karin.command(/^#赞我$/, async e => {
 
   // 成功后记录时间
   await level.set(key, moment().valueOf().toString())
-  await e.reply(`\n已经成功为你点赞${count}次！`, { at: true })
+  let likeStart = other().friend.likeStart || '已为你点赞{{likeCount}}次'
+  likeStart = likeStart.replace('{{likeCount}}', count.toString())
+  await e.reply(likeStart, { at: true })
   return true
 }, { name: '赞我', priority: -1 })
 

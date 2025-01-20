@@ -40,4 +40,4 @@ group:
   list: []
 
 # 将通知发送给所有主人，false为只发送第一个主人
-notify: true
+notify: false
