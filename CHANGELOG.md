@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.13](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.12...v1.7.13) (2025-01-20)
+
+
+### Bug Fixes
+
+* 优化配置文件逻辑，新增设置 ([dab93a0](https://github.com/yusheng929/karin-plugin-ling/commit/dab93a0401539b2351407379cf4f950bbeb97803))
+
 ## [1.7.12](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.11...v1.7.12) (2025-01-19)
 
 
