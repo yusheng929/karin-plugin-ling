@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.14](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.13...v1.7.14) (2025-01-21)
+
+
+### Bug Fixes
+
+* 优化命名导入导出 ([103ab84](https://github.com/yusheng929/karin-plugin-ling/commit/103ab845af8d23bf0721fcbb95eb9e3f08ef7123))
+
 ## [1.7.13](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.12...v1.7.13) (2025-01-20)
 
 
