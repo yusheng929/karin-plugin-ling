@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { dirPath } from '@/utils/dir'
-import Yaml from 'yaml'
+import Yaml from 'node-karin/yaml'
 import fs from 'node:fs'
 import {
   watch,

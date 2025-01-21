@@ -1,7 +1,7 @@
 import lodash from 'node-karin/lodash'
 import { style } from './config'
 
-const helpTheme = {
+export const helpTheme = {
   getThemeCfg () {
     const resPath = '{{pluResPath}}help/theme/main.png'
     return {
@@ -54,4 +54,3 @@ const helpTheme = {
     }
   },
 }
-export default helpTheme

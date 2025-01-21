@@ -1,5 +1,5 @@
-import path from 'path'
-import { fileURLToPath } from 'url'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 /** 当前文件的绝对路径 */
 const filePath = fileURLToPath(import.meta.url).replace(/\\/g, '/')

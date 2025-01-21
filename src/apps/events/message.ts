@@ -1,12 +1,11 @@
-import { karin } from 'node-karin'
-import { other, group } from '@/utils/config'
+import { other } from '@/utils/config'
 
 /**
  * @description 是否跳过处理
  * @param e 消息事件对象
  * @returns 返回`true`跳过处理，返回`false`继续处理
  */
-const shouldSkipProcessing = (e: any): boolean => {
+export const shouldSkipProcessing = (e: any): boolean => {
   if (e.msg.includes('上班') || e.msg.includes('下班')) return true
   if (other().noWork.includes(e.groupId)) return true
   return false
@@ -17,7 +16,7 @@ const shouldSkipProcessing = (e: any): boolean => {
  * @param e 消息事件对象
  * @returns 返回`true`是特权用户，返回`false`不是特权用户
  */
-const isPrivilegedUser = (e: any): boolean => {
+export const isPrivilegedUser = (e: any): boolean => {
   return e.isMaster || e.isAdmin || ['owner', 'admin'].includes(e.sender.role)
 }
 
@@ -28,7 +27,7 @@ const isPrivilegedUser = (e: any): boolean => {
  * @param msg 消息内容
  * @returns 返回`true`违规，返回`false`不违规
  */
-const checkViolation = (words: string[], rule: number, msg: string): boolean => {
+export const checkViolation = (words: string[], rule: number, msg: string): boolean => {
   return rule === 1
     ? words.some(reg => reg === msg)
     : words.some(reg => new RegExp(reg).test(msg))
@@ -39,7 +38,7 @@ const checkViolation = (words: string[], rule: number, msg: string): boolean => 
  * @param e 消息事件对象
  * @returns 返回`true`退出处理，返回`false`继续处理
  */
-const handleViolation = async (e: any) => {
+export const handleViolation = async (e: any) => {
   await e.reply('\n请不要发布违规内容', { at: true })
   if (isPrivilegedUser(e)) return false
 

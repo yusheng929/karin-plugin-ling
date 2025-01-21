@@ -1,6 +1,6 @@
 import karin from 'node-karin'
 import lodash from 'node-karin/lodash'
-import fs from 'fs'
+import fs from 'node:fs'
 import { helpCfg, helpList, helpTheme } from '@/models/help/index'
 import { markdown } from '@karinjs/md-html'
 import { render } from '@/lib/puppeteer'
