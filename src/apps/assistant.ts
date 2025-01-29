@@ -244,7 +244,7 @@ export const Botprefix = karin.command(/^#(添加|删除|查看)前缀/, async (
     fileCfg: T extends 'groups' ? ReturnType<typeof config.getGroupCfg> : ReturnType<typeof config.getFriendCfg>
   ) => {
     let key = fileCfg.key
-    const cfg = config.getYaml(yamlKey, 'user', false)
+    const cfg = config.getYaml(yamlKey, 'user', false) as any
     if (e.msg.includes('添加')) {
       const prefix = e.msg.replace(/#添加前缀/, '').trim()
       if (!prefix) {
