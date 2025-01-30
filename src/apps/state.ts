@@ -33,12 +33,13 @@ export const state = karin.command(/^#系统信息(pro)?$/, async (e) => {
     const SwapUsed = await RAM.getSwapUsed()
     const SwapFree = await RAM.getSwapFree()
     const DiskInfos = await Disk.getDiskLayout()
+    const uptime = process.uptime()
     const list: string[] = []
 
     list.push([
       'Karin状态:',
       `版本: ${config.pkg().version}`,
-      `运行时间: ${common.formatTime(process.uptime())}`,
+      `运行时间: ${Math.floor(uptime / 3600)}小时${Math.floor((uptime % 3600) / 60)}分钟${Math.floor(uptime % 60)}秒`,
       `PID: ${process.pid}`,
       `标准协议: ${adapter}`,
     ].join('\n'))
@@ -46,9 +47,9 @@ export const state = karin.command(/^#系统信息(pro)?$/, async (e) => {
     list.push([
       'Node状态:',
       `版本: ${process.version}`,
-      `进程占用: ${process.memoryUsage().heapUsed / 1024 / 1024}MB`,
-      `JavaScript堆总量: ${process.memoryUsage().heapTotal / 1024 / 1024}MB`,
-      `JavaScript堆使用: ${process.memoryUsage().heapUsed / 1024 / 1024}MB`,
+      `进程占用: ${((process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2))}MB`,
+      `JavaScript堆总量: ${((process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2))}MB`,
+      `JavaScript堆使用: ${((process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2))}MB`,
     ].join('\n'))
 
     list.push([
