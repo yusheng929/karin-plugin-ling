@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.7.15](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.14...v1.7.15) (2025-01-29)
+
+
+### Bug Fixes
+
+* bug ([473fcd7](https://github.com/yusheng929/karin-plugin-ling/commit/473fcd7d8a26dd2511f2002b41dee57ce4eb527f))
+* 新增状态 ([8bb221f](https://github.com/yusheng929/karin-plugin-ling/commit/8bb221f1f7cf6b998b860f26d601ebe1698f8f8e))
+
 ## [1.7.14](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.13...v1.7.14) (2025-01-21)
 
 
