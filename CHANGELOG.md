@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.16](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.15...v1.7.16) (2025-01-30)
+
+
+### Bug Fixes
+
+* 优化运行时长显示 ([15383d7](https://github.com/yusheng929/karin-plugin-ling/commit/15383d73bf0e50d28fdf36077cc5db2e07bb5455))
+
 ## [1.7.15](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.14...v1.7.15) (2025-01-29)
 
 
