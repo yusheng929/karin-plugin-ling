@@ -56,8 +56,12 @@ export const state = karin.command(/^#系统信息(pro)?$/, async (e) => {
       'CPU信息',
       `CPU: ${CPUInfo}`,
       `CPU使用率: ${CPUUsage}%`,
-      `CPU温度: ${CPUTemp}`,
-      `CPU缓存: ${CPUCache}`
+      `CPU温度: ${CPUTemp}°C`,
+      'CPU缓存:',
+      `L1数据缓存: ${CPUCache.l1d}`,
+      `L1指令缓存: ${CPUCache.l1i}`,
+      `L2缓存: ${CPUCache.l2}`,
+      `L3缓存: ${CPUCache.l3}`
     ].join('\n'))
 
     list.push([
@@ -72,7 +76,7 @@ export const state = karin.command(/^#系统信息(pro)?$/, async (e) => {
 
     list.push([
       '磁盘信息:',
-      `${DiskInfos}`,
+      `${DiskInfos}`
     ].join('\n'))
 
     const msg = list.map((v) => segment.text(v))

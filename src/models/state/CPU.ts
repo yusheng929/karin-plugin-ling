@@ -1,3 +1,4 @@
+import { Size } from '@/components/Size'
 import si from 'systeminformation'
 
 /**
@@ -35,11 +36,11 @@ const getCPUInfo = async (): Promise<string> => {
  * 获取CPU温度
  * @returns {Promise<number>}
  */
-const getCPUTemp = async (): Promise<string | number> => {
+const getCPUTemp = async (): Promise<number> => {
   try {
     const cpuTemp = await si.cpuTemperature()
 
-    const data = `${cpuTemp.main}°C`
+    const data = cpuTemp.main
     return data
   } catch (error) {
     return 0
@@ -60,13 +61,13 @@ const getCPUCache = async (): Promise<any> => {
       l3: ''
     }
     const cpuCache = await si.cpuCache()
-    data.l1d = cpuCache.l1d > 1024 ? `${(cpuCache.l1d / 1024).toFixed(2)}MB` : `${cpuCache.l1d}KB`
-    data.l1i = cpuCache.l1i > 1024 ? `${(cpuCache.l1i / 1024).toFixed(2)}MB` : `${cpuCache.l1i}KB`
-    data.l2 = cpuCache.l2 > 1024 ? `${(cpuCache.l2 / 1024).toFixed(2)}MB` : `${cpuCache.l2}KB`
-    data.l3 = cpuCache.l3 > 1024 ? `${(cpuCache.l3 / 1024).toFixed(2)}MB` : `${cpuCache.l3}KB`
+    data.l1d = await Size(cpuCache.l1d)
+    data.l1i = await Size(cpuCache.l1i)
+    data.l2 = await Size(cpuCache.l2)
+    data.l3 = await Size(cpuCache.l3)
     return data
   } catch (error) {
-    return '少女不知道哦'
+    return ''
   }
 }
 
