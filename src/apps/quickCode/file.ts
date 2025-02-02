@@ -56,28 +56,3 @@ export const UploadDownload = karin.command(/^文件上传/, async (e) => {
   }
   return true
 }, { name: '文件上传', priority: -1, permission: 'master' })
-
-export const FileMove = karin.command(/^文件移动/, async (e) => {
-  await e.reply('请发送文件路径', { at: true })
-  const Path1 = await karin.ctx(e)
-  const Path = Path1.msg
-  const name = path.basename(Path)
-  await e.reply('请发送移动路径', { reply: true })
-  const Path2 = await karin.ctx(e)
-  let FinalPath = Path2.msg
-  if (FinalPath === '') FinalPath = process.cwd()
-  if (!(fs.existsSync(Path))) {
-    e.reply('文件不存在', { reply: true })
-    return true
-  }
-  await e.reply('开始移动文件', { reply: true })
-  try {
-    await fs.promises.rename(Path, `${FinalPath}/${name}`)
-    await e.reply(`移动完成，文件原位置:\n${process.cwd()}/${Path}\n文件当前位置:\n${FinalPath}/${name}`, { reply: true })
-  } catch (error) {
-    logger.error('文件移动错误：')
-    logger.error(error)
-    await e.reply('文件下载错误：请前往控制台查询', { reply: true })
-  }
-  return true
-}, { name: '文件上传', priority: -1, permission: 'master' })

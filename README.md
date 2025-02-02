@@ -46,7 +46,7 @@ pnpm install --filter=karin-plugin-ling
 
 </details>
 
-### 2. 使用包管理器安装
+### 2. 使用包管理器安装(推荐)
 
 <details> <summary>点击展开</summary>
 
@@ -95,7 +95,7 @@ pnpm install --filter=karin-plugin-ling -P
 * 克隆仓库到本地
 
 ```bash
-git clone --depth=1 -b npm https://github.com/yusheng929/karin-plugin-ling.git ./plugins/karin-plugin-ling
+git clone --depth=1
 ```
 
 * 进入仓库目录
@@ -130,10 +130,9 @@ pnpm run build
 Karin/@karinjs/karin-plugin-ling/config
 ```
 
-# 未来计划
+## 后续计划
 
-- [X] Bot的前缀快捷设置
-- [ ] 增加进群申请通知
+暂无喵~
 
 # 负责声明
 

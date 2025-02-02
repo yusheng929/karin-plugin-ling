@@ -1,18 +1,10 @@
 import moment from 'node-karin/moment'
-import { karin, segment, common } from 'node-karin'
+import { karin, segment, common, logger } from 'node-karin'
 
 /**
  * 改群名
  */
 export const ModifyGroupName = karin.command(/^#改群名/, async (e) => {
-  if (!e.isGroup) {
-    e.reply('请在群聊中执行')
-    return true
-  }
-  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-    await e.reply('暂无权限，只有管理员才能操作')
-    return true
-  }
   const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
   if (!info.role || !(['owner', 'admin'].includes(info.role))) {
     await e.reply('少女做不到呜呜~(>_<)~')
@@ -29,19 +21,16 @@ export const ModifyGroupName = karin.command(/^#改群名/, async (e) => {
     e.reply(`已经将群名修改为『${Name}』`)
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
+    logger.error(error)
     return true
   }
   return true
-}, { name: '改群名', priority: -1 })
+}, { name: '改群名', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 /**
  * 获取禁言列表
 */
 export const MuteList = karin.command(/^#?(获取|查看)?禁言列表$/, async (e) => {
-  if (!e.isGroup) {
-    e.reply('请在群聊中执行')
-    return true
-  }
   const lsit = []
   const result = await e.bot.getGroupMuteList(e.groupId)
   if (!result.length) {
@@ -62,13 +51,9 @@ export const MuteList = karin.command(/^#?(获取|查看)?禁言列表$/, async 
   const content = common.makeForward(lsit, e.selfId, e.bot.account.name)
   await e.bot.sendForwardMsg(e.contact, content)
   return true
-})
+}, { name: '获取禁言列表', priority: -1, event: 'message.group' })
 
 export const ModifyMemberCard = karin.command(/^#改群昵称/, async (e) => {
-  if (!e.isGroup) {
-    e.reply('请在群聊中执行')
-    return true
-  }
   const Name = e.msg.replace(/^#改群昵称/, '').trim()
   if (!Name) {
     e.reply('群昵称不能为空', { at: true })
@@ -83,17 +68,9 @@ export const ModifyMemberCard = karin.command(/^#改群昵称/, async (e) => {
     return true
   }
   return true
-}, { name: '改群昵称', priority: -1, permission: 'master' })
+}, { name: '改群昵称', priority: -1, permission: 'master', event: 'message.group' })
 
 export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
-  if (!e.isGroup) {
-    e.reply('请在群聊中执行')
-    return true
-  }
-  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-    await e.reply('暂无权限，只有管理员才能操作')
-    return true
-  }
   const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
   if (!info.role || !(['owner', 'admin'].includes(info.role))) {
     await e.reply('少女做不到呜呜~(>_<)~')
@@ -113,4 +90,4 @@ export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
   }
 
   return true
-}, { name: '处理精华消息', priority: -1 })
+}, { name: '处理精华消息', priority: -1, event: 'message.group', perm: 'group.admin' })

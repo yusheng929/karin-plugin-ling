@@ -6,16 +6,6 @@ import { translateChinaNum } from '../components/Number'
  * 全体禁言
  */
 export const muteAll = karin.command(/^#?全体(禁言|解禁)$/, async (e) => {
-  if (!e.isGroup) {
-    e.reply('请在群聊中执行')
-    return true
-  }
-  /** 只有主人 群管理员可以使用 */
-  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-    await e.reply('暂无权限，只有管理员才能操作')
-    return true
-  }
-
   /** 检查bot自身是否为管理员、群主 */
   const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
   if (!(['owner', 'admin'].includes(info.role))) {
@@ -31,18 +21,15 @@ export const muteAll = karin.command(/^#?全体(禁言|解禁)$/, async (e) => {
     return true
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
+    logger.error(error)
     return true
   }
-}, { name: '全体禁言', priority: -1, perm: 'group.admin' })
+}, { name: '全体禁言', priority: -1, perm: 'group.admin', event: 'message.group' })
 
 /**
  * 设置/取消管理员
  */
 export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
-  if (!e.isGroup) {
-    e.reply('请在群聊中执行')
-    return true
-  }
   /** 只有bot为群主才可以使用 */
   const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
   if (!(['owner'].includes(info.role))) {
@@ -50,14 +37,7 @@ export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
     return true
   }
 
-  let userId = ''
-
-  /** 存在at */
-  if (e.at.length) {
-    userId = e.at[0]
-  } else {
-    userId = e.msg.replace(/#|(设置|取消)管理/, '').trim()
-  }
+  const userId = e.at[0] || e.msg.replace(/#(设置|取消)管理/, '').trim()
 
   if (!userId || !(/\d{5,}/.test(userId))) {
     await e.reply('\n貌似这个QQ号不对哦~', { at: true })
@@ -83,18 +63,15 @@ export const setAdmin = karin.command(/^#(设置|取消)管理/, async (e) => {
     return true
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
+    logger.error(error)
     return true
   }
-}, { name: '设置管理', priority: -1, permission: 'master' })
+}, { name: '设置管理', priority: -1, permission: 'master', event: 'message.group' })
 
 /**
  * 设置群头衔
  */
 export const ApplyGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e) => {
-  if (!e.isGroup) {
-    e.reply('请在群聊中执行')
-    return true
-  }
   /** 只有bot为群主才可以使用 */
   const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
   if (!(['owner'].includes(info.role))) {
@@ -105,7 +82,7 @@ export const ApplyGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e
   const title = e.msg.replace(/#(申请|我要)头衔/, '').trim()
   try {
     if (!title) {
-      await e.bot.setGroupMemberTitle(e.groupId, e.userId, title)
+      await e.bot.setGroupMemberTitle(e.groupId, e.userId, '')
       await e.reply('\n已经将你的头衔取消了~', { at: true })
       return true
     }
@@ -113,11 +90,12 @@ export const ApplyGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e
     await e.bot.setGroupMemberTitle(e.groupId, e.userId, title)
     await e.reply('\n换上了哦', { at: true })
     return true
-  } catch (error: any) {
-    await e.reply(`\n错误:\n${error.message}`, { at: true })
+  } catch (error) {
+    await e.reply('\n未知原因❌', { at: true })
+    logger.error(error)
     return true
   }
-}, { name: '申请头衔', priority: -1 })
+}, { name: '申请头衔', priority: -1, event: 'message.group' })
 
 /**
  * 设置头衔
@@ -138,7 +116,7 @@ export const setGroupTitle = karin.command(/^#设置头衔/, async (e) => {
   }
   try {
     if (!title) {
-      await e.bot.setGroupMemberTitle(e.groupId, userId, title)
+      await e.bot.setGroupMemberTitle(e.groupId, userId, '')
       await e.reply(`已经将用户[${userId}]的头衔取消了`, { at: true })
       return true
     }
@@ -156,24 +134,7 @@ export const setGroupTitle = karin.command(/^#设置头衔/, async (e) => {
  * 踢人
  */
 export const kickMember = karin.command(/^#踢/, async (e) => {
-  if (!e.isGroup) {
-    e.reply('请在群聊中执行')
-    return true
-  }
-  /** 只有主人、群主、管理员可以使用 */
-  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-    await e.reply('暂无权限，只有管理员才能操作')
-    return true
-  }
-
-  let userId = ''
-
-  /** 存在at */
-  if (e.at.length) {
-    userId = e.at[0]
-  } else {
-    userId = e.msg.replace(/#踢/g, '').trim()
-  }
+  const userId = e.at[0] || e.msg.replace(/#踢/, '').trim()
 
   if (!userId || !(/\d{5,}/.test(userId))) {
     await e.reply('\n貌似这个QQ号不对哦~', { at: true })
@@ -195,13 +156,8 @@ export const kickMember = karin.command(/^#踢/, async (e) => {
     }
 
     /** 检查对方的角色 */
-    if (res.role === 'owner') {
-      await e.reply('\n这个人是群主，少女做不到呜呜~(>_<)~', { at: true })
-      return true
-    }
-
-    if (res.role === 'admin') {
-      await e.reply('\n少女不能踢出管理员呜呜~(>_<)~', { at: true })
+    if (res.role === 'owner' || res.role === 'admin' || res.role === 'member') {
+      await e.reply('\n这个人太强大了,少女做不到呜呜~(>_<)~', { at: true })
       return true
     }
   } catch {
@@ -215,40 +171,27 @@ export const kickMember = karin.command(/^#踢/, async (e) => {
     return true
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
+    logger.error(error)
     return true
   }
-}, { name: '踢', priority: -1 })
+}, { name: '踢', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 /**
  * 解禁
  */
 export const UnBanMember = karin.command(/^#解禁/, async (e) => {
-  if (!e.isGroup) {
-    e.reply('请在群聊中执行')
-    return true
-  }
-  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-    await e.reply('暂无权限，只有管理员才能操作')
-    return true
-  }
   const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
   if (!(['owner', 'admin'].includes(info.role))) {
     await e.reply('少女做不到呜呜~(>_<)~')
     return true
   }
-  let userId = ''
-
-  /** 存在at */
-  if (e.at.length) {
-    userId = e.at[0]
-  } else {
-    userId = e.msg.replace(/#解禁/g, '').trim()
-  }
+  const userId = e.at[0] || e.msg.replace(/#解禁/, '').trim()
 
   if (!userId || !(/\d{5,}/.test(userId))) {
     await e.reply('\n貌似这个QQ号不对哦~', { at: true })
     return true
   }
+
   try {
     const res = await e.bot.getGroupMemberInfo(e.groupId, userId)
     if (!res) {
@@ -279,22 +222,14 @@ export const UnBanMember = karin.command(/^#解禁/, async (e) => {
     return true
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
+    logger.error(error)
     return true
   }
-}, { name: '解禁', priority: -1 })
+}, { name: '解禁', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 export const BanMember = karin.command(
   /^#?禁言(\d+|[零一壹二两三四五六七八九十百千万亿]+)?(秒|分|分钟|时|小时|天)?/,
   async (e) => {
-    if (!e.isGroup) {
-      e.reply('请在群聊中执行')
-      return true
-    }
-    if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-      await e.reply('暂无权限，只有管理员才能操作')
-      return true
-    }
-
     const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
     if (!(['owner', 'admin'].includes(info.role))) {
       await e.reply('少女做不到呜呜~(>_<)~')
@@ -371,5 +306,5 @@ export const BanMember = karin.command(
     }
     return false
   },
-  { name: '禁言', priority: -1 }
+  { name: '禁言', priority: -1, event: 'message.group', perm: 'group.admin' }
 )

@@ -119,10 +119,10 @@ export const QuitGroup = karin.command(/^#?退群/, async (e) => {
     if (groupId === e.groupId) {
       await e.reply('3秒后退出本群聊')
       await common.sleep(3000)
-      await e.bot.setGroupQuit(groupId, false)
     } else {
       await e.reply(`已退出群聊『${groupId}』`)
     }
+    await e.bot.setGroupQuit(groupId, false)
 
     return true
   } catch (error) {
