@@ -32,7 +32,7 @@
     "watch": "karin watch"
   },
   "devDependencies": {
-    "@types/node": "^22.12.0",
+    "@types/node": "^22.13.1",
     "@types/punycode": "^2.1.4",
     "@types/qrcode": "^1.5.5",
     "eslint": "^9.19.0",
@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@karinjs/md-html": "^1.1.8",
+    "axios": "^1.7.9",
     "punycode": "^2.3.1",
     "qrcode": "^1.5.4",
     "systeminformation": "^5.25.11"
@@ -53,12 +54,14 @@
     "apps": [
       "lib/apps",
       "lib/apps/events",
-      "lib/apps/quickCode"
+      "lib/apps/quickCode",
+      "lib/apps/group"
     ],
     "ts-apps": [
       "src/apps",
       "src/apps/events",
-      "src/apps/quickCode"
+      "src/apps/quickCode",
+      "src/apps/group"
     ],
     "static": [
       "resources"
