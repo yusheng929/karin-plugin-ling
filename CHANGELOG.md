@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.19](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.18...v1.7.19) (2025-02-10)
+
+
+### Bug Fixes
+
+* 更新readme ([f5a4893](https://github.com/yusheng929/karin-plugin-ling/commit/f5a48936ec99b4616fdc4d490cac86e30d2301dc))
+
 ## [1.7.18](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.17...v1.7.18) (2025-02-02)
 
 
