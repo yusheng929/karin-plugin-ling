@@ -53,7 +53,7 @@ pnpm install --filter=karin-plugin-ling
 karin根目录下执行
 
 ```bash
-pnpm install karin-plugin-ling
+pnpm install karin-plugin-ling -w
 ```
 
 </details>
