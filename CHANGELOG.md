@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.7.20](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.19...v1.7.20) (2025-02-10)
+
+
+### Bug Fixes
+
+* 新增幸运字符查询列表 ([ee8355f](https://github.com/yusheng929/karin-plugin-ling/commit/ee8355f137de128f35a86a917e4f28cc2a1fe8ba))
+
 ## [1.7.19](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.18...v1.7.19) (2025-02-10)
 
 
