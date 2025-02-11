@@ -35,7 +35,7 @@ git clone --depth=1 -b dev https://github.com/yusheng929/karin-plugin-ling ./plu
 Gitee安装(国内推荐)(镜像源)
 
 ```bash
-git clone --depth=1 -b dev https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
+git clone --depth=1 -b dev https://gitee.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
 ```
 
 安装依赖
