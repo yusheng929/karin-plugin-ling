@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.8.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.8.0...v1.8.1) (2025-02-11)
+
+
+### Bug Fixes
+
+* 修复更新命令中的状态管理逻辑 ([56edd74](https://github.com/yusheng929/karin-plugin-ling/commit/56edd749259909adc0e531a9c72a3d21e2bd63a2))
+
 ## [1.8.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.20...v1.8.0) (2025-02-11)
 
 
