@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.8.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.20...v1.8.0) (2025-02-11)
+
+
+### Features
+
+* 更新README和添加插件更新命令 ([1f77972](https://github.com/yusheng929/karin-plugin-ling/commit/1f77972b5708ee2f427da0dc3bbb497d31efec5d))
+
 ## [1.7.20](https://github.com/yusheng929/karin-plugin-ling/compare/v1.7.19...v1.7.20) (2025-02-10)
 
 
