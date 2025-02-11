@@ -14,7 +14,7 @@
 
 # 安装教程
 
-### 1. 克隆安装
+### 1. 克隆安装(逐渐抛弃，不推荐)
 
 <details> <summary>点击展开</summary>
 
@@ -22,11 +22,6 @@ karin根目录下执行
 
 GitHub安装(国外推荐)
 
-```bash
-git clone --depth=1 -b dev https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
-```
-
-ghproxy安装(国内推荐)(镜像源)
 
 ```bash
 git clone --depth=1 -b dev https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling

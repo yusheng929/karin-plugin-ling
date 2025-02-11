@@ -1,38 +1,26 @@
 import { exec, karin, logger, restart } from 'node-karin'
-import { dirPath, pluginName } from '@/utils/dir'
+import { dirPath } from '@/utils/dir'
 
 let isupdate = false
-const isNPM = !!dirPath.includes('node_modules')
-let isPro = false
 
-export const update = karin.command(/^#?(铃|ling)(插件)?(强制)?更新$/i, async (e) => {
+export const update = karin.command(/^#?(铃|ling)(插件)?更新$/i, async (e) => {
   if (isupdate) return e.reply('正在更新中,请稍后再试')
+  const isNPM = !!dirPath.includes('node_modules')
+  if (!isNPM) return e.reply('未检测到NPM插件')
 
   isupdate = true
-  if (e.msg.includes('强制')) isPro = true
 
   if (isNPM) {
-    const { error } = await exec('npm up karin-plugin-ling')
+    await e.reply('开始更新插件')
+    const { error, stdout } = await exec('pnpm up karin-plugin-ling')
+    if (stdout.includes('Already up to date')) {
+      isupdate = false
+      return e.reply('插件已是最新版本')
+    }
     if (error) {
       isupdate = false
       await e.reply(error.message)
       return logger.error(error)
-    }
-  } else {
-    if (isPro) {
-      const { error } = await exec(`cd plugins/${pluginName} && git reset --hard && git pull`)
-      if (error) {
-        isupdate = false
-        await e.reply(error.message)
-        return logger.error(error)
-      }
-    } else {
-      const { error } = await exec(`cd plugins/${pluginName} && git pull`)
-      if (error) {
-        await e.reply(error.message)
-        isupdate = false
-        return logger.error(error)
-      }
     }
   }
   isupdate = false
