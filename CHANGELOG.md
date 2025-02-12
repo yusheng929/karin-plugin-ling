@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.9.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.9.0...v1.9.1) (2025-02-12)
+
+
+### Bug Fixes
+
+* 修复幸运字符点亮状态的逻辑错误 ([4d2bb4f](https://github.com/yusheng929/karin-plugin-ling/commit/4d2bb4fdb3e78ba32f8021f381af48b820f31c21))
+
 ## [1.9.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.8.2...v1.9.0) (2025-02-12)
 
 
