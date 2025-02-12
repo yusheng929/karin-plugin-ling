@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.9.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.9.1...v1.9.2) (2025-02-12)
+
+
+### Bug Fixes
+
+* 优化幸运字符列表的消息格式，改善可读性 ([accdf64](https://github.com/yusheng929/karin-plugin-ling/commit/accdf64d56a68f049ba868a2512a7589ad1dbcdc))
+
 ## [1.9.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.9.0...v1.9.1) (2025-02-12)
 
 
