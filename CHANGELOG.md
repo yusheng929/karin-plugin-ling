@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.8.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.8.1...v1.8.2) (2025-02-11)
+
+
+### Bug Fixes
+
+* 优化插件更新逻辑 ([626ab99](https://github.com/yusheng929/karin-plugin-ling/commit/626ab997dbef7d54dbd95006851009313a23116a))
+
 ## [1.8.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.8.0...v1.8.1) (2025-02-11)
 
 
