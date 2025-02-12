@@ -2,7 +2,6 @@ import QQApi from '@/models/api/QQApi'
 import karin, { common, segment } from 'node-karin'
 
 export const luckylist = karin.command(/^#(查)?(幸运)?字符(列表)?$/, async (e) => {
-  return false
   const data = await new QQApi(e).luckylist(e.groupId)
   if (!data) return e.reply('❌请稍后再试')
   if (data.retcode !== 0) return e.reply('❌获取数据错误')
