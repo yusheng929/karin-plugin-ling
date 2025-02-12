@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.9.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.8.2...v1.9.0) (2025-02-12)
+
+
+### Features
+
+* 添加获取QQ账号cookie和bkn的功能，优化幸运字符列表获取逻辑 ([3c5407c](https://github.com/yusheng929/karin-plugin-ling/commit/3c5407c98e28e03de63761c73bfc6d414d3a6f7c))
+
 ## [1.8.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.8.1...v1.8.2) (2025-02-11)
 
 
