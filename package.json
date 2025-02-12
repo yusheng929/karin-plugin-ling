@@ -1,6 +1,6 @@
 {
   "name": "karin-plugin-ling",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "author": "yusheng",
   "type": "module",
   "main": "lib/index.js",
