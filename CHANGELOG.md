@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.10.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.10.0...v1.10.1) (2025-02-13)
+
+
+### Bug Fixes
+
+* 添加抽取次数上限的错误处理逻辑 ([fd4744f](https://github.com/yusheng929/karin-plugin-ling/commit/fd4744fc320eeca58db00e330c33af43e43e6d36))
+
 ## [1.10.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.9.3...v1.10.0) (2025-02-13)
 
 
