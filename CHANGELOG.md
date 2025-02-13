@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.10.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.9.3...v1.10.0) (2025-02-13)
+
+
+### Features
+
+* 添加抽幸运字符功能并优化相关逻辑 ([9072f22](https://github.com/yusheng929/karin-plugin-ling/commit/9072f222dd5d1fd8aa39eb91850c94789708a2c3))
+
 ## [1.9.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.9.2...v1.9.3) (2025-02-12)
 
 
