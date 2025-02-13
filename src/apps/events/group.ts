@@ -131,7 +131,7 @@ export const friendApply = karin.accept('request.friendApply', async (e) => {
   }
   if (opts.enable) {
     await e.bot.setFriendApplyResult(e.content.flag, true)
-    logger.info('已同意加好友申请')
+    logger.info('已自动同意加好友申请')
   }
   if (!opts.notify) return true
   const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
