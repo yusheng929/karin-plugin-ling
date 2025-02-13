@@ -26,6 +26,7 @@ export const luckylist = karin.command(/^#(查)?(幸运)?字符(列表)?$/, asyn
 export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   const data = await new QQApi(e).luckyword(e.groupId)
   if (!data) return e.reply('❌请稍后再试')
+  if (data.retcode === 11004 && (data.msg === 'over svip max times' || data.msg === 'over member max times')) return e.reply('❌今日抽取次数已达上限')
   if (data.retcode !== 0) return e.reply('❌发送数据错误')
   if (Object.keys(data.data).length === 0) return e.reply(segment.image('resources/luckword/null.png'))
   const item = {
