@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.10.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.10.1...v1.10.2) (2025-02-13)
+
+
+### Bug Fixes
+
+* 修复幸运字符功能中的数据访问错误 ([3b9f21a](https://github.com/yusheng929/karin-plugin-ling/commit/3b9f21aef1b8bfa5ae31872cdae75d76fa873875))
+
 ## [1.10.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.10.0...v1.10.1) (2025-02-13)
 
 
