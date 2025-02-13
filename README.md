@@ -22,7 +22,6 @@ karin根目录下执行
 
 GitHub安装(国外推荐)
 
-
 ```bash
 git clone --depth=1 -b dev https://github.com/yusheng929/karin-plugin-ling ./plugins/karin-plugin-ling
 ```
@@ -139,7 +138,7 @@ Karin/@karinjs/karin-plugin-ling/config
 
 # 联系方式
 
-不欢迎加入测试群聊: ~~636023444~~
+欢迎加入测试群聊: [950407830](https://qm.qq.com/q/9THnE5GwU0)
 
 ## 致谢
 
