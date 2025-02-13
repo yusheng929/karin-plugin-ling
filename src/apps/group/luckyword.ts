@@ -30,8 +30,8 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   if (data.retcode !== 0) return e.reply('❌发送数据错误')
   if (Object.keys(data.data).length === 0) return e.reply(segment.image('resources/luckword/null.png'))
   const item = {
-    url: `https://tianquan.gtimg.cn/groupluckyword/item/${data.word_info.word_id}/pic-0.png?m=${data.word_info.mtime}`,
-    title: `${data.word_info.word_desc}`
+    url: `https://tianquan.gtimg.cn/groupluckyword/item/${data.data.word_info.word_info.word_id}/pic-0.png?m=${data.data.word_info.word_info.mtime}`,
+    title: `${data.data.word_info.word_info.word_desc}`
   }
   const img = await render('luckword/index', {
     data: item,
