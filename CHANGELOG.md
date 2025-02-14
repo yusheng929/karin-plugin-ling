@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.10.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.10.2...v1.10.3) (2025-02-14)
+
+
+### Bug Fixes
+
+* 更新幸运字符功能以使用正确的图片路径 ([383d6dc](https://github.com/yusheng929/karin-plugin-ling/commit/383d6dca9019b23c6b42d3ba0865c8dc10429da7))
+
 ## [1.10.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.10.1...v1.10.2) (2025-02-13)
 
 
