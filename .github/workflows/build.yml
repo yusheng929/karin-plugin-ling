@@ -53,6 +53,7 @@ jobs:
 
       - name: 推送build分支
         run: |
+          sed -i '19d' .gitignore
           git checkout -b build || git checkout build
           git add .
           if [ -z "$(git diff --cached --name-only)" ]; then
