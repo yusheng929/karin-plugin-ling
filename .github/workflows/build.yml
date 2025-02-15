@@ -67,7 +67,7 @@ jobs:
 
       - name: 打包
         run: |
-          zip -r build.zip lib package.json README.md LICENSE CHANGELOG.md config
+          zip -r build.zip lib package.json README.md LICENSE CHANGELOG.md config resources
 
       - name: 上传 build.zip
         uses: actions/upload-artifact@v4
