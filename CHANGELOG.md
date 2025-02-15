@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.11.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.11.0...v1.11.1) (2025-02-15)
+
+
+### Bug Fixes
+
+* 更新打包流程，添加资源文件到构建包 ([aef2056](https://github.com/yusheng929/karin-plugin-ling/commit/aef205624f84e5d3e308f225e705f1f421b1ee71))
+
 ## [1.11.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.10.3...v1.11.0) (2025-02-15)
 
 
