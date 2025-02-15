@@ -1,5 +1,17 @@
 # 更新日志
 
+## [1.11.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.10.3...v1.11.0) (2025-02-15)
+
+
+### Features
+
+* 添加新的配置文件和更新现有配置，支持幸运字符功能的图片渲染 ([becd30d](https://github.com/yusheng929/karin-plugin-ling/commit/becd30d7f42f2133969408d93128ce666803495f))
+
+
+### Bug Fixes
+
+* 更新构建流程，删除不必要的步骤并添加打包功能 ([83d76d6](https://github.com/yusheng929/karin-plugin-ling/commit/83d76d6a2fc0a80443c4c6ba341a45621d4db890))
+
 ## [1.10.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.10.2...v1.10.3) (2025-02-14)
 
 
