@@ -47,14 +47,14 @@ const defConfig = `${dirPath}/config/config`
 /**
  * @description 初始化配置文件
  */
-copyConfigSync(defConfig, dirConfig, ['.yaml'])
+copyConfigSync(defConfig, dirConfig, ['.json'])
 
 /**
  * @description 监听配置文件
  */
-const list = filesByExt(dirConfig, '.yaml', 'abs')
+const list = filesByExt(dirConfig, '.json', 'abs')
 list.forEach(file => watch(file, (old, now) => {
-  const name = path.basename(file, '.yaml') as `${KV}`
+  const name = path.basename(file, '.json') as `${KV}`
   const cache = cacheList[name]
   if (cache) cacheList[name] = undefined
 }))
@@ -66,8 +66,8 @@ export const group = (): Gorup => {
   const name = KV.Group
   const cache = cacheList[name]
   if (cache) return cache
-  const user = requireFileSync<Gorup>(`${dirConfig}/${name}.yaml`)
-  const def = requireFileSync<Gorup>(`${defConfig}/${name}.yaml`)
+  const user = requireFileSync<Gorup>(`${dirConfig}/${name}.json`)
+  const def = requireFileSync<Gorup>(`${defConfig}/${name}.json`)
   const result: Gorup = { default: { ...def.default, ...user.default } }
   Object.keys(user).forEach(key => {
     if (key === 'default') return
@@ -85,8 +85,8 @@ export const cof = (): Cof => {
   const name = KV.Cof
   const cache = cacheList[name]
   if (cache) return cache
-  const user = requireFileSync<Cof>(`${dirConfig}/${name}.yaml`)
-  const def = requireFileSync<Cof>(`${defConfig}/${name}.yaml`)
+  const user = requireFileSync<Cof>(`${dirConfig}/${name}.json`)
+  const def = requireFileSync<Cof>(`${defConfig}/${name}.json`)
   const result: Cof = { ...def, ...user }
   cacheList[name] = result
   return result
@@ -99,8 +99,8 @@ export const other = (): Other => {
   const name = KV.Other
   const cache = cacheList[name]
   if (cache) return cache
-  const user = requireFileSync<Other>(`${dirConfig}/${name}.yaml`)
-  const def = requireFileSync<Other>(`${defConfig}/${name}.yaml`)
+  const user = requireFileSync<Other>(`${dirConfig}/${name}.json`)
+  const def = requireFileSync<Other>(`${defConfig}/${name}.json`)
   const result: Other = {
     accept: { ...def.accept, ...user.accept },
     joinGroup: user.joinGroup || def.joinGroup || [],
@@ -130,7 +130,7 @@ export const other = (): Other => {
  * @returns 布尔值
  */
 export const setYaml = async (name: string, key: string, value: boolean | string | number) => {
-  const file = path.join(dirConfig, `${name}.yaml`)
+  const file = path.join(dirConfig, `${name}.json`)
   if (!existsSync(file)) {
     logger.error(`${file} 不存在`)
     return false
@@ -158,7 +158,7 @@ export const setYaml = async (name: string, key: string, value: boolean | string
  * @returns 布尔值，操作成功返回 true，否则返回 false
  */
 export const addYaml = (name: string, key: string, value: string | number) => {
-  const file = path.join(dirConfig, `${name}.yaml`)
+  const file = path.join(dirConfig, `${name}.json`)
   if (!existsSync(file)) {
     logger.error(`${file} 不存在`)
     return false
@@ -190,7 +190,7 @@ export const addYaml = (name: string, key: string, value: string | number) => {
  * @returns 布尔值，操作成功返回 true，否则返回 false
  */
 export const delYaml = (name: string, key: string, value: string | number) => {
-  const file = path.join(dirConfig, `${name}.yaml`)
+  const file = path.join(dirConfig, `${name}.json`)
   if (!existsSync(file)) {
     logger.error(`${file} 不存在`)
     return false

@@ -18,12 +18,12 @@ export default class {
 
   /**
    * 获取群幸运字符列表
-   * @param {string} groupId 群号
-   * @param {number} start
-   * @param {number} limit
-   * @returns {Promise<anyt>}
+   * @param groupId 群号
+   * @param start
+   * @param limit
+   * @returns 幸运字符列表
    */
-  async luckylist (groupId: string, start: number = 0, limit: number = 20): Promise<any> {
+  async luckylist (groupId: string, start: number = 0, limit: number = 20) {
     const body = JSON.stringify({
       group_code: groupId,
       start,
@@ -31,7 +31,7 @@ export default class {
       need_equip_info: true
     })
     const onebot11 = new Onebot11(this.e)
-    this.headers.Cookie = await onebot11.ck()
+    this.headers.Cookie = await onebot11.ck('qun.qq.com')
     const bkn = await onebot11.bkn()
     const request = {
       method: 'POST',
@@ -47,15 +47,15 @@ export default class {
 
   /**
    * 获取群幸运字符
-   * @param {string} groupId 群号
-   * @returns {Promise<any>}
+   * @param groupId 群号
+   * @returns 抽幸运字符结果
    */
-  async luckyword (groupId: string): Promise<any> {
+  async luckyword (groupId: string) {
     const body = JSON.stringify({
       group_code: groupId
     })
     const onebot11 = new Onebot11(this.e)
-    this.headers.Cookie = await onebot11.ck()
+    this.headers.Cookie = await onebot11.ck('qun.qq.com')
     const bkn = await onebot11.bkn()
     const request = {
       method: 'POST',

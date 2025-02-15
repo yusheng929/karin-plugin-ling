@@ -65,4 +65,6 @@ export interface Other {
   }
   /** 给所有主人发送通知 */
   notify: boolean
+  /** 抽幸运字符成功后是否渲染图片 */
+  word_render: boolean
 }

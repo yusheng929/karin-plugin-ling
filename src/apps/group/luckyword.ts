@@ -1,5 +1,6 @@
 import { render } from '@/lib/puppeteer'
 import QQApi from '@/models/api/QQApi'
+import { other } from '@/utils/config'
 import { dirPath } from '@/utils/dir'
 import karin, { common, segment } from 'node-karin'
 
@@ -33,6 +34,9 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   const item = {
     url: `https://tianquan.gtimg.cn/groupluckyword/item/${data.data.word_info.word_info.word_id}/pic-0.png?m=${data.data.word_info.word_info.mtime}`,
     title: `${data.data.word_info.word_info.word_desc}`
+  }
+  if (!other().word_render) {
+    return await e.reply(`恭喜你，抽中了[${data.data.word_info.word_info.wording}]\n寓意: ${item.title}`)
   }
   const img = await render('luckword/index', {
     data: item,

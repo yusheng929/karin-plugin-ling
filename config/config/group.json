@@ -1,0 +1,18 @@
+{
+  "default": {
+    "enable": false,
+    "rule": 1,
+    "words": [],
+    "ban": false,
+    "time": 600
+  },
+  "114514": {
+    "rule": 1,
+    "words": [
+      "测试"
+    ],
+    "enable": false,
+    "ban": false,
+    "time": 600
+  }
+}

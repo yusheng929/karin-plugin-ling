@@ -3,7 +3,7 @@
  * @param size 字节数
  * @returns 转换后的字符串
  */
-export const Size = async (size: number): Promise<string> => {
+export const Size = async (size: number) => {
   const units = ['B', 'KB', 'MB', 'GB', 'TB']
   let index = 0
   while (size >= 1024 && index < units.length - 1) {
