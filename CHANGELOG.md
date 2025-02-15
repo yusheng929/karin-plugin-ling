@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.11.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.11.1...v1.11.2) (2025-02-15)
+
+
+### Bug Fixes
+
+* 更新构建流程，删除.gitignore中的特定行以确保正确推送build分支 ([fd6b4b8](https://github.com/yusheng929/karin-plugin-ling/commit/fd6b4b8f43868901e485be68f566a098232d26e4))
+
 ## [1.11.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.11.0...v1.11.1) (2025-02-15)
 
 
