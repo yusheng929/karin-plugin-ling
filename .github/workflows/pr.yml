@@ -58,7 +58,6 @@ jobs:
           SHORT_COMMIT_HASH=$(echo $PR_COMMIT_HASH | cut -c1-7)
           # 获取仓库的 URL（基于 PR 中的提交哈希值，指向仓库快照）
           REPO_URL="https://github.com/${{ github.repository }}/tree/${PR_COMMIT_HASH}"
-
           if [ "${{ steps.build.outcome }}" = "failure" ]; then
             # 捕获构建失败日志
             ERROR_MESSAGE=$(cat build.log || echo "未找到详细的构建日志。")
@@ -76,13 +75,10 @@ jobs:
         run: |
           # 获取当前PR的所有评论
           comments=$(gh pr view ${{ env.PR_NUMBER }} --json comments)
-
           # 过滤目标评论并按时间排序
           target_comments=$(echo "$comments" | jq -r '.comments[] | select(.body | test("🎉 构建完成！|❌ 构建失败！")) | {url: .url, created_at: .createdAt}' | jq -s '. | sort_by(.created_at) | reverse')
-
           # 获取需要删除的评论ID (保留最新的3条)
           comment_ids_to_delete=$(echo "$target_comments" | jq -r 'if length > 3 then .[3:][] | .url | capture("#issuecomment-(?<id>\\d+)$").id else empty end')
-
           # 删除旧评论
           if [ ! -z "$comment_ids_to_delete" ]; then
             for id in $comment_ids_to_delete; do
