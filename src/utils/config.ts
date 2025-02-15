@@ -110,7 +110,8 @@ export const other = (): Other => {
     group: {
       ...def.group,
       ...user.group,
-    }
+    },
+    word_render: user.word_render || def.word_render,
   }
 
   result.accept.enable_list = result.accept.enable_list.map(v => String(v))
