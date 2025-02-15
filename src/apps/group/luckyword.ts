@@ -45,3 +45,12 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   e.reply(img)
   return true
 }, { name: '抽幸运字符', priority: -1, event: 'message.group' })
+
+export const lucksetting = karin.command(/^#(开启|关闭)(幸运)?字符$/, async (e) => {
+  const type = !!e.msg.includes('开启')
+  const data = await new QQApi(e).lucksetting(e.groupId, type)
+  if (!data) return e.reply('❌请稍后再试')
+  if (data.retcode === 11111 && (data.retmsg === 'repeat open' || data.retmsg === 'repeat close')) return e.reply('❌幸运字符已经处于' + (data.retmsg === 'repeat open' ? '开启' : '关闭') + '状态')
+  if (data.retcode !== 0) return e.reply('❌发送数据错误')
+  return e.reply(`✅${type ? '开启' : '关闭'}成功`)
+}, { name: '开启/关闭幸运字符', priority: -1, event: 'message.group' })
