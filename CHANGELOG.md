@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.12.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.11.2...v1.12.0) (2025-02-16)
+
+
+### Features
+
+* 新增QQApi ([#111](https://github.com/yusheng929/karin-plugin-ling/issues/111)) ([ec119e0](https://github.com/yusheng929/karin-plugin-ling/commit/ec119e0b624cc3ed0f96db927abc68447a810063))
+
 ## [1.11.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.11.1...v1.11.2) (2025-02-15)
 
 
