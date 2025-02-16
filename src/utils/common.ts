@@ -19,6 +19,11 @@ export const sendToAllAdmin = async (selfId: string, message: Parameters<typeof 
   }
 }
 
+/**
+ * @description 给指定主人发送消息
+ * @param selfId Bot的QQ号
+ * @param message 消息内容
+ */
 export const sendToFirstAdmin = async (selfId: string, message: Parameters<typeof karin.sendMsg>[2]) => {
   const list = config.admin()
   let master = list[0]

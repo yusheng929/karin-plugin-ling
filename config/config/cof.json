@@ -1,9 +1,0 @@
-{
-  "enable": false,
-  "cron": "0 0 * * *",
-  "msg": [
-    "续火"
-  ],
-  "group": [],
-  "friend": []
-}

@@ -116,13 +116,19 @@ export const QuitGroup = karin.command(/^#?退群/, async (e) => {
   }
 
   try {
+    const info = await e.bot.getGroupMemberInfo(groupId, e.selfId)
+    if (['owner'].includes(info.role)) {
+      await e.reply(`Bot是群[${groupId}]的群主,如果退群会直接解散群聊,请发送\n#确认退群${groupId}\n以退出群聊`)
+      const event = await karin.ctx(e)
+      if (event.msg.trim() !== `#确认退群${groupId}`) return true
+    }
     if (groupId === e.groupId) {
       await e.reply('3秒后退出本群聊')
       await common.sleep(3000)
     } else {
       await e.reply(`已退出群聊『${groupId}』`)
     }
-    await e.bot.setGroupQuit(groupId, false)
+    await e.bot.setGroupQuit(groupId, true)
 
     return true
   } catch (error) {

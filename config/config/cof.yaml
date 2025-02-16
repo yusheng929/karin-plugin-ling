@@ -1,0 +1,9 @@
+# 是否启用
+enable: false
+cron: "0 0 * * *" # cron表达式
+msg:
+  - "续火" # 回复文本
+# 续火的群列表 selfId:groudId
+group: []
+# 续火的好友列表 selfId:friendId
+friend: []
