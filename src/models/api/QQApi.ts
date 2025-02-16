@@ -68,4 +68,56 @@ export default class {
       .then(res => res.data)
       .catch(err => logger.error(err))
   }
+
+  /**
+   * 设置群幸运字符
+   * @param groupId 群号
+   * @param type true: 开启 false: 关闭
+   * @returns 设置结果
+   */
+  async lucksetting (groupId: string, type: boolean) {
+    const body = JSON.stringify({
+      group_code: groupId,
+      cmd: type ? 1 : 2
+    })
+    const onebot11 = new Onebot11(this.e)
+    this.headers.Cookie = await onebot11.ck('qun.qq.com')
+    const bkn = await onebot11.bkn()
+    const request = {
+      method: 'POST',
+      url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/setting?bkn=${bkn}`,
+      headers: this.headers,
+      data: body
+    }
+    return axios
+      .request(request)
+      .then(res => res.data)
+      .catch(err => logger.error(err))
+  }
+
+  /**
+   * 点亮群幸运字符
+   * @param groupId 群号
+   * @param wordId 字符ID
+   * @returns 点亮结果
+   */
+  async luckequip (groupId: string, wordId: string) {
+    const body = JSON.stringify({
+      group_code: groupId,
+      word_id: wordId
+    })
+    const onebot11 = new Onebot11(this.e)
+    this.headers.Cookie = await onebot11.ck('qun.qq.com')
+    const bkn = await onebot11.bkn()
+    const request = {
+      method: 'POST',
+      url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/equip?bkn=${bkn}`,
+      headers: this.headers,
+      data: body
+    }
+    return axios
+      .request(request)
+      .then(res => res.data)
+      .catch(err => logger.error(err))
+  }
 }

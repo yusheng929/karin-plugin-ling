@@ -27,7 +27,7 @@ const updateVersion = (pkg: { version: string }) => {
   const list = pkg.version.split('.')
   const shortHash = process.env.GITHUB_SHA?.substring(0, 7) ?? 'unknown'
   list[2] = `${Number(list[2]) + 1}`
-  pkg.version = `${list.join('.')}.pr.${process.env.PR_NUMBER}.${shortHash}`
+  pkg.version = `${list.join('.')}-pr${process.env.PR_NUMBER}.${shortHash}`
 }
 
 /**
@@ -58,7 +58,7 @@ const version = () => {
 }
 
 /**
- * @description 删除devDependencies和peerDependencies
+ * @description 删除devDependencies和
  */
 const clean = () => {
   console.log('开始清理依赖...')
