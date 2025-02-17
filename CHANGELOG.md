@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.12.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.12.0...v1.12.1) (2025-02-17)
+
+
+### Bug Fixes
+
+* 更新.gitignore，移除不必要的index.js以优化构建流程 ([c45227d](https://github.com/yusheng929/karin-plugin-ling/commit/c45227da3f47a12d8fe19ce6426849add141ee2b))
+
 ## [1.12.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.11.2...v1.12.0) (2025-02-16)
 
 
