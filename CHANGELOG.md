@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.12.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.12.1...v1.12.2) (2025-02-17)
+
+
+### Bug Fixes
+
+* 移除冗余的日志艺术字以简化代码 ([66fe21a](https://github.com/yusheng929/karin-plugin-ling/commit/66fe21a8fea68cb5a1ab48e7adaa1cbcc2017f9f))
+
 ## [1.12.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.12.0...v1.12.1) (2025-02-17)
 
 
