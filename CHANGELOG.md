@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.12.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.12.2...v1.12.3) (2025-02-17)
+
+
+### Performance Improvements
+
+* 允许不带 `#` 触发点赞功能 ([f0a6226](https://github.com/yusheng929/karin-plugin-ling/commit/f0a62261f3494e821f3ea8c5455569ad5bf0f6e7))
+
 ## [1.12.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.12.1...v1.12.2) (2025-02-17)
 
 
