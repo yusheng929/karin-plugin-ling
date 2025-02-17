@@ -20,6 +20,5 @@ node_modules/
 @karinjs/
 plugins/
 logs/
-index.js
 resources/help/changelogs.html
 .env
