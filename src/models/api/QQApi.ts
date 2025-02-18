@@ -2,6 +2,8 @@ import axios from 'node-karin/axios'
 import { logger } from 'node-karin'
 import type { Message } from 'node-karin'
 import Onebot11 from './onebot11'
+import FormData from 'form-data'
+import qs from 'qs'
 
 export default class {
   e: Message
@@ -24,7 +26,7 @@ export default class {
    * @returns 幸运字符列表
    */
   async luckylist (groupId: string, start: number = 0, limit: number = 20) {
-    const body = JSON.stringify({
+    const data = JSON.stringify({
       group_code: groupId,
       start,
       limit,
@@ -37,7 +39,7 @@ export default class {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/word_list?bkn=${bkn}`,
       headers: this.headers,
-      data: body
+      data
     }
     return axios
       .request(request)
@@ -51,7 +53,7 @@ export default class {
    * @returns 抽幸运字符结果
    */
   async luckyword (groupId: string) {
-    const body = JSON.stringify({
+    const data = JSON.stringify({
       group_code: groupId
     })
     const onebot11 = new Onebot11(this.e)
@@ -61,7 +63,7 @@ export default class {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/draw_lottery?bkn=${bkn}`,
       headers: this.headers,
-      data: body
+      data
     }
     return axios
       .request(request)
@@ -76,7 +78,7 @@ export default class {
    * @returns 设置结果
    */
   async lucksetting (groupId: string, type: boolean) {
-    const body = JSON.stringify({
+    const data = JSON.stringify({
       group_code: groupId,
       cmd: type ? 1 : 2
     })
@@ -87,7 +89,7 @@ export default class {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/setting?bkn=${bkn}`,
       headers: this.headers,
-      data: body
+      data
     }
     return axios
       .request(request)
@@ -102,7 +104,7 @@ export default class {
    * @returns 点亮结果
    */
   async luckequip (groupId: string, wordId: string) {
-    const body = JSON.stringify({
+    const data = JSON.stringify({
       group_code: groupId,
       word_id: wordId
     })
@@ -113,11 +115,105 @@ export default class {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/equip?bkn=${bkn}`,
       headers: this.headers,
-      data: body
+      data
     }
     return axios
       .request(request)
       .then(res => res.data)
       .catch(err => logger.error(err))
+  }
+
+  /**
+   * 发送群公告
+   * @param groupId 群号
+   * @param msg 内容
+   * @param img 图片链接(如果有图片的话)
+   * @returns 上传结果
+   */
+  async sendAnnouncs (groupId: string, msg: string, img: string | undefined) {
+    const onebot11 = new Onebot11(this.e)
+    const bkn = await onebot11.bkn()
+    const bodyObj: Record<string, (string | number)> = {
+      qid: groupId,
+      bkn,
+      text: msg,
+      pinned: 0,
+      type: 1,
+      settings: '{ is_show_edit_card: 1, tip_window_type: 1, confirm_required: 1 }'
+    }
+    if (img) {
+      const res = await this.uploadImg(img)
+      if (res.ec === 0) {
+        const pic = JSON.parse(res.id.replace(/&quot;/g, '"'))
+        bodyObj.pic = pic.id
+        bodyObj.imgWidth = pic.w
+        bodyObj.imgHeight = pic.h
+      }
+    }
+    const data = qs.stringify(bodyObj)
+    const request = {
+      method: 'POST',
+      url: `https://web.qun.qq.com/cgi-bin/announce/add_qun_notice?bkn=${bkn}`,
+      headers: {
+        Cookie: await onebot11.ck('qun.qq.com'),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data
+    }
+    return axios
+      .request(request)
+      .then(res => res.data)
+      .catch(err => logger.error(err))
+  }
+
+  /**
+   * 上传图片到qq服务器
+   * @param url 图片链接
+   * @returns 上传内容
+   */
+  async uploadImg (url: string) {
+    const onebot11 = new Onebot11(this.e)
+    const bkn = await onebot11.bkn()
+    const data = new FormData()
+    const buffer = await this.getImageBuffer(url)
+    const cookies = await onebot11.ck('qun.qq.com')
+    data.append('bkn', String(bkn))
+    data.append('source', 'troopNotics')
+    data.append('m', '0')
+    data.append('pic_up', buffer, {
+      filename: '_-1537414416_1735663690596_1735663690653_wifi_0.jpg'
+    })
+    const request = {
+      method: 'POST',
+      url: 'https://web.qun.qq.com/cgi-bin/announce/upload_img',
+      headers: {
+        Cookie: `${cookies}`,
+        ...data.getHeaders()
+      },
+      data
+    }
+    return axios
+      .request(request)
+      .then(res => res.data)
+      .catch(err => logger.error(err))
+  }
+
+  /**
+   * 获取网络图片的Buffer
+   * @param url 图片拦链接
+   * @returns 图片的Buffer
+   */
+  async getImageBuffer (url: string) {
+    try {
+      const data = await axios.get(url, {
+        responseType: 'arraybuffer'
+      })
+      if (data.status !== 200) throw new Error('网络不正常')
+      const buffer = Buffer.from(data.data, 'binary')
+      return buffer
+    } catch (error) {
+      logger.error(error)
+      throw new Error('处理图片失败')
+    }
   }
 }
