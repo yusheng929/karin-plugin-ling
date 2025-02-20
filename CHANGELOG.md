@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.13.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.12.3...v1.13.0) (2025-02-20)
+
+
+### Features
+
+* 重构配置文件，删除冗余配置并添加默认配置，新增群公告发送功能,增加bot违规记录查询 ([#116](https://github.com/yusheng929/karin-plugin-ling/issues/116)) ([7b3a6c1](https://github.com/yusheng929/karin-plugin-ling/commit/7b3a6c1737a6e6224b01df8b6c24c9da6bca3d8f))
+
 ## [1.12.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.12.2...v1.12.3) (2025-02-17)
 
 
