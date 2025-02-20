@@ -167,6 +167,35 @@ export default class {
   }
 
   /**
+   * 获取群公告列表
+   * @param groupId 群号
+   * @returns 公告列表
+   */
+  async announcelist (groupId: string) {
+    const onebot11 = new Onebot11(this.e)
+    const bkn = await onebot11.bkn()
+    const data = qs.stringify({
+      qid: groupId,
+      bkn,
+      ft: '23',
+      n: '20',
+      s: '-1'
+    })
+    const request = {
+      method: 'POST',
+      url: `https://web.qun.qq.com/cgi-bin/announce/list_announce??bkn=${bkn}`,
+      headers: {
+        Cookie: await onebot11.ck('qun.qq.com')
+      },
+      data
+    }
+    return axios
+      .request(request)
+      .then(res => res.data)
+      .catch(err => logger.error(err))
+  }
+
+  /**
    * 上传图片到qq服务器
    * @param url 图片链接
    * @returns 上传内容

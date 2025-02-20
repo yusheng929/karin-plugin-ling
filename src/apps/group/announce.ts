@@ -18,3 +18,11 @@ export const sendannounce = karin.command(/^#发(群)?公告/, async (e) => {
   if (!result) return e.reply('❌请稍后再试')
   if (result.ec !== 0) return e.reply('❌发送错误\n' + JSON.stringify(result, null, '\t'))
 }, { name: '发群公告', priority: -1, perm: 'group.admin', event: 'message.group' })
+
+// export const announcelist = karin.command(/^#(群)?公告列表$/, async (e) => {
+//  const data = await new QQApi(e).announcelist(e.groupId)
+//  if (!data) return e.reply('��请��后再试')
+//  if (data.ec !== 0) return e.reply('��获取公告列表错误\n' + JSON.stringify(data, null, '\t'))
+//  const list = data.data.map((item: any) => `${item.time} ${item.sender}:\n${item.msg}`)
+//  return e.reply('\n' + list.join('\n'), { at: true })
+// }, { name: '群公告列表', priority: -1, perm: 'group.admin', event: 'message.group' })
