@@ -77,7 +77,7 @@
 
 ## 📖 功能
 
-**更多信息可打开 [文档主页](https://yusheng929.github.io/karin-plugin-ling/) 阅读。**<br>
+ **~~更多信息可打开 [文档主页](https://yusheng929.github.io/karin-plugin-ling/) 阅读。~~**<br>
 反馈群：[950407830](https://qm.qq.com/q/9THnE5GwU0)
 
 ## 🛠️ 开发
@@ -136,6 +136,8 @@ pnpm dev
 
 - [yeyang52/yenai-plugin](https://github.com/yeyang52/yenai-plugin)
 - [ikenxuan/karin-plugin-kkk](https://github.com/ikenxuan/karin-plugin-kkk)
+- [xfdown/xiaofei-plugin](https://github.com/xfdown/xiaofei-plugin)
+- [MliKiowa/napcat-protobuf-runtime](https://github.com/MliKiowa/napcat-protobuf-runtime)
 - 更多待补充...
 
 **友情链接**

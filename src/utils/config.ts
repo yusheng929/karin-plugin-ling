@@ -42,7 +42,7 @@ const pluginName = pkg().name.replace(/\//g, '-')
 /** 用户配置 */
 const dirConfig = `${basePath}/${pluginName}/config`
 /** 默认配置 */
-const defConfig = `${dirPath}/config/config`
+const defConfig = `${dirPath}/config/default_config`
 
 /**
  * @description 初始化配置文件
