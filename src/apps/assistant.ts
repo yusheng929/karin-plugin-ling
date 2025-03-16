@@ -1,6 +1,6 @@
 import moment from 'node-karin/moment'
 import { other } from '@/utils/config'
-import { karin, segment, common, level, config } from 'node-karin'
+import { karin, segment, common, config, redis } from 'node-karin'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)(群)?/, '').trim()
@@ -173,7 +173,7 @@ export const command = karin.command(/^#?赞我$/, async e => {
   }
 
   const key = `VoteUser:${e.userId}`
-  const time = await level.get(key)
+  const time = await redis.get(key)
   if (time) {
     // 检查是否为今天
     if (moment().format('YYYY-MM-DD') === moment(Number(time)).format('YYYY-MM-DD')) {
@@ -196,7 +196,7 @@ export const command = karin.command(/^#?赞我$/, async e => {
   }
 
   // 成功后记录时间
-  await level.set(key, moment().valueOf().toString())
+  await redis.set(key, moment().valueOf().toString())
   let likeStart = other().friend.likeStart || '已为你点赞{{likeCount}}次'
   likeStart = likeStart.replace('{{likeCount}}', count.toString())
   await e.reply(likeStart, { at: true })

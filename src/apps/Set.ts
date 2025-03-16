@@ -1,4 +1,4 @@
-import { render } from '@/lib/puppeteer'
+import { render } from '@/components/puppeteer'
 import { cof, other, setYaml } from '@/utils/config'
 import { karin } from 'node-karin'
 import lodash from 'node-karin/lodash'

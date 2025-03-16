@@ -1,4 +1,4 @@
-import { render } from '@/lib/puppeteer'
+import { render } from '@/components/puppeteer'
 import QQApi from '@/models/api/QQApi'
 import { other } from '@/utils/config'
 import { dirPath } from '@/utils/dir'

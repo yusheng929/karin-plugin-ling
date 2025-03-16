@@ -3,7 +3,7 @@ import lodash from 'node-karin/lodash'
 import fs from 'node:fs'
 import { helpCfg, helpList, helpTheme } from '@/models/help/index'
 import { markdown } from '@karinjs/md-html'
-import { render } from '@/lib/puppeteer'
+import { render } from '@/components/puppeteer'
 import { dirPath } from '@/utils/dir'
 
 export const help = karin.command(/^#?(铃|ling)(帮助|菜单|help)$/i, async (e) => {
