@@ -16,7 +16,6 @@ lerna-debug.log*
 .vscode/
 # 依赖
 node_modules/
-/lib/
 @karinjs/
 plugins/
 logs/
