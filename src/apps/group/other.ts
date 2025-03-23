@@ -53,7 +53,7 @@ export const MuteList = karin.command(/^#?(获取|查看)?禁言列表$/, async 
 export const ModifyMemberCard = karin.command(/^#(改|设置|修改)(bot)?群昵称/i, async (e) => {
   const Name = e.msg.replace(/^#(改|设置|修改)(bot)?群昵称/i, '').trim()
   let id = e.at[0]
-  const isSelf = /^#(改|设置|修改)(bot)?群昵称/i.test(e.msg)
+  const isSelf = /^#(改|设置|修改)bot群昵称/i.test(e.msg)
   if (isSelf) id = e.selfId
   if (!isSelf && !await isAdmin(e)) return false
   if (!id) return await e.reply('请@需要修改群昵称的人')
