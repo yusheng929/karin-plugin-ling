@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.14.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.0...v1.14.1) (2025-03-21)
+
+
+### Bug Fixes
+
+* 设置主人已内置到基础插件 ([c32c20e](https://github.com/yusheng929/karin-plugin-ling/commit/c32c20e25a12a8779e44ceb1f2fa17e399e99a0e))
+
 ## [1.14.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.13.0...v1.14.0) (2025-03-16)
 
 
