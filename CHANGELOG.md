@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.14.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.1...v1.14.2) (2025-03-23)
+
+
+### Bug Fixes
+
+* 修复修改昵称判断问题 ([cb29c57](https://github.com/yusheng929/karin-plugin-ling/commit/cb29c57c0b8d1cef96abd8ee3b81d3c511609d4f))
+
 ## [1.14.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.0...v1.14.1) (2025-03-21)
 
 
