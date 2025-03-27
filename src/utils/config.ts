@@ -11,23 +11,20 @@ import {
   existsSync,
   logger,
 } from 'node-karin'
-import type { Cof, Gorup, Other } from '@/types/config'
+import type { Cof, Other } from '@/types/config'
 
 /** 文件名称枚举 */
 export const enum KV {
-  Group = 'group',
   Cof = 'cof',
   Other = 'other',
 }
 
 interface Cache {
-  [KV.Group]: Gorup | undefined
   [KV.Cof]: Cof | undefined
   [KV.Other]: Other | undefined
 }
 
 const cacheList: Cache = {
-  [KV.Group]: undefined,
   [KV.Cof]: undefined,
   [KV.Other]: undefined,
 }
@@ -60,25 +57,6 @@ list.forEach(file => watch(file, (old, now) => {
 }))
 
 /**
- * @description 群违禁词配置
- */
-export const group = (): Gorup => {
-  const name = KV.Group
-  const cache = cacheList[name]
-  if (cache) return cache
-  const user = requireFileSync<Gorup>(`${dirConfig}/${name}.yaml`)
-  const def = requireFileSync<Gorup>(`${defConfig}/${name}.yaml`)
-  const result: Gorup = { default: { ...def.default, ...user.default } }
-  Object.keys(user).forEach(key => {
-    if (key === 'default') return
-    result[key] = { ...result.default, ...user[key] }
-  })
-
-  cacheList[name] = result
-  return result
-}
-
-/**
  * @description 续火配置
  */
 export const cof = (): Cof => {
@@ -106,7 +84,6 @@ export const other = (): Other => {
     joinGroup: user.joinGroup || def.joinGroup || [],
     notify: user.notify || def.notify,
     friend: { ...def.friend, ...user.friend },
-    noWork: user.noWork || def.noWork || [],
     group: {
       ...def.group,
       ...user.group,
@@ -118,7 +95,6 @@ export const other = (): Other => {
   result.accept.disable_list = result.accept.disable_list.map(v => String(v))
   result.group.list = result.group.list.map(v => String(v))
   result.joinGroup = result.joinGroup.map(v => String(v))
-  result.noWork = result.noWork.map(v => String(v))
   cacheList[name] = result
   return result
 }

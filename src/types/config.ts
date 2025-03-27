@@ -1,18 +1,3 @@
-/** `gorup.yaml` 文件的类型定义 */
-export type Gorup = Record<string, {
-  /** 是否启用 */
-  enable: boolean
-  /** 拦截规则0为模糊拦截1为精准拦截 */
-  rule: number
-  /** 违禁词 */
-  words: string[]
-  /** 是否禁言触发违禁后撤回并禁言 */
-  ban: boolean
-  /** 禁言时长，默认10分钟 */
-  time: number
-}>
-
-/** `cof.yaml` 文件的类型定义 */
 export interface Cof {
   /** 是否启用 */
   enable: boolean
@@ -52,8 +37,6 @@ export interface Other {
     /** 已点赞的文本 */
     likeEnd: string
   }
-  /** 上下班配置 下班的群聊列表 配置后该群将无法触发任何功能 */
-  noWork: string[]
   /** 群聊相关配置 */
   group: {
     /** 通知开关 */

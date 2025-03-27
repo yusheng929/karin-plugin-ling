@@ -88,7 +88,7 @@ export const recall = karin.command(/^#?撤回$/, async (e) => {
   e.bot.recallMsg(e.contact, e.replyId)
   e.bot.recallMsg(e.contact, e.messageId)
   return true
-}, { name: '撤回', priority: -1, perm: 'master' })
+}, { name: '撤回', priority: -1, perm: 'group.admin' })
 
 export const clearScreenRecall = karin.command(/^#清屏(\d+)?/, async (e) => {
   const match = Number(e.msg.replace(/#清屏/, '').trim() || 50)
