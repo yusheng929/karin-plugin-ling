@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.14.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.2...v1.14.3) (2025-03-29)
+
+
+### Bug Fixes
+
+* 移除群组违禁词相关配置和命令 ([11195f5](https://github.com/yusheng929/karin-plugin-ling/commit/11195f532678606a75bd86c0b64ffc0bf60027f1))
+* 简化群组申请回复逻辑 ([e0d97a8](https://github.com/yusheng929/karin-plugin-ling/commit/e0d97a8110e828fc70b0a78a428814e917c75863))
+
 ## [1.14.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.1...v1.14.2) (2025-03-23)
 
 
