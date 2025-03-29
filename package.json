@@ -31,18 +31,6 @@
     "log": "karin log",
     "watch": "karin watch"
   },
-  "devDependencies": {
-    "@types/node": "^22.13.10",
-    "@types/punycode": "^2.1.4",
-    "@types/qrcode": "^1.5.5",
-    "@types/qs": "^6.9.18",
-    "eslint": "^9.22.0",
-    "neostandard": "^0.12.1",
-    "node-karin": "^1.7.3",
-    "tsc-alias": "^1.8.11",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
-  },
   "dependencies": {
     "@karinjs/md-html": "^1.1.8",
     "form-data": "^4.0.2",
