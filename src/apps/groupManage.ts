@@ -1,7 +1,7 @@
 import { karin, redis } from 'node-karin'
 import { addYaml, delYaml, other } from '@/utils/config'
 
-const handle = async (e:any, key: string, yes: boolean, type: string) => {
+const handle = async (e: any, key: string, yes: boolean, type: string) => {
   const flag = await redis.get(key)
   if (!flag) {
     await e.reply('找不到这个请求啦！！！请手动同意吧')
@@ -37,13 +37,9 @@ export const groupApplyReply = karin.command(/^#?(同意|拒绝)$/, async (e) =>
       await e.reply('找不到这个请求啦！！！请手动同意吧')
       return true
     }
-    if (e.msg === '同意') {
-      await e.bot.setInvitedJoinGroupResult(flag, true)
-      await e.reply('已同意加群申请')
-    } else {
-      await e.bot.setInvitedJoinGroupResult(flag, false)
-      await e.reply('已拒绝加群申请')
-    }
+    const yes = /同意/.test(e.msg)
+    await e.bot.setInvitedJoinGroupResult(flag, yes)
+    await e.reply(`已${yes ? '同意' : '拒绝'}加群申请`)
     await redis.del(key)
     return true
   } else {
