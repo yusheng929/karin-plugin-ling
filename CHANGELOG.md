@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.14.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.3...v1.14.4) (2025-03-30)
+
+
+### Bug Fixes
+
+* 更新群组邀请逻辑，自动同意并发送通知 ([214eae2](https://github.com/yusheng929/karin-plugin-ling/commit/214eae2416ac4dee650499bbb53859a3089c9eaf))
+
 ## [1.14.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.2...v1.14.3) (2025-03-29)
 
 
