@@ -1,4 +1,4 @@
-import { config, GroupMessage, karin, logger, redis, segment } from 'node-karin'
+import { config, contactFriend, GroupMessage, karin, logger, redis, segment } from 'node-karin'
 import { other } from '@/utils/config'
 import lodash from 'node-karin/lodash'
 import { sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
@@ -88,7 +88,8 @@ export const groupInvite = karin.accept('request.groupInvite', async (e) => {
   const opts = cfg.group
   if (e.isMaster) {
     await e.bot.setInvitedJoinGroupResult(e.content.flag, true)
-    await e.reply('已同意邀群申请')
+    const contact = contactFriend(e.userId)
+    await e.bot.sendMsg(contact, [segment.text('已自动同意邀群申请')])
     return true
   }
   if (opts.invite) {
