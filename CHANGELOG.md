@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.15.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.5...v1.15.0) (2025-04-01)
+
+
+### Features
+
+* 添加修改群头像功能，支持icqq适配器跟onebotv11协议 ([2473eb8](https://github.com/yusheng929/karin-plugin-ling/commit/2473eb888643c41fdecec010646e82b18454a8dd))
+
 ## [1.14.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.4...v1.14.5) (2025-04-01)
 
 
