@@ -3,6 +3,10 @@
   "version": "1.14.5",
   "author": "yusheng",
   "type": "module",
+  "license": "GPL-3.0",
+  "keywords": [
+    "karin-plugin"
+  ],
   "main": "lib/index.js",
   "description": "基于Karin编写的便携操作插件",
   "homepage": "https://github.com/yusheng929/karin-plugin-ling",

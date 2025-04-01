@@ -1,14 +1,14 @@
 import { isAdmin } from '@/utils/common'
 import moment from 'node-karin/moment'
 import karin, { common, logger, segment } from 'node-karin'
-import { Client } from 'icqq'
+import type { Client } from 'icqq'
 
 /**
  * 改群名
  */
-export const ModifyGroupName = karin.command(/^#改群名/, async (e) => {
+export const ModifyGroupName = karin.command(/^#(改|设置|修改)群名/, async (e) => {
   if (!await isAdmin(e)) return false
-  const Name = e.msg.replace(/^#改群名/, '').trim()
+  const Name = e.msg.replace(/^#(改|设置|修改)群名/, '').trim()
   if (!Name) {
     e.reply('群名不能为空', { at: true })
     return true
