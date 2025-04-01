@@ -1,5 +1,14 @@
 # 更新日志
 
+## [1.14.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.4...v1.14.5) (2025-04-01)
+
+
+### Bug Fixes
+
+* 在构建工作流中添加NODE_AUTH_TOKEN环境变量以支持依赖安装 ([e3d3025](https://github.com/yusheng929/karin-plugin-ling/commit/e3d3025b9fcb479e0313873a6e861658ac619be7))
+* 更新依赖项导入方式，优化类型导入并添加.npmrc配置 ([034d0fe](https://github.com/yusheng929/karin-plugin-ling/commit/034d0fe163256a6e9cb9f79995f320d26f19d4f1))
+* 更新适配器逻辑，整合icqq支持并优化配置路径 ([4c90fad](https://github.com/yusheng929/karin-plugin-ling/commit/4c90fad5ea4887bca60f438f98e733b9f8622d93))
+
 ## [1.14.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.3...v1.14.4) (2025-03-30)
 
 
