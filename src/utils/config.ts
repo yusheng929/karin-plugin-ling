@@ -4,7 +4,7 @@ import Yaml from 'node-karin/yaml'
 import fs from 'node:fs'
 import {
   watch,
-  basePath,
+  karinPathBase,
   filesByExt,
   copyConfigSync,
   requireFileSync,
@@ -37,7 +37,7 @@ export const pkg = () => requireFileSync(`${dirPath}/package.json`)
 /** 用户配置的插件名称 */
 const pluginName = pkg().name.replace(/\//g, '-')
 /** 用户配置 */
-const dirConfig = `${basePath}/${pluginName}/config`
+const dirConfig = `${karinPathBase}/${pluginName}/config`
 /** 默认配置 */
 const defConfig = `${dirPath}/config/default_config`
 

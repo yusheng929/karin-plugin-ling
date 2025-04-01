@@ -1,9 +1,9 @@
 import axios from 'node-karin/axios'
 import { logger } from 'node-karin'
 import type { Message } from 'node-karin'
-import Onebot11 from './onebot11'
 import FormData from 'form-data'
 import qs from 'qs'
+import Adapter from '@/adapter'
 
 export default class {
   e: Message
@@ -32,9 +32,9 @@ export default class {
       limit,
       need_equip_info: true
     })
-    const onebot11 = new Onebot11(this.e)
-    this.headers.Cookie = await onebot11.ck('qun.qq.com')
-    const bkn = await onebot11.bkn()
+    const adapter = new Adapter(this.e)
+    this.headers.Cookie = await adapter.ck('qun.qq.com')
+    const bkn = await adapter.bkn()
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/word_list?bkn=${bkn}`,
@@ -56,9 +56,9 @@ export default class {
     const data = JSON.stringify({
       group_code: groupId
     })
-    const onebot11 = new Onebot11(this.e)
-    this.headers.Cookie = await onebot11.ck('qun.qq.com')
-    const bkn = await onebot11.bkn()
+    const adapter = new Adapter(this.e)
+    this.headers.Cookie = await adapter.ck('qun.qq.com')
+    const bkn = await adapter.bkn()
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/draw_lottery?bkn=${bkn}`,
@@ -82,9 +82,9 @@ export default class {
       group_code: groupId,
       cmd: type ? 1 : 2
     })
-    const onebot11 = new Onebot11(this.e)
-    this.headers.Cookie = await onebot11.ck('qun.qq.com')
-    const bkn = await onebot11.bkn()
+    const adapter = new Adapter(this.e)
+    this.headers.Cookie = await adapter.ck('qun.qq.com')
+    const bkn = await adapter.bkn()
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/setting?bkn=${bkn}`,
@@ -108,9 +108,9 @@ export default class {
       group_code: groupId,
       word_id: wordId
     })
-    const onebot11 = new Onebot11(this.e)
-    this.headers.Cookie = await onebot11.ck('qun.qq.com')
-    const bkn = await onebot11.bkn()
+    const adapter = new Adapter(this.e)
+    this.headers.Cookie = await adapter.ck('qun.qq.com')
+    const bkn = await adapter.bkn()
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/equip?bkn=${bkn}`,
@@ -131,8 +131,8 @@ export default class {
    * @returns 上传结果
    */
   async sendAnnouncs (groupId: string, msg: string, img: string | undefined) {
-    const onebot11 = new Onebot11(this.e)
-    const bkn = await onebot11.bkn()
+    const adapter = new Adapter(this.e)
+    const bkn = await adapter.bkn()
     const bodyObj: Record<string, (string | number)> = {
       qid: groupId,
       bkn,
@@ -155,7 +155,7 @@ export default class {
       method: 'POST',
       url: `https://web.qun.qq.com/cgi-bin/announce/add_qun_notice?bkn=${bkn}`,
       headers: {
-        Cookie: await onebot11.ck('qun.qq.com'),
+        Cookie: await adapter.ck('qun.qq.com'),
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data
@@ -172,8 +172,8 @@ export default class {
    * @returns 公告列表
    */
   async announcelist (groupId: string) {
-    const onebot11 = new Onebot11(this.e)
-    const bkn = await onebot11.bkn()
+    const adapter = new Adapter(this.e)
+    const bkn = await adapter.bkn()
     const data = qs.stringify({
       qid: groupId,
       bkn,
@@ -185,7 +185,7 @@ export default class {
       method: 'POST',
       url: `https://web.qun.qq.com/cgi-bin/announce/list_announce??bkn=${bkn}`,
       headers: {
-        Cookie: await onebot11.ck('qun.qq.com')
+        Cookie: await adapter.ck('qun.qq.com')
       },
       data
     }
@@ -201,11 +201,11 @@ export default class {
    * @returns 上传内容
    */
   async uploadImg (url: string) {
-    const onebot11 = new Onebot11(this.e)
-    const bkn = await onebot11.bkn()
+    const adapter = new Adapter(this.e)
+    const bkn = await adapter.bkn()
     const data = new FormData()
     const buffer = await this.getImageBuffer(url)
-    const cookies = await onebot11.ck('qun.qq.com')
+    const cookies = await adapter.ck('qun.qq.com')
     data.append('bkn', String(bkn))
     data.append('source', 'troopNotics')
     data.append('m', '0')

@@ -37,8 +37,9 @@
     "@types/qrcode": "^1.5.5",
     "@types/qs": "^6.9.18",
     "eslint": "^9.22.0",
+    "icqq": "npm:@icqqjs/icqq@^1.6.5",
     "neostandard": "^0.12.1",
-    "node-karin": "^1.7.3",
+    "node-karin": "^1.7.14",
     "tsc-alias": "^1.8.11",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
