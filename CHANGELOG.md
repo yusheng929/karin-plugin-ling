@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.15.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.15.0...v1.15.1) (2025-04-01)
+
+
+### Bug Fixes
+
+* 添加许可证和关键字，更新群名修改命令的正则表达式 ([6e53fb4](https://github.com/yusheng929/karin-plugin-ling/commit/6e53fb4aef9ef5aeac45626d178a18ed458d52a2))
+
 ## [1.15.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.14.5...v1.15.0) (2025-04-01)
 
 
