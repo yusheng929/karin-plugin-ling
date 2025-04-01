@@ -1,6 +1,6 @@
 import karin, { common, Message } from 'node-karin'
 import pb from '@/models/protobuf/index'
-import { Client } from 'icqq'
+import type { Client } from 'icqq'
 
 const loginlist: any = {}
 

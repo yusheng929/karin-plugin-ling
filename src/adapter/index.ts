@@ -1,5 +1,5 @@
 import { Message } from 'node-karin'
-import { Client } from 'icqq'
+import type { Client } from 'icqq'
 import { Domain } from '@/types/adapter'
 
 export default class Adapter {
