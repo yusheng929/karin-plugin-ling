@@ -74,7 +74,6 @@
 
     </details>
 
-
 ## 📖 功能
 
  **~~更多信息可打开 [文档主页](https://yusheng929.github.io/karin-plugin-ling/) 阅读。~~**<br>
