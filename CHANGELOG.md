@@ -1,5 +1,18 @@
 # 更新日志
 
+## [1.16.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.15.1...v1.16.0) (2025-04-05)
+
+
+### Features
+
+* 添加好友和群聊通知配置，支持上下班状态管理 ([ed8c325](https://github.com/yusheng929/karin-plugin-ling/commit/ed8c3257cf063483db2e16c3ca9c71aafa3a24b8))
+
+
+### Bug Fixes
+
+* 更新好友配置引用，修正点赞功能的相关逻辑 ([fbb48ba](https://github.com/yusheng929/karin-plugin-ling/commit/fbb48ba5666c9574fd17917d378e9a90ede87088))
+* 更新配置引用，修正群组通知相关逻辑 ([54f2973](https://github.com/yusheng929/karin-plugin-ling/commit/54f297395b9f674f112427c7767b9050b786d70a))
+
 ## [1.15.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.15.0...v1.15.1) (2025-04-01)
 
 
