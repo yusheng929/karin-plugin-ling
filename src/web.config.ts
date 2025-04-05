@@ -1,5 +1,5 @@
 import { components, LocalApiResponse } from 'node-karin'
-import { cof, other } from './utils/config'
+import { group } from './utils/config'
 
 export default {
   info: {
@@ -30,11 +30,11 @@ export default {
               label: '启用进退群通知',
               size: 'sm',
               color: 'primary',
-              defaultSelected: other().accept.enable
+              defaultSelected: group().accept.enable
             }),
             components.input.group('enable_list', {
               label: '白名单',
-              data: other().accept.enable_list,
+              data: group().accept.enable_list,
               template:
                 components.input.string('input-number', {
                   color: 'success',
@@ -46,7 +46,7 @@ export default {
             }),
             components.input.group('disable_list', {
               label: '黑名单',
-              data: other().accept.disable_list,
+              data: group().accept.disable_list,
               template:
                 components.input.string('input-number', {
                   color: 'success',
