@@ -1,5 +1,5 @@
 import moment from 'node-karin/moment'
-import { other } from '@/utils/config'
+import { friend } from '@/utils/config'
 import { karin, segment, common, config, redis } from 'node-karin'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
@@ -168,7 +168,7 @@ export const SeeGroupImg = karin.command(/^#(看|取)群头像/, async (e) => {
 }, { name: '看群头像', priority: -1, event: 'message.group' })
 
 export const command = karin.command(/^#?赞我$/, async e => {
-  if (!other().friend.closeLike) {
+  if (!friend().closeLike) {
     return false
   }
 
@@ -177,7 +177,7 @@ export const command = karin.command(/^#?赞我$/, async e => {
   if (time) {
     // 检查是否为今天
     if (moment().format('YYYY-MM-DD') === moment(Number(time)).format('YYYY-MM-DD')) {
-      const likeEnd = other().friend.likeEnd || '今天已经赞过了o(￣▽￣)ｄ'
+      const likeEnd = friend().likeEnd || '今天已经赞过了o(￣▽￣)ｄ'
       await e.reply(likeEnd, { at: true })
       return true
     }
@@ -197,7 +197,7 @@ export const command = karin.command(/^#?赞我$/, async e => {
 
   // 成功后记录时间
   await redis.set(key, moment().valueOf().toString())
-  let likeStart = other().friend.likeStart || '已为你点赞{{likeCount}}次'
+  let likeStart = friend().likeStart || '已为你点赞{{likeCount}}次'
   likeStart = likeStart.replace('{{likeCount}}', count.toString())
   await e.reply(likeStart, { at: true })
   return true
