@@ -1,11 +1,12 @@
-import { karin, common, exec, logger, segment } from 'node-karin'
+import { karin, exec, logger } from 'node-karin'
 
-export const codejs = karin.command(/^rjs/, async (e) => {
-  const code = e.msg.replace(/^rjs/, '').trim()
+export const codejs = karin.command(/^js/, async (e) => {
+  const code = e.msg.replace(/^js/, '').trim()
   if (!code) return false
   try {
     // eslint-disable-next-line no-eval
-    const msg = eval(code)
+    let msg = eval(code)
+    msg = typeof msg === 'object' && msg !== null ? JSON.stringify(msg, null, 2) : String(msg)
     await e.reply(msg)
   } catch (error) {
     await e.reply(`错误：\n${error}`)
@@ -13,20 +14,6 @@ export const codejs = karin.command(/^rjs/, async (e) => {
   }
   return true
 }, { name: 'CodeJs', permission: 'master', priority: -1 })
-
-export const forwardMsg = karin.command(/^fm/, async (e) => {
-  const msgs = e.msg.replace(/^fm/, '').trim()
-  if (!msgs) return false
-  try {
-    const elements = segment.text(msgs)
-    const msg = common.makeForward(elements, e.selfId, e.bot.selfName)
-    await e.bot.sendForwardMsg(e.contact, msg)
-  } catch (error) {
-    await e.reply(`错误：\n${error}`)
-    logger.error(error)
-  }
-  return true
-}, { name: 'ForwardMsg', permission: 'master', priority: -1 })
 
 export const code = karin.command(/^rc/, async (e) => {
   const code = e.msg.replace(/^rc/, '').trim()

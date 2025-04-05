@@ -11,43 +11,53 @@ export interface Cof {
   friend: string[]
 }
 
-/** `other.yaml` 文件的类型定义 */
-export interface Other {
+export interface Friend {
+  /** 通知 */
+  notify: {
+    /** 是否启用 */
+    enable: boolean
+    /** 是否只通知第一个主人 */
+    allow: boolean
+  }
+  /** 自动同意好友 */
+  enable: boolean
+  /** 关闭点赞 */
+  closeLike: boolean
+  /** 点赞文本 */
+  likeStart: string
+  /** 已点赞的文本 */
+  likeEnd: string
+}
+
+export interface Group {
   /** 进退群通知 */
   accept: {
-    /** 进退群通知开关 */
+    /** 进退群开关 */
     enable: boolean
     /** 白名单 */
     enable_list: string[]
     /** 黑名单 */
     disable_list: string[]
   }
-  /** 开启入群验证的群聊列表 */
+  /** 通知 */
+  notify: {
+    /** 是否启用 */
+    group_enable: boolean
+    /** 是否只通知第一个主人 */
+    allow: boolean
+  }
+  /** 自动同意邀请Bot入新群 */
+  invite: boolean
+  /** 申请加群通知列表 */
+  apply_list: string[]
+  /** 进群验证列表 */
   joinGroup: string[]
-  /** 好友相关配置 */
-  friend: {
-    /** 通知开关 */
-    notify: boolean
-    /** 自动同意好友申请 */
-    enable: boolean
-    /** 关闭点赞 */
-    closeLike: boolean
-    /** 点赞文本 */
-    likeStart: string
-    /** 已点赞的文本 */
-    likeEnd: string
-  }
-  /** 群聊相关配置 */
-  group: {
-    /** 通知开关 */
-    notify: boolean
-    /** 自动同意邀请Bot入新群 */
-    invite: boolean
-    /** 申请加群通知列表 */
-    list: string[]
-  }
-  /** 给所有主人发送通知 */
-  notify: boolean
+}
+
+/** `other.yaml` 文件的类型定义 */
+export interface Other {
   /** 抽幸运字符成功后是否渲染图片 */
   word_render: boolean
+  /** 上下班 */
+  noWork: string[]
 }

@@ -1,0 +1,27 @@
+# 进退群通知
+accept:
+  # 黑白名单优先级：白名单>黑名单
+  # 进退群通知开关
+  enable: true
+  # 白名单
+  enable_list: []
+  # 黑名单
+  disable_list:
+    - "636023444"
+
+# 群聊通知配置
+notify:
+  # 是否开启邀请Bot加群通知
+  group_enable: true
+  # 是否只通知第一个主人
+  allow: false
+
+# 自动同意邀请Bot入新群事件
+invite: false
+
+# 加群通知列表
+apply_list: []
+
+# 开启进群验证的群聊列表
+joinGroup:
+  - "114514"

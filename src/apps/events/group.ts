@@ -1,11 +1,11 @@
-import { config, contactFriend, GroupMessage, karin, logger, redis, segment } from 'node-karin'
-import { other } from '@/utils/config'
+import { contactFriend, GroupMessage, karin, logger, redis, segment } from 'node-karin'
+import { friend, group } from '@/utils/config'
 import lodash from 'node-karin/lodash'
 import { sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
 
 /** 进群事件 */
 export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
-  const cfg = other()
+  const cfg = group()
   if (cfg.accept.enable) {
     if (cfg.accept.enable_list.includes(e.groupId) || (!cfg.accept.enable_list && !cfg.accept.disable_list.includes(e.groupId))) {
       await e.reply('\n欢迎加入本群୯(⁠*⁠´⁠ω⁠｀⁠*⁠)୬', { at: true })
@@ -51,7 +51,7 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
 
 /** 退群事件 */
 export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
-  const data = other().accept.disable_list
+  const data = group().accept.disable_list
   if (data.includes(e.groupId)) {
     await e.reply(`用户『${e.userId}』丢下我们一个人走了`)
   }
@@ -61,8 +61,8 @@ export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
 /** 申请进群事件 */
 export const groupApply = karin.accept('request.groupApply', async (e) => {
   logger.info(`${e.content.applierId} 申请加入群 ${e.groupId}: ${e.content.flag}`)
-  const opts = other().group
-  if (!opts.list.includes(e.groupId)) return false
+  const opts = group()
+  if (!opts.apply_list.includes(e.groupId)) return false
   const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
 
   const msg = await e.reply([
@@ -84,19 +84,18 @@ export const groupApply = karin.accept('request.groupApply', async (e) => {
 /** 邀请Bot进群事件 */
 export const groupInvite = karin.accept('request.groupInvite', async (e) => {
   logger.info(`${e.content.inviterId} 邀请Bot进群: ${e.content.flag}`)
-  const cfg = other()
-  const opts = cfg.group
+  const cfg = group()
   if (e.isMaster) {
     await e.bot.setInvitedJoinGroupResult(e.content.flag, true)
     const contact = contactFriend(e.userId)
     await e.bot.sendMsg(contact, [segment.text('已自动同意邀群申请')])
     return true
   }
-  if (opts.invite) {
+  if (cfg.invite) {
     await e.bot.setInvitedJoinGroupResult(e.content.flag, true)
     await e.reply('已同意邀群申请')
   }
-  if (!opts.notify) return true
+  if (!cfg.notify.group_enable) return true
   const AvatarUrl = await e.bot.getGroupAvatarUrl(e.groupId)
   const message = [
     segment.image(AvatarUrl),
@@ -108,12 +107,12 @@ export const groupInvite = karin.accept('request.groupInvite', async (e) => {
       `${cfg.notify ? '已自动同意' : '可引用回复: 同意/拒绝进行处理'}`
     ].join('\n'))
   ]
-  if (cfg.notify) {
+  if (!cfg.notify.allow) {
     await sendToAllAdmin(e.selfId, message)
   } else {
     await sendToFirstAdmin(e.selfId, message)
   }
-  if (!opts.invite) {
+  if (!cfg.invite) {
     const key = `Ling:groupinvite:${e.groupId}:${e.userId}`
     redis.set(key, e.content.flag, { EX: 86400 })
   }
@@ -123,18 +122,17 @@ export const groupInvite = karin.accept('request.groupInvite', async (e) => {
 /** 处理好友申请 */
 export const friendApply = karin.accept('request.friendApply', async (e) => {
   logger.info(`${e.content.applierId} 申请加好友: ${e.content.flag}`)
-  const cfg = other()
-  const opts = cfg.friend
+  const cfg = friend()
   if (e.isMaster) {
     await e.bot.setFriendApplyResult(e.content.flag, true)
     logger.info('已同意加好友申请')
     return true
   }
-  if (opts.enable) {
+  if (cfg.enable) {
     await e.bot.setFriendApplyResult(e.content.flag, true)
     logger.info('已自动同意加好友申请')
   }
-  if (!opts.notify) return true
+  if (!cfg.notify.enable) return true
   const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
   const message = [
     segment.image(AvatarUrl),
@@ -145,17 +143,12 @@ export const friendApply = karin.accept('request.friendApply', async (e) => {
       `${cfg.notify ? '已自动同意' : '可引用回复: 同意/拒绝进行处理'}`
     ].join('\n'))
   ]
-  if (cfg.notify) {
+  if (!cfg.notify.allow) {
     await sendToAllAdmin(e.selfId, message)
   } else {
-    const masters = config.master()
-    let master = masters[0]
-    if (master === 'console') {
-      master = masters[1]
-    }
-    await karin.sendMaster(e.selfId, master, message)
+    await sendToFirstAdmin(e.selfId, message)
   }
-  if (!opts.enable) {
+  if (!cfg.enable) {
     const key = `Ling:friendapply:${e.userId}`
     redis.set(key, e.content.flag, { EX: 86400 })
   }

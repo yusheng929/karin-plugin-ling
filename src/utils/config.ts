@@ -11,22 +11,28 @@ import {
   existsSync,
   logger,
 } from 'node-karin'
-import type { Cof, Other } from '@/types/config'
+import type { Cof, Other, Group, Friend } from '@/types/config'
 
 /** 文件名称枚举 */
 export const enum KV {
   Cof = 'cof',
   Other = 'other',
+  Group = 'group',
+  Friend = 'friend',
 }
 
 interface Cache {
   [KV.Cof]: Cof | undefined
   [KV.Other]: Other | undefined
+  [KV.Group]: Group | undefined
+  [KV.Friend]: Friend | undefined
 }
 
 const cacheList: Cache = {
   [KV.Cof]: undefined,
   [KV.Other]: undefined,
+  [KV.Group]: undefined,
+  [KV.Friend]: undefined,
 }
 
 /**
@@ -71,6 +77,50 @@ export const cof = (): Cof => {
 }
 
 /**
+ * @description 好友配置
+ */
+export const friend = (): Friend => {
+  const name = KV.Friend
+  const cache = cacheList[name]
+  if (cache) return cache
+  const user = requireFileSync<Friend>(`${dirConfig}/${name}.yaml`)
+  const def = requireFileSync<Friend>(`${defConfig}/${name}.yaml`)
+  const result: Friend = {
+    notify: { ...def.notify, ...user.notify },
+    enable: user.enable || def.enable,
+    closeLike: user.closeLike || def.closeLike,
+    likeStart: user.likeStart || def.likeStart,
+    likeEnd: user.likeEnd || def.likeEnd,
+  }
+  cacheList[name] = result
+  return result
+}
+
+/**
+ * @description 群配置
+ */
+export const group = (): Group => {
+  const name = KV.Group
+  const cache = cacheList[name]
+  if (cache) return cache
+  const user = requireFileSync<Group>(`${dirConfig}/${name}.yaml`)
+  const def = requireFileSync<Group>(`${defConfig}/${name}.yaml`)
+  const result: Group = {
+    accept: { ...def.accept, ...user.accept },
+    notify: { ...def.notify, ...user.notify },
+    invite: user.invite || def.invite,
+    apply_list: user.apply_list || def.apply_list,
+    joinGroup: user.joinGroup || def.joinGroup
+  }
+  result.accept.enable_list = result.accept.enable_list.map(v => String(v))
+  result.accept.disable_list = result.accept.disable_list.map(v => String(v))
+  result.apply_list = result.apply_list.map(v => String(v))
+  result.joinGroup = result.joinGroup.map(v => String(v))
+  cacheList[name] = result
+  return result
+}
+
+/**
  * @description 其他配置
  */
 export const other = (): Other => {
@@ -79,22 +129,7 @@ export const other = (): Other => {
   if (cache) return cache
   const user = requireFileSync<Other>(`${dirConfig}/${name}.yaml`)
   const def = requireFileSync<Other>(`${defConfig}/${name}.yaml`)
-  const result: Other = {
-    accept: { ...def.accept, ...user.accept },
-    joinGroup: user.joinGroup || def.joinGroup || [],
-    notify: user.notify || def.notify,
-    friend: { ...def.friend, ...user.friend },
-    group: {
-      ...def.group,
-      ...user.group,
-    },
-    word_render: user.word_render || def.word_render,
-  }
-
-  result.accept.enable_list = result.accept.enable_list.map(v => String(v))
-  result.accept.disable_list = result.accept.disable_list.map(v => String(v))
-  result.group.list = result.group.list.map(v => String(v))
-  result.joinGroup = result.joinGroup.map(v => String(v))
+  const result: Other = { ...def, ...user }
   cacheList[name] = result
   return result
 }
