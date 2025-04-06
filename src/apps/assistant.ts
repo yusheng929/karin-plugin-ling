@@ -147,7 +147,8 @@ export const SeeImg = karin.command(/^#(看|取)头像/, async (e) => {
     return true
   }
 
-  const url = await e.bot.getAvatarUrl(userId, 140)
+  const url = await e.bot.getAvatarUrl(userId, 640)
+  if (e.msg.includes('取')) return e.reply(url)
   await e.reply(segment.image(url))
   return true
 }, { name: '看头像', priority: -1 })
@@ -162,7 +163,8 @@ export const SeeGroupImg = karin.command(/^#(看|取)群头像/, async (e) => {
     return true
   }
 
-  const url = await e.bot.getGroupAvatarUrl(groupId, 100)
+  const url = await e.bot.getGroupAvatarUrl(groupId, 640)
+  if (e.msg.includes('取')) return e.reply(url)
   await e.reply(segment.image(url))
   return true
 }, { name: '看群头像', priority: -1, event: 'message.group' })

@@ -49,5 +49,5 @@ export const render = async (
       waitUntil: 'networkidle2',
     },
   })
-  return segment.image(`base64://${img}`)
+  return segment.image(`${img.includes('base64://') ? img : `base64://${img}`}`)
 }
