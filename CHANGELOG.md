@@ -1,5 +1,16 @@
 # 更新日志
 
+## [1.16.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.16.1...v1.16.2) (2025-04-06)
+
+
+### Bug Fixes
+
+* 修复群头像获取逻辑，优化调用方式并增加返回值检查 ([d3cdf62](https://github.com/yusheng929/karin-plugin-ling/commit/d3cdf620ae998fef95b52010fe04dff5020c4925))
+* 修复获取头像URL时类型定义问题 ([7d7634e](https://github.com/yusheng929/karin-plugin-ling/commit/7d7634e8733f35551629114ec3b6725151f13610))
+* 修复获取群头像URL的调用方式 ([ae712b4](https://github.com/yusheng929/karin-plugin-ling/commit/ae712b47012bb9294740d00e426f16c8b014bdae))
+* 修复获取群头像的类型定义问题 ([461712d](https://github.com/yusheng929/karin-plugin-ling/commit/461712dcb0038804eae826e88b98733cea2f14d0))
+* 更新头像获取逻辑，提升头像质量并支持直接回复头像链接 ([d5d44ee](https://github.com/yusheng929/karin-plugin-ling/commit/d5d44ee5ae9782489622dbb02c44704bd9bd27b4))
+
 ## [1.16.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.16.0...v1.16.1) (2025-04-05)
 
 
