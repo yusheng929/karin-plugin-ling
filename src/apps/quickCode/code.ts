@@ -5,12 +5,12 @@ export const codejs = karin.command(/^js/, async (e) => {
   if (!code) return false
   try {
     // eslint-disable-next-line no-eval
-    let msg = eval(code)
-    if (!msg) return e.reply('没有返回值')
+    let msg = await eval(code)
+    if (!msg) return e.reply('没有返回值', { reply: true })
     msg = typeof msg === 'object' && msg !== null ? JSON.stringify(msg, null, 2) : String(msg)
-    await e.reply(msg)
+    await e.reply(msg, { reply: true })
   } catch (error) {
-    await e.reply(`错误：\n${error}`)
+    await e.reply(`错误：\n${error}`, { reply: true })
     logger.error(error)
   }
   return true
