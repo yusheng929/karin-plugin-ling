@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.16.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.16.2...v1.16.3) (2025-04-06)
+
+
+### Bug Fixes
+
+* 优化代码执行返回值处理，确保回复格式一致 ([d5913c5](https://github.com/yusheng929/karin-plugin-ling/commit/d5913c5f348399a8405b4e75354b62dd502e1ad9))
+
 ## [1.16.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.16.1...v1.16.2) (2025-04-06)
 
 
