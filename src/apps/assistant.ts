@@ -163,7 +163,7 @@ export const SeeGroupImg = karin.command(/^#(看|取)群头像/, async (e) => {
     return true
   }
 
-  const url = await (e.bot as any).getGroupAvatarUrl(groupId, 640)
+  const url = await (e.bot.getGroupAvatarUrl as any)(groupId, 640)
   if (e.msg.includes('取')) return e.reply(url)
   await e.reply(segment.image(url))
   return true
