@@ -147,7 +147,7 @@ export const SeeImg = karin.command(/^#(看|取)头像/, async (e) => {
     return true
   }
 
-  const url = await e.bot.getAvatarUrl(userId, 640)
+  const url = await e.bot.getAvatarUrl(userId, 640 as any)
   if (e.msg.includes('取')) return e.reply(url)
   await e.reply(segment.image(url))
   return true
