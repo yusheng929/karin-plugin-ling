@@ -6,6 +6,7 @@ export const codejs = karin.command(/^js/, async (e) => {
   try {
     // eslint-disable-next-line no-eval
     let msg = eval(code)
+    if (!msg) return e.reply('没有返回值')
     msg = typeof msg === 'object' && msg !== null ? JSON.stringify(msg, null, 2) : String(msg)
     await e.reply(msg)
   } catch (error) {

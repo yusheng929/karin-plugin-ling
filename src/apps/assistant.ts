@@ -162,8 +162,7 @@ export const SeeGroupImg = karin.command(/^#(看|取)群头像/, async (e) => {
     e.reply('请输入正确的群号')
     return true
   }
-
-  const url = await (e.bot.getGroupAvatarUrl as any)(groupId, 640)
+  const url = await e.bot.getGroupAvatarUrl(groupId, 640 as any)
   if (e.msg.includes('取')) return e.reply(url)
   await e.reply(segment.image(url))
   return true
