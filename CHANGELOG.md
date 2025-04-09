@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.17.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.16.3...v1.17.0) (2025-04-09)
+
+
+### Features
+
+* 添加“谁艾特我”功能，支持记录和查询艾特信息 ([4c08466](https://github.com/yusheng929/karin-plugin-ling/commit/4c084661035cb28ea1759595d1955945842566e9))
+
 ## [1.16.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.16.2...v1.16.3) (2025-04-06)
 
 
