@@ -60,4 +60,6 @@ export interface Other {
   word_render: boolean
   /** 上下班 */
   noWork: string[]
+  /** 谁艾特我 */
+  whoat: boolean
 }

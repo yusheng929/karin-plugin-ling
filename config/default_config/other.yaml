@@ -4,3 +4,6 @@ noWork:
 
 # 抽幸运字符成功后是否渲染图片
 word_render: true
+
+# 谁艾特我(注: 开启时，群多可能会对性能产生影响)
+whoat: false

@@ -129,7 +129,12 @@ export const other = (): Other => {
   if (cache) return cache
   const user = requireFileSync<Other>(`${dirConfig}/${name}.yaml`)
   const def = requireFileSync<Other>(`${defConfig}/${name}.yaml`)
-  const result: Other = { ...def, ...user }
+  const result: Other = {
+    noWork: user.noWork || def.noWork,
+    whoat: user.whoat || def.whoat,
+    word_render: user.word_render || def.word_render,
+  }
+  result.noWork = result.noWork.map(v => String(v))
   cacheList[name] = result
   return result
 }

@@ -52,6 +52,7 @@
     "@karinjs/md-html": "^1.1.8",
     "@karinjs/plugin-puppeteer": "^1.0.6",
     "form-data": "^4.0.2",
+    "moment-timezone": "^0.5.48",
     "napcat.protobuf": "^1.1.4",
     "punycode": "^2.3.1",
     "qrcode": "^1.5.4",
