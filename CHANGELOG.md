@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.18.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.0...v1.18.1) (2025-04-13)
+
+
+### Bug Fixes
+
+* 添加消息前缀和后缀配置选项 ([756f044](https://github.com/yusheng929/karin-plugin-ling/commit/756f0446db75560ad1db8c2c2696de084d857a92))
+
 ## [1.18.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.17.0...v1.18.0) (2025-04-13)
 
 
