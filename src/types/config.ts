@@ -62,4 +62,9 @@ export interface Other {
   noWork: string[]
   /** 谁艾特我 */
   whoat: boolean
+  /** 消息前缀 */
+  msg_prefix: ''
+
+  /** 消息后缀 */
+  msg_suffix: ''
 }

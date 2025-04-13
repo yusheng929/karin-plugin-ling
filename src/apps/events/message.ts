@@ -26,3 +26,14 @@ hooks.message.group(async (e, next) => {
   if (cfg.noWork.includes(e.groupId) && (!e.msg.includes('上班') && !e.msg.includes('下班'))) { return logger.debug(`群[${e.groupId}]处于下班状态,拦截消息`) }
   next()
 }, { priority: -Infinity })
+
+hooks.sendMsg.message(async (contact, elements, retryCount, next) => {
+  for (const data of elements) {
+    const cfg = other()
+    if (data.type === 'text') {
+      if (cfg.msg_prefix) data.text = cfg.msg_prefix + data.text
+      if (cfg.msg_suffix) data.text = data.text + cfg.msg_suffix
+    }
+  }
+  next()
+})
