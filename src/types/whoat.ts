@@ -1,9 +1,10 @@
 interface WhoatRedis {
-  time: string
+  time: Date
   nickname: string
   msg?: string
   userId: string
-  img?: string
+  file?: string
+  reply?: string
 }
 
 export type Whoat = WhoatRedis[]

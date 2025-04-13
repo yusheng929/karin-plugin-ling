@@ -33,8 +33,8 @@ export default class {
       need_equip_info: true
     })
     const adapter = new Adapter(this.e)
-    this.headers.Cookie = await adapter.ck('qun.qq.com')
-    const bkn = await adapter.bkn()
+    this.headers.Cookie = await adapter.getck('qun.qq.com')
+    const bkn = await adapter.getbkn()
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/word_list?bkn=${bkn}`,
@@ -57,8 +57,8 @@ export default class {
       group_code: groupId
     })
     const adapter = new Adapter(this.e)
-    this.headers.Cookie = await adapter.ck('qun.qq.com')
-    const bkn = await adapter.bkn()
+    this.headers.Cookie = await adapter.getck('qun.qq.com')
+    const bkn = await adapter.getbkn()
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/draw_lottery?bkn=${bkn}`,
@@ -83,8 +83,8 @@ export default class {
       cmd: type ? 1 : 2
     })
     const adapter = new Adapter(this.e)
-    this.headers.Cookie = await adapter.ck('qun.qq.com')
-    const bkn = await adapter.bkn()
+    this.headers.Cookie = await adapter.getck('qun.qq.com')
+    const bkn = await adapter.getbkn()
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/setting?bkn=${bkn}`,
@@ -109,8 +109,8 @@ export default class {
       word_id: wordId
     })
     const adapter = new Adapter(this.e)
-    this.headers.Cookie = await adapter.ck('qun.qq.com')
-    const bkn = await adapter.bkn()
+    this.headers.Cookie = await adapter.getck('qun.qq.com')
+    const bkn = await adapter.getbkn()
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/equip?bkn=${bkn}`,
@@ -132,7 +132,7 @@ export default class {
    */
   async sendAnnouncs (groupId: string, msg: string, img: string | undefined) {
     const adapter = new Adapter(this.e)
-    const bkn = await adapter.bkn()
+    const bkn = await adapter.getbkn()
     const bodyObj: Record<string, (string | number)> = {
       qid: groupId,
       bkn,
@@ -155,7 +155,7 @@ export default class {
       method: 'POST',
       url: `https://web.qun.qq.com/cgi-bin/announce/add_qun_notice?bkn=${bkn}`,
       headers: {
-        Cookie: await adapter.ck('qun.qq.com'),
+        Cookie: await adapter.getck('qun.qq.com'),
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data
@@ -173,7 +173,7 @@ export default class {
    */
   async announcelist (groupId: string) {
     const adapter = new Adapter(this.e)
-    const bkn = await adapter.bkn()
+    const bkn = await adapter.getbkn()
     const data = qs.stringify({
       qid: groupId,
       bkn,
@@ -185,7 +185,7 @@ export default class {
       method: 'POST',
       url: `https://web.qun.qq.com/cgi-bin/announce/list_announce??bkn=${bkn}`,
       headers: {
-        Cookie: await adapter.ck('qun.qq.com')
+        Cookie: await adapter.getck('qun.qq.com')
       },
       data
     }
@@ -202,10 +202,10 @@ export default class {
    */
   async uploadImg (url: string) {
     const adapter = new Adapter(this.e)
-    const bkn = await adapter.bkn()
+    const bkn = await adapter.getbkn()
     const data = new FormData()
     const buffer = await this.getImageBuffer(url)
-    const cookies = await adapter.ck('qun.qq.com')
+    const cookies = await adapter.getck('qun.qq.com')
     data.append('bkn', String(bkn))
     data.append('source', 'troopNotics')
     data.append('m', '0')

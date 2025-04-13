@@ -1,7 +1,6 @@
 import { Whoat } from '@/types/whoat'
 import { other } from '@/utils/config'
 import { hooks, logger, redis } from 'node-karin'
-import moment from 'node-karin/moment'
 import 'moment-timezone'
 
 hooks.message.group(async (e, next) => {
@@ -11,11 +10,12 @@ hooks.message.group(async (e, next) => {
       try {
         const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${id}`) || '[]') as Whoat
         data.push({
-          time: moment().tz('Asia/Shanghai').format('YYYY-MM-DD HH:mm:ss'),
+          time: new Date(),
           nickname: e.sender.nick,
           msg: e.msg,
           userId: e.userId,
-          img: e.elements.find((item) => item.type === 'image')?.file,
+          file: e.elements.find((item) => item.type === 'image')?.file,
+          reply: e.replyId
         })
         await redis.set(`Ling:at:${e.groupId}:${id}`, JSON.stringify(data))
       } catch (error) {
