@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.18.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.17.0...v1.18.0) (2025-04-13)
+
+
+### Features
+
+* 添加获取rkey功能，优化艾特记录处理 [🚀 Feature Request] [#132](https://github.com/yusheng929/karin-plugin-ling/issues/132) ([4a4530c](https://github.com/yusheng929/karin-plugin-ling/commit/4a4530ca46b35911d7a1262c3d3fbecf8396e429))
+
 ## [1.17.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.16.3...v1.17.0) (2025-04-09)
 
 
