@@ -21,7 +21,7 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
     if (item.file) url = await refreshRkey(e, item.file)
     if (url) elements.push(segment.image(url))
     if (item.reply) elements.push(segment.reply(item.reply))
-    list.push(segment.node(item.userId, item.nickname, elements))
+    list.unshift(segment.node(item.userId, item.nickname, elements))
   }
   e.bot.sendForwardMsg(e.contact, list)
 }, { event: 'message.group' })
