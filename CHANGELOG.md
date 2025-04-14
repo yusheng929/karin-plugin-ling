@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.18.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.2...v1.18.3) (2025-04-14)
+
+
+### Bug Fixes
+
+* QQ傻鸟证书 ([4136815](https://github.com/yusheng929/karin-plugin-ling/commit/4136815d9ffe94723315d48e20578d3ec71f394e))
+
 ## [1.18.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.1...v1.18.2) (2025-04-14)
 
 
