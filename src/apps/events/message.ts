@@ -36,4 +36,4 @@ hooks.sendMsg.message(async (contact, elements, retryCount, next) => {
     }
   }
   next()
-})
+}, { priority: -Infinity })

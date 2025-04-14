@@ -19,12 +19,12 @@ export default {
   } as LocalApiResponse,
   /** 动态渲染的组件 */
   components: () => [
-    components.accordion.create('other', {
-      label: '其他配置',
+    components.accordion.create('group', {
+      label: '群聊配置',
       children: [
         components.accordion.createItem('accept', {
           title: '进退群通知配置',
-          subtitle: '白名单配置 > 黑名单配置',
+          subtitle: '优先级: 白名单配置 > 黑名单配置',
           children: [
             components.switch.create('enable', {
               label: '启用进退群通知',
@@ -55,6 +55,24 @@ export default {
                   isRequired: true,
                   value: ''
                 })
+            })
+          ]
+        }),
+        components.accordion.createItem('notify', {
+          title: '群聊通知配置',
+          subtitle: '',
+          children: [
+            components.switch.create('group_enable', {
+              label: '启用邀请Bot加群通知',
+              size: 'sm',
+              color: 'primary',
+              defaultSelected: group().notify.group_enable
+            }),
+            components.switch.create('allow', {
+              label: '是否只通知第一个主人',
+              size: 'sm',
+              color: 'primary',
+              defaultSelected: group().notify.allow
             })
           ]
         })
