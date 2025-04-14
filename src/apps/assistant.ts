@@ -169,7 +169,7 @@ export const SeeGroupImg = karin.command(/^#(看|取)群头像/, async (e) => {
 }, { name: '看群头像', priority: -1, event: 'message.group' })
 
 export const command = karin.command(/^#?赞我$/, async e => {
-  if (!friend().closeLike) {
+  if (friend().closeLike) {
     return false
   }
 
