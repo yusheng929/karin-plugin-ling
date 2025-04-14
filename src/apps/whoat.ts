@@ -12,7 +12,7 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
   } else userId = e.userId
   if (!userId) return e.reply('请艾特需要查询的对象', { reply: true })
   const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${userId}`) || '[]') as Whoat
-  if (data.length === 0) return e.reply('没有艾特过你哦~', { reply: true })
+  if (data.length === 0) return e.reply('没有人艾特过你哦~', { reply: true })
   const list = []
   let url: string | undefined = ''
   for (const item of data) {
