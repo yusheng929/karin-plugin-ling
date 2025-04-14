@@ -11,7 +11,7 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
     userId = e.at[0] || e.msg.replace(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, '').trim()
   } else userId = e.userId
   if (!userId) return e.reply('请艾特需要查询的对象', { reply: true })
-  const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${e.userId}`) || '[]') as Whoat
+  const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${userId}`) || '[]') as Whoat
   if (data.length === 0) return e.reply('没有艾特过你哦~', { reply: true })
   const list = []
   let url: string | undefined = ''
