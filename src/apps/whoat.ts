@@ -29,6 +29,7 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
 const refreshRkey = async (e: GroupMessage, file: string) => {
   if (e.bot.adapter.standard === 'icqq') return await (e.bot.super as Client).pickGroup(Number(e.groupId)).getPicUrl(segment.image(file))
   const url = new URL(file)
+  url.protocol = "http:"
   const params = new URLSearchParams(url.search)
   const rkey = await new Adapter(e).getrkey('group')
   if (!rkey) {
