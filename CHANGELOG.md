@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.18.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.1...v1.18.2) (2025-04-14)
+
+
+### Bug Fixes
+
+* 修复赞我配置判断 ([c7f1d12](https://github.com/yusheng929/karin-plugin-ling/commit/c7f1d128f85ae9003d772f913a86b3ffb5534151))
+
 ## [1.18.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.0...v1.18.1) (2025-04-13)
 
 
