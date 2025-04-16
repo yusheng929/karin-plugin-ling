@@ -1,5 +1,19 @@
 # 更新日志
 
+## [1.18.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.6...v1.18.7) (2025-04-14)
+
+
+### Bug Fixes
+
+* 修复图片问题 ([317f8ab](https://github.com/yusheng929/karin-plugin-ling/commit/317f8abbf785fbf32b4be81d3f73323b3c0597bc))
+
+## [1.18.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.5...v1.18.6) (2025-04-14)
+
+
+### Bug Fixes
+
+* 更新依赖项和优化群聊配置 ([0caebd5](https://github.com/yusheng929/karin-plugin-ling/commit/0caebd50eb54118d03fedf3c02a9fb2cb47706e2))
+
 ## [1.18.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.4...v1.18.5) (2025-04-14)
 
 
