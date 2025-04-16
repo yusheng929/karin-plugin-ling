@@ -17,7 +17,7 @@ hooks.message.group(async (e, next) => {
           file: e.elements.find((item) => item.type === 'image')?.file,
           reply: e.replyId
         })
-        await redis.set(`Ling:at:${e.groupId}:${id}`, JSON.stringify(data))
+        await redis.set(`Ling:at:${e.groupId}:${id}`, JSON.stringify(data), { EX: 86400 })
       } catch (error) {
         logger.error(`设置Redis失败: ${error}`)
       }

@@ -37,6 +37,7 @@ export const md5 = karin.command(/^#?md5加密(.*)/i, async (e) => {
   await e.reply(md5)
   return true
 }, { name: 'md5', priority: -1 })
+
 export const unicode = karin.command(/^#?unicode(编码|解码)(.*)/i, async (e) => {
   let unicode = e.msg.replace(/^#?unicode(编码|解码)/i, '').trim()
   if (e.msg.includes('编码')) {
