@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.18.8](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.7...v1.18.8) (2025-04-18)
+
+
+### Bug Fixes
+
+* 修复上下班权限判断 ([9b46b91](https://github.com/yusheng929/karin-plugin-ling/commit/9b46b91c6ea9218940f4320ea4a6e8acba7902b8))
+* 添加新的命令和优化消息处理逻辑 ([69cdad6](https://github.com/yusheng929/karin-plugin-ling/commit/69cdad6373c0dc7bddc3f481ed9c49abfd5913cb))
+
 ## [1.18.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.6...v1.18.7) (2025-04-14)
 
 
