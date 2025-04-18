@@ -1,7 +1,7 @@
 import { addYaml, delYaml, other } from '@/utils/config'
 import karin from 'node-karin'
 
-export const work = karin.command(/^#?(上班|下班)/, async (e) => {
+export const work = karin.command(/^#?(上班|下班)$/, async (e) => {
   const cfg = other()
   if (e.msg.includes('上班')) {
     if (!cfg.noWork.includes(e.groupId)) return e.reply('已经在工作了')
@@ -13,4 +13,4 @@ export const work = karin.command(/^#?(上班|下班)/, async (e) => {
     addYaml('other', 'noWork', e.groupId)
     return e.reply('开始下班')
   }
-}, { event: 'message.group' })
+}, { event: 'message.group', perm: 'master' })
