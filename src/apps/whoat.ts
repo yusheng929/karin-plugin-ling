@@ -19,7 +19,7 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
     if (img) {
       img.file = await refreshRkey(e, img.file) || ''
     }
-    list.unshift(segment.node(e.userId, e.sender.nick, elements.elements))
+    list.unshift(segment.node(elements.userId, elements.sender.nick, elements.elements))
   }
   e.bot.sendForwardMsg(e.contact, list)
 }, { event: 'message.group' })
