@@ -1,8 +1,7 @@
 import Adapter from '@/adapter'
-import { Whoat } from '@/types/whoat'
 import { other } from '@/utils/config'
 import { Client } from 'icqq'
-import { Elements, GroupMessage, karin, redis, segment } from 'node-karin'
+import { GroupMessage, karin, Message, redis, segment } from 'node-karin'
 
 export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, async (e) => {
   if (!other().whoat) return e.reply('没有开启谁艾特我功能', { reply: true })
@@ -11,17 +10,16 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
     userId = e.at[0] || e.msg.replace(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, '').trim()
   } else userId = e.userId
   if (!userId) return e.reply('请艾特需要查询的对象', { reply: true })
-  const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${userId}`) || '[]') as Whoat
+  const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${userId}`) || '[]') as string[]
   if (data.length === 0) return e.reply('没有人艾特过你哦~', { reply: true })
   const list = []
   for (const item of data) {
-    const elements: Elements[] = [segment.text(String(item.time))]
-    let url: string | undefined = ''
-    if (item.msg) elements.push(segment.text('\n' + item.msg))
-    if (item.file) url = await refreshRkey(e, item.file)
-    if (url) elements.push(segment.image(url))
-    if (item.reply) elements.push(segment.reply(item.reply))
-    list.unshift(segment.node(item.userId, item.nickname, elements))
+    const elements = await e.bot.getMsg(e.contact, item) as Message
+    const img = elements.elements.find((item) => item.type === 'image')
+    if (img) {
+      img.file = await refreshRkey(e, img.file) || ''
+    }
+    list.unshift(segment.node(e.sender.userId, e.sender.nick, elements.elements))
   }
   e.bot.sendForwardMsg(e.contact, list)
 }, { event: 'message.group' })
