@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.18.11](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.10...v1.18.11) (2025-04-21)
+
+
+### Bug Fixes
+
+* 修复艾特消息中用户ID的传递逻辑 ([cdde5fe](https://github.com/yusheng929/karin-plugin-ling/commit/cdde5feaf13562df0d7702fa90a4eb0878cd821c))
+
 ## [1.18.10](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.9...v1.18.10) (2025-04-21)
 
 
