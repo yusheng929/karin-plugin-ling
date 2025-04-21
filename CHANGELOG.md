@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.18.9](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.8...v1.18.9) (2025-04-21)
+
+
+### Bug Fixes
+
+* 优化艾特消息处理逻辑，简化数据结构 ([5b92d6b](https://github.com/yusheng929/karin-plugin-ling/commit/5b92d6b277c35618fd19d0d569607c78766f3f60))
+* 添加清除艾特记录的命令 ([5db7938](https://github.com/yusheng929/karin-plugin-ling/commit/5db79388edbbc88afc103492a1b71879ca0ae80e))
+
 ## [1.18.8](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.7...v1.18.8) (2025-04-18)
 
 
