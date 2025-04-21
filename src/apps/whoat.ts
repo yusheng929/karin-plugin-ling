@@ -24,6 +24,20 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
   e.bot.sendForwardMsg(e.contact, list)
 }, { event: 'message.group' })
 
+export const clearAt = karin.command(/^#?清除(艾特|@|at)(记录|数据)$/, async (e) => {
+  const a = await redis.del(`Ling:at:${e.groupId}:${e.userId}`)
+  if (a === 0) return e.reply('没有艾特记录,无法清除', { reply: true })
+  e.reply('清除成功', { reply: true })
+}, { event: 'message.group' })
+
+export const clearAtAll = karin.command(/^#?清除(所有|全部)(艾特|@|at)(记录|数据)$/, async (e) => {
+  const data = await redis.keys('Ling:at:*')
+  for (const item of data) {
+    await redis.del(item)
+  }
+  e.reply('清除成功', { reply: true })
+}, { event: 'message.group', perm: 'master' })
+
 const refreshRkey = async (e: GroupMessage, file: string) => {
   if (e.bot.adapter.standard === 'icqq') return await (e.bot.super as Client).pickGroup(Number(e.groupId)).getPicUrl(segment.image(file))
   const url = new URL(file)
