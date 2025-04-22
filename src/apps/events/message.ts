@@ -4,16 +4,23 @@ import 'moment-timezone'
 
 hooks.message.group(async (e, next) => {
   const cfg = other()
-  if (e.at.length > 0 && cfg.whoat) {
-    for (const id of e.at) {
-      try {
+  try {
+    if (cfg.whoat) {
+      if (e.at.length > 0) {
+        for (const id of e.at) {
+          const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${id}`) || '[]') as string[]
+          data.push(e.messageId)
+          await redis.set(`Ling:at:${e.groupId}:${id}`, JSON.stringify(data), { EX: 86400 })
+        }
+      } else if (e.replyId) {
+        const id = e.bot.getMsg(e.contact, e.replyId).then((msg) => msg.sender.userId)
         const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${id}`) || '[]') as string[]
         data.push(e.messageId)
         await redis.set(`Ling:at:${e.groupId}:${id}`, JSON.stringify(data), { EX: 86400 })
-      } catch (error) {
-        logger.error(`设置Redis失败: ${error}`)
       }
     }
+  } catch (err) {
+    logger.error('艾特记录失败', err)
   }
   if (cfg.noWork.includes(e.groupId) && (!e.msg.includes('上班') && !e.msg.includes('下班'))) { return logger.debug(`群[${e.groupId}]处于下班状态,拦截消息`) }
   next()

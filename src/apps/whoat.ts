@@ -1,7 +1,7 @@
 import Adapter from '@/adapter'
 import { other } from '@/utils/config'
 import { Client } from 'icqq'
-import { GroupMessage, karin, Message, redis, segment } from 'node-karin'
+import { GroupMessage, karin, redis, segment } from 'node-karin'
 
 export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, async (e) => {
   if (!other().whoat) return e.reply('没有开启谁艾特我功能', { reply: true })
@@ -14,7 +14,7 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
   if (data.length === 0) return e.reply('没有人艾特过你哦~', { reply: true })
   const list = []
   for (const item of data) {
-    const elements = await e.bot.getMsg(e.contact, item) as Message
+    const elements = await e.bot.getMsg(e.contact, item)
     const img = elements.elements.find((item) => item.type === 'image')
     if (img) {
       img.file = await refreshRkey(e, img.file) || ''
