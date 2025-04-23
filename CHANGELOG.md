@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.18.14](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.13...v1.18.14) (2025-04-22)
+
+
+### Bug Fixes
+
+* 修复获取回复消息发送者用户ID的逻辑 ([36868ff](https://github.com/yusheng929/karin-plugin-ling/commit/36868ff2c412b007e27c92964575c85b5e574c0d))
+
 ## [1.18.13](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.12...v1.18.13) (2025-04-22)
 
 
