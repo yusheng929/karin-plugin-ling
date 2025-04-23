@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.18.15](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.14...v1.18.15) (2025-04-23)
+
+
+### Bug Fixes
+
+* 修复群通知相关失效的问题 ([f424757](https://github.com/yusheng929/karin-plugin-ling/commit/f424757ea7c9d25c924183a536310dbf3332821b))
+
 ## [1.18.14](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.13...v1.18.14) (2025-04-22)
 
 
