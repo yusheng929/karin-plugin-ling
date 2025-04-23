@@ -75,13 +75,13 @@ export const groupApplySwitch = karin.command(/^#(开启|关闭)加群通知$/, 
       await e.reply('本群暂未开启加群申请通知')
       return true
     }
-    delYaml('other', 'group.list', e.groupId)
+    delYaml('group', 'apply_list', e.groupId)
   } else {
     if (opts.apply_list.includes(e.groupId)) {
       await e.reply('本群已开启加群申请通知')
       return true
     }
-    addYaml('other', 'group.list', e.groupId)
+    addYaml('group', 'apply_list', e.groupId)
   }
   await e.reply(`已${e.msg.includes('关闭') ? '关闭' : '开启'}[${e.groupId}]的加群申请通知`)
   return true
@@ -102,7 +102,7 @@ export const Notification = karin.command(/^#(开启|关闭)进群通知/, async
       await e.reply(`\n群『${groupId}』的进群通知已经处于关闭状态`, { at: true })
       return true
     }
-    addYaml('other', 'accept.disable_list', groupId)
+    addYaml('group', 'accept.disable_list', groupId)
     await e.reply(`\n已经关闭群『${groupId}』的进群通知`, { at: true })
     return true
   }
@@ -111,7 +111,7 @@ export const Notification = karin.command(/^#(开启|关闭)进群通知/, async
     await e.reply(`\n群『${groupId}』的进群通知目前已经处于开启状态`, { at: true })
     return true
   }
-  delYaml('other', 'accept.disable_list', groupId)
+  delYaml('group', 'accept.disable_list', groupId)
   await e.reply(`\n已经开启群『${groupId}』的进群通知`, { at: true })
   return true
 }, { permission: 'master' })
@@ -123,7 +123,7 @@ export const test = karin.command(/^#(开启|关闭)进群验证$/, async (e) =>
       await e.reply('\n进群验证已经处于关闭状态', { at: true })
       return true
     }
-    delYaml('other', 'joinGroup', e.groupId)
+    delYaml('group', 'joinGroup', e.groupId)
     await e.reply('\n已关闭进群验证', { at: true })
     return true
   }
@@ -132,7 +132,7 @@ export const test = karin.command(/^#(开启|关闭)进群验证$/, async (e) =>
     await e.reply('\n进群验证已经处于开启状态', { at: true })
     return true
   }
-  addYaml('other', 'joinGroup', e.groupId)
+  addYaml('group', 'joinGroup', e.groupId)
   await e.reply('\n已开启进群验证', { at: true })
   return true
 }, { name: '进群验证', perm: 'group.admin', event: 'message.group' })
