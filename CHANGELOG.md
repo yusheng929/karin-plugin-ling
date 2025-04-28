@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.19.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.0...v1.19.1) (2025-04-28)
+
+
+### Bug Fixes
+
+* 添加 require 以支持模块导入 ([9e0d44f](https://github.com/yusheng929/karin-plugin-ling/commit/9e0d44ff81f531f8fb1889d050698ea4cc5d2981))
+
 ## [1.19.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.15...v1.19.0) (2025-04-28)
 
 
