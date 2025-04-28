@@ -9,6 +9,7 @@ export const runjs = karin.karin.command(/^rjs/, async (e) => {
       ...karin,
       ...global,
       ...globalThis,
+      require,
       e,
       console,
       setTimeout,
