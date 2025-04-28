@@ -4,12 +4,6 @@ import * as karin from 'node-karin'
 export const runjs = karin.karin.command(/^rjs/, async (e) => {
   const code = e.msg.replace(/^rjs/, '').trim()
   if (!code) return false
-  Object.defineProperty(global, 'Function', {
-    value: undefined,
-    configurable: false,
-    writable: false,
-    enumerable: false
-  })
   try {
     const sandbox = {
       ...karin,
@@ -24,15 +18,18 @@ export const runjs = karin.karin.command(/^rjs/, async (e) => {
       Buffer,
       global,
       globalThis,
-      process: {
-        env: process.env,
-        pid: process.pid,
-        argv: process.argv,
-        platform: process.platform,
-        version: process.version,
-        versions: process.versions
-      },
+      process: Object.create(null),
     }
+    const createprocess = ['env', 'cwd', 'pid', 'platform', 'version', 'versions', 'argv']
+    createprocess.forEach(prop => {
+      (sandbox.process as any)[prop] = process[prop as keyof NodeJS.Process]
+    })
+    sandbox.process.env = Object.create(null)
+    for (const key in process.env) {
+      sandbox.process.env[key] = process.env[key]
+    }
+    Object.freeze(sandbox.process)
+    Object.freeze(sandbox.process.env)
     const result = await RunJs(code, sandbox)
     if (result === '') return e.reply('没有返回值')
     const msg = typeof result === 'object' && result !== null ? JSON.stringify(result, null, 2) : String(result)
