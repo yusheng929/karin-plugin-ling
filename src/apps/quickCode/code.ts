@@ -25,6 +25,7 @@ export const runjs = karin.karin.command(/^rjs/, async (e) => {
     const msg = typeof result === 'object' && result !== null ? JSON.stringify(result, null, 2) : String(result)
     return e.reply(msg, { reply: true })
   } catch (error) {
+    if (String(error).includes('Script execution timed out')) return await e.reply('运行超时30秒,已终止运行', { reply: true })
     await e.reply(`错误：\n${error}`, { reply: true })
     karin.logger.error(error)
   }
