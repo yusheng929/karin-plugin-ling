@@ -4,12 +4,17 @@ import * as karin from 'node-karin'
 export const runjs = karin.karin.command(/^rjs/, async (e) => {
   const code = e.msg.replace(/^rjs/, '').trim()
   if (!code) return false
+  Object.defineProperty(global, 'Function', {
+    value: undefined,
+    configurable: false,
+    writable: false,
+    enumerable: false
+  })
   try {
     const sandbox = {
       ...karin,
       ...global,
       ...globalThis,
-      require,
       e,
       console,
       setTimeout,
@@ -22,6 +27,7 @@ export const runjs = karin.karin.command(/^rjs/, async (e) => {
       process: {
         env: process.env,
         pid: process.pid,
+        argv: process.argv,
         platform: process.platform,
         version: process.version,
         versions: process.versions
