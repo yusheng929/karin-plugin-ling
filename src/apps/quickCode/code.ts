@@ -1,26 +1,48 @@
-import { karin, exec, logger } from 'node-karin'
+import { RunJs } from '@/components/runcode'
+import * as karin from 'node-karin'
 
-export const codejs = karin.command(/^js/, async (e) => {
-  const code = e.msg.replace(/^js/, '').trim()
+export const runjs = karin.karin.command(/^rjs/, async (e) => {
+  const code = e.msg.replace(/^rjs/, '').trim()
   if (!code) return false
   try {
-    // eslint-disable-next-line no-eval
-    let msg = await eval(code)
-    if (!msg) return e.reply('没有返回值', { reply: true })
-    msg = typeof msg === 'object' && msg !== null ? JSON.stringify(msg, null, 2) : String(msg)
-    await e.reply(msg, { reply: true })
+    const sandbox = {
+      ...karin,
+      ...global,
+      ...globalThis,
+      e,
+      console,
+      setTimeout,
+      setInterval,
+      clearTimeout,
+      clearInterval,
+      Buffer,
+      global,
+      globalThis,
+      process: {
+        env: process.env,
+        pid: process.pid,
+        argv: process.argv,
+        platform: process.platform,
+        version: process.version,
+        versions: process.versions
+      },
+    }
+    const result = await RunJs(code, sandbox)
+    if (result === '') return e.reply('没有返回值')
+    const msg = typeof result === 'object' && result !== null ? JSON.stringify(result, null, 2) : String(result)
+    return e.reply(msg, { reply: true })
   } catch (error) {
     await e.reply(`错误：\n${error}`, { reply: true })
-    logger.error(error)
+    karin.logger.error(error)
   }
   return true
-}, { name: 'CodeJs', permission: 'master', priority: -1 })
+}, { name: 'RunJs', permission: 'master', priority: -1 })
 
-export const code = karin.command(/^rc/, async (e) => {
+export const runcode = karin.karin.command(/^rc/, async (e) => {
   const code = e.msg.replace(/^rc/, '').trim()
   if (!code) return false
 
-  const { status, error, stdout, stderr } = await exec(code)
+  const { status, error, stdout, stderr } = await karin.exec(code)
   if (status) {
     await e.reply(stdout)
     return true
@@ -37,4 +59,4 @@ export const code = karin.command(/^rc/, async (e) => {
   }
 
   return true
-}, { name: 'Code', permission: 'master', priority: -1 })
+}, { name: 'RunCode', permission: 'master', priority: -1 })
