@@ -22,7 +22,6 @@ export const runjs = karin.karin.command(/^rjs/, async (e) => {
       process: {
         env: process.env,
         pid: process.pid,
-        argv: process.argv,
         platform: process.platform,
         version: process.version,
         versions: process.versions

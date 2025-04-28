@@ -9,7 +9,7 @@ export const RunJs = async (code: string, sandbox: any, repeat: boolean = false,
   try {
     const vmContext = vm.createContext(sandbox)
     const script = new vm.Script(`(async () => { ${a ? `return (${code})` : code} })()`)
-    return await script.runInContext(vmContext)
+    return await script.runInContext(vmContext, { timeout: 60000 })
   } catch (e) {
     if (!repeat && code.includes('return')) {
       return RunJs(code, sandbox, true, false)
