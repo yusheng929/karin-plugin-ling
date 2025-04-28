@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.19.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.3...v1.19.4) (2025-04-28)
+
+
+### Bug Fixes
+
+* 移除全局 Function 对象定义，增强代码安全性并优化 process 对象的创建 ([15ff9d6](https://github.com/yusheng929/karin-plugin-ling/commit/15ff9d62cadabe1f5353a4a176a016d6a0c3f8b5))
+
 ## [1.19.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.2...v1.19.3) (2025-04-28)
 
 
