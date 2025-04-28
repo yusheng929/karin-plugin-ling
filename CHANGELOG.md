@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.19.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.1...v1.19.2) (2025-04-28)
+
+
+### Bug Fixes
+
+* 更新帮助列表，修改群昵称描述并移除无用命令 ([822c273](https://github.com/yusheng929/karin-plugin-ling/commit/822c273f816adf8a1ad1e24df293283c1810971a))
+* 移除无用的 process.argv 并为脚本执行添加超时限制 ([79c5ee1](https://github.com/yusheng929/karin-plugin-ling/commit/79c5ee1e9825b92b24bff868914bc5a6bbea8767))
+
 ## [1.19.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.0...v1.19.1) (2025-04-28)
 
 
