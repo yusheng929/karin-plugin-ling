@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.19.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.15...v1.19.0) (2025-04-28)
+
+
+### Features
+
+* 添加运行JS代码的功能，重构相关命令 ([10b1f5e](https://github.com/yusheng929/karin-plugin-ling/commit/10b1f5ef538a280c06370b3355b7db8628329133))
+
 ## [1.18.15](https://github.com/yusheng929/karin-plugin-ling/compare/v1.18.14...v1.18.15) (2025-04-23)
 
 
