@@ -9,11 +9,11 @@ export const RunJs = async (code: string, sandbox: any, repeat: boolean = false,
   try {
     const vmContext = vm.createContext(sandbox)
     const script = new vm.Script(`(async () => { ${a ? `return (${code})` : code} })()`)
-    return await script.runInContext(vmContext, { timeout: 60000 })
+    return await script.runInContext(vmContext, { timeout: 30000 })
   } catch (e) {
-    if (!repeat && code.includes('return')) {
+    if (!repeat && String(e).includes('SyntaxError: Unexpected')) {
       return RunJs(code, sandbox, true, false)
     }
-    throw new Error(String(e))
+    throw e
   }
 }
