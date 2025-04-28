@@ -43,7 +43,7 @@ export const helpList = [
       },
       {
         icon: 7,
-        title: '#改群昵称<昵称>',
+        title: '#改bot群昵称<昵称>',
         desc: '修改自己在当前群的昵称',
       },
       {
@@ -80,11 +80,6 @@ export const helpList = [
         icon: 11,
         title: '#赞我',
         desc: '给用户点赞',
-      },
-      {
-        icon: 12,
-        title: '#设置主人',
-        desc: '输入控制台验证码设置主人',
       },
       {
         icon: 14,
@@ -143,11 +138,6 @@ export const helpList = [
     auth: 'master',
     list: [
       {
-        icon: 17,
-        title: '#开启/关闭进群通知',
-        desc: '关闭后不处理当前群的进群通知',
-      },
-      {
         icon: 18,
         title: '#拉黑/拉白<@用户>',
         desc: '拉黑用户或者拉白用户',
@@ -168,11 +158,6 @@ export const helpList = [
         desc: '字面意思',
       },
       {
-        icon: 22,
-        title: '#Karin设置(暂时无法使用)',
-        desc: '可对Karin的配置文件进行控制',
-      },
-      {
         icon: 23,
         title: '#上/下班',
         desc: '处于下班群聊将不会处理任何消息',
@@ -191,22 +176,7 @@ export const helpList = [
         icon: 29,
         title: 'rc+<命令行代码>',
         desc: '运行命令行代码，返回运行结果',
-      },
-      {
-        icon: 30,
-        title: 'fm+<任意字符>',
-        desc: '发送转发消息',
-      },
-      {
-        icon: 31,
-        title: '#新增主人+<@QQ>',
-        desc: '新增主人',
-      },
-      {
-        icon: 32,
-        title: '#删除主人+<@QQ>',
-        desc: '删除主人',
-      },
+      }
     ],
   },
 ]
