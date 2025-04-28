@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.19.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.4...v1.19.5) (2025-04-28)
+
+
+### Bug Fixes
+
+* 都有主人权限了，保护有什么用? ([247b4e8](https://github.com/yusheng929/karin-plugin-ling/commit/247b4e8873203bdb45806ffb2e24409a52c65fbd))
+
 ## [1.19.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.3...v1.19.4) (2025-04-28)
 
 
