@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.19.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.2...v1.19.3) (2025-04-28)
+
+
+### Bug Fixes
+
+* 禁用全局 Function 对象并保留 process.argv 以增强代码安全性 ([c4d43dd](https://github.com/yusheng929/karin-plugin-ling/commit/c4d43dd15a0a6dd423b74f4fd448a3cffc9a8d8d))
+
 ## [1.19.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.1...v1.19.2) (2025-04-28)
 
 
