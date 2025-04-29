@@ -1,3 +1,4 @@
+import { logger } from 'node-karin'
 import vm from 'node:vm'
 /**
  * 运行JS代码
@@ -7,6 +8,7 @@ import vm from 'node:vm'
  */
 export const RunJs = async (code: string, sandbox: any, repeat: boolean = false, a: boolean = true): Promise<any> => {
   try {
+    logger.info(`执行代码: \n${code}`)
     const vmContext = vm.createContext(sandbox)
     const script = new vm.Script(`(async () => { ${a ? `return (${code})` : code} })()`)
     return await script.runInContext(vmContext, { timeout: 30000 })
