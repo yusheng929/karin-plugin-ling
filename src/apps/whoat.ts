@@ -19,6 +19,10 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
     if (img) {
       img.file = await refreshRkey(e, img.file) || ''
     }
+    const face = elements.elements.find((item) => item.type === 'face')
+    if (face) {
+      face.id = String(face.id)
+    }
     list.unshift(segment.node(elements.sender.userId, elements.sender.nick, elements.elements))
   }
   e.bot.sendForwardMsg(e.contact, list)
