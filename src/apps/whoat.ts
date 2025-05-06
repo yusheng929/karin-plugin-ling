@@ -21,7 +21,7 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
     }
     const face = elements.elements.find((item) => item.type === 'face')
     if (face) {
-      face.id = String(face.id)
+      (face.id as any) = String(face.id)
     }
     list.unshift(segment.node(elements.sender.userId, elements.sender.nick, elements.elements))
   }

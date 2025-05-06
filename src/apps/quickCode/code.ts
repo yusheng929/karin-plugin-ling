@@ -6,6 +6,9 @@ export const runjs = karin.karin.command(/^rjs/, async (e) => {
   if (!code) return false
   try {
     const sandbox = {
+      im: async (module: string) => {
+        return await eval(`import('${module}')`)
+      },
       ...karin,
       ...global,
       ...globalThis,
@@ -18,7 +21,7 @@ export const runjs = karin.karin.command(/^rjs/, async (e) => {
       Buffer,
       global,
       globalThis,
-      process
+      process,
     }
     const result = await RunJs(code, sandbox)
     if (result === '') return e.reply('没有返回值')
