@@ -1,5 +1,15 @@
 # 更新日志
 
+## [1.19.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.6...v1.19.7) (2025-05-06)
+
+
+### Bug Fixes
+
+* 为helpList中的group添加类型注解 ([4a06fbf](https://github.com/yusheng929/karin-plugin-ling/commit/4a06fbfb6c5354d38980c5a5a3ea1dba673c37c2))
+* 处理face判断 ([9ffce39](https://github.com/yusheng929/karin-plugin-ling/commit/9ffce392853a0c8a6781521b0b08941b9587da5c))
+* 更新@types/node版本并优化whoat命令中的face处理 ([e0da885](https://github.com/yusheng929/karin-plugin-ling/commit/e0da885121a125a86ad7b9f13373a2b155cd8efc))
+* 添加代码执行日志记录 ([3f13d3c](https://github.com/yusheng929/karin-plugin-ling/commit/3f13d3c16ceadebadfc327d52309cce7d97e9842))
+
 ## [1.19.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.5...v1.19.6) (2025-04-28)
 
 
