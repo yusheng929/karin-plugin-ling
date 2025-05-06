@@ -9,7 +9,7 @@ import { dirPath } from '@/utils/dir'
 export const help = karin.command(/^#?(铃|ling)(帮助|菜单|help)$/i, async (e) => {
   const helpGroup: ({ group: string; list: { icon: number; title: string; desc: string }[]; auth?: undefined } | { group: string; auth: string; list: { icon: number; title: string; desc: string }[] })[] = []
 
-  lodash.forEach(helpList, (group) => {
+  lodash.forEach(helpList, (group: any) => {
     if (group.auth && group.auth === 'master' && !e.isMaster) {
       return true
     }
