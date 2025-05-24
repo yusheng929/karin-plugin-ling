@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.20.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.20.0...v1.20.1) (2025-05-24)
+
+
+### Bug Fixes
+
+* 修复保存错误 ([1d4f5e7](https://github.com/yusheng929/karin-plugin-ling/commit/1d4f5e72e3a2ee7b0fd9d442e020ccf824ec74c4))
+
 ## [1.20.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.7...v1.20.0) (2025-05-24)
 
 
