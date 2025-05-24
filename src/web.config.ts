@@ -1,5 +1,6 @@
-import { components, LocalApiResponse } from 'node-karin'
+import { components, LocalApiResponse, logger } from 'node-karin'
 import { cof, friend, group, other, writeYaml } from '@/utils/config'
+import _ from 'lodash'
 
 interface Config {
   group: [
@@ -361,10 +362,12 @@ export default {
       group: cfg.cof[0].group,
       friend: cfg.cof[0].friend
     }
-    if (cof() === Cof) writeYaml('cof', Cof)
-    if (friend() === Friend) writeYaml('friend', Friend)
-    if (group() === Group) writeYaml('group', Group)
-    if (other() === Other) writeYaml('other', Other)
+    logger.info(cof())
+    logger.info(Cof)
+    if (!_.isEqual(cof(), Cof)) writeYaml('cof', Cof)
+    if (!_.isEqual(friend(), Friend)) writeYaml('friend', Friend)
+    if (!_.isEqual(group(), Group)) writeYaml('group', Group)
+    if (!_.isEqual(other(), Other)) writeYaml('other', Other)
     return {
       success: true,
       message: '配置保存成功',
