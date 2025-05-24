@@ -1,6 +1,6 @@
 import moment from 'node-karin/moment'
 import { friend } from '@/utils/config'
-import { karin, segment, common, config, redis } from 'node-karin'
+import { karin, segment, common, config, redis, logger } from 'node-karin'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)(群)?/, '').trim()
@@ -203,3 +203,27 @@ export const command = karin.command(/^#?赞我$/, async e => {
   await e.reply(likeStart, { at: true })
   return true
 }, { name: '赞我', priority: -1 })
+
+export const sendAllGroup = karin.command(/^#群发/, async (e) => {
+  const msg = e.msg.replace(/^#群发/, '').trim()
+  const groupList = await e.bot.getGroupList()
+  const count = {
+    all: 0,
+    success: 0,
+    fail: 0,
+  }
+  if (!groupList.length) return e.reply('群列表为空或者获取失败')
+  count.all = groupList.length
+  for (const group of groupList) {
+    try {
+      const contact = karin.contactGroup(group.groupId)
+      await karin.sendMsg(e.selfId, contact, msg)
+      count.success++
+      logger.debug(`发送群聊消息[${group.groupId}]成功`)
+    } catch (e) {
+      count.fail++
+      logger.info(`发送群聊消息[${group.groupId}]失败\n`, e)
+    }
+  }
+  return await e.reply(`群发完成\n总数: ${count.all}\n成功: ${count.success}\n失败: ${count.fail}`, { at: true })
+}, { name: '群发', priority: -1, permission: 'master' })
