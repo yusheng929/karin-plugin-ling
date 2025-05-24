@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.20.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.7...v1.20.0) (2025-05-24)
+
+
+### Features
+
+* 新增web配置 ([365058a](https://github.com/yusheng929/karin-plugin-ling/commit/365058a6c3d50d41cd1e1487163fa8f26ff47b29))
+
 ## [1.19.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.19.6...v1.19.7) (2025-05-06)
 
 
