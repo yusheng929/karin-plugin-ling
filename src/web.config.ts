@@ -1,4 +1,4 @@
-import { components, LocalApiResponse, logger } from 'node-karin'
+import { components, LocalApiResponse } from 'node-karin'
 import { cof, friend, group, other, writeYaml } from '@/utils/config'
 import _ from 'lodash'
 
@@ -362,8 +362,6 @@ export default {
       group: cfg.cof[0].group,
       friend: cfg.cof[0].friend
     }
-    logger.info(cof())
-    logger.info(Cof)
     if (!_.isEqual(cof(), Cof)) writeYaml('cof', Cof)
     if (!_.isEqual(friend(), Friend)) writeYaml('friend', Friend)
     if (!_.isEqual(group(), Group)) writeYaml('group', Group)
