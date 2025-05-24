@@ -7,6 +7,7 @@ export const runjs = karin.karin.command(/^rjs/, async (e) => {
   try {
     const sandbox = {
       im: async (module: string) => {
+        // eslint-disable-next-line no-eval
         return await eval(`import('${module}')`)
       },
       ...karin,

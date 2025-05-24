@@ -2,6 +2,7 @@
 yarn.lock
 pnpm-lock.yaml
 package-lock.json
+pnpm-workspace.yaml
 
 # 包管理器日志
 npm-debug.log*
@@ -12,7 +13,6 @@ lerna-debug.log*
 
 # 编辑器配置
 .idea/
-.vscode/
 # 依赖
 node_modules/
 /lib/

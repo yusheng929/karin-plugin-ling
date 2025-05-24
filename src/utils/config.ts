@@ -236,3 +236,18 @@ export const delYaml = (name: string, key: string, value: string | number) => {
   fs.writeFileSync(file, Yaml.stringify(data), 'utf8')
   return true
 }
+
+/**
+ * @description 写入 yaml 文件
+ * @param name 文件名称
+ * @param data 数据
+ */
+export const writeYaml = (name: string, data: any) => {
+  const file = path.join(dirConfig, `${name}.yaml`)
+  if (!existsSync(file)) {
+    logger.error(`${file} 不存在`)
+    return false
+  }
+  fs.writeFileSync(file, Yaml.stringify(data), 'utf8')
+  return true
+}
