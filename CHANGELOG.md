@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.20.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.20.2...v1.20.3) (2025-05-24)
+
+
+### Bug Fixes
+
+* 更新群发消息发送逻辑，改用e.bot.sendMsg并调整日志级别 ([2cac4c4](https://github.com/yusheng929/karin-plugin-ling/commit/2cac4c4416d89ec40ad41c76e3b9bdb9c30849d8))
+
 ## [1.20.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.20.1...v1.20.2) (2025-05-24)
 
 
