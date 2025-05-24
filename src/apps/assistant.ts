@@ -217,12 +217,12 @@ export const sendAllGroup = karin.command(/^#群发/, async (e) => {
   for (const group of groupList) {
     try {
       const contact = karin.contactGroup(group.groupId)
-      await karin.sendMsg(e.selfId, contact, msg)
+      await e.bot.sendMsg(contact, [segment.text(msg)])
       count.success++
       logger.debug(`发送群聊消息[${group.groupId}]成功`)
     } catch (e) {
       count.fail++
-      logger.info(`发送群聊消息[${group.groupId}]失败\n`, e)
+      logger.error(`发送群聊消息[${group.groupId}]失败\n`, e)
     }
   }
   return await e.reply(`群发完成\n总数: ${count.all}\n成功: ${count.success}\n失败: ${count.fail}`, { at: true })
