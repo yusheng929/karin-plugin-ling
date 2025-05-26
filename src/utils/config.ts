@@ -135,6 +135,7 @@ export const other = (): Other => {
     word_render: user.word_render || def.word_render,
     msg_prefix: user.msg_prefix || def.msg_prefix,
     msg_suffix: user.msg_suffix || def.msg_suffix,
+    contactMaster: { ...def.contactMaster, ...user.contactMaster },
   }
   result.noWork = result.noWork.map(v => String(v))
   cacheList[name] = result

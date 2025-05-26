@@ -8,19 +8,22 @@ import { karin, config, logger, GroupMessage } from 'node-karin'
 export const sendToAllAdmin = async (selfId: string, message: Parameters<typeof karin.sendMsg>[2]
 ) => {
   const list = [...config.master(), ...config.admin()]
+  const msgIds = []
   for (const id of list) {
     try {
       const contact = karin.contactFriend(id)
-      await karin.sendMsg(selfId, contact, message)
+      const a = await karin.sendMsg(selfId, contact, message)
+      msgIds.push(a.messageId)
     } catch (error) {
       logger.bot('info', selfId, `[${id}] 发送主动消息失败:`)
       logger.error(error)
     }
   }
+  return msgIds
 }
 
 /**
- * @description 给指定主人发送消息
+ * @description 给第一个主人发送消息
  * @param selfId Bot的QQ号
  * @param message 消息内容
  */
@@ -31,7 +34,8 @@ export const sendToFirstAdmin = async (selfId: string, message: Parameters<typeo
     master = list[1]
   }
   try {
-    await karin.sendMaster(selfId, master, message)
+    const a = await karin.sendMaster(selfId, master, message)
+    return a.messageId
   } catch (error) {
     logger.bot('info', selfId, `[${master}] 发送主动消息失败:`)
     logger.error(error)

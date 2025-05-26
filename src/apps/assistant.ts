@@ -1,6 +1,7 @@
 import moment from 'node-karin/moment'
-import { friend } from '@/utils/config'
+import { friend, other } from '@/utils/config'
 import { karin, segment, common, config, redis, logger } from 'node-karin'
+import { sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)(群)?/, '').trim()
@@ -227,3 +228,29 @@ export const sendAllGroup = karin.command(/^#群发/, async (e) => {
   }
   return await e.reply(`群发完成\n总数: ${count.all}\n成功: ${count.success}\n失败: ${count.fail}`, { at: true })
 }, { name: '群发', priority: -1, permission: 'master' })
+
+export const contactMaster = karin.command(/^#?联系主人/, async (e) => {
+  if (!other().contactMaster.enable) return false
+  const img = e.elements.filter(item => item.type === 'image')
+  const msg = e.elements.filter(item => item.type === 'text').map(item => item.text).join('\n').replace(/#?联系主人/, '').trim()
+  if (!msg && !img.length) return await e.reply('消息不能为空', { reply: true })
+  const msgs = []
+  if (msg) msgs.push(segment.text(msg))
+  if (img.length > 0) msgs.push(...img)
+  msgs.unshift(segment.text(`来自群聊: ${e.groupId}\n发送者: ${e.sender.name}(${e.userId})\n时间: ${moment().format('YYYY-MM-DD HH:mm:ss')}\n消息内容:\n`))
+  msgs.unshift(segment.text('\n可直接引用该消息进行回复'))
+  const data = {
+    groupId: e.groupId,
+    messageId: e.messageId,
+  }
+  if (other().contactMaster.allow) {
+    const id = await sendToFirstAdmin(e.selfId, msgs)
+    redis.set(`Ling:ContactMaster:${id}`, JSON.stringify(data), { EX: 86400 })
+  } else {
+    const list = await sendToAllAdmin(e.selfId, msgs)
+    for (const id of list) {
+      redis.set(`Ling:ContactMaster:${id}`, JSON.stringify(data), { EX: 86400 })
+    }
+  }
+  return e.reply('已将消息发送给主人，请耐心等待回复', { reply: true })
+}, { event: 'message.group' })

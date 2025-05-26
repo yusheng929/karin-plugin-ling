@@ -13,3 +13,10 @@ msg_prefix: ""
 
 # 消息后缀
 msg_suffix: ""
+
+#联系主人
+contactMaster:
+  # 是否启用
+  enable: true
+  # 为true时，是否只发送第一个主人
+  allow: false
