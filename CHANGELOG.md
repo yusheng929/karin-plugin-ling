@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.21.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.20.3...v1.21.0) (2025-05-26)
+
+
+### Features
+
+* 添加联系主人功能 ([#166](https://github.com/yusheng929/karin-plugin-ling/issues/166)) ([6fea83f](https://github.com/yusheng929/karin-plugin-ling/commit/6fea83fffc8d36038fbe8ed884b3facc163a34a7))
+
 ## [1.20.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.20.2...v1.20.3) (2025-05-24)
 
 
