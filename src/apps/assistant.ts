@@ -232,10 +232,11 @@ export const sendAllGroup = karin.command(/^#群发/, async (e) => {
 export const contactMaster = karin.command(/^#?联系主人/, async (e) => {
   if (!other().contactMaster.enable) return false
   const img = e.elements.filter(item => item.type === 'image')
-  const msg = e.elements.filter(item => item.type === 'text').map(item => item.text).join('\n').replace(/#?联系主人/, '').trim()
+  const msg = e.elements.filter(item => item.type === 'text')
   if (!msg && !img.length) return await e.reply('消息不能为空', { reply: true })
+  msg[0].text = msg[0].text.replace(/^(.*?)#?联系主人/, '').trim()
   const msgs = []
-  if (msg) msgs.push(segment.text(msg))
+  if (msg) msgs.push(...msg)
   if (img.length > 0) msgs.push(...img)
   msgs.unshift(segment.text(`来自群聊: ${e.groupId}\n发送者: ${e.sender.name}(${e.userId})\n时间: ${moment().format('YYYY-MM-DD HH:mm:ss')}\n消息内容:\n`))
   msgs.push(segment.text('\n\n可直接引用该消息进行回复'))

@@ -34,11 +34,12 @@ hooks.message.friend(async (e, next) => {
       const value = JSON.parse(await redis.get(`Ling:ContactMaster:${e.replyId}`) || '{}') as { groupId: string, messageId: string }
       if (Object.keys(value).length > 0) {
         const img = e.elements.filter(item => item.type === 'image')
-        const msg = e.elements.filter(item => item.type === 'text').map(item => item.text).join('\n').trim()
+        const msg = e.elements.filter(item => item.type === 'text')
         const msgs = []
-        if (msg) msgs.push(segment.text(msg))
+        if (msg) msgs.push(...msg)
         if (img.length > 0) msgs.push(...img)
         msgs.unshift(segment.text(`来自主人: ${e.userId} 的回复\n`))
+        msgs.push(segment.reply(value.messageId))
         e.bot.sendMsg(karin.contactGroup(value.groupId), msgs)
         await redis.del(`Ling:ContactMaster:${e.replyId}`)
         e.reply('已回复')
