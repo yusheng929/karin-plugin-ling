@@ -33,7 +33,8 @@ interface Config {
       msg_prefix: string,
       msg_suffix: string,
       'contactMaster:enable': boolean,
-      'contactMaster:allow': boolean
+      'contactMaster:allow': boolean,
+      'contactMaster:cd': number
     }
   ],
   cof: [
@@ -254,6 +255,21 @@ export default {
               label: '只发送第一个主人',
               description: '开启后,联系主人的消息只会发送出console的第一个主人',
               defaultSelected: other().contactMaster.allow
+            }),
+            components.input.number('contactMaster:cd', {
+              color: 'success',
+              label: '联系主人冷却',
+              placeholder: '请输入cd 0 ≤ cd ≤ 86400',
+              description: '设置后,联系主人功能将会有冷却时间,单位为秒(0表示不限制)',
+              defaultValue: String(other().contactMaster.cd),
+              isRequired: true,
+              rules: [
+                {
+                  min: 0,
+                  max: 86400,
+                  error: '请输入0 ≤ cd ≤ 86400 的数字'
+                }
+              ]
             })
           ]
         })
@@ -344,7 +360,8 @@ export default {
       msg_suffix: cfg.other[0].msg_suffix,
       contactMaster: {
         enable: cfg.other[0]['contactMaster:enable'],
-        allow: cfg.other[0]['contactMaster:allow']
+        allow: cfg.other[0]['contactMaster:allow'],
+        cd: Number(cfg.other[0]['contactMaster:cd'])
       }
     }
     const Group = {

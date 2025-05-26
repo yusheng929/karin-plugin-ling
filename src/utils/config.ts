@@ -138,6 +138,7 @@ export const other = (): Other => {
     contactMaster: { ...def.contactMaster, ...user.contactMaster },
   }
   result.noWork = result.noWork.map(v => String(v))
+  result.contactMaster.cd = Number(result.contactMaster.cd)
   cacheList[name] = result
   return result
 }

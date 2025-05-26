@@ -230,21 +230,21 @@ export const sendAllGroup = karin.command(/^#群发/, async (e) => {
 }, { name: '群发', priority: -1, permission: 'master' })
 
 export const contactMaster = karin.command(/^#?联系主人/, async (e) => {
-  if (!other().contactMaster.enable) return false
-  const img = e.elements.filter(item => item.type === 'image')
-  const msg = e.elements.filter(item => item.type === 'text')
-  if (!msg && !img.length) return await e.reply('消息不能为空', { reply: true })
-  msg[0].text = msg[0].text.replace(/^(.*?)#?联系主人/, '').trim()
-  const msgs = []
-  if (msg) msgs.push(...msg)
-  if (img.length > 0) msgs.push(...img)
+  const cfg = other()
+  if (!cfg.contactMaster.enable) return false
+  const cd = await redis.get(`Ling:ContactMaster:cd:${e.userId}`)
+  if (cd) return e.reply('联系主人冷却中,请勿重复发送', { reply: true })
+  const msgs = e.elements
+  const msg = msgs.find(item => item.type === 'text')
+  if (msg) msg.text = msg.text.replace(/^(.*?)#?联系主人/, '').trim()
   msgs.unshift(segment.text(`来自群聊: ${e.groupId}\n发送者: ${e.sender.name}(${e.userId})\n时间: ${moment().format('YYYY-MM-DD HH:mm:ss')}\n消息内容:\n`))
   msgs.push(segment.text('\n\n可直接引用该消息进行回复'))
   const data = {
     groupId: e.groupId,
     messageId: e.messageId,
+    userId: e.userId,
   }
-  if (other().contactMaster.allow) {
+  if (cfg.contactMaster.allow) {
     const id = await sendToFirstAdmin(e.selfId, msgs)
     redis.set(`Ling:ContactMaster:${id}`, JSON.stringify(data), { EX: 86400 })
   } else {
@@ -253,5 +253,6 @@ export const contactMaster = karin.command(/^#?联系主人/, async (e) => {
       redis.set(`Ling:ContactMaster:${id}`, JSON.stringify(data), { EX: 86400 })
     }
   }
+  await redis.set(`Ling:ContactMaster:cd:${e.userId}`, 'cd', { EX: cfg.contactMaster.cd })
   return e.reply('已将消息发送给主人，请耐心等待回复', { reply: true })
 }, { event: 'message.group' })

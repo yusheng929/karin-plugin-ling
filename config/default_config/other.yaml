@@ -20,3 +20,5 @@ contactMaster:
   enable: true
   # 为true时，是否只发送第一个主人
   allow: false
+  # cd
+  cd: 60

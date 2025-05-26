@@ -74,5 +74,7 @@ export interface Other {
     enable: true
     /** 为true时，只发送第一个主人 */
     allow: false
+    /** 联系主人的cd */
+    cd: number
   }
 }
