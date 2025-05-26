@@ -31,7 +31,9 @@ interface Config {
       word_render: boolean,
       whoat: boolean,
       msg_prefix: string,
-      msg_suffix: string
+      msg_suffix: string,
+      'contactMaster:enable': boolean,
+      'contactMaster:allow': boolean
     }
   ],
   cof: [
@@ -242,6 +244,16 @@ export default {
               defaultValue: other().msg_suffix,
               isRequired: false,
               color: 'success'
+            }),
+            components.switch.create('contactMaster:enable', {
+              label: '启用联系主人',
+              description: '开启后可在群聊联系主人',
+              defaultSelected: other().contactMaster.enable
+            }),
+            components.switch.create('contactMaster:allow', {
+              label: '只发送第一个主人',
+              description: '开启后,联系主人的消息只会发送出console的第一个主人',
+              defaultSelected: other().contactMaster.allow
             })
           ]
         })
@@ -329,7 +341,11 @@ export default {
       whoat: cfg.other[0].whoat,
       word_render: cfg.other[0].word_render,
       msg_prefix: cfg.other[0].msg_prefix,
-      msg_suffix: cfg.other[0].msg_suffix
+      msg_suffix: cfg.other[0].msg_suffix,
+      contactMaster: {
+        enable: cfg.other[0]['contactMaster:enable'],
+        allow: cfg.other[0]['contactMaster:allow']
+      }
     }
     const Group = {
       accept: {

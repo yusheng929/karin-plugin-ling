@@ -1,6 +1,5 @@
 import Adapter from '@/adapter'
 import { other } from '@/utils/config'
-import { Client } from 'icqq'
 import { GroupMessage, karin, redis, segment } from 'node-karin'
 
 export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, async (e) => {
@@ -43,7 +42,7 @@ export const clearAtAll = karin.command(/^#?清除(所有|全部)(艾特|@|at)(�
 }, { event: 'message.group', perm: 'master' })
 
 const refreshRkey = async (e: GroupMessage, file: string) => {
-  if (e.bot.adapter.standard === 'icqq') return await (e.bot.super as Client).pickGroup(Number(e.groupId)).getPicUrl(segment.image(file))
+  if (e.bot.adapter.standard === 'icqq') return await (e.bot.super as any).pickGroup(Number(e.groupId)).getPicUrl(segment.image(file))
   const url = new URL(file)
   url.protocol = 'http:'
   const rkey = await new Adapter(e).getrkey('group')
