@@ -32,9 +32,7 @@ hooks.message.friend(async (e, next) => {
   try {
     if (cfg.contactMaster.enable && e.replyId) {
       const value = JSON.parse(await redis.get(`Ling:ContactMaster:${e.replyId}`) || '{}') as { groupId: string, messageId: string }
-      if (Object.keys(value).length === 0) {
-        e.reply('未找到该条消息')
-      } else {
+      if (Object.keys(value).length > 0) {
         const img = e.elements.filter(item => item.type === 'image')
         const msg = e.elements.filter(item => item.type === 'text').map(item => item.text).join('\n').trim()
         const msgs = []

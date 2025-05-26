@@ -238,7 +238,7 @@ export const contactMaster = karin.command(/^#?联系主人/, async (e) => {
   if (msg) msgs.push(segment.text(msg))
   if (img.length > 0) msgs.push(...img)
   msgs.unshift(segment.text(`来自群聊: ${e.groupId}\n发送者: ${e.sender.name}(${e.userId})\n时间: ${moment().format('YYYY-MM-DD HH:mm:ss')}\n消息内容:\n`))
-  msgs.unshift(segment.text('\n可直接引用该消息进行回复'))
+  msgs.push(segment.text('\n\n可直接引用该消息进行回复'))
   const data = {
     groupId: e.groupId,
     messageId: e.messageId,
