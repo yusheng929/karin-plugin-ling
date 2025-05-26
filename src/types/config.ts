@@ -67,4 +67,14 @@ export interface Other {
 
   /** 消息后缀 */
   msg_suffix: ''
+
+  /** 联系主人 */
+  contactMaster: {
+    /** 是否启用 */
+    enable: true
+    /** 为true时，只发送第一个主人 */
+    allow: false
+    /** 联系主人的cd */
+    cd: number
+  }
 }

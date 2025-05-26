@@ -1,6 +1,7 @@
 import moment from 'node-karin/moment'
-import { friend } from '@/utils/config'
+import { friend, other } from '@/utils/config'
 import { karin, segment, common, config, redis, logger } from 'node-karin'
+import { sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)(群)?/, '').trim()
@@ -227,3 +228,31 @@ export const sendAllGroup = karin.command(/^#群发/, async (e) => {
   }
   return await e.reply(`群发完成\n总数: ${count.all}\n成功: ${count.success}\n失败: ${count.fail}`, { at: true })
 }, { name: '群发', priority: -1, permission: 'master' })
+
+export const contactMaster = karin.command(/^#?联系主人/, async (e) => {
+  const cfg = other()
+  if (!cfg.contactMaster.enable) return false
+  const cd = await redis.get(`Ling:ContactMaster:cd:${e.userId}`)
+  if (cd) return e.reply('联系主人冷却中,请勿重复发送', { reply: true })
+  const msgs = e.elements
+  const msg = msgs.find(item => item.type === 'text')
+  if (msg) msg.text = msg.text.replace(/^(.*?)#?联系主人/, '').trim()
+  msgs.unshift(segment.text(`来自群聊: ${e.groupId}\n发送者: ${e.sender.name}(${e.userId})\n时间: ${moment().format('YYYY-MM-DD HH:mm:ss')}\n消息内容:\n`))
+  msgs.push(segment.text('\n\n可直接引用该消息进行回复'))
+  const data = {
+    groupId: e.groupId,
+    messageId: e.messageId,
+    userId: e.userId,
+  }
+  if (cfg.contactMaster.allow) {
+    const id = await sendToFirstAdmin(e.selfId, msgs)
+    redis.set(`Ling:ContactMaster:${id}`, JSON.stringify(data), { EX: 86400 })
+  } else {
+    const list = await sendToAllAdmin(e.selfId, msgs)
+    for (const id of list) {
+      redis.set(`Ling:ContactMaster:${id}`, JSON.stringify(data), { EX: 86400 })
+    }
+  }
+  await redis.set(`Ling:ContactMaster:cd:${e.userId}`, 'cd', { EX: cfg.contactMaster.cd })
+  return e.reply('已将消息发送给主人，请耐心等待回复', { reply: true })
+}, { event: 'message.group' })
