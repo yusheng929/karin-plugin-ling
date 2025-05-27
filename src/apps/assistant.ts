@@ -236,6 +236,16 @@ export const contactMaster = karin.command(/^#?联系主人/, async (e) => {
   if (cd) return e.reply('联系主人冷却中,请勿重复发送', { reply: true })
   const msgs = e.elements
   const msg = msgs.find(item => item.type === 'text')
+  const img = msgs.filter(item => item.type === 'image')
+  if (img.length > 0) {
+    img.forEach(item => {
+      try {
+        const url = new URL(item.file)
+        item.file = 'http:' + url.href.substring(url.protocol.length)
+      } catch (err) {
+      }
+    })
+  }
   if (msg) msg.text = msg.text.replace(/^(.*?)#?联系主人/, '').trim()
   msgs.unshift(segment.text(`来自群聊: ${e.groupId}\n发送者: ${e.sender.name}(${e.userId})\n时间: ${moment().format('YYYY-MM-DD HH:mm:ss')}\n消息内容:\n`))
   msgs.push(segment.text('\n\n可直接引用该消息进行回复'))
@@ -246,6 +256,7 @@ export const contactMaster = karin.command(/^#?联系主人/, async (e) => {
   }
   if (cfg.contactMaster.allow) {
     const id = await sendToFirstAdmin(e.selfId, msgs)
+    if (!id) return e.reply('没有可联系的主人', { reply: true })
     redis.set(`Ling:ContactMaster:${id}`, JSON.stringify(data), { EX: 86400 })
   } else {
     const list = await sendToAllAdmin(e.selfId, msgs)
