@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.21.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.0...v1.21.1) (2025-05-27)
+
+
+### Bug Fixes
+
+* 增强联系主人功能，支持图片处理并优化错误提示 ([c72c2c3](https://github.com/yusheng929/karin-plugin-ling/commit/c72c2c3afa20fb6453432b1027e2777f75ec1e02))
+
 ## [1.21.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.20.3...v1.21.0) (2025-05-26)
 
 
