@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.21.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.1...v1.21.2) (2025-05-27)
+
+
+### Bug Fixes
+
+* 优化消息处理，移除回复类型消息并修正图片链接格式 ([09f9bf6](https://github.com/yusheng929/karin-plugin-ling/commit/09f9bf625e65783879eefde4b75a5cf2457b3942))
+
 ## [1.21.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.0...v1.21.1) (2025-05-27)
 
 
