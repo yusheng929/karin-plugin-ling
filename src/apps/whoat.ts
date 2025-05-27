@@ -14,9 +14,11 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
   const list = []
   for (const item of data) {
     const elements = await e.bot.getMsg(e.contact, item)
-    const img = elements.elements.find((item) => item.type === 'image')
-    if (img) {
-      img.file = await refreshRkey(e, img.file) || ''
+    const img = elements.elements.filter((item) => item.type === 'image')
+    if (img.length > 0) {
+      for (const i of img) {
+        i.file = await refreshRkey(e, i.file) || ''
+      }
     }
     const face = elements.elements.find((item) => item.type === 'face')
     if (face) {
