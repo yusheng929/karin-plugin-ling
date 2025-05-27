@@ -34,6 +34,17 @@ hooks.message.friend(async (e, next) => {
       const value = JSON.parse(await redis.get(`Ling:ContactMaster:${e.replyId}`) || '{}') as { groupId: string, messageId: string, userId: string }
       if (Object.keys(value).length > 0) {
         const msgs = e.elements
+        const index = msgs.findIndex(item => item.type === 'reply')
+        if (index !== -1) msgs.splice(index, 1)
+        const img = msgs.filter(item => item.type === 'image')
+        if (img.length > 0) {
+          img.forEach(item => {
+            try {
+              const url = new URL(item.file)
+              item.file = 'http:' + url.href.substring(url.protocol.length)
+            } catch (err) { }
+          })
+        }
         msgs.unshift(segment.text(`来自主人: ${e.userId} 的回复\n`))
         msgs.push(segment.reply(value.messageId))
         e.bot.sendMsg(karin.contactGroup(value.groupId), msgs)

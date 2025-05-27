@@ -11,6 +11,7 @@ export const sendToAllAdmin = async (selfId: string, message: Parameters<typeof 
   const msgIds = []
   for (const id of list) {
     try {
+      if (id === 'console') continue
       const contact = karin.contactFriend(id)
       const a = await karin.sendMsg(selfId, contact, message)
       msgIds.push(a.messageId)
