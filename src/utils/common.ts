@@ -34,6 +34,7 @@ export const sendToFirstAdmin = async (selfId: string, message: Parameters<typeo
     master = list[1]
   }
   try {
+    if (!master) return false
     const a = await karin.sendMaster(selfId, master, message)
     return a.messageId
   } catch (error) {
