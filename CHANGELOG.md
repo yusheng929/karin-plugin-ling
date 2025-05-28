@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.21.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.2...v1.21.3) (2025-05-27)
+
+
+### Bug Fixes
+
+* 优化图片处理逻辑，支持多个图片的链接刷新 ([600cfe4](https://github.com/yusheng929/karin-plugin-ling/commit/600cfe409aa1cc32812c1975955d6f1f24773462))
+
 ## [1.21.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.1...v1.21.2) (2025-05-27)
 
 
