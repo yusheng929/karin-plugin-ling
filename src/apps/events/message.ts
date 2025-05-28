@@ -46,7 +46,7 @@ hooks.message.friend(async (e, next) => {
           })
         }
         msgs.unshift(segment.text(`来自主人: ${e.userId} 的回复\n`))
-        msgs.push(segment.reply(value.messageId))
+        msgs.unshift(segment.reply(value.messageId))
         e.bot.sendMsg(karin.contactGroup(value.groupId), msgs)
         await redis.del(`Ling:ContactMaster:${e.replyId}`)
         await redis.del(`Ling:ContactMaster:cd:${value.userId}`)
