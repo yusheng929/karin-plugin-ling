@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.21.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.5...v1.21.6) (2025-05-28)
+
+
+### Bug Fixes
+
+* 添加延迟功能以优化群发消息的发送频率，重构管理员权限检查逻辑，删除无用的Size组件 ([14d3200](https://github.com/yusheng929/karin-plugin-ling/commit/14d320087f086ab2946dc0faf2cccc052a3176a9))
+
 ## [1.21.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.4...v1.21.5) (2025-05-28)
 
 
