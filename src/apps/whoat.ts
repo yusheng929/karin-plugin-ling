@@ -1,4 +1,5 @@
 import Adapter from '@/adapter'
+import { AdapterError } from '@/components/Error'
 import { other } from '@/utils/config'
 import { GroupMessage, karin, redis, segment } from 'node-karin'
 
@@ -48,9 +49,7 @@ const refreshRkey = async (e: GroupMessage, file: string) => {
   const url = new URL(file)
   url.protocol = 'http:'
   const rkey = await new Adapter(e).getrkey('group')
-  if (!rkey) {
-    throw new Error('rkey不存在')
-  }
+  if (!rkey) throw new AdapterError('当前适配器获取rkey为空,请检查适配器或者协议是否支持')
   url.searchParams.delete('rkey')
   return (url.toString() + rkey.rkey)
 }

@@ -1,13 +1,14 @@
+import { AdapterError } from '@/components/Error'
 import { Message } from 'node-karin'
 import type { Client } from 'icqq'
 import { Domain } from '@/types/adapter'
-import { Rkeys, RkeysData } from '@/types/rkeys'
+import { Rkeys } from '@/types/rkeys'
 
 export default class Adapter {
   cookies: string
   e: Message
   bkn: number
-  rkey: RkeysData
+  rkey: Rkeys
   constructor (e: Message) {
     this.cookies = ''
     this.bkn = 5138
@@ -64,8 +65,11 @@ export default class Adapter {
    */
   async getrkey (type: 'group' | 'private') {
     if (this.e.bot.adapter.standard === 'onebot11') {
-      const rkeys = await (this.e.bot as any).sendApi('get_rkey', {}) as Rkeys
-      this.rkey = (type === 'group' ? rkeys.rkeys.find((item) => item.type === 'group') : rkeys.rkeys.find((item) => item.type === 'private')) || {
+      let rkeys: Array<Rkeys> = []
+      if (this.e.bot.adapter.protocol === 'napcat') rkeys = await (this.e.bot as any).sendApi('get_rkeys', {}) as Array<Rkeys>
+      if (this.e.bot.adapter.protocol === 'lagrange') rkeys = await (this.e.bot as any).sendApi('get_rkey', {}).rkeys
+      if (rkeys.length === 0) throw new AdapterError('当前适配器获取rkey失败,请检查适配器或者协议是否支持')
+      this.rkey = (type === 'group' ? rkeys.find((item) => item.type === 'group') : rkeys.find((item) => item.type === 'private')) || {
         type: 'group',
         rkey: '',
         created_at: 0,
