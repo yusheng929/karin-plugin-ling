@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.21.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.4...v1.21.5) (2025-05-28)
+
+
+### Bug Fixes
+
+* 修正适配器获取rkey的API调用，确保协议兼容性 ([94b0c7f](https://github.com/yusheng929/karin-plugin-ling/commit/94b0c7f537cd2b2c5dc8a033c674edef9a692b11))
+
 ## [1.21.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.3...v1.21.4) (2025-05-28)
 
 
