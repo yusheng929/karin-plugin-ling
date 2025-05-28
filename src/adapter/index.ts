@@ -66,7 +66,7 @@ export default class Adapter {
   async getrkey (type: 'group' | 'private') {
     if (this.e.bot.adapter.standard === 'onebot11') {
       let rkeys: Array<Rkeys> = []
-      if (this.e.bot.adapter.protocol === 'napcat') rkeys = await (this.e.bot as any).sendApi('get_rkeys', {}) as Array<Rkeys>
+      if (this.e.bot.adapter.protocol === 'napcat') rkeys = await (this.e.bot as any).sendApi('get_rkey', {}) as Array<Rkeys>
       if (this.e.bot.adapter.protocol === 'lagrange') rkeys = await (this.e.bot as any).sendApi('get_rkey', {}).rkeys
       if (rkeys.length === 0) throw new AdapterError('当前适配器获取rkey失败,请检查适配器或者协议是否支持')
       this.rkey = (type === 'group' ? rkeys.find((item) => item.type === 'group') : rkeys.find((item) => item.type === 'private')) || {
