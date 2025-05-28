@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.21.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.6...v1.21.7) (2025-05-28)
+
+
+### Bug Fixes
+
+* 调整消息回复顺序 ([ae8b5e4](https://github.com/yusheng929/karin-plugin-ling/commit/ae8b5e46cd943d62f4b2c2cac85e4a47dedf9863))
+
 ## [1.21.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.5...v1.21.6) (2025-05-28)
 
 
