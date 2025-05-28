@@ -30,7 +30,7 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   if (!data) return e.reply('❌请稍后再试')
   if (data.retcode === 11004 && (data.msg === 'over svip max times' || data.msg === 'over member max times')) return e.reply('❌今日抽取次数已达上限')
   if (data.retcode !== 0) return e.reply('❌发送数据错误')
-  if (Object.keys(data.data).length === 0) return e.reply(segment.image(`file://${dirPath}/resources/luckword/null.png`))
+  if (Object.keys(data.data).length === 0) return e.reply(segment.image(`file://${dirPath}/resources/html/luckword/null.png`))
   const item = {
     url: `https://tianquan.gtimg.cn/groupluckyword/item/${data.data.word_info.word_info.word_id}/pic-0.png?m=${data.data.word_info.word_info.mtime}`,
     title: `${data.data.word_info.word_info.word_desc}`
@@ -38,7 +38,7 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   if (!other().word_render) {
     return await e.reply(`恭喜你，抽中了[${data.data.word_info.word_info.wording}]\n寓意: ${item.title}`)
   }
-  const img = await render('luckword/index', {
+  const img = await render('html/luckword/index', {
     data: item,
     scale: 1.2
   })

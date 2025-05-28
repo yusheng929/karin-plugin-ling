@@ -47,12 +47,12 @@ export const helpList = [
         desc: '修改自己在当前群的昵称',
       },
       {
-        icon: 24,
+        icon: 8,
         title: '#开启/关闭进群验证',
         desc: '开启进群验证后，新进入的用户需要输入验证码',
       },
       {
-        icon: 25,
+        icon: 9,
         title: '#(开启|关闭)加群通知',
         desc: '将加群申请通知发送到群'
       }
@@ -62,22 +62,22 @@ export const helpList = [
     group: '杂项',
     list: [
       {
-        icon: 8,
+        icon: 10,
         title: '#退群<群号>',
         desc: '退出指定群聊',
       },
       {
-        icon: 9,
+        icon: 11,
         title: '#看群头像<群号>',
         desc: '发送指定群聊的头像，为空默认当前群',
       },
       {
-        icon: 10,
-        title: '#看头像<QQ>',
-        desc: '发送指定用户头像',
+        icon: 12,
+        title: '#(看|取)头像<QQ>',
+        desc: '发送指定用户头像或图像直链',
       },
       {
-        icon: 11,
+        icon: 13,
         title: '#赞我',
         desc: '给用户点赞',
       },
@@ -106,28 +106,33 @@ export const helpList = [
         title: 'unicode编码/解码',
         desc: '字符串进行unicode编码/解码',
       },
+      {
+        icon: 19,
+        title: '#联系主人+<消息内容>',
+        desc: '将消息发送给主人，主人会在有空时回复你',
+      }
     ],
   },
   {
     group: 'Bot为群主可用',
     list: [
       {
-        icon: 14,
+        icon: 20,
         title: '#申请头衔<头衔>',
         desc: '字面意思',
       },
       {
-        icon: 29,
+        icon: 21,
         title: '#设置头衔<@QQ><头衔>',
         desc: '字面意思',
       },
       {
-        icon: 15,
+        icon: 22,
         title: '#设置管理<@QQ>',
         desc: '字面意思',
       },
       {
-        icon: 16,
+        icon: 23,
         title: '#取消管理<@QQ>',
         desc: '字面意思',
       },
@@ -138,45 +143,50 @@ export const helpList = [
     auth: 'master',
     list: [
       {
-        icon: 18,
+        icon: 24,
         title: '#拉黑/拉白<@用户>',
         desc: '拉黑用户或者拉白用户',
       },
       {
-        icon: 19,
+        icon: 25,
         title: '#拉黑/拉白群<群号>',
         desc: '拉黑群或者拉白群',
       },
       {
-        icon: 20,
+        icon: 26,
         title: '#取消拉黑/拉白<@用户>',
         desc: '字面意思',
       },
       {
-        icon: 21,
+        icon: 27,
         title: '#取消拉黑/拉白群<群号>',
         desc: '字面意思',
       },
       {
-        icon: 23,
+        icon: 28,
         title: '#上/下班',
         desc: '处于下班群聊将不会处理任何消息',
       },
       {
-        icon: 25,
+        icon: 29,
         title: '文件上传/下载',
         desc: '用于上传文件到q群或下载文件到本地',
       },
       {
-        icon: 28,
+        icon: 30,
         title: 'rjs+<js代码>',
-        desc: '运行js代码，返回运行结果',
+        desc: '运行js代码,返回运行结果',
       },
       {
-        icon: 29,
+        icon: 31,
         title: 'rc+<命令行代码>',
         desc: '运行命令行代码，返回运行结果',
-      }
+      },
+      {
+        icon: 32,
+        title: '#群发+<消息内容>',
+        desc: '向所有群聊发送消息',
+      },
     ],
   },
 ]
