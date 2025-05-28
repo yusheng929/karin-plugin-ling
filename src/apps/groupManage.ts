@@ -1,5 +1,6 @@
 import { karin, redis } from 'node-karin'
 import { addYaml, delYaml, group } from '@/utils/config'
+import { isAdmin } from '@/utils/common'
 
 const handle = async (e: any, key: string, yes: boolean, type: string) => {
   const flag = await redis.get(key)
@@ -26,11 +27,7 @@ export const groupApplyReply = karin.command(/^#?(同意|拒绝)$/, async (e) =>
       await e.reply('暂无权限，只有管理员才能操作')
       return true
     }
-    const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
-    if (!(['owner', 'admin'].includes(info.role))) {
-      await e.reply('少女做不到呜呜~(>_<)~')
-      return true
-    }
+    if (!await isAdmin(e, false)) return false
     const key = `Ling:groupinvite:${e.replyId}`
     const flag = await redis.get(key)
     if (!flag) {
@@ -62,7 +59,7 @@ export const groupApplyReply = karin.command(/^#?(同意|拒绝)$/, async (e) =>
     }
     return true
   }
-}, { name: '加群申请处理', priority: -1, event: 'message.group' })
+}, { name: '加群申请处理', priority: -1 })
 
 export const groupApplySwitch = karin.command(/^#(开启|关闭)加群通知$/, async (e) => {
   const opts = group()

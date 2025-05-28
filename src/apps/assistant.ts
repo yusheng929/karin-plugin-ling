@@ -1,7 +1,7 @@
 import moment from 'node-karin/moment'
 import { friend, other } from '@/utils/config'
 import { karin, segment, common, config, redis, logger } from 'node-karin'
-import { sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
+import { sendToAllAdmin, sendToFirstAdmin, sleep } from '@/utils/common'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)(群)?/, '').trim()
@@ -221,6 +221,7 @@ export const sendAllGroup = karin.command(/^#群发/, async (e) => {
       await e.bot.sendMsg(contact, [segment.text(msg)])
       count.success++
       logger.debug(`发送群聊消息[${group.groupId}]成功`)
+      await sleep(1000)
     } catch (e) {
       count.fail++
       logger.error(`发送群聊消息[${group.groupId}]失败\n`, e)
