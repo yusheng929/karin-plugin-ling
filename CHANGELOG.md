@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.21.9](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.8...v1.21.9) (2025-05-29)
+
+
+### Bug Fixes
+
+* 删除无用的 HTML 文件并更新帮助主题资源路径 ([f51c413](https://github.com/yusheng929/karin-plugin-ling/commit/f51c4130d6a7bf2c3f93a9a617315fb8dce76bb3))
+
 ## [1.21.8](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.7...v1.21.8) (2025-05-28)
 
 
