@@ -3,7 +3,7 @@ import { style } from './config'
 
 export const helpTheme = {
   getThemeCfg () {
-    const resPath = '{{pluResPath}}help/theme/main.png'
+    const resPath = '{{pluResPath}}help/main.png'
     return {
       main: resPath,
       bg: resPath,
