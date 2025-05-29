@@ -1,7 +1,7 @@
 import Adapter from '@/adapter'
 import { AdapterError } from '@/components/Error'
 import { other } from '@/utils/config'
-import { GroupMessage, karin, redis, segment } from 'node-karin'
+import { GroupMessage, karin, logger, redis, segment } from 'node-karin'
 
 export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, async (e) => {
   if (!other().whoat) return e.reply('没有开启谁艾特我功能', { reply: true })
@@ -14,18 +14,23 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
   if (data.length === 0) return e.reply('没有人艾特过你哦~', { reply: true })
   const list = []
   for (const item of data) {
-    const elements = await e.bot.getMsg(e.contact, item)
-    const img = elements.elements.filter((item) => item.type === 'image')
-    if (img.length > 0) {
-      for (const i of img) {
-        i.file = await refreshRkey(e, i.file) || ''
+    try {
+      const elements = await e.bot.getMsg(e.contact, item)
+      const img = elements.elements.filter((item) => item.type === 'image')
+      if (img.length > 0) {
+        for (const i of img) {
+          i.file = await refreshRkey(e, i.file) || ''
+        }
       }
+      const face = elements.elements.find((item) => item.type === 'face')
+      if (face) {
+        (face.id as any) = String(face.id)
+      }
+      list.unshift(segment.node(elements.sender.userId, elements.sender.nick, elements.elements))
+    } catch (err) {
+      logger.error(`获取消息id[${item}]的记录失败,跳过该消息\n${err}`)
+      continue
     }
-    const face = elements.elements.find((item) => item.type === 'face')
-    if (face) {
-      (face.id as any) = String(face.id)
-    }
-    list.unshift(segment.node(elements.sender.userId, elements.sender.nick, elements.elements))
   }
   e.bot.sendForwardMsg(e.contact, list)
 }, { event: 'message.group' })
