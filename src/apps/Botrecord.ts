@@ -180,11 +180,17 @@ async function LightAppGetCode (e: Message, appid: number) {
   if (e.bot.adapter.standard === 'onebot11') {
     // eslint-disable-next-line new-cap
     const item = new pb(body)
-    const payload = await (e.bot as any).sendApi!('.send_packet', {
-      command: 'LightAppSvc.mini_program_auth.GetCode',
-      data: await item.encode(),
-      sign: false,
-    })
+    const payload = e.bot.adapter.protocol === 'napcat'
+      ? await (e.bot as any).sendApi!('send_packet', {
+        command: 'LightAppSvc.mini_program_auth.GetCode',
+        data: await item.encode(),
+        sign: false,
+      })
+      : await (e.bot as any).sendApi!('.send_packet', {
+        command: 'LightAppSvc.mini_program_auth.GetCode',
+        data: await item.encode(),
+        sign: false,
+      })
     const data = await item.decode(payload.result)
     return data
   }
