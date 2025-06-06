@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.21.11](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.10...v1.21.11) (2025-06-06)
+
+
+### Bug Fixes
+
+* 支持不同协议的发送数据方式 ([c3ba6b5](https://github.com/yusheng929/karin-plugin-ling/commit/c3ba6b5baa2f60ebb1168bcdcf5c0febe9c7733e))
+
 ## [1.21.10](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.9...v1.21.10) (2025-05-29)
 
 
