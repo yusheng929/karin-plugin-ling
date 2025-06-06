@@ -182,9 +182,9 @@ async function LightAppGetCode (e: Message, appid: number) {
     const item = new pb(body)
     const payload = e.bot.adapter.protocol === 'napcat'
       ? await (e.bot as any).sendApi!('send_packet', {
-        command: 'LightAppSvc.mini_program_auth.GetCode',
+        cmd: 'LightAppSvc.mini_program_auth.GetCode',
         data: await item.encode(),
-        sign: false,
+        rsp: true,
       })
       : await (e.bot as any).sendApi!('.send_packet', {
         command: 'LightAppSvc.mini_program_auth.GetCode',
