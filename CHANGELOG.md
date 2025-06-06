@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.21.12](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.11...v1.21.12) (2025-06-06)
+
+
+### Bug Fixes
+
+* 修改发送数据命令和响应标志以支持新协议 ([a1f50f5](https://github.com/yusheng929/karin-plugin-ling/commit/a1f50f5aacd75d171c7888579b3c42bee8fbcd38))
+* 移除发送数据命令中的响应标志以简化数据发送 ([302fef4](https://github.com/yusheng929/karin-plugin-ling/commit/302fef41fbcadabec7f401c36170367c489b76f8))
+
 ## [1.21.11](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.10...v1.21.11) (2025-06-06)
 
 
