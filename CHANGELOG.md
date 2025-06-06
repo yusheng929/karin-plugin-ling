@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.21.10](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.9...v1.21.10) (2025-05-29)
+
+
+### Bug Fixes
+
+* 更新 luckword 页面样式表路径 ([b0a2cae](https://github.com/yusheng929/karin-plugin-ling/commit/b0a2cae88e82b4e3571f131fd895a9df78af069a))
+* 添加日志记录以捕获获取消息记录的错误 ([32d90d0](https://github.com/yusheng929/karin-plugin-ling/commit/32d90d0a0519214f64be7cbfc9f5f54bd3f34d85))
+
 ## [1.21.9](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.8...v1.21.9) (2025-05-29)
 
 
