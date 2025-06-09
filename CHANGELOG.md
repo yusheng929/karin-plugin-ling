@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.22.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.12...v1.22.0) (2025-06-09)
+
+
+### Features
+
+* 添加自动退群功能及取直链,图片rkey刷新支持 ([7afa70d](https://github.com/yusheng929/karin-plugin-ling/commit/7afa70d509a5e8db12460c90675f9efe2543ab99))
+
 ## [1.21.12](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.11...v1.21.12) (2025-06-06)
 
 
