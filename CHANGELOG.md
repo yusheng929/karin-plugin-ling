@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.22.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.0...v1.22.1) (2025-06-09)
+
+
+### Bug Fixes
+
+* 修复自动退群消息发送失败 ([c7bf873](https://github.com/yusheng929/karin-plugin-ling/commit/c7bf8734eab8e865aa9e40b382e8130a33b71f82))
+
 ## [1.22.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.21.12...v1.22.0) (2025-06-09)
 
 
