@@ -1,0 +1,8 @@
+enable: false
+autoquit:
+  default:
+    disable_list: []
+    enable_list: []
+  114514:
+    disable_list: []
+    enable_list: []

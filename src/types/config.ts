@@ -78,3 +78,22 @@ export interface Other {
     cd: number
   }
 }
+
+interface AutoQuitEntry {
+  /** 黑名单列表 */
+  disable_list: string[]
+  /** 白名单列表 */
+  enable_list: string[]
+}
+
+export interface AutoQuitGroup {
+  /** 是否启用 */
+  enable: boolean
+  /** 退群列表 */
+  autoquit: {
+    /** 默认配置 */
+    default: AutoQuitEntry
+    /** 单独Bot配置 */
+    [key: string | number]: AutoQuitEntry
+  }
+}

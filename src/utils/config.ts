@@ -11,7 +11,7 @@ import {
   existsSync,
   logger,
 } from 'node-karin'
-import type { Cof, Other, Group, Friend } from '@/types/config'
+import type { Cof, Other, Group, Friend, AutoQuitGroup } from '@/types/config'
 
 /** 文件名称枚举 */
 export const enum KV {
@@ -19,6 +19,7 @@ export const enum KV {
   Other = 'other',
   Group = 'group',
   Friend = 'friend',
+  AutoQuitGroup = 'AutoQuitGroup',
 }
 
 interface Cache {
@@ -26,6 +27,7 @@ interface Cache {
   [KV.Other]: Other | undefined
   [KV.Group]: Group | undefined
   [KV.Friend]: Friend | undefined
+  [KV.AutoQuitGroup]: AutoQuitGroup | undefined
 }
 
 const cacheList: Cache = {
@@ -33,6 +35,7 @@ const cacheList: Cache = {
   [KV.Other]: undefined,
   [KV.Group]: undefined,
   [KV.Friend]: undefined,
+  [KV.AutoQuitGroup]: undefined,
 }
 
 /**
@@ -139,6 +142,30 @@ export const other = (): Other => {
   }
   result.noWork = result.noWork.map(v => String(v))
   result.contactMaster.cd = Number(result.contactMaster.cd)
+  cacheList[name] = result
+  return result
+}
+
+/**
+ * @description 自动退群配置
+ */
+export const autoQuitGroup = (): AutoQuitGroup => {
+  const name = KV.AutoQuitGroup
+  const cache = cacheList[name]
+  if (cache) return cache
+  const user = requireFileSync<AutoQuitGroup>(`${dirConfig}/${name}.yaml`)
+  const def = requireFileSync<AutoQuitGroup>(`${defConfig}/${name}.yaml`)
+  const result: AutoQuitGroup = {
+    enable: user.enable || def.enable,
+    autoquit: {
+      ...user.autoquit, ...def.autoquit,
+    }
+  }
+  for (const key in result.autoquit) {
+    const entry = result.autoquit[key]
+    entry.disable_list = entry.disable_list.map(String)
+    entry.enable_list = entry.enable_list.map(String)
+  }
   cacheList[name] = result
   return result
 }

@@ -1,7 +1,8 @@
 import moment from 'node-karin/moment'
 import { friend, other } from '@/utils/config'
-import { karin, segment, common, config, redis, logger } from 'node-karin'
+import { karin, segment, common, config, redis, logger, ImageElement } from 'node-karin'
 import { sendToAllAdmin, sendToFirstAdmin, sleep } from '@/utils/common'
+import Adapter from '@/adapter'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)(群)?/, '').trim()
@@ -268,3 +269,18 @@ export const contactMaster = karin.command(/^#?联系主人/, async (e) => {
   await redis.set(`Ling:ContactMaster:cd:${e.userId}`, 'cd', { EX: cfg.contactMaster.cd })
   return e.reply('已将消息发送给主人，请耐心等待回复', { reply: true })
 }, { event: 'message.group' })
+
+export const getimg = karin.command(/#?取直链/, async (e) => {
+  let msg1: ImageElement[] = []
+  if (e.replyId) msg1 = (await e.bot.getMsg(e.contact, e.replyId)).elements.filter(item => item.type === 'image')
+  const msg2 = e.elements.filter(item => item.type === 'image')
+  const msg3 = [...msg1, ...msg2]
+  const msg = []
+  for (const i of msg3) {
+    i.file = await new Adapter(e).refreshRkey(i.file) || ''
+    msg.push([segment.image(i.file), segment.text(`图片链接: ${i.file}`)])
+  }
+  const content = common.makeForward(msg, e.selfId, e.bot.account.name)
+  await e.bot.sendForwardMsg(e.contact, content)
+  return true
+})

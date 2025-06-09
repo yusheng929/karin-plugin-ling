@@ -1,7 +1,6 @@
 import Adapter from '@/adapter'
-import { AdapterError } from '@/components/Error'
 import { other } from '@/utils/config'
-import { GroupMessage, karin, logger, redis, segment } from 'node-karin'
+import { karin, logger, redis, segment } from 'node-karin'
 
 export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, async (e) => {
   if (!other().whoat) return e.reply('没有开启谁艾特我功能', { reply: true })
@@ -19,7 +18,7 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
       const img = elements.elements.filter((item) => item.type === 'image')
       if (img.length > 0) {
         for (const i of img) {
-          i.file = await refreshRkey(e, i.file) || ''
+          i.file = await new Adapter(e).refreshRkey(i.file) || ''
         }
       }
       const face = elements.elements.find((item) => item.type === 'face')
@@ -48,13 +47,3 @@ export const clearAtAll = karin.command(/^#?清除(所有|全部)(艾特|@|at)(�
   }
   e.reply('清除成功', { reply: true })
 }, { event: 'message.group', perm: 'master' })
-
-const refreshRkey = async (e: GroupMessage, file: string) => {
-  if (e.bot.adapter.standard === 'icqq') return await (e.bot.super as any).pickGroup(Number(e.groupId)).getPicUrl(segment.image(file))
-  const url = new URL(file)
-  url.protocol = 'http:'
-  const rkey = await new Adapter(e).getrkey('group')
-  if (!rkey) throw new AdapterError('当前适配器获取rkey为空,请检查适配器或者协议是否支持')
-  url.searchParams.delete('rkey')
-  return (url.toString() + rkey.rkey)
-}

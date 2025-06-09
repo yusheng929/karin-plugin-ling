@@ -1,19 +1,24 @@
-import { contactFriend, GroupMessage, karin, logger, redis, segment } from 'node-karin'
-import { friend, group } from '@/utils/config'
+import { contactFriend, GroupMemberIncreaseNotice, GroupMessage, karin, logger, redis, segment } from 'node-karin'
+import { autoQuitGroup, friend, group } from '@/utils/config'
 import lodash from 'node-karin/lodash'
 import { sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
 
 /** 进群事件 */
 export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
   const cfg = group()
-  if (cfg.accept.enable) {
-    if (cfg.accept.enable_list.includes(e.groupId) || (!cfg.accept.enable_list && !cfg.accept.disable_list.includes(e.groupId))) {
+  const quit = autoQuitGroup()
+  if (e.sender.userId === e.selfId && quit.enable) {
+    const data = quit.autoquit
+    e.selfId in data ? await autoquit(e, e.selfId, e.groupId) : await autoquit(e, 'default', e.groupId)
+  }
+  if (cfg.accept.enable && e.sender.userId !== e.selfId) {
+    if (cfg.accept.enable_list.includes(e.groupId) || (cfg.accept.enable_list.length === 0 && !cfg.accept.disable_list.includes(e.groupId))) {
       await e.reply('\n欢迎加入本群୯(⁠*⁠´⁠ω⁠｀⁠*⁠)୬', { at: true })
     }
   }
 
   /** 检查是否开启入群验证 */
-  if (cfg.joinGroup.includes(e.groupId)) {
+  if (cfg.joinGroup.includes(e.groupId) && e.sender.userId !== e.selfId) {
     const num1 = lodash.random(1, 100)
     const num2 = lodash.random(1, 100)
     /** 加乘 不要减、除 过于混乱 */
@@ -43,7 +48,7 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
         if (!await exit(msg)) continue
       }
 
-      await e.reply('\n验证通过，欢迎加入群聊', { at: true })
+      await e.reply('\n验证通过,欢迎加入群聊', { at: true })
     }
   }
   return true
@@ -51,9 +56,11 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
 
 /** 退群事件 */
 export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
-  const data = group().accept.disable_list
-  if (data.includes(e.groupId)) {
-    await e.reply(`用户『${e.userId}』丢下我们一个人走了`)
+  const cfg = group().accept
+  if (cfg.enable && e.sender.userId !== e.selfId) {
+    if (cfg.enable_list.includes(e.groupId) || (cfg.enable_list.length === 0 && !cfg.disable_list.includes(e.groupId))) {
+      await e.reply(`用户『${e.userId}』丢下我们一个人走了`)
+    }
   }
   return true
 })
@@ -154,3 +161,19 @@ export const friendApply = karin.accept('request.friendApply', async (e) => {
   }
   return true
 }, { name: '处理加好友申请', priority: 100, })
+
+const autoquit = async (e: GroupMemberIncreaseNotice, id: string, groupId: string) => {
+  const quit = autoQuitGroup()
+  const data = quit.autoquit
+  const a = data[id]
+  if (a.enable_list.length > 0 && !a.enable_list.includes(groupId)) {
+    e.reply('当前群不在白名单,已自动退出')
+    await e.bot.setGroupQuit(groupId, false)
+    return true
+  } else if (a.enable_list.length === 0 && a.disable_list.includes(groupId)) {
+    e.reply('当前群处于黑名单,已自动退出')
+    await e.bot.setGroupQuit(groupId, false)
+    return true
+  }
+  return false
+}
