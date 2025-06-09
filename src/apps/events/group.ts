@@ -167,11 +167,11 @@ const autoquit = async (e: GroupMemberIncreaseNotice, id: string, groupId: strin
   const data = quit.autoquit
   const a = data[id]
   if (a.enable_list.length > 0 && !a.enable_list.includes(groupId)) {
-    e.reply('当前群不在白名单,已自动退出')
+    await e.reply('当前群不在白名单,已自动退出')
     await e.bot.setGroupQuit(groupId, false)
     return true
   } else if (a.enable_list.length === 0 && a.disable_list.includes(groupId)) {
-    e.reply('当前群处于黑名单,已自动退出')
+    await e.reply('当前群处于黑名单,已自动退出')
     await e.bot.setGroupQuit(groupId, false)
     return true
   }
