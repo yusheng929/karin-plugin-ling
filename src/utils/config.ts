@@ -157,6 +157,8 @@ export const autoQuitGroup = (): AutoQuitGroup => {
   const def = requireFileSync<AutoQuitGroup>(`${defConfig}/${name}.yaml`)
   const result: AutoQuitGroup = {
     enable: user.enable || def.enable,
+    enabletext: user.enabletext || def.enabletext,
+    disabletext: user.disabletext || def.disabletext,
     autoquit: {
       ...user.autoquit, ...def.autoquit,
     }

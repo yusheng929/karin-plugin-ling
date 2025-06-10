@@ -1,8 +1,17 @@
+# 是否启用
 enable: false
+# 非白名单退群文本
+enabletext: "当前群不在白名单,已自动退出"
+# 黑名单退群文本
+disabletext: "当前群在黑名单,已自动退出"
 autoquit:
+  # 默认配置
   default:
+    # 黑名单群聊 (白名单 > 黑名单)
     disable_list: []
+    # 白名单群聊
     enable_list: []
+  # 单独Bot配置
   114514:
     disable_list: []
     enable_list: []

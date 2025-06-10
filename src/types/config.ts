@@ -93,6 +93,10 @@ interface AutoQuitEntry {
 export interface AutoQuitGroup {
   /** 是否启用 */
   enable: boolean
+  /** 非白名单退群文本 */
+  enabletext: string
+  /** 黑名单退群文本 */
+  disabletext: string
   /** 退群列表 */
   autoquit: {
     /** 默认配置 */
