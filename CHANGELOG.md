@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.22.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.1...v1.22.2) (2025-06-10)
+
+
+### Bug Fixes
+
+* 进退群词自定义 ([5867667](https://github.com/yusheng929/karin-plugin-ling/commit/5867667b9aa68f07c712cd6e51ba24d97c77d7a2))
+
 ## [1.22.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.0...v1.22.1) (2025-06-09)
 
 
