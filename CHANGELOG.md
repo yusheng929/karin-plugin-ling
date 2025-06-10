@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.22.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.2...v1.22.3) (2025-06-10)
+
+
+### Bug Fixes
+
+* 新增幸运字符类型 ([6ad979c](https://github.com/yusheng929/karin-plugin-ling/commit/6ad979c66f4272a5cbe312d5150c9e397bfd9c2f))
+* 自定义退群文本 ([9abbb5b](https://github.com/yusheng929/karin-plugin-ling/commit/9abbb5b8524569a0f5fd71dac5ba423b15dd6b30))
+
 ## [1.22.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.1...v1.22.2) (2025-06-10)
 
 
