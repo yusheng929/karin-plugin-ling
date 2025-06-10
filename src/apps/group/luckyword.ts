@@ -1,5 +1,6 @@
 import { render } from '@/components/puppeteer'
 import QQApi from '@/models/api/QQApi'
+import { luckyWord, luckyWordList } from '@/types/QQApi'
 import { other } from '@/utils/config'
 import { dirPath } from '@/utils/dir'
 import karin, { common, segment } from 'node-karin'
@@ -9,8 +10,8 @@ export const luckylist = karin.command(/^#(查)?(幸运)?字符(列表)?$/, asyn
   if (!data) return e.reply('❌请稍后再试')
   if (data.retcode !== 0) return e.reply('❌获取数据错误')
   const msgs = []
-  const items = data.data.word_list
-  for (const item of items) {
+  const luckdata = data.data as luckyWordList
+  for (const item of luckdata.word_list) {
     msgs.push([
       segment.image(`https://tianquan.gtimg.cn/groupluckyword/item/${item.word_info.word_id}/pic-${item.light_up_info.light_up_char_count}.png?m=${item.word_info.mtime}`),
       segment.text(`id: ${item.word_info.word_id}`),
@@ -19,7 +20,7 @@ export const luckylist = karin.command(/^#(查)?(幸运)?字符(列表)?$/, asyn
       segment.text(`\n点亮状态: ${item.word_info.char_count === item.light_up_info.light_up_char_count ? '已点亮' : item.light_up_info.light_up_char_count + '/' + item.word_info.char_count}`)
     ])
   }
-  msgs.unshift([segment.text(`当前正在使用的幸运字符是\nID: ${data.data.equip_info.word_info.word_id}`)])
+  msgs.unshift([segment.text(`当前正在使用的幸运字符是\nID: ${luckdata.equip_info.word_info.word_id}`)])
   const content = common.makeForward(msgs, e.selfId, e.bot.account.name)
   await e.bot.sendForwardMsg(e.contact, content)
   return true
@@ -31,12 +32,13 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   if (data.retcode === 11004 && (data.msg === 'over svip max times' || data.msg === 'over member max times')) return e.reply('❌今日抽取次数已达上限')
   if (data.retcode !== 0) return e.reply('❌发送数据错误')
   if (Object.keys(data.data).length === 0) return e.reply(segment.image(`file://${dirPath}/resources/html/luckword/null.png`))
+  const luckdata = data.data as luckyWord
   const item = {
-    url: `https://tianquan.gtimg.cn/groupluckyword/item/${data.data.word_info.word_info.word_id}/pic-0.png?m=${data.data.word_info.word_info.mtime}`,
-    title: `${data.data.word_info.word_info.word_desc}`
+    url: `https://tianquan.gtimg.cn/groupluckyword/item/${luckdata.word_info.word_info.word_id}/pic-0.png?m=${luckdata.word_info.word_info.mtime}`,
+    title: `${luckdata.word_info.word_info.word_desc}`
   }
   if (!other().word_render) {
-    return await e.reply(`恭喜你，抽中了[${data.data.word_info.word_info.wording}]\n寓意: ${item.title}`)
+    return await e.reply(`恭喜你，抽中了[${luckdata.word_info.word_info.wording}]\n寓意: ${item.title}`)
   }
   const img = await render('html/luckword/index', {
     data: item,
