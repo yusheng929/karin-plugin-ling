@@ -38,6 +38,10 @@ export interface Group {
     enable_list: string[]
     /** 黑名单 */
     disable_list: string[]
+    /** 进群通知文本 */
+    jointext: string
+    /** 退群通知文本 */
+    quittext: string
   }
   /** 通知 */
   notify: {

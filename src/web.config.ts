@@ -8,6 +8,8 @@ interface Config {
       'accept:enable': boolean,
       'accept:enable_list': string[],
       'accept:disable_list': string[],
+      'accept:jointext': string,
+      'accept:quittext': string,
       'notify:group_enable': boolean,
       'notify:allow': boolean,
       invite: boolean,
@@ -107,6 +109,20 @@ export default {
                   isRequired: true,
                   value: ''
                 })
+            }),
+            components.input.string('accept:jointext', {
+              label: '进群通知文本',
+              description: '设置后,当有用户加入群聊时,会发送该文本(可使用{{Id}}做为占位符,会自动替换用户id)',
+              defaultValue: group().accept.jointext,
+              isRequired: false,
+              color: 'success'
+            }),
+            components.input.string('accept:quittext', {
+              label: '退群通知文本',
+              description: '设置后,当有用户离开群聊时,会发送该文本(可使用{{Id}}做为占位符,会自动替换用户id)',
+              defaultValue: group().accept.quittext,
+              isRequired: false,
+              color: 'success'
             }),
             components.divider.create('a-d-2', {
               description: '群聊通知配置',
@@ -368,7 +384,9 @@ export default {
       accept: {
         enable: cfg.group[0]['accept:enable'],
         enable_list: cfg.group[0]['accept:enable_list'],
-        disable_list: cfg.group[0]['accept:disable_list']
+        disable_list: cfg.group[0]['accept:disable_list'],
+        jointext: cfg.group[0]['accept:jointext'],
+        quittext: cfg.group[0]['accept:quittext']
       },
       notify: {
         group_enable: cfg.group[0]['notify:group_enable'],

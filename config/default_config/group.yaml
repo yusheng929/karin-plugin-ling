@@ -8,6 +8,8 @@ accept:
   # 黑名单
   disable_list:
     - "636023444"
+  jointext: "欢迎加入本群୯(⁠*⁠´⁠ω⁠`⁠*⁠)୬"
+  quittext: "用户『{{Id}}』丢下我们一个人走了"
 
 # 群聊通知配置
 notify:

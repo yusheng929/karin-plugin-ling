@@ -13,7 +13,9 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
   }
   if (cfg.accept.enable && e.sender.userId !== e.selfId) {
     if (cfg.accept.enable_list.includes(e.groupId) || (cfg.accept.enable_list.length === 0 && !cfg.accept.disable_list.includes(e.groupId))) {
-      await e.reply('\n欢迎加入本群୯(⁠*⁠´⁠ω⁠｀⁠*⁠)୬', { at: true })
+      let msg = cfg.accept.jointext || '用户『{{Id}}』已加入本群'
+      msg = msg.replace(/{{Id}}/gi, e.userId.toString())
+      await e.reply(msg, { at: true })
     }
   }
 
@@ -59,7 +61,9 @@ export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
   const cfg = group().accept
   if (cfg.enable && e.sender.userId !== e.selfId) {
     if (cfg.enable_list.includes(e.groupId) || (cfg.enable_list.length === 0 && !cfg.disable_list.includes(e.groupId))) {
-      await e.reply(`用户『${e.userId}』丢下我们一个人走了`)
+      let msg = cfg.quittext || '用户『{{Id}}』已离开本群'
+      msg = msg.replace(/{{Id}}/gi, e.userId.toString())
+      await e.reply(msg)
     }
   }
   return true
