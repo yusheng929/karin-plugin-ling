@@ -51,24 +51,24 @@ export const MuteList = karin.command(/^#?(获取|查看)?禁言列表$/, async 
   return true
 }, { name: '获取禁言列表', priority: -1, event: 'message.group' })
 
-export const ModifyMemberCard = karin.command(/^#(改|设置|修改)(bot)?群昵称/i, async (e) => {
-  const Name = e.msg.replace(/^#(改|设置|修改)(bot)?群昵称/i, '').trim()
+export const ModifyMemberCard = karin.command(/^#(改|设置|修改)(bot)?群名片/i, async (e) => {
+  const Name = e.msg.replace(/^#(改|设置|修改)(bot)?群名片/i, '').trim()
   let id = e.at[0]
-  const isSelf = /^#(改|设置|修改)bot群昵称/i.test(e.msg)
+  const isSelf = /^#(改|设置|修改)bot群名片/i.test(e.msg)
   if (isSelf) id = e.selfId
   if (!isSelf && !await isAdmin(e)) return false
-  if (!id) return await e.reply('请@需要修改群昵称的人')
-  if (!Name) return await e.reply('群昵称不能为空', { reply: true })
+  if (!id) return await e.reply('请@需要修改群名片的人')
+  if (!Name) return await e.reply('群名片不能为空', { reply: true })
 
   try {
     await e.bot.setGroupMemberCard(e.groupId, id, Name)
-    await e.reply(`已经将${isSelf ? '自己' : `用户[${id}]`}的群昵称修改为『${Name}』`)
+    await e.reply(`已经将${isSelf ? '自己' : `用户[${id}]`}的群名片修改为『${Name}』`)
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
     return true
   }
   return true
-}, { name: '改群昵称', priority: -1, permission: 'group.admin', event: 'message.group' })
+}, { name: '改群名片', priority: -1, permission: 'group.admin', event: 'message.group' })
 
 export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
   if (!await isAdmin(e)) return false

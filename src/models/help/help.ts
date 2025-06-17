@@ -43,8 +43,8 @@ export const helpList = [
       },
       {
         icon: 7,
-        title: '#改bot群昵称<昵称>',
-        desc: '修改自己在当前群的昵称',
+        title: '#改bot群名片<名片>',
+        desc: '修改自己在当前群的名片',
       },
       {
         icon: 8,
