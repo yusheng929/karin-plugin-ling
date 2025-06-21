@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.22.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.3...v1.22.4) (2025-06-21)
+
+
+### Bug Fixes
+
+* 修改群昵称相关命令为群名片，更新依赖项 ([#185](https://github.com/yusheng929/karin-plugin-ling/issues/185)) ([32e913c](https://github.com/yusheng929/karin-plugin-ling/commit/32e913cf06afe967c8313715d1776e7f068b9de5))
+
 ## [1.22.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.2...v1.22.3) (2025-06-10)
 
 
