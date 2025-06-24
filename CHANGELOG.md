@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.22.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.4...v1.22.5) (2025-06-24)
+
+
+### Bug Fixes
+
+* 修复取直链无效的问题 ([4e0e368](https://github.com/yusheng929/karin-plugin-ling/commit/4e0e368d3e00ac8be0cbd5cfd43336294c9b15ef))
+
 ## [1.22.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.3...v1.22.4) (2025-06-21)
 
 
