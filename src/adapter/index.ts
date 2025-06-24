@@ -85,7 +85,9 @@ export default class Adapter {
    * @returns 新的url
    */
   async refreshRkey (file: string) {
-    if (this.e.bot.adapter.standard === 'icqq') return await (this.e.bot.super as any).pickGroup(Number((this.e as any).groupId)).getPicUrl(segment.image(file))
+    const elem: any = segment.image(file)
+    elem.nt = true
+    if (this.e.bot.adapter.standard === 'icqq') return await (this.e.bot.super as any).pickGroup(Number((this.e as any).groupId)).getPicUrl(elem)
     const url = new URL(file)
     url.protocol = 'http:'
     const rkey = await this.getrkey('group')
