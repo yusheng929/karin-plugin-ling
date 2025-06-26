@@ -1,5 +1,5 @@
 import { AdapterError } from '@/components/Error'
-import { Message, segment } from 'node-karin'
+import { ImageElement, Message } from 'node-karin'
 import type { Client } from 'icqq'
 import { Domain } from '@/types/adapter'
 import { Rkeys } from '@/types/rkeys'
@@ -84,11 +84,10 @@ export default class Adapter {
    * @param file 图片url
    * @returns 新的url
    */
-  async refreshRkey (file: string) {
-    const elem: any = segment.image(file)
-    elem.nt = true
-    if (this.e.bot.adapter.standard === 'icqq') return await (this.e.bot.super as any).pickGroup(Number((this.e as any).groupId)).getPicUrl(elem)
-    const url = new URL(file)
+  async refreshRkey (image: ImageElement): Promise<string> {
+    (image as any).nt = true
+    if (this.e.bot.adapter.standard === 'icqq') return await (this.e.bot.super as any).pickGroup(Number((this.e as any).groupId)).getPicUrl(image)
+    const url = new URL(image.file)
     url.protocol = 'http:'
     const rkey = await this.getrkey('group')
     if (!rkey) throw new AdapterError('当前适配器获取rkey为空,请检查适配器或者协议是否支持')

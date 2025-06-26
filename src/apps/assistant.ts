@@ -277,7 +277,7 @@ export const getimg = karin.command(/#?取直链/, async (e) => {
   const msg3 = [...msg1, ...msg2]
   const msg = []
   for (const i of msg3) {
-    i.file = await new Adapter(e).refreshRkey(i.file) || ''
+    i.file = await new Adapter(e).refreshRkey(i) || ''
     msg.push([segment.image(i.file), segment.text(`图片链接: ${i.file}`)])
   }
   const content = common.makeForward(msg, e.selfId, e.bot.account.name)
