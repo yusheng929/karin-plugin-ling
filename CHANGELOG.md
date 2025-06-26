@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.22.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.5...v1.22.6) (2025-06-26)
+
+
+### Bug Fixes
+
+* 更新refreshRkey方法以支持ImageElement类型 ([a4e2cc3](https://github.com/yusheng929/karin-plugin-ling/commit/a4e2cc345608decf84169d27a05d2ef646e3922f))
+
 ## [1.22.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.4...v1.22.5) (2025-06-24)
 
 
