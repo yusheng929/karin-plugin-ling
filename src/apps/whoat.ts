@@ -15,6 +15,8 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
   for (const item of data) {
     try {
       const elements = await e.bot.getMsg(e.contact, item)
+      const index = elements.elements.findIndex((item) => item.type === 'longMsg')
+      if (index !== -1) elements.elements.splice(index, 1)
       const img = elements.elements.filter((item) => item.type === 'image')
       if (img.length > 0) {
         for (const i of img) {
