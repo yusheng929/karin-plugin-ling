@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.22.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.6...v1.22.7) (2025-06-29)
+
+
+### Bug Fixes
+
+* 修复谁艾特我该消息类型暂不支持查看 ([a9c3fbe](https://github.com/yusheng929/karin-plugin-ling/commit/a9c3fbe9ebdc1e68a0a318fa985966caeed9d502))
+
 ## [1.22.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.5...v1.22.6) (2025-06-26)
 
 
