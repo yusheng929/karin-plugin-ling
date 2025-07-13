@@ -320,7 +320,17 @@ export const getVideoToAudio = karin.command(/^#取音频/, async (e) => {
       '-q:a', '2',       // 音频质量(0-9，0最好)
       AudioPath         // 输出文件
     ])
+    await e.reply(segment.record(AudioPath))
     await e.bot.uploadFile(e.contact, AudioPath, AudioName)
+    fs.unlinkSync(VideoPath)
+    setTimeout(() => {
+      fs.unlink(AudioPath, (err) => {
+        if (err) logger.error('删除音频文件失败', err)
+      })
+    }, 1000 * 60 * 10)
+    logger.info(`音频文件位于${AudioPath}`)
+    logger.info('音频文件将在10分钟后删除')
+    return true
   } catch (error) {
     logger.error('获取视频音频失败', error)
     return e.reply('获取视频音频失败，请稍后再试')
