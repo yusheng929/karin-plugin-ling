@@ -297,8 +297,8 @@ export const getimg = karin.command(/#?取直链/, async (e) => {
 })
 
 export const getVideoToAudio = karin.command(/^#取音频/, async (e) => {
-  const url = e.elements.find(i => i.type === 'video')?.file ||
-    (await e.bot.getMsg(e.contact, e.replyId)).elements.find(i => i.type === 'video')?.file
+  let url = e.elements.find(i => i.type === 'video')?.file
+  if (!url && e.replyId) url = (await e.bot.getMsg(e.contact, e.replyId)).elements.find(i => i.type === 'video')?.file
   if (!url) return e.reply('没有找到视频')
   try {
     const temp = path.join(karinPathBase, pluginName, 'temp')
