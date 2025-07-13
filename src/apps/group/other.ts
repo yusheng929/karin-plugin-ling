@@ -78,7 +78,7 @@ export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
   }
 
   try {
-    await e.bot.setGgroupHighlights(e.groupId, e.replyId, e.msg.includes('加') || e.msg.includes('设'))
+    await e.bot.setGroupHighlights(e.groupId, e.replyId, e.msg.includes('加') || e.msg.includes('设'))
     await e.reply('操作成功', { at: true })
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
