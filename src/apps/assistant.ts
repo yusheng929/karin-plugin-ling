@@ -1,8 +1,16 @@
+import path from 'node:path'
+import { finished } from 'stream/promises'
 import moment from 'node-karin/moment'
 import { friend, other } from '@/utils/config'
+import fs from 'fs'
 import { karin, segment, common, config, redis, logger, ImageElement } from 'node-karin'
+import { karinPathBase } from 'node-karin/root'
 import { sendToAllAdmin, sendToFirstAdmin, sleep } from '@/utils/common'
 import Adapter from '@/adapter'
+import axios from 'node-karin/axios'
+import { pluginName } from '@/utils/dir'
+import { execa } from 'execa'
+import ffmpegStatic from 'ffmpeg-static'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)(群)?/, '').trim()
@@ -188,9 +196,12 @@ export const command = karin.command(/^#?赞我$/, async e => {
 
   let count = 0
   for (let i = 1; i <= 5; i++) {
-    const result = await e.bot.sendLike(e.userId, 10)
-    if (!result) break
-    count += 10
+    try {
+      await e.bot.sendLike(e.userId, 10)
+      count += 10
+    } catch (error) {
+      break
+    }
   }
 
   if (count === 0) {
@@ -283,4 +294,45 @@ export const getimg = karin.command(/#?取直链/, async (e) => {
   const content = common.makeForward(msg, e.selfId, e.bot.account.name)
   await e.bot.sendForwardMsg(e.contact, content)
   return true
+})
+
+export const getVideoToAudio = karin.command(/^#取音频/, async (e) => {
+  let url = e.elements.find(i => i.type === 'video')?.file
+  if (!url && e.replyId) url = (await e.bot.getMsg(e.contact, e.replyId)).elements.find(i => i.type === 'video')?.file
+  if (!url) return e.reply('没有找到视频')
+  try {
+    const temp = path.join(karinPathBase, pluginName, 'temp')
+    const VideoPath = path.join(temp, `video_${Date.now()}.mp4`)
+    const res = await axios({
+      method: 'get',
+      url,
+      responseType: 'stream',
+    })
+    const writer = fs.createWriteStream(VideoPath)
+    res.data.pipe(writer)
+    await finished(writer)
+    const AudioName = `audio_${Date.now()}.mp3`
+    const AudioPath = path.join(temp, AudioName)
+    await execa(ffmpegStatic as string, [
+      '-i', VideoPath,    // 输入文件
+      '-vn',              // 禁用视频
+      '-acodec', 'libmp3lame', // MP3编码
+      '-q:a', '2',       // 音频质量(0-9，0最好)
+      AudioPath         // 输出文件
+    ])
+    await e.reply(segment.record(AudioPath))
+    await e.bot.uploadFile(e.contact, AudioPath, AudioName)
+    fs.unlinkSync(VideoPath)
+    setTimeout(() => {
+      fs.unlink(AudioPath, (err) => {
+        if (err) logger.error('删除音频文件失败', err)
+      })
+    }, 1000 * 60 * 10)
+    logger.info(`音频文件位于${AudioPath}`)
+    logger.info('音频文件将在10分钟后删除')
+    return true
+  } catch (error) {
+    logger.error('获取视频音频失败', error)
+    return e.reply('获取视频音频失败，请稍后再试')
+  }
 })
