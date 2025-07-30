@@ -32,22 +32,24 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
      * @returns 返回`true`继续循环，返回`false`结束循环
      */
     for (let i = 1; i <= 3; i++) {
-      const exit = async (msg: string) => {
-        if (i >= 3) {
+      const exit = async (msg: string, exit: boolean) => {
+        if (i >= 3 || exit) {
           await e.reply(`\n${msg}，你将会被踢出群聊`, { at: true })
           await e.bot.groupKickMember(e.groupId, e.userId)
-          return false
+          return true
         }
 
         await e.reply(`\n${msg}，你还有${3 - i}次机会`, { at: true })
-        return true
+        return false
       }
 
       const event = await karin.ctx<GroupMessage>(e, { time: 180, reply: false }).catch(() => null)
 
       if (!event || event.msg.trim() !== result.toString()) {
         const msg = event ? '验证码错误，请重新输入' : '输入超时'
-        if (!await exit(msg)) continue
+        const isExit = !event
+        if (await exit(msg, isExit)) break
+        else continue
       }
 
       await e.reply('\n验证通过,欢迎加入群聊', { at: true })
