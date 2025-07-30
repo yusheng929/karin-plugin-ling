@@ -1,5 +1,17 @@
 # 更新日志
 
+## [1.23.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.7...v1.23.0) (2025-07-30)
+
+
+### Features
+
+* 新增取视频音频 ([#190](https://github.com/yusheng929/karin-plugin-ling/issues/190)) ([40a2a4f](https://github.com/yusheng929/karin-plugin-ling/commit/40a2a4fc3bcc110c7b0f57b939321d0676186963))
+
+
+### Bug Fixes
+
+* 修复进群验证异常的问题 ([1755943](https://github.com/yusheng929/karin-plugin-ling/commit/17559430a33d62b5bd23b6c25b246ca76a388b11))
+
 ## [1.22.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.6...v1.22.7) (2025-06-29)
 
 
