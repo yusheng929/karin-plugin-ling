@@ -1,6 +1,5 @@
 import { other } from '@/utils/config'
 import karin, { hooks, logger, redis, segment } from 'node-karin'
-import 'moment-timezone'
 
 hooks.message.group(async (e, next) => {
   const cfg = other()
