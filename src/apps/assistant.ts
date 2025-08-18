@@ -3,14 +3,12 @@ import { finished } from 'stream/promises'
 import moment from 'node-karin/moment'
 import { friend, other } from '@/utils/config'
 import fs from 'fs'
-import { karin, segment, common, config, redis, logger, ImageElement } from 'node-karin'
+import { karin, segment, common, config, redis, logger, ImageElement, system } from 'node-karin'
 import { karinPathBase } from 'node-karin/root'
 import { sendToAllAdmin, sendToFirstAdmin, sleep } from '@/utils/common'
 import Adapter from '@/adapter'
 import axios from 'node-karin/axios'
 import { pluginName } from '@/utils/dir'
-import { execa } from 'execa'
-import ffmpegStatic from 'ffmpeg-static'
 
 export const blackWhiteList = karin.command(/^#(取消)?(拉黑|拉白)(群)?/, async (e) => {
   const userId = e.at[0] || e.msg.replace(/#(取消)?(拉黑|拉白)(群)?/, '').trim()
@@ -313,13 +311,7 @@ export const getVideoToAudio = karin.command(/^#取音频/, async (e) => {
     await finished(writer)
     const AudioName = `audio_${Date.now()}.mp3`
     const AudioPath = path.join(temp, AudioName)
-    await execa(ffmpegStatic as string, [
-      '-i', VideoPath,    // 输入文件
-      '-vn',              // 禁用视频
-      '-acodec', 'libmp3lame', // MP3编码
-      '-q:a', '2',       // 音频质量(0-9，0最好)
-      AudioPath         // 输出文件
-    ])
+    await system.ffmpeg(`-i ${VideoPath} -vn -acodec libmp3lame -q:a 2 ${AudioPath}`)
     await e.reply(segment.record(AudioPath))
     await e.bot.uploadFile(e.contact, AudioPath, AudioName)
     fs.unlinkSync(VideoPath)
