@@ -153,7 +153,7 @@ export const friendApply = karin.accept('request.friendApply', async (e) => {
       '接到用户好友申请',
       `QQ号: ${e.userId}`,
       `昵称: ${e.sender.nick || '未知'}`,
-      `${cfg.notify ? '已自动同意' : '可引用回复: 同意/拒绝进行处理'}`
+      `${cfg.enable ? '已自动同意' : '可引用回复: 同意/拒绝进行处理'}`
     ].join('\n'))
   ]
   if (!cfg.notify.allow) {
