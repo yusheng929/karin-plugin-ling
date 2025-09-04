@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { pkg } from '@/utils/config'
+import { pkg } from '@/components/config'
 import { dirPath, pluginName } from '@/utils/dir'
 import { segment, karin, config } from 'node-karin'
 

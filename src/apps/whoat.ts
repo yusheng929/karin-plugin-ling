@@ -1,9 +1,10 @@
-import Adapter from '@/adapter'
-import { other } from '@/utils/config'
+import { cfg } from '@/components/config'
+import { refreshRkey } from '@/utils/common'
 import { karin, logger, redis, segment } from 'node-karin'
 
 export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, async (e) => {
-  if (!other().whoat) return e.reply('没有开启谁艾特我功能', { reply: true })
+  const opt = await cfg.getOther()
+  if (!opt.whoat) return e.reply('没有开启谁艾特我功能', { reply: true })
   let userId = ''
   if (e.msg.includes('ta') || e.msg.includes('他') || e.msg.includes('她') || e.msg.includes('它')) {
     userId = e.at[0] || e.msg.replace(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, '').trim()
@@ -20,7 +21,7 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
       const img = elements.elements.filter((item) => item.type === 'image')
       if (img.length > 0) {
         for (const i of img) {
-          i.file = await new Adapter(e).refreshRkey(i) || ''
+          i.file = await refreshRkey(e, i) || ''
         }
       }
       const face = elements.elements.find((item) => item.type === 'face')

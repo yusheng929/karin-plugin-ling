@@ -3,7 +3,6 @@ import { logger } from 'node-karin'
 import type { Message } from 'node-karin'
 import FormData from 'form-data'
 import qs from 'qs'
-import Adapter from '@/adapter'
 
 export default class {
   e: Message
@@ -32,9 +31,8 @@ export default class {
       limit,
       need_equip_info: true
     })
-    const adapter = new Adapter(this.e)
-    this.headers.Cookie = await adapter.getck('qun.qq.com')
-    const bkn = await adapter.getbkn()
+    this.headers.Cookie = (await this.e.bot.getCookies('qun.qq.com')).cookie
+    const bkn = (await this.e.bot.getCSRFToken()).token
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/word_list?bkn=${bkn}`,
@@ -56,9 +54,8 @@ export default class {
     const data = JSON.stringify({
       group_code: groupId
     })
-    const adapter = new Adapter(this.e)
-    this.headers.Cookie = await adapter.getck('qun.qq.com')
-    const bkn = await adapter.getbkn()
+    this.headers.Cookie = (await this.e.bot.getCookies('qun.qq.com')).cookie
+    const bkn = (await this.e.bot.getCSRFToken()).token
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/draw_lottery?bkn=${bkn}`,
@@ -82,9 +79,8 @@ export default class {
       group_code: groupId,
       cmd: type ? 1 : 2
     })
-    const adapter = new Adapter(this.e)
-    this.headers.Cookie = await adapter.getck('qun.qq.com')
-    const bkn = await adapter.getbkn()
+    this.headers.Cookie = (await this.e.bot.getCookies('qun.qq.com')).cookie
+    const bkn = (await this.e.bot.getCSRFToken()).token
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/setting?bkn=${bkn}`,
@@ -108,9 +104,8 @@ export default class {
       group_code: groupId,
       word_id: wordId
     })
-    const adapter = new Adapter(this.e)
-    this.headers.Cookie = await adapter.getck('qun.qq.com')
-    const bkn = await adapter.getbkn()
+    this.headers.Cookie = (await this.e.bot.getCookies('qun.qq.com')).cookie
+    const bkn = (await this.e.bot.getCSRFToken()).token
     const request = {
       method: 'POST',
       url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/equip?bkn=${bkn}`,
@@ -131,8 +126,7 @@ export default class {
    * @returns 上传结果
    */
   async sendAnnouncs (groupId: string, msg: string, img: string | undefined) {
-    const adapter = new Adapter(this.e)
-    const bkn = await adapter.getbkn()
+    const bkn = (await this.e.bot.getCSRFToken()).token
     const bodyObj: Record<string, (string | number)> = {
       qid: groupId,
       bkn,
@@ -155,7 +149,7 @@ export default class {
       method: 'POST',
       url: `https://web.qun.qq.com/cgi-bin/announce/add_qun_notice?bkn=${bkn}`,
       headers: {
-        Cookie: await adapter.getck('qun.qq.com'),
+        Cookie: (await this.e.bot.getCookies('qun.qq.com')).cookie,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data
@@ -172,8 +166,7 @@ export default class {
    * @returns 公告列表
    */
   async announcelist (groupId: string) {
-    const adapter = new Adapter(this.e)
-    const bkn = await adapter.getbkn()
+    const bkn = (await this.e.bot.getCSRFToken()).token
     const data = qs.stringify({
       qid: groupId,
       bkn,
@@ -185,7 +178,7 @@ export default class {
       method: 'POST',
       url: `https://web.qun.qq.com/cgi-bin/announce/list_announce??bkn=${bkn}`,
       headers: {
-        Cookie: await adapter.getck('qun.qq.com')
+        Cookie: (await this.e.bot.getCookies('qun.qq.com')).cookie
       },
       data
     }
@@ -201,11 +194,10 @@ export default class {
    * @returns 上传内容
    */
   async uploadImg (url: string) {
-    const adapter = new Adapter(this.e)
-    const bkn = await adapter.getbkn()
+    const bkn = (await this.e.bot.getCSRFToken()).token
     const data = new FormData()
     const buffer = await this.getImageBuffer(url)
-    const cookies = await adapter.getck('qun.qq.com')
+    const cookies = (await this.e.bot.getCookies('qun.qq.com')).cookie
     data.append('bkn', String(bkn))
     data.append('source', 'troopNotics')
     data.append('m', '0')

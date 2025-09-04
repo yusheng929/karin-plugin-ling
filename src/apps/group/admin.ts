@@ -5,7 +5,7 @@ import karin, { config, logger } from 'node-karin'
 /**
  * 全体禁言
  */
-export const muteAll = karin.command(/^#?全体(禁言|解禁)$/, async (e) => {
+export const muteAll = karin.command(/^#全体(禁言|解禁)$/, async (e) => {
   if (!await isAdmin(e)) return false
   const isBan = /全体禁言/.test(e.msg)
   try {
@@ -106,7 +106,7 @@ export const UnBanMember = karin.command(/^#解禁/, async (e) => {
 }, { name: '解禁', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 export const BanMember = karin.command(
-  /^#?禁言(\d+|[零一壹二两三四五六七八九十百千万亿]+)?(秒|分|分钟|时|小时|天)?/,
+  /^#禁言(\d+|[零一壹二两三四五六七八九十百千万亿]+)?(秒|分|分钟|时|小时|天)?/,
   async (e) => {
     if (!await isAdmin(e)) return false
     let userId = ''
@@ -130,7 +130,7 @@ export const BanMember = karin.command(
     }
     if (!await GroupMemberExist(e, userId)) return false
     if (!await JudgePerim(e, userId)) return false
-    const match = e.msg.match(/^#?禁言(\d+|[零一壹二两三四五六七八九十百千万亿]+)?(秒|分|分钟|时|小时|天)?/)
+    const match = e.msg.match(/^#禁言(\d+|[零一壹二两三四五六七八九十百千万亿]+)?(秒|分|分钟|时|小时|天)?/)
     if (match) {
       const timeStr = match[1] || 600
       const unit = match[2] || '秒'  // 默认为秒

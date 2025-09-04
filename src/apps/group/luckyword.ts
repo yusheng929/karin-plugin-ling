@@ -1,7 +1,7 @@
+import { cfg } from '@/components/config'
 import { render } from '@/components/puppeteer'
 import QQApi from '@/models/api/QQApi'
 import { luckyWord, luckyWordList } from '@/types/QQApi'
-import { other } from '@/utils/config'
 import { dirPath } from '@/utils/dir'
 import karin, { common, segment } from 'node-karin'
 
@@ -28,6 +28,7 @@ export const luckylist = karin.command(/^#(查)?(幸运)?字符(列表)?$/, asyn
 
 export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   const data = await new QQApi(e).luckyword(e.groupId)
+  const opt = await cfg.getOther()
   if (!data) return e.reply('❌请稍后再试')
   if (data.retcode === 11004 && (data.msg === 'over svip max times' || data.msg === 'over member max times')) return e.reply('❌今日抽取次数已达上限')
   if (data.retcode !== 0) return e.reply('❌发送数据错误')
@@ -37,7 +38,7 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
     url: `https://tianquan.gtimg.cn/groupluckyword/item/${luckdata.word_info.word_info.word_id}/pic-0.png?m=${luckdata.word_info.word_info.mtime}`,
     title: `${luckdata.word_info.word_info.word_desc}`
   }
-  if (!other().word_render) {
+  if (!opt.word_render) {
     return await e.reply(`恭喜你，抽中了[${luckdata.word_info.word_info.wording}]\n寓意: ${item.title}`)
   }
   const img = await render('html/luckword/index', {

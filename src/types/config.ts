@@ -1,26 +1,16 @@
-export interface Cof {
-  /** 是否启用 */
-  enable: boolean
-  /** cron表达式 */
-  cron: string
-  /** 续火文本 */
-  msg: string[]
-  /** 续火的群列表 */
-  group: string[]
-  /** 续火的好友列表 */
-  friend: string[]
-}
-
 export interface Friend {
-  /** 通知 */
-  notify: {
-    /** 是否启用 */
-    enable: boolean
-    /** 是否只通知第一个主人 */
-    allow: boolean
+  /** 好友申请 */
+  Apply: {
+    /** 自动同意好友申请 */
+    autoAgree: boolean
+    /** 好友申请通知 */
+    notify: {
+      /** 是否启用 */
+      enable: boolean
+      /** 是否只通知第一个主人 */
+      allow: boolean
+    }
   }
-  /** 自动同意好友 */
-  enable: boolean
   /** 关闭点赞 */
   closeLike: boolean
   /** 点赞文本 */
@@ -30,32 +20,53 @@ export interface Friend {
 }
 
 export interface Group {
-  /** 进退群通知 */
-  accept: {
-    /** 进退群开关 */
-    enable: boolean
-    /** 白名单 */
-    enable_list: string[]
-    /** 黑名单 */
-    disable_list: string[]
-    /** 进群通知文本 */
-    jointext: string
-    /** 退群通知文本 */
-    quittext: string
+  /** 群成员变动 */
+  MemberChange: {
+    /** 进退群通知 */
+    notice: {
+      /** 是否开启通知 */
+      enable: boolean
+      /** 通知黑名单 */
+      disable_list: string[]
+      /** 进群通知文本 */
+      joinText: string
+      /** 退群通知文本 */
+      quitText: string
+    }
+    /** 进群验证列表 */
+    joinVerify: string[]
   }
-  /** 通知 */
-  notify: {
-    /** 是否启用 */
-    group_enable: boolean
-    /** 是否只通知第一个主人 */
-    allow: boolean
+  /** 邀请bot加群 */
+  Invite: {
+    /** 邀请入群通知 */
+    notify: {
+      /** 是否启用 */
+      enable: boolean
+      /** 是否只通知第一个主人 */
+      allow: boolean
+    }
+    /** 自动同意邀请Bot入新群 */
+    autoInvite: boolean
   }
-  /** 自动同意邀请Bot入新群 */
-  invite: boolean
   /** 申请加群通知列表 */
-  apply_list: string[]
-  /** 进群验证列表 */
-  joinGroup: string[]
+  Apply_list: string[]
+
+  /** 自动退群配置 */
+  AutoQuitGroup: {
+    /** 是否启用 */
+    enable: boolean
+    /** 非白名单退群文本 */
+    enableText: string
+    /** 黑名单退群文本 */
+    disableText: string
+    /** 退群列表 */
+    autoQuit: {
+      /** 默认配置 */
+      default: AutoQuitEntry
+      /** 单独Bot配置 */
+      [key: string]: AutoQuitEntry
+    }
+  }
 }
 
 /** `other.yaml` 文件的类型定义 */
@@ -66,42 +77,11 @@ export interface Other {
   noWork: string[]
   /** 谁艾特我 */
   whoat: boolean
-  /** 消息前缀 */
-  msg_prefix: ''
-
-  /** 消息后缀 */
-  msg_suffix: ''
-
-  /** 联系主人 */
-  contactMaster: {
-    /** 是否启用 */
-    enable: true
-    /** 为true时，只发送第一个主人 */
-    allow: false
-    /** 联系主人的cd */
-    cd: number
-  }
 }
 
-interface AutoQuitEntry {
+export interface AutoQuitEntry {
   /** 黑名单列表 */
   disable_list: string[]
   /** 白名单列表 */
   enable_list: string[]
-}
-
-export interface AutoQuitGroup {
-  /** 是否启用 */
-  enable: boolean
-  /** 非白名单退群文本 */
-  enabletext: string
-  /** 黑名单退群文本 */
-  disabletext: string
-  /** 退群列表 */
-  autoquit: {
-    /** 默认配置 */
-    default: AutoQuitEntry
-    /** 单独Bot配置 */
-    [key: string | number]: AutoQuitEntry
-  }
 }

@@ -28,7 +28,7 @@ export const ModifyGroupName = karin.command(/^#(改|设置|修改)群名/, asyn
 /**
  * 获取禁言列表
 */
-export const MuteList = karin.command(/^#?(获取|查看)?禁言列表$/, async (e) => {
+export const MuteList = karin.command(/^#(获取|查看)?禁言列表$/, async (e) => {
   const lsit = []
   const result = await e.bot.getGroupMuteList(e.groupId)
   if (!result.length) {

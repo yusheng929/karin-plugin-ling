@@ -1,0 +1,36 @@
+{
+  "MemberChange": {
+    "notice": {
+      "enable": false,
+      "disable_list": [
+        "636023444"
+      ],
+      "joinText": "欢迎加入本群୯(⁠*⁠´⁠ω⁠`⁠*⁠)୬",
+      "quitText": "用户『{{Id}}』丢下我们一个人走了"
+    },
+    "joinVerify": []
+  },
+  "Invite": {
+    "notify": {
+      "enable": false,
+      "allow": false
+    },
+    "autoInvite": false
+  },
+  "Apply_list": [],
+  "AutoQuitGroup": {
+    "enable": false,
+    "enableText": "当前群不在白名单,已自动退出",
+    "disableText": "当前群在黑名单,已自动退出",
+    "autoQuit": {
+      "default": {
+        "disable_list": [],
+        "enable_list": []
+      },
+      "114514": {
+        "disable_list": [],
+        "enable_list": []
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "Apply": {
+    "autoAgree": false,
+    "notify": {
+      "enable": true,
+      "allow": false
+    }
+  },
+  "closeLike": false,
+  "likeStart": "已为你点赞{{likeCount}}次",
+  "likeEnd": "已经给你赞过了"
+}

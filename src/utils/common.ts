@@ -1,4 +1,4 @@
-import { karin, config, logger, GroupMessage } from 'node-karin'
+import { karin, config, logger, GroupMessage, ImageElement } from 'node-karin'
 
 /**
  * 给全部主人、管理员发送消息
@@ -108,6 +108,23 @@ export const JudgePerim = async (e: GroupMessage, uid: string) => {
     await e.reply('该群不存在该用户', { reply: true })
     return false
   }
+}
+
+/**
+   * 刷新图片rkey
+   * @param e 消息实例
+   * @param file 图片url
+   * @returns 新的url
+   */
+export const refreshRkey = async (e: GroupMessage, image: ImageElement) => {
+  (image as any).nt = true
+  if (e.bot.adapter.standard === 'icqq') return await (e.bot.super as any).pickGroup(Number(e.groupId)).getPicUrl(image)
+  const url = new URL(image.file)
+  url.protocol = 'http:'
+  const rkey = (await e.bot.getRkey()).find(item => item.type === 'group')
+  if (!rkey) throw new Error('当前适配器获取rkey为空,请检查适配器或者协议是否支持')
+  url.searchParams.delete('rkey')
+  return (url.toString() + rkey.rkey)
 }
 
 /**

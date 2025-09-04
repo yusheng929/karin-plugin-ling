@@ -3,7 +3,7 @@ import { dirPath } from '@/utils/dir'
 
 let isupdate = false
 
-export const update = karin.command(/^#?(铃|ling)(插件)?更新$/i, async (e) => {
+export const update = karin.command(/^#(铃|ling)(插件)?更新$/i, async (e) => {
   if (isupdate) return e.reply('正在更新中,请稍后再试')
   const isNPM = !!dirPath.includes('node_modules')
   if (!isNPM) return e.reply('未检测到NPM插件')

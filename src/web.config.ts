@@ -1,27 +1,32 @@
 import { components, LocalApiResponse } from 'node-karin'
-import { cof, friend, group, other, writeYaml } from '@/utils/config'
-import _ from 'lodash'
+import { cfg } from '@/components/config'
+import _ from 'node-karin/lodash'
 
+const group = await cfg.getGroup()
+const friend = await cfg.getFriend()
+const other = await cfg.getOther()
 interface Config {
   group: [
     {
-      'accept:enable': boolean,
-      'accept:enable_list': string[],
-      'accept:disable_list': string[],
-      'accept:jointext': string,
-      'accept:quittext': string,
-      'notify:group_enable': boolean,
-      'notify:allow': boolean,
-      invite: boolean,
-      apply_list: string[],
-      joinGroup: string[]
+      'MemberChange:notice:enable': boolean,
+      'MemberChange:notice:disable_list': string[],
+      'MemberChange:notice:joinText': string,
+      'MemberChange:notice:quitText': string,
+      'MemberChange:joinVerify': string[],
+      'Invite:notify:enable': boolean,
+      'Invite:notify:allow': boolean,
+      'Invite:autoInvite': boolean,
+      Apply_list: string[],
+      'AutoQuitGroup:enable': boolean,
+      'AutoQuitGroup:enableText': string,
+      'AutoQuitGroup:disableText': string
     }
   ],
   friend: [
     {
-      'notify:enable': boolean,
-      'notify:allow': boolean,
-      enable: boolean,
+      'Apply:autoAgree': boolean,
+      'Apply:notify:enable': boolean,
+      'Apply:notify:allow': boolean,
       closeLike: boolean,
       likeStart: string,
       likeEnd: string
@@ -31,21 +36,7 @@ interface Config {
     {
       noWork: string[],
       word_render: boolean,
-      whoat: boolean,
-      msg_prefix: string,
-      msg_suffix: string,
-      'contactMaster:enable': boolean,
-      'contactMaster:allow': boolean,
-      'contactMaster:cd': number
-    }
-  ],
-  cof: [
-    {
-      enable: boolean,
-      cron: string,
-      msg: string[],
-      group: string[],
-      friend: string[]
+      whoat: boolean
     }
   ]
 }
@@ -76,31 +67,18 @@ export default {
           subtitle: '',
           children: [
             components.divider.create('a-d-1', {
-              description: '进退群通知配置',
+              description: '群成员变动配置',
               descPosition: 0
             }),
-            components.switch.create('accept:enable', {
-              label: '进退群通知',
-              description: '开启后会监听群聊的进退群事件并推送',
-              defaultSelected: group().accept.enable
+            components.switch.create('MemberChange:notice:enable', {
+              label: '是否启用通知',
+              description: '开启后会监听群聊的群成员变动事件并推送',
+              defaultSelected: group.MemberChange.notice.enable
             }),
-            components.input.group('accept:enable_list', {
-              label: '进群通知白名单',
-              description: '开启后只会监听白名单群聊,白名单 > 黑名单',
-              data: group().accept.enable_list,
-              template:
-                components.input.string('a-number-1', {
-                  color: 'success',
-                  label: '群号',
-                  placeholder: '请输入群号',
-                  isRequired: true,
-                  value: ''
-                })
-            }),
-            components.input.group('accept:disable_list', {
-              label: '进群通知黑名单',
-              description: '开启后不会监听黑名单群聊,白名单 > 黑名单',
-              data: group().accept.disable_list,
+            components.input.group('MemberChange:notice:disable_list', {
+              label: '通知黑名单',
+              description: '开启后不会监听黑名单群聊',
+              data: group.MemberChange.notice.disable_list,
               template:
                 components.input.string('a-number-2', {
                   color: 'success',
@@ -110,43 +88,56 @@ export default {
                   value: ''
                 })
             }),
-            components.input.string('accept:jointext', {
+            components.input.string('MemberChange:notice:joinText', {
               label: '进群通知文本',
               description: '设置后,当有用户加入群聊时,会发送该文本(可使用{{Id}}做为占位符,会自动替换用户id)',
-              defaultValue: group().accept.jointext,
+              defaultValue: group.MemberChange.notice.joinText,
               isRequired: false,
               color: 'success'
             }),
-            components.input.string('accept:quittext', {
+            components.input.string('MemberChange:notice:quitText', {
               label: '退群通知文本',
               description: '设置后,当有用户离开群聊时,会发送该文本(可使用{{Id}}做为占位符,会自动替换用户id)',
-              defaultValue: group().accept.quittext,
+              defaultValue: group.MemberChange.notice.quitText,
               isRequired: false,
               color: 'success'
             }),
+            components.input.group('joinVerify', {
+              label: '进群验证',
+              description: '开启后当新用户加入该群,会对其进行验证',
+              data: group.MemberChange.joinVerify,
+              template:
+                components.input.string('a-number-4', {
+                  color: 'success',
+                  label: '群号',
+                  placeholder: '请输入群号',
+                  isRequired: true,
+                  value: ''
+                })
+            }),
             components.divider.create('a-d-2', {
-              description: '群聊通知配置',
+              description: '邀请Bot入群配置',
               descPosition: 0
             }),
-            components.switch.create('notify:group_enable', {
-              label: '邀请Bot加群通知',
+            components.switch.create('Invite:notify:enable', {
+              label: '是否启用通知',
               description: '开启后,当有用户邀请Bot加群,会私聊通知主人',
-              defaultSelected: group().notify.group_enable
+              defaultSelected: group.Invite.notify.enable
             }),
-            components.switch.create('notify:allow', {
+            components.switch.create('Invite:notify:allow', {
               label: '只通知第一个主人',
-              description: '开启后,所有通知主人的消息将只会通知除开console的第一个主人',
-              defaultSelected: group().notify.group_enable
+              description: '开启后,邀请Bot加群通知只会发送至除开console的第一个主人',
+              defaultSelected: group.Invite.notify.allow
             }),
-            components.switch.create('invite', {
-              label: '自动同意邀请加群',
+            components.switch.create('Invite:autoInvite', {
+              label: '自动同意邀请',
               description: '开启后,当有用户邀请Bot加群,会自动同意(主人无视该规则)',
-              defaultSelected: group().notify.allow
+              defaultSelected: group.Invite.autoInvite
             }),
-            components.input.group('apply_list', {
-              label: '加群通知列表',
+            components.input.group('Apply_list', {
+              label: '申请入群通知列表',
               description: '开启后当用户加入该群,会推送消息到该群',
-              data: group().apply_list,
+              data: group.Apply_list,
               template:
                 components.input.string('a-number-3', {
                   color: 'success',
@@ -156,19 +147,6 @@ export default {
                   value: ''
                 })
             }),
-            components.input.group('joinGroup', {
-              label: '加群验证',
-              description: '开启后当新用户加入该群,会对其进行验证',
-              data: group().joinGroup,
-              template:
-                components.input.string('a-number-4', {
-                  color: 'success',
-                  label: '群号',
-                  placeholder: '请输入群号',
-                  isRequired: true,
-                  value: ''
-                })
-            })
           ]
         })
       ]
@@ -180,37 +158,41 @@ export default {
           title: '好友配置',
           subtitle: '',
           children: [
-            components.switch.create('notify:enable', {
-              label: '通知',
+            components.divider.create('b-d-1', {
+              description: '好友申请配置',
+              descPosition: 0
+            }),
+            components.switch.create('Apply:notify:enable', {
+              label: '是否启用通知',
               description: '开启后,当Bot收到好友申请会发送消息到主人',
-              defaultSelected: friend().notify.enable
+              defaultSelected: friend.Apply.notify.enable
             }),
-            components.switch.create('notify:allow', {
+            components.switch.create('Apply:notify:allow', {
               label: '只通知第一个主人',
-              description: '开启后,所有通知主人的消息将只会通知除开console的第一个主人',
-              defaultSelected: friend().notify.allow
+              description: '开启后,好友申请通知只会通知除开console的第一个主人',
+              defaultSelected: friend.Apply.notify.allow
             }),
-            components.switch.create('enable', {
+            components.switch.create('Apply:autoAgree', {
               label: '自动同意好友申请',
               description: '开启后,Bot收到好友申请,会自动同意(主人无视该规则)',
-              defaultSelected: friend().enable
+              defaultSelected: friend.Apply.autoAgree
             }),
             components.switch.create('closeLike', {
               label: '关闭点赞',
               description: '开启后,将无法触发功能#赞我',
-              defaultSelected: friend().closeLike
+              defaultSelected: friend.closeLike
             }),
             components.input.string('likeStart', {
               label: '点赞成功发送的消息',
               description: '设置后,当触发点赞回复的消息,注: {{likeCount}} 是次数',
-              defaultValue: friend().likeStart,
+              defaultValue: friend.likeStart,
               isRequired: false,
               color: 'success'
             }),
             components.input.string('likeEnd', {
               label: '已点赞发送的消息',
               description: '设置后,当触发点赞并且已经点赞过所回复的消息',
-              defaultValue: friend().likeEnd,
+              defaultValue: friend.likeEnd,
               isRequired: false,
               color: 'success'
             })
@@ -228,7 +210,7 @@ export default {
             components.input.group('noWork', {
               label: '上下班配置',
               description: '配置后,列表内的群聊无法触发任何功能',
-              data: other().noWork,
+              data: other.noWork,
               template:
                 components.input.string('c-number-1', {
                   color: 'success',
@@ -239,126 +221,14 @@ export default {
                 })
             }),
             components.switch.create('word_render', {
-              label: '渲染图片',
+              label: '抽幸运字符是否渲染图片',
               description: '关闭后,功能`#抽幸运字符`将会返回文本',
-              defaultSelected: other().word_render
+              defaultSelected: other.word_render
             }),
             components.switch.create('whoat', {
               label: '谁艾特我',
               description: '开启后将开始统计艾特消息(注: 开启时，群多可能会对性能产生影响)',
-              defaultSelected: other().whoat
-            }),
-            components.input.string('msg_prefix', {
-              label: '消息前缀',
-              description: '设置后,Bot所发送的文本消息的最前面会添加所设置的字符(为空则不添加)',
-              defaultValue: other().msg_prefix,
-              isRequired: false,
-              color: 'success'
-            }),
-            components.input.string('msg_suffix', {
-              label: '消息后缀',
-              description: '设置后,Bot所发送的文本消息的最后面会添加所设置的字符(为空则不添加)',
-              defaultValue: other().msg_suffix,
-              isRequired: false,
-              color: 'success'
-            }),
-            components.switch.create('contactMaster:enable', {
-              label: '启用联系主人',
-              description: '开启后可在群聊联系主人',
-              defaultSelected: other().contactMaster.enable
-            }),
-            components.switch.create('contactMaster:allow', {
-              label: '只发送第一个主人',
-              description: '开启后,联系主人的消息只会发送出console的第一个主人',
-              defaultSelected: other().contactMaster.allow
-            }),
-            components.input.number('contactMaster:cd', {
-              color: 'success',
-              label: '联系主人冷却',
-              placeholder: '请输入cd 0 ≤ cd ≤ 86400',
-              description: '设置后,联系主人功能将会有冷却时间,单位为秒(0表示不限制)',
-              defaultValue: String(other().contactMaster.cd),
-              isRequired: true,
-              rules: [
-                {
-                  min: 0,
-                  max: 86400,
-                  error: '请输入0 ≤ cd ≤ 86400 的数字'
-                }
-              ]
-            })
-          ]
-        })
-      ]
-    }),
-    components.accordion.create('cof', {
-      label: '续火配置',
-      children: [
-        components.accordion.createItem('d', {
-          title: '续火配置',
-          subtitle: '',
-          children: [
-            components.switch.create('enable', {
-              label: '启用续火',
-              description: '开启后会定时向指定群聊好友发送自定义消息',
-              defaultSelected: cof().enable
-            }),
-            components.input.string('cron', {
-              label: '正则表达式',
-              description: '设置后,会按照所设置的时间发送消息',
-              defaultValue: cof().cron,
-              color: 'success'
-            }),
-            components.input.group('msg', {
-              label: '续火文本',
-              description: '配置后,将发送列表的文本(当有多条时,会随机发送任意一条)',
-              data: cof().msg,
-              template:
-                components.input.string('d-string-1', {
-                  color: 'success',
-                  label: '续火文本',
-                  placeholder: '请输入文本',
-                  isRequired: true,
-                  value: ''
-                })
-            }),
-            components.input.group('group', {
-              label: '续火群聊',
-              description: '配置后,只向列表中的群聊发送消息',
-              data: cof().group,
-              template:
-                components.input.string('d-string-2', {
-                  color: 'success',
-                  label: '续火群聊',
-                  placeholder: '请输入群号',
-                  isRequired: true,
-                  value: '',
-                  rules: [
-                    {
-                      regex: /.+:.+/,
-                      error: '请使用`BotId:群聊Id`的格式'
-                    }
-                  ]
-                })
-            }),
-            components.input.group('friend', {
-              label: '续火好友',
-              description: '配置后,只向列表中的好友发送消息',
-              data: cof().friend,
-              template:
-                components.input.string('d-string-3', {
-                  color: 'success',
-                  label: '续火好友',
-                  placeholder: '请输入好友Id',
-                  isRequired: true,
-                  rules: [
-                    {
-                      regex: /.+:.+/,
-                      error: '请使用`BotId:好友Id`的格式'
-                    }
-                  ],
-                  value: ''
-                })
+              defaultSelected: other.whoat
             })
           ]
         })
@@ -367,56 +237,61 @@ export default {
   ],
 
   /** 前端点击保存之后调用的方法 */
-  save: (cfg: Config) => {
+  save: (config: Config) => {
     const Other = {
-      noWork: cfg.other[0].noWork,
-      whoat: cfg.other[0].whoat,
-      word_render: cfg.other[0].word_render,
-      msg_prefix: cfg.other[0].msg_prefix,
-      msg_suffix: cfg.other[0].msg_suffix,
-      contactMaster: {
-        enable: cfg.other[0]['contactMaster:enable'],
-        allow: cfg.other[0]['contactMaster:allow'],
-        cd: Number(cfg.other[0]['contactMaster:cd'])
-      }
+      noWork: config.other[0].noWork,
+      whoat: config.other[0].whoat,
+      word_render: config.other[0].word_render
     }
     const Group = {
-      accept: {
-        enable: cfg.group[0]['accept:enable'],
-        enable_list: cfg.group[0]['accept:enable_list'],
-        disable_list: cfg.group[0]['accept:disable_list'],
-        jointext: cfg.group[0]['accept:jointext'],
-        quittext: cfg.group[0]['accept:quittext']
+      MemberChange: {
+        notice: {
+          enable: config.group[0]['MemberChange:notice:enable'],
+          disable_list: config.group[0]['MemberChange:notice:disable_list'],
+          joinText: config.group[0]['MemberChange:notice:joinText'],
+          quitText: config.group[0]['MemberChange:notice:quitText']
+        },
+        joinVerify: config.group[0]['MemberChange:joinVerify']
       },
-      notify: {
-        group_enable: cfg.group[0]['notify:group_enable'],
-        allow: cfg.group[0]['notify:allow']
+      Invite: {
+        notify: {
+          enable: config.group[0]['Invite:notify:enable'],
+          allow: config.group[0]['Invite:notify:allow']
+        },
+        autoInvite: config.group[0]['Invite:autoInvite']
       },
-      invite: cfg.group[0].invite,
-      apply_list: cfg.group[0].apply_list,
-      joinGroup: cfg.group[0].joinGroup
+      Apply_list: config.group[0].Apply_list,
+      AutoQuitGroup: {
+        enable: config.group[0]['AutoQuitGroup:enable'],
+        enableText: config.group[0]['AutoQuitGroup:enableText'],
+        disableText: config.group[0]['AutoQuitGroup:disableText'],
+        autoQuit: {
+          default: {
+            disable_list: [],
+            enable_list: []
+          },
+          114514: {
+            disable_list: [],
+            enable_list: []
+          }
+        }
+      }
     }
     const Friend = {
-      notify: {
-        enable: cfg.friend[0]['notify:enable'],
-        allow: cfg.friend[0]['notify:allow']
+      Apply: {
+        autoAgree: config.friend[0]['Apply:autoAgree'],
+        notify: {
+          enable: config.friend[0]['Apply:notify:enable'],
+          allow: config.friend[0]['Apply:notify:allow']
+        }
       },
-      enable: cfg.friend[0].enable,
-      closeLike: cfg.friend[0].closeLike,
-      likeStart: cfg.friend[0].likeStart,
-      likeEnd: cfg.friend[0].likeEnd
+      closeLike: config.friend[0].closeLike,
+      likeStart: config.friend[0].likeStart,
+      likeEnd: config.friend[0].likeEnd
     }
-    const Cof = {
-      enable: cfg.cof[0].enable,
-      cron: cfg.cof[0].cron,
-      msg: cfg.cof[0].msg,
-      group: cfg.cof[0].group,
-      friend: cfg.cof[0].friend
-    }
-    if (!_.isEqual(cof(), Cof)) writeYaml('cof', Cof)
-    if (!_.isEqual(friend(), Friend)) writeYaml('friend', Friend)
-    if (!_.isEqual(group(), Group)) writeYaml('group', Group)
-    if (!_.isEqual(other(), Other)) writeYaml('other', Other)
+    if (!_.isEqual(friend, Friend)) cfg.saveJson('friend', Friend)
+    if (!_.isEqual(group, Group)) cfg.saveJson('group', Group)
+    if (!_.isEqual(other, Other)) cfg.saveJson('other', Other)
     return {
       success: true,
       message: '配置保存成功',
