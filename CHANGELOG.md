@@ -1,5 +1,18 @@
 # 更新日志
 
+## [1.24.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.23.0...v1.24.0) (2025-09-04)
+
+
+### Features
+
+* 添加新的配置文件，重构部分组件，删除不必要的文件 ([e0ec7c7](https://github.com/yusheng929/karin-plugin-ling/commit/e0ec7c7b5784347898c78726d35a15bc9f01d5ec))
+
+
+### Bug Fixes
+
+* ? ([291dad6](https://github.com/yusheng929/karin-plugin-ling/commit/291dad65cd007044f1239e546dcb821038612d73))
+* 删掉ffmpeg依赖，使用karin本体自带 ([c499786](https://github.com/yusheng929/karin-plugin-ling/commit/c49978601c7eff4a3af44077a98363f5cf6dab8a))
+
 ## [1.23.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.22.7...v1.23.0) (2025-07-30)
 
 
