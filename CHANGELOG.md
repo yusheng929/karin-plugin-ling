@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.25.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.24.0...v1.25.0) (2025-10-05)
+
+
+### Features
+
+* 添加设置头像命令，优化禁言命令逻辑，调整其他功能 ([661ef44](https://github.com/yusheng929/karin-plugin-ling/commit/661ef44c65c52a8efaf04302b993810ac42d2fab))
+
 ## [1.24.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.23.0...v1.24.0) (2025-09-04)
 
 
