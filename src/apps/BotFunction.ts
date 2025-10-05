@@ -168,3 +168,18 @@ export const command = karin.command(/^#?赞我$/, async e => {
   await e.reply(likeStart, { at: true })
   return true
 }, { name: '赞我', priority: -1 })
+
+export const setAvatar = karin.command(/^#设置头像(\d*)$/, async (e) => {
+  const selfId = e.msg.replace(/^#设置头像/, '').trim() || e.selfId
+  const bot = karin.getBot(selfId)
+  if (!bot) return e.reply('未找到对应的Bot', { reply: true })
+  let img = e.elements.find(i => i.type === 'image')?.file
+  if (!img) {
+    const msg = await karin.ctx(e)
+    img = msg.elements.find(i => i.type === 'image')?.file
+    if (!img) return e.reply('未检测到图片,已取消操作', { reply: true })
+  }
+  await bot.setAvatar(img)
+  e.reply('修改成功')
+  return true
+})

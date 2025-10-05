@@ -75,7 +75,7 @@ export const getimg = karin.command(/#?取直链/, async (e) => {
   const msg = []
   for (const i of msg3) {
     if (i.type === 'video') {
-      msg.push([segment.video(i.file), segment.text(`视频链接: ${i.file}`)])
+      msg.push([segment.text(`视频链接: ${i.file}`)])
       continue
     }
     i.file = await refreshRkey(e, i) || ''

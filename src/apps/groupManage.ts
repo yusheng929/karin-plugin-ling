@@ -1,8 +1,8 @@
-import { karin, redis } from 'node-karin'
+import { karin, Message, redis } from 'node-karin'
 import { isAdmin } from '@/utils/common'
 import { cfg } from '@/components/config'
 
-const handle = async (e: any, key: string, yes: boolean, type: string) => {
+const handle = async (e: Message, key: string, yes: boolean, type: string) => {
   const flag = await redis.get(key)
   if (!flag) {
     await e.reply('找不到这个请求啦！！！请手动同意吧')

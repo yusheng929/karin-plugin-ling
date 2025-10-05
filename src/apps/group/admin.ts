@@ -113,7 +113,7 @@ export const BanMember = karin.command(
     const Master = config.master()
 
     /** 存在at */
-    if (e.at.length) {
+    if (e.at.length > 0) {
       userId = e.at[0]
     } else {
       e.reply('请艾特对方使用')
@@ -163,3 +163,15 @@ export const BanMember = karin.command(
   },
   { name: '禁言', priority: -1, event: 'message.group', perm: 'group.admin' }
 )
+
+// export const voteMute = karin.command(/^#投票禁言/, async (cxt) => {
+//   const MuteTime = cxt.msg.replace('#投票禁言', '').trim() || 10
+//   let userId
+//   if (cxt.at.length > 0) {
+//     userId = cxt.at[0]
+//   } else {
+//     cxt.reply('请艾特对方使用')
+//     return true
+//   }
+//   return true
+// }, { name: '投票禁言', priority: -1, event: 'message.group' })
