@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.25.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.25.1...v1.25.2) (2025-10-06)
+
+
+### Bug Fixes
+
+* 更新帮助 ([152ec7d](https://github.com/yusheng929/karin-plugin-ling/commit/152ec7ddc31c107501ad2d53a93470dcd1eb275c))
+* 细节优化 ([dec9994](https://github.com/yusheng929/karin-plugin-ling/commit/dec9994f42d7f8fa0fe0a9b73265c6eb7dc570c4))
+
 ## [1.25.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.25.0...v1.25.1) (2025-10-05)
 
 
