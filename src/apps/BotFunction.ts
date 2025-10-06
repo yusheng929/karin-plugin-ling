@@ -175,6 +175,7 @@ export const setAvatar = karin.command(/^#设置头像(\d*)$/, async (e) => {
   if (!bot) return e.reply('未找到对应的Bot', { reply: true })
   let img = e.elements.find(i => i.type === 'image')?.file
   if (!img) {
+    await e.reply('请发送需要设置的头像', { reply: true })
     const msg = await karin.ctx(e)
     img = msg.elements.find(i => i.type === 'image')?.file
     if (!img) return e.reply('未检测到图片,已取消操作', { reply: true })
