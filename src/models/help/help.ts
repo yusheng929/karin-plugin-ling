@@ -9,7 +9,7 @@ export const helpCfg = {
 }
 export const helpList = [
   {
-    group: '群管功能',
+    group: '群聊功能',
     list: [
       {
         icon: 1,
@@ -18,23 +18,23 @@ export const helpList = [
       },
       {
         icon: 2,
-        title: '#禁言<@QQ><时间>',
+        title: '#(设置|取消)管理<@QQ>',
         desc: '字面意思',
       },
       {
         icon: 3,
-        title: '#解禁<@QQ>',
-        desc: '字面意思',
-      },
-      {
-        icon: 4,
         title: '#踢<@QQ>',
         desc: '字面意思',
       },
       {
+        icon: 4,
+        title: '#(解禁|禁言)<@QQ><时间>',
+        desc: '字面意思',
+      },
+      {
         icon: 5,
-        title: '#获取禁言列表',
-        desc: '获取本群被禁言的人',
+        title: '#申请头衔<头衔>',
+        desc: '<仅Bot为群主可用>可修改群内头衔,为空则取消',
       },
       {
         icon: 6,
