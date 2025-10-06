@@ -182,4 +182,4 @@ export const setAvatar = karin.command(/^#设置头像(\d*)$/, async (e) => {
   await bot.setAvatar(img)
   e.reply('修改成功')
   return true
-})
+}, { name: '改头像', priority: -1, permission: 'master' })
