@@ -6,7 +6,7 @@ import { segment, karin, config } from 'node-karin'
 /** 默认布局 */
 export const defaultLayout = path.join(dirPath, 'resources', 'common', 'layout', 'default.html')
 /** 默认参数 */
-export const copyright = `Created By <span class="version"> Karin v${config.pkg().version} </span> & <span class="version"> ${pluginName} v${pkg().version} </span>`
+export const copyright = `<span class="version" style="color: #ffb6c1;"> Karin v${config.pkg().version} </span> & <span class="version" style="color: #4169e1;"> ${pluginName} v${pkg().version} </span>`
 
 /**
  * 缩放
@@ -44,7 +44,7 @@ export const render = async (
       },
       ...params,
     },
-    screensEval: '#containter',
+    screensEval: '#container',
     pageGotoParams: {
       waitUntil: 'networkidle2',
     },

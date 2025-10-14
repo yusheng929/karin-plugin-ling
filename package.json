@@ -36,21 +36,22 @@
     "watch": "karin watch"
   },
   "devDependencies": {
-    "@karinjs/plugin-puppeteer": "^1.0.17",
-    "@types/node": "^24.0.13",
+    "@karinjs/plugin-puppeteer": "^1.0.18",
+    "@types/node": "^24.7.2",
     "@types/punycode": "^2.1.4",
     "@types/qs": "^6.14.0",
-    "eslint": "^9.31.0",
+    "eslint": "^9.37.0",
     "icqq": "^0.6.10",
     "neostandard": "^0.12.2",
-    "node-karin": "^1.10.20",
+    "node-karin": "^1.11.5",
     "tsc-alias": "^1.8.16",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@karinjs/md-html": "^1.3.0",
-    "form-data": "^4.0.3",
+    "form-data": "^4.0.4",
+    "highlight.js": "^11.11.1",
     "napcat.protobuf": "^1.1.4",
     "punycode": "^2.3.1",
     "qs": "^6.14.0"
@@ -60,16 +61,10 @@
     "web": "./lib/web.config.js",
     "ts-web": "./src/web.config.ts",
     "apps": [
-      "lib/apps",
-      "lib/apps/events",
-      "lib/apps/quickCode",
-      "lib/apps/group"
+      "lib/apps"
     ],
     "ts-apps": [
-      "src/apps",
-      "src/apps/events",
-      "src/apps/quickCode",
-      "src/apps/group"
+      "src/apps"
     ],
     "static": [
       "resources"

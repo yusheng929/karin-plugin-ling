@@ -88,6 +88,11 @@ export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
   return true
 }, { name: '处理精华消息', priority: -1, event: 'message.group', perm: 'group.admin' })
 
+export const EssenceList = karin.command(/^#(获取|查看)?精华列表$/, async (e) => {
+  const list = await e.bot.getGroupHighlights(e.groupId, 1, 50)
+  logger.info(list)
+}, { event: 'message.group' })
+
 export const segGroupAvatar = karin.command(/^#(改|设置|修改)群头像/i, async (e) => {
   try {
     if (!await isAdmin(e)) return false
@@ -98,6 +103,8 @@ export const segGroupAvatar = karin.command(/^#(改|设置|修改)群头像/i, a
       file = event.elements.find(item => item.type === 'image')?.file
       if (!file) return await e.reply('未检测到图片')
     }
+    // Karin尚未支持该接口
+    // await e.bot.setGroupAvatar(e.groupId, file)
     if (e.bot.adapter.standard === 'icqq') {
       await (e.bot.super as Client).pickGroup(Number(e.groupId)).setAvatar(file)
     } else if (e.bot.adapter.standard === 'onebot11') {
