@@ -1,44 +1,42 @@
-{{extend defaultLayout}}
+<!DOCTYPE html>
+<html lang="zh-CN">
 
-{{block 'css'}}
-<link rel="stylesheet" type="text/css" href="{{pluResPath}}help/index.css"/>
-<% style = style.replace(/{{pluResPath}}/g, pluResPath) %>
-{{@style}}
-{{/block}}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>铃 - 功能列表</title>
+  <link rel="stylesheet" href="{{pluResPath}}help/index.css">
+</head>
 
-{{block 'main'}}
+<body>
+  <div id="container" class="container">
+    <div class="header">
+      <h1 class="title">铃 · 功能列表</h1>
+    </div>
 
-<div class="info-box">
-  <div class="head-box type{{bgType}}">
-    <div class="title">{{helpCfg.title||"使用帮助"}}</div>
-    <div class="label">{{helpCfg.subTitle}}</div>
-  </div>
-</div>
-
-{{each helpGroup group}}
-{{set len = group?.list?.length || 0 }}
-<div class="cont-box">
-  <div class="help-group">{{group.group}}</div>
-  {{if len > 0}}
-  <div class="help-table">
-    <div class="tr">
-      {{each group.list help idx}}
-      <div class="td">
-        <span class="help-icon" style="{{help.css}}"></span>
-        <strong class="help-title">{{help.title}}</strong>
-        <span class="help-desc">{{help.desc}}</span>
+    <div class="content">
+      {{each helpList}}
+      <div class="group-card">
+        <div class="group-title">{{$value.group}}</div>
+        <div class="function-grid">
+          {{each $value.list}}
+          <div class="function-card">
+            {{if $value.master}}
+            <div class="master-badge">仅主人</div>
+            {{/if}}
+            <div class="card-content">
+              <div class="function-title">{{$value.title}}</div>
+              <div class="function-desc">{{$value.desc}}</div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
       </div>
-      {{if idx%colCount === colCount-1 && idx>0 && idx< len-1}}
-    </div>
-    <div class="tr">
-      {{/if}}
       {{/each}}
-      <% for(let i=(len-1)%colCount; i< colCount-1 ; i++){ %>
-      <div class="td"></div>
-      <% } %>
     </div>
+
+    <div class="copyright">{{@ sys.copyright}}</div>
   </div>
-  {{/if}}
-</div>
-{{/each}}
-{{/block}}
+</body>
+
+</html>

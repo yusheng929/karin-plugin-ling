@@ -1,27 +1,13 @@
 import karin from 'node-karin'
-import lodash from 'node-karin/lodash'
 import fs from 'node:fs'
-import { helpCfg, helpList, helpTheme } from '@/models/help/index'
+import { helpList } from '@/models/help/index'
 import { markdown } from '@karinjs/md-html'
 import { render } from '@/components/puppeteer'
 import { dirPath } from '@/utils/dir'
 
 export const help = karin.command(/^#?(铃|ling)(帮助|菜单|help)$/i, async (e) => {
-  const helpGroup: ({ group: string; list: { icon: number; title: string; desc: string }[]; auth?: undefined } | { group: string; auth: string; list: { icon: number; title: string; desc: string }[] })[] = []
-
-  lodash.forEach(helpList, (group: any) => {
-    if (group.auth && group.auth === 'master' && !e.isMaster) {
-      return true
-    }
-
-    helpGroup.push(group)
-  })
-  const themeData = await helpTheme.getThemeData(helpCfg)
   const img = await render('help/index', {
-    helpCfg,
-    helpGroup,
-    ...themeData,
-    scale: 1.2,
+    helpList
   })
   await e.reply(img)
   return true
@@ -32,7 +18,6 @@ export const version = karin.command(/^#?(铃|ling)(版本|version)$/i, async (e
   const html = markdown(changelogs, {})
   fs.writeFileSync(dirPath + '/resources/help/changelogs.html', html)
   const img = await render('help/changelogs', {
-    scale: 1.2,
     copyright: 'karin-plugin-ling',
   })
   await e.reply(img)

@@ -59,7 +59,7 @@ export const runcode = karin.karin.command(/^rc(p)?(.*)$/, async (e) => {
   if (isPic) {
     const highlightedCode = hljs.highlight(code, { language: 'powershell' }).value
     output = title + ` ${highlightedCode}\n` + output
-    const img = await render('html/runcode/index', { data: { output } })
+    const img = await render('runcode/index', { data: { output } })
     e.reply(img)
   } else {
     output = title + code + '\n' + output
