@@ -63,10 +63,6 @@ export const groupApplyReply = karin.command(/^#?(同意|拒绝)$/, async (e) =>
 
 export const groupApplySwitch = karin.command(/^#(开启|关闭)加群通知$/, async (e) => {
   const opts = await cfg.getGroup()
-  if (!(['owner', 'admin'].includes(e.sender.role) || e.isMaster)) {
-    await e.reply('暂无权限，只有管理员才能操作')
-    return true
-  }
   if (e.msg.includes('关闭')) {
     if (!opts.Apply_list.includes(e.groupId)) {
       await e.reply('本群暂未开启加群申请通知')
@@ -82,7 +78,7 @@ export const groupApplySwitch = karin.command(/^#(开启|关闭)加群通知$/, 
   }
   await e.reply(`已${e.msg.includes('关闭') ? '关闭' : '开启'}[${e.groupId}]的加群申请通知`)
   return true
-}, { name: '加群通知开关', priority: -1, event: 'message.group' })
+}, { name: '加群通知开关', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 export const test = karin.command(/^#(开启|关闭)进群验证$/, async (e) => {
   const opt = await cfg.getGroup()

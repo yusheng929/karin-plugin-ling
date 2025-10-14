@@ -20,6 +20,6 @@ export const version = karin.command(/^#?(铃|ling)(版本|version)$/i, async (e
   const img = await render('help/changelogs', {
     copyright: 'karin-plugin-ling',
   })
-  await e.reply(img)
+  await e.reply(img, { reply: true })
   return true
 })

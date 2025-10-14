@@ -175,34 +175,3 @@ body {
   color: var(--text-muted);
   font-size: 13px;
 }
-
-/* 交互效果已去除，保留静态样式 */
-
-/* 已移除自定义滚动条，页面按内容自适应高度 */
-
-/* 小屏适配 */
-@media (max-width: 640px) {
-  .container {
-    padding: 26px 14px 20px;
-  }
-
-  .title {
-    font-size: 28px;
-  }
-
-  .group-title {
-    font-size: 15px;
-  }
-
-  .function-grid {
-    gap: var(--gap-sm);
-  }
-
-  .function-title {
-    font-size: 17px;
-  }
-
-  .card-content {
-    padding: 16px 14px 16px;
-  }
-}
