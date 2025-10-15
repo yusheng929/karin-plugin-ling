@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>更新日志</title>
+  <link rel="stylesheet" href="{{pluResPath}}version/index.css">
+</head>
+
+<body>
+  <div id="container" class="container">
+    <div class="header">
+      <h1 class="title">铃 · 更新日志（最近 5 条）</h1>
+    </div>
+
+    <div class="content">
+      {{each versions}}
+      <div class="version-card">
+        <div class="version-header">
+          <span class="version-tag">v{{$value.version}}</span>
+          {{if $value.date}}
+          <span class="version-date">{{$value.date}}</span>
+          {{/if}}
+        </div>
+
+        {{each $value.sections}}
+        <div class="section">
+          <div class="section-title">{{$value.title}}</div>
+          <ul class="section-list">
+            {{each $value.items}}
+            <li class="section-item">{{$value}}</li>
+            {{/each}}
+          </ul>
+        </div>
+        {{/each}}
+      </div>
+      {{/each}}
+    </div>
+
+    <div class="copyright">{{@ sys.copyright}}</div>
+  </div>
+</body>
+
+</html>

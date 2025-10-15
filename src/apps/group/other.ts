@@ -117,3 +117,25 @@ export const segGroupAvatar = karin.command(/^#(改|设置|修改)群头像/i, a
     return false
   }
 }, { name: '修改群头像', priority: -1, event: 'message.group', perm: 'group.admin' })
+
+export const recall = karin.command(/^#?撤回$/, async (e) => {
+  if (!e.replyId) {
+    e.reply('请回复需要撤回的消息~')
+    return true
+  }
+
+  e.bot.recallMsg(e.contact, e.replyId)
+  e.bot.recallMsg(e.contact, e.messageId)
+  return true
+}, { name: '撤回', priority: -1, perm: 'group.admin' })
+
+export const clearScreenRecall = karin.command(/^#清屏(\d+)?/, async (e) => {
+  const match = Number(e.msg.replace(/#清屏/, '').trim() || 50)
+  const list = await e.bot.getHistoryMsg(e.contact, e.messageId, match)
+  const msgIds = list.map(item => item.messageId)
+  await e.reply('开始执行清屏操作，请确保我有管理员')
+  for (const id of msgIds) {
+    await e.bot.recallMsg(e.contact, id)
+  }
+  return true
+}, { name: '清屏', priority: -1, event: 'message.group', perm: 'group.admin' })

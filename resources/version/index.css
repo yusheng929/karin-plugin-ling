@@ -1,0 +1,128 @@
+:root {
+  --bg: #0b0f17;
+  --bg-accent: #0e1320;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.12);
+  --text: rgba(255, 255, 255, 0.95);
+  --text-muted: rgba(255, 255, 255, 0.70);
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 10px;
+  --gap-lg: 28px;
+  --gap-md: 20px;
+  --gap-sm: 14px;
+  --accent: #6ea8fe;
+  --accent-2: #9b7bff;
+  --accent-3: #3dd6d0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f6f8fc;
+    --bg-accent: #ffffff;
+    --surface: rgba(12, 18, 28, 0.04);
+    --surface-strong: rgba(12, 18, 28, 0.08);
+    --text: rgba(20, 24, 32, 0.95);
+    --text-muted: rgba(20, 24, 32, 0.70);
+    --border: rgba(12, 18, 28, 0.12);
+    --shadow: 0 8px 30px rgba(12, 18, 28, 0.10);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: radial-gradient(1200px 800px at 10% 10%, rgba(110, 168, 254, 0.10), transparent 40%),
+    radial-gradient(1200px 800px at 90% 20%, rgba(155, 123, 255, 0.10), transparent 42%),
+    radial-gradient(1200px 800px at 50% 100%, rgba(61, 214, 208, 0.10), transparent 45%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-accent) 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 22px 28px;
+}
+
+.header {
+  padding: 12px 0 18px;
+  backdrop-filter: saturate(140%) blur(10px);
+}
+
+.title {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.version-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 18px 18px 14px;
+}
+
+.version-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.version-tag {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--accent);
+}
+
+.version-date {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.section {
+  margin-top: 10px;
+}
+
+.section-title {
+  font-size: 15px;
+  color: var(--accent-2);
+  margin-bottom: 8px;
+}
+
+.section-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.section-item {
+  margin: 6px 0;
+  line-height: 1.5;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
