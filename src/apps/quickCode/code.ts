@@ -1,3 +1,4 @@
+/* eslint-disable no-control-regex */
 import { render } from '@/components/puppeteer'
 import { RunJs } from '@/components/runcode'
 import os from 'os'
@@ -18,8 +19,31 @@ const escapeHtml = (input: string): string => {
 
 // Convert a subset of ANSI SGR sequences to HTML spans with inline styles
 const ansiToHtml = (input: string): string => {
-  // First escape raw HTML so only our generated tags render
-  const escaped = escapeHtml(input)
+  // Normalize non-SGR control sequences so they don't leak like "[31C"
+  // - Replace CUF (\x1b[nC) with spaces for alignment
+  // - Best-effort: replace CHA (\x1b[nG) with spaces, strip other moves
+  // - Drop cursor movement/erase/scroll controls which are not representable in static HTML
+  // - Remove OSC sequences (\x1b]...\x07 or \x1b\\)
+  let normalized = input.replace(/\r\n/g, '\n').replace(/\r/g, '')
+  const CUF_RE = /(\x1b)?\[(\d+)C/g
+  normalized = normalized.replace(CUF_RE, (_m, _esc: string, n: string) => {
+    const count = Math.min(parseInt(n || '0', 10) || 0, 200)
+    return ' '.repeat(count)
+  })
+  const CHA_RE = /(\x1b)?\[(\d+)G/g
+  normalized = normalized.replace(CHA_RE, (_m, _esc: string, n: string) => {
+    const count = Math.min(parseInt(n || '1', 10) || 1, 200)
+    return ' '.repeat(count - 1)
+  })
+  // Remove other CSI sequences not ending with 'm'
+  const CSI_MISC_RE = /(\x1b)?\[[0-9;?]*[ABDEFGHJKCSTfLMnPr]/g
+  normalized = normalized.replace(CSI_MISC_RE, '')
+  // Remove OSC sequences
+  const OSC_RE = /(\x1b)?\].*?(?:\x07|\x1b\\)/g
+  normalized = normalized.replace(OSC_RE, '')
+
+  // Now escape raw HTML so only our generated tags render
+  const escaped = escapeHtml(normalized)
 
   type StyleState = {
     color?: string
@@ -67,9 +91,8 @@ const ansiToHtml = (input: string): string => {
     107: colorMap[97],
   }
 
-  // eslint-disable-next-line no-control-regex
-  const sgrRegex = /(\x1b\[[0-9;]*m)/g
-  const parts = escaped.split(sgrRegex)
+  const SGR_RE = /(\x1b\[[0-9;]*m)/g
+  const parts = escaped.split(SGR_RE)
 
   const state: StyleState = {}
   let openSpan = ''
@@ -126,8 +149,8 @@ const ansiToHtml = (input: string): string => {
 
   let result = ''
   for (const token of parts) {
-    // eslint-disable-next-line no-control-regex
-    const m = token.match(/^\x1b\[([0-9;]*?)m$/)
+    const SGR_SINGLE_RE = /^\x1b\[([0-9;]*?)m$/
+    const m = token.match(SGR_SINGLE_RE)
     if (m) {
       // It's an SGR sequence
       const codes = (m[1] ? m[1].split(';') : ['0']).map((n) => Number(n) || 0)
