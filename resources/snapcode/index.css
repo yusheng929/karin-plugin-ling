@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  background: #0d1117;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Fira Code", "JetBrains Mono", Consolas, "Liberation Mono", Courier, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  width: 1200px;
+  background: #0d1117;
+  color: #c9d1d9;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #161b22;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.traffic {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.red {
+  background: #ff5f56;
+}
+
+.dot.yellow {
+  background: #ffbd2e;
+}
+
+.dot.green {
+  background: #27c93f;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.title .muted {
+  color: #8b949e;
+  font-weight: 400;
+}
+
+.range {
+  color: #8b949e;
+}
+
+.code-wrap {
+  background: #0b1220;
+  border-radius: 10px;
+  padding: 16px 0 8px 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.code {
+  margin: 0;
+  padding: 0 16px 16px 16px;
+  line-height: 1.65;
+  font-size: 13.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Fira Code", "JetBrains Mono", Consolas, "Liberation Mono", Courier, monospace;
+  overflow-x: auto;
+}
+
+.code-line {
+  display: flex;
+  gap: 16px;
+}
+
+.line-number {
+  display: inline-block;
+  width: 48px;
+  color: #6e7681;
+  text-align: right;
+  -webkit-user-select: none;
+  user-select: none;
+  padding-right: 8px;
+}
+
+.line-content {
+  flex: 1;
+  white-space: pre;
+}
