@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.27.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.26.0...v1.27.0) (2025-10-15)
+
+
+### Features
+
+* 重构帮助页面，重写rcp页面 ([#196](https://github.com/yusheng929/karin-plugin-ling/issues/196)) ([5467e29](https://github.com/yusheng929/karin-plugin-ling/commit/5467e29e58911110e9eb648f34a0c5dfe359457f))
+
 ## [1.26.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.25.1...v1.26.0) (2025-10-14)
 
 
