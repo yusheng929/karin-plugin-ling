@@ -220,7 +220,7 @@ export const runcode = karin.karin.command(/^rc(p)?(.*)$/, async (e) => {
     const highlightedCode = hljs.highlight(code, { language: 'powershell' }).value
     const htmlOutput = `${escapeHtml(title)} ${highlightedCode}\n${ansiToHtml(output)}`
     const img = await render('runcode/index', { data: { output: htmlOutput } })
-    e.reply(img)
+    e.reply(img, { reply: true })
   } else {
     output = title + code + '\n' + output
     e.reply(output, { reply: true })

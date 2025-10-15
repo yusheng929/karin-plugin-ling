@@ -132,6 +132,6 @@ export const snapcode = karin.command(/^sc\s+(.+?)(?:\s+(\d+)(?:~(\d+))?)?$/i, a
     },
   })
 
-  await e.reply(img)
+  await e.reply(img, { reply: true })
   return true
 }, { name: '查看文件代码', permission: 'master', priority: -1 })

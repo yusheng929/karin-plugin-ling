@@ -8,7 +8,7 @@ export const help = karin.command(/^#?(铃|ling)(帮助|菜单|help)$/i, async (
   const img = await render('help/index', {
     helpList
   })
-  await e.reply(img)
+  await e.reply(img, { reply: true })
   return true
 }, { name: '帮助', priority: -1 })
 
