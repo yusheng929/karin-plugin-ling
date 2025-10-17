@@ -77,6 +77,8 @@ export interface Other {
   noWork: string[]
   /** 谁艾特我 */
   whoat: boolean
+  /** 自动更新 */
+  autoUpdate: boolean
 }
 
 export interface AutoQuitEntry {

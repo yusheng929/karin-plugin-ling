@@ -1,8 +1,8 @@
-import { cfg } from '@/components/config'
+import { cfg } from '@/config'
 import { render } from '@/components/puppeteer'
 import QQApi from '@/models/api/QQApi'
 import { luckyWord, luckyWordList } from '@/types/QQApi'
-import { dirPath } from '@/utils/dir'
+import { Root } from '@/utils/dir'
 import karin, { common, segment } from 'node-karin'
 
 export const luckylist = karin.command(/^#(查)?(幸运)?字符(列表)?$/, async (e) => {
@@ -32,7 +32,7 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   if (!data) return e.reply('❌请稍后再试')
   if (data.retcode === 11004 && (data.msg === 'over svip max times' || data.msg === 'over member max times')) return e.reply('❌今日抽取次数已达上限')
   if (data.retcode !== 0) return e.reply('❌发送数据错误')
-  if (Object.keys(data.data).length === 0) return e.reply(segment.image(`file://${dirPath}/resources/html/luckword/null.png`))
+  if (Object.keys(data.data).length === 0) return e.reply(segment.image(`file://${Root.pluginPath}/resources/html/luckword/null.png`))
   const luckdata = data.data as luckyWord
   const item = {
     url: `https://tianquan.gtimg.cn/groupluckyword/item/${luckdata.word_info.word_info.word_id}/pic-0.png?m=${luckdata.word_info.word_info.mtime}`,

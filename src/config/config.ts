@@ -1,4 +1,3 @@
-import { pluginName, dirPath } from '@/utils/dir'
 import path from 'node:path'
 import fs from 'node:fs'
 import {
@@ -10,21 +9,22 @@ import {
   existsSync,
   logger,
 } from 'node-karin'
-import type { Other, Group, Friend } from '@/types/config'
+import type { Other, Group, Friend } from '@/config/types'
 import _ from 'node-karin/lodash'
-import { Oldcfg } from '@/types/oldconfig'
+import { Oldcfg } from '@/config/oldtypes'
+import { Root } from '@/utils/dir'
 
 /**
  * @description package.json
  */
-export const pkg = () => requireFileSync(`${dirPath}/package.json`)
+export const pkg = () => requireFileSync(`${Root.pluginPath}/package.json`)
 class Cfg {
   Cache: Record<string, any> = {}
   dirConfig: string
   defConfig: string
   constructor () {
-    this.dirConfig = `${karinPathBase}/${pluginName}/config`
-    this.defConfig = `${dirPath}/config/`
+    this.dirConfig = `${karinPathBase}/${Root.pluginName}/config`
+    this.defConfig = `${Root.pluginPath}/config/`
     this.init()
   }
 

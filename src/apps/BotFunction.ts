@@ -1,4 +1,4 @@
-import { cfg } from '@/components/config'
+import { cfg } from '@/config'
 import karin, { common, config, redis } from 'node-karin'
 import moment from 'node-karin/moment'
 

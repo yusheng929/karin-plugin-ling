@@ -1,4 +1,4 @@
-import { cfg } from '@/components/config'
+import { cfg } from '@/config'
 import { refreshRkey } from '@/utils/common'
 import { karin, logger, redis, segment } from 'node-karin'
 

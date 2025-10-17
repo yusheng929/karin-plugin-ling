@@ -1,5 +1,5 @@
 import { components, LocalApiResponse } from 'node-karin'
-import { cfg } from '@/components/config'
+import { cfg } from '@/config'
 import _ from 'node-karin/lodash'
 
 const group = await cfg.getGroup()

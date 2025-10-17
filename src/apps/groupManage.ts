@@ -1,6 +1,6 @@
 import { karin, Message, redis } from 'node-karin'
 import { isAdmin } from '@/utils/common'
-import { cfg } from '@/components/config'
+import { cfg } from '@/config'
 
 const handle = async (e: Message, key: string, yes: boolean, type: string) => {
   const flag = await redis.get(key)

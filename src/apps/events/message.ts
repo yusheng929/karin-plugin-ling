@@ -1,4 +1,4 @@
-import { cfg } from '@/components/config'
+import { cfg } from '@/config'
 import { hooks, logger, redis } from 'node-karin'
 
 hooks.message.group(async (e, next) => {

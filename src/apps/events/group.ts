@@ -1,4 +1,4 @@
-import { cfg } from '@/components/config'
+import { cfg } from '@/config'
 import {
   contactFriend,
   GroupMemberIncreaseNotice,

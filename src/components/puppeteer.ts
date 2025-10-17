@@ -1,10 +1,10 @@
 import path from 'node:path'
-import { pkg } from '@/components/config'
-import { dirPath, pluginName } from '@/utils/dir'
+import { pkg } from '@/config'
 import { segment, karin, config } from 'node-karin'
+import { Root } from '@/utils/dir'
 
 /** 默认参数 */
-export const copyright = `<span class="version" style="color: #ffb6c1;"> Karin v${config.pkg().version} </span> & <span class="version" style="color: #4169e1;"> ${pluginName} v${pkg().version} </span>`
+export const copyright = `<span class="version" style="color: #ffb6c1;"> Karin v${config.pkg().version} </span> & <span class="version" style="color: #4169e1;"> ${Root.pluginName} v${pkg().version} </span>`
 
 /**
  * 渲染
@@ -16,7 +16,7 @@ export const render = async (
   params: Record<string, any>
 ) => {
   name = name.replace(/.html$/, '')
-  const root = path.join(dirPath, 'resources')
+  const root = path.join(Root.pluginPath, 'resources')
   const img = await karin.render({
 
     name: path.basename(name),

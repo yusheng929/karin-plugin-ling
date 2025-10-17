@@ -1,4 +1,4 @@
-import { cfg } from '@/components/config'
+import { cfg } from '@/config'
 import karin from 'node-karin'
 
 export const work = karin.command(/^#(上班|下班)$/, async (e) => {

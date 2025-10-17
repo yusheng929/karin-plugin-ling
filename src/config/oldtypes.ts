@@ -1,4 +1,4 @@
-import { AutoQuitEntry } from './config'
+import { AutoQuitEntry } from './types'
 
 export interface Oldcfg {
   friend: {
