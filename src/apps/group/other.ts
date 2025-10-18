@@ -85,8 +85,9 @@ export const SetEssence = karin.command(/^#?((取消|移除?)(全部)?|(添?加|
   try {
     await e.bot.setGroupHighlights(e.groupId, msgId || e.replyId, action)
     await e.reply('操作成功', { at: true })
-  } catch (error) {
-    await e.reply('\n错误: 未知原因❌', { at: true })
+  } catch (error: any) {
+    await e.reply(`设置失败❌\n${error.message}`, { reply: true })
+    logger.error(error)
     return true
   }
 
