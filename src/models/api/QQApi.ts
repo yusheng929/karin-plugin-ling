@@ -1,7 +1,6 @@
 import axios from 'node-karin/axios'
 import { logger } from 'node-karin'
 import type { Message } from 'node-karin'
-import FormData from 'form-data'
 import qs from 'qs'
 
 export default class {
@@ -195,21 +194,18 @@ export default class {
    */
   async uploadImg (url: string) {
     const bkn = (await this.e.bot.getCSRFToken()).token
-    const data = new FormData()
     const buffer = await this.getImageBuffer(url)
     const cookies = (await this.e.bot.getCookies('qun.qq.com')).cookie
+    const data = new FormData()
     data.append('bkn', String(bkn))
     data.append('source', 'troopNotics')
     data.append('m', '0')
-    data.append('pic_up', buffer, {
-      filename: '_-1537414416_1735663690596_1735663690653_wifi_0.jpg'
-    })
+    data.append('pic_up', new Blob([buffer]), '_-1537414416_1735663690596_1735663690653_wifi_0.jpg')
     const request = {
       method: 'POST',
       url: 'https://web.qun.qq.com/cgi-bin/announce/upload_img',
       headers: {
-        Cookie: `${cookies}`,
-        ...data.getHeaders()
+        Cookie: cookies
       },
       data
     }

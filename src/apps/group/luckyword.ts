@@ -1,7 +1,6 @@
 import { cfg } from '@/config'
 import { render } from '@/components/puppeteer'
-import QQApi from '@/models/api/QQApi'
-import { luckyWord, luckyWordList } from '@/types/QQApi'
+import { QQApi, luckyWord, luckyWordList } from '@/models/api'
 import { Root } from '@/utils/dir'
 import karin, { common, segment } from 'node-karin'
 

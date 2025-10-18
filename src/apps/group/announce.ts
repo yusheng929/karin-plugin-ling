@@ -1,4 +1,4 @@
-import QQApi from '@/models/api/QQApi'
+import { QQApi } from '@/models/api'
 import karin from 'node-karin'
 
 export const sendannounce = karin.command(/^#发(群)?公告/, async (e) => {
