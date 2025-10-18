@@ -1,5 +1,14 @@
 # 更新日志
 
+## [1.27.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.27.1...v1.27.2) (2025-10-18)
+
+
+### Bug Fixes
+
+* 优化代码，删除多余依赖 ([0331761](https://github.com/yusheng929/karin-plugin-ling/commit/033176163e64b34648abfdea7873a38b315af6de))
+* 修复加群通知无法开启的问题 ([682a7eb](https://github.com/yusheng929/karin-plugin-ling/commit/682a7eb73f60a22567e1fcadf9b114f2d1bc5369))
+* 细节优化 ([c7a61c6](https://github.com/yusheng929/karin-plugin-ling/commit/c7a61c60d856b5dd15fdcb723188d18df3c9db27))
+
 ## [1.27.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.27.0...v1.27.1) (2025-10-15)
 
 
