@@ -88,9 +88,9 @@ export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
   return true
 }, { name: '处理精华消息', priority: -1, event: 'message.group', perm: 'group.admin' })
 
-export const EssenceList = karin.command(/^#(获取|查看)?精华列表$/, async (e) => {
+export const EssenceList = karin.command(/^#(获取|查看)?(群)?精华列表$/, async (e) => {
   const list = await e.bot.getGroupHighlights(e.groupId, 1, 50)
-  logger.info(list)
+  const msg = []
 }, { event: 'message.group' })
 
 export const segGroupAvatar = karin.command(/^#(改|设置|修改)群头像/i, async (e) => {
