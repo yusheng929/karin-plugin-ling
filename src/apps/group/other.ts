@@ -2,6 +2,7 @@ import { isAdmin } from '@/utils/common'
 import moment from 'node-karin/moment'
 import karin, { common, logger, segment } from 'node-karin'
 import type { Client } from 'icqq'
+import { Root } from '@/utils/dir'
 
 /**
  * 改群名
@@ -46,7 +47,7 @@ export const MuteList = karin.command(/^#(获取|查看)?禁言列表$/, async (
   }
 
   lsit.unshift(segment.text(`禁言列表如下(共${result.length}人):`))
-  const content = common.makeForward(lsit, e.selfId, e.bot.account.name)
+  const content = common.makeForward(lsit, '2854196310', Root.pluginName)
   await e.bot.sendForwardMsg(e.contact, content)
   return true
 }, { name: '获取禁言列表', priority: -1, event: 'message.group' })
@@ -70,15 +71,19 @@ export const ModifyMemberCard = karin.command(/^#(改|设置|修改)(bot)?群名
   return true
 }, { name: '改群名片', priority: -1, permission: 'group.admin', event: 'message.group' })
 
-export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
+export const SetEssence = karin.command(/^#?((取消|移除?)(全部)?|(添?加|设置?))群?精华?(.*)$/, async (e) => {
   if (!await isAdmin(e)) return false
-  if (!e.replyId) {
+  const reg = /^#?((取消|移除?)(全部)?|(添?加|设置?))群?精华?(.*)$/
+  const match = e.msg.match(reg)!
+  const action = match[4] !== undefined
+  const msgId = match[5].trim()
+  if (!msgId && !e.replyId) {
     e.reply('请回复需要设置精华的消息')
     return true
   }
 
   try {
-    await e.bot.setGroupHighlights(e.groupId, e.replyId, e.msg.includes('加') || e.msg.includes('设'))
+    await e.bot.setGroupHighlights(e.groupId, msgId || e.replyId, action)
     await e.reply('操作成功', { at: true })
   } catch (error) {
     await e.reply('\n错误: 未知原因❌', { at: true })
@@ -91,6 +96,19 @@ export const SetEssence = karin.command(/^#?(加|设|移)精$/, async (e) => {
 export const EssenceList = karin.command(/^#(获取|查看)?(群)?精华列表$/, async (e) => {
   const list = await e.bot.getGroupHighlights(e.groupId, 1, 50)
   const msg = []
+  for (const item of list) {
+    msg.push([
+      segment.text('消息ID: ' + item.messageId),
+      segment.text(`\n发送者: ${item.senderName}(${item.senderId})`),
+      segment.text(`\n操作者: ${item.operatorName}(${item.operatorId})`),
+      segment.text(`\n操作时间: ${new Date(item.operationTime * 1000)}`),
+      segment.text('\n消息内容:\n'),
+      ...JSON.parse(item.jsonElements)
+    ])
+  }
+  msg.unshift([segment.text(`当前页共有${list.length}精华消息\n您可以使用#取消精华消息 + 消息ID 来取消精华`)])
+  const content = common.makeForward(msg, '2854196310', Root.pluginName)
+  await e.bot.sendForwardMsg(e.contact, content)
 }, { event: 'message.group' })
 
 export const segGroupAvatar = karin.command(/^#(改|设置|修改)群头像/i, async (e) => {
