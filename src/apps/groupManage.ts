@@ -68,13 +68,13 @@ export const groupApplySwitch = karin.command(/^#(开启|关闭)加群通知$/, 
       await e.reply('本群暂未开启加群申请通知')
       return true
     }
-    await cfg.setJson('group', 'del', 'apply_list', e.groupId)
+    await cfg.setJson('group', 'del', 'Apply_list', e.groupId)
   } else {
     if (opts.Apply_list.includes(e.groupId)) {
       await e.reply('本群已开启加群申请通知')
       return true
     }
-    await cfg.setJson('group', 'add', 'apply_list', e.groupId)
+    await cfg.setJson('group', 'add', 'Apply_list', e.groupId)
   }
   await e.reply(`已${e.msg.includes('关闭') ? '关闭' : '开启'}[${e.groupId}]的加群申请通知`)
   return true
