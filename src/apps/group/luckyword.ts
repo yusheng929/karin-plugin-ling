@@ -42,7 +42,7 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   if (!opt.word_render) {
     return await e.reply(`恭喜你，抽中了[${luckdata.word_info.word_info.wording}]\n寓意: ${item.title}`)
   }
-  const img = await render('html/luckword/index', {
+  const img = await render('luckword/index', {
     data: item,
     scale: 1.2
   })
