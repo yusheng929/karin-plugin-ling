@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.28.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.27.2...v1.28.0) (2025-10-25)
+
+
+### Features
+
+* 新增群精华列表 ([#200](https://github.com/yusheng929/karin-plugin-ling/issues/200)) ([33dcd74](https://github.com/yusheng929/karin-plugin-ling/commit/33dcd74c767a8174f5574bbe11c2617f34795592))
+
 ## [1.27.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.27.1...v1.27.2) (2025-10-18)
 
 
