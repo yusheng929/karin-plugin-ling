@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.28.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.28.0...v1.28.1) (2025-11-26)
+
+
+### Bug Fixes
+
+* 优化正则，修复无法获取luckword的null图片的bug ([0dc9af6](https://github.com/yusheng929/karin-plugin-ling/commit/0dc9af6c32acb41687a41fb596a2dc8a72ae1871))
+* 细节优化 ([77a20a7](https://github.com/yusheng929/karin-plugin-ling/commit/77a20a7e82bf0190b14d33bcbcb2ccf8745a0965))
+
 ## [1.28.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.27.2...v1.28.0) (2025-10-25)
 
 
