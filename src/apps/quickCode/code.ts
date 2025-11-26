@@ -214,7 +214,7 @@ export const runcode = karin.karin.command(/^rc(p)?(.*)$/, async (e) => {
   } else {
     title = `${username}@${hostname}:${Path.replace(/^\/root/, '~')}${username === 'root' ? '#' : '$'}`
   }
-  const { error, stdout, stderr } = await karin.exec(code)
+  const { error, stdout, stderr } = await karin.exec(code, { timeout: 60000 })
   let output = stderr + (error || stdout)
   if (isPic) {
     const highlightedCode = hljs.highlight(code, { language: 'powershell' }).value

@@ -1,5 +1,11 @@
 import { karin, config, logger, GroupMessage, ImageElement } from 'node-karin'
 
+const UNIT_MS = {
+  seconds: 1000,
+  minutes: 60000,
+  hours: 3600000,
+  days: 86400000
+} as const
 /**
  * 给全部主人、管理员发送消息
  * @param selfId Bot的QQ号
@@ -133,3 +139,18 @@ export const refreshRkey = async (e: GroupMessage, image: ImageElement) => {
 export const sleep = (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+/**
+ * 判断两个时间戳是否超过某个时间
+ * @param t1 新时间戳
+ * @param t2 旧时间戳
+ * @param n 间隔时间
+ * @param unit 间隔单位
+ * @returns 
+ */
+export const isAtLeast = (
+  t1: number,
+  t2: number,
+  n: number = 1,
+  unit: keyof typeof UNIT_MS = 'hours'
+) => Math.abs(t1 - t2) >= n * UNIT_MS[unit]

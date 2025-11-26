@@ -4,6 +4,7 @@ import karin, { common, logger, segment } from 'node-karin'
 import type { Client } from 'icqq'
 import { Root } from '@/utils/dir'
 
+const aPath = '[group/other]'
 /**
  * 改群名
  */
@@ -24,7 +25,7 @@ export const ModifyGroupName = karin.command(/^#(改|设置|修改)群名/, asyn
     return true
   }
   return true
-}, { name: '改群名', priority: -1, event: 'message.group', perm: 'group.admin' })
+}, { name: aPath + '改群名', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 /**
  * 获取禁言列表
@@ -50,12 +51,14 @@ export const MuteList = karin.command(/^#(获取|查看)?禁言列表$/, async (
   const content = common.makeForward(lsit, '2854196310', Root.pluginName)
   await e.bot.sendForwardMsg(e.contact, content)
   return true
-}, { name: '获取禁言列表', priority: -1, event: 'message.group' })
+}, { name: aPath + '获取禁言列表', priority: -1, event: 'message.group' })
 
-export const ModifyMemberCard = karin.command(/^#(改|设置|修改)(bot)?群名片/i, async (e) => {
-  const Name = e.msg.replace(/^#(改|设置|修改)(bot)?群名片/i, '').trim()
+export const ModifyMemberCard = karin.command(/^#(?:改|设置|修改)(bot)?群名片(.*)$/i, async (e) => {
+  const reg = /^#(?:改|设置|修改)(bot)?群名片(.*)$/i
+  const match = e.msg.match(reg)!
+  const Name = match[2].trim()
+  const isSelf = match[1]
   let id = e.at[0]
-  const isSelf = /^#(改|设置|修改)bot群名片/i.test(e.msg)
   if (isSelf) id = e.selfId
   if (!isSelf && !await isAdmin(e)) return false
   if (!id) return await e.reply('请@需要修改群名片的人')
@@ -110,7 +113,7 @@ export const EssenceList = karin.command(/^#(获取|查看)?(群)?精华列表$/
   msg.unshift([segment.text(`当前页共有${list.length}精华消息\n您可以使用#取消精华消息 + 消息ID 来取消精华`)])
   const content = common.makeForward(msg, '2854196310', Root.pluginName)
   await e.bot.sendForwardMsg(e.contact, content)
-}, { event: 'message.group' })
+}, { name: '[group/other]获取精华列表', event: 'message.group' })
 
 export const segGroupAvatar = karin.command(/^#(改|设置|修改)群头像/i, async (e) => {
   try {

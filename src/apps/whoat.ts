@@ -1,21 +1,26 @@
 import { cfg } from '@/config'
-import { refreshRkey } from '@/utils/common'
+import { WhoAtType } from '@/types/types'
+import { isAtLeast, refreshRkey } from '@/utils/common'
 import { karin, logger, redis, segment } from 'node-karin'
 
 export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, async (e) => {
   const opt = await cfg.getOther()
   if (!opt.whoat) return e.reply('没有开启谁艾特我功能', { reply: true })
-  let userId = ''
-  if (e.msg.includes('ta') || e.msg.includes('他') || e.msg.includes('她') || e.msg.includes('它')) {
-    userId = e.at[0] || e.msg.replace(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, '').trim()
-  } else userId = e.userId
+  let userId = e.userId
+  const isMe = e.msg.match(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/)![2] === '我'
+  if (!isMe) userId = e.at[0]
   if (!userId) return e.reply('请艾特需要查询的对象', { reply: true })
-  const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${userId}`) || '[]') as string[]
+  const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${userId}`) || '[]') as WhoAtType
   if (data.length === 0) return e.reply('没有人艾特过你哦~', { reply: true })
-  const list = []
-  for (const item of data) {
+  const msg = []
+  const d1 = data.filter(i => {
+    if (isAtLeast(Date.now(), i.time, 1, 'days')) return false
+    return true
+  })
+  for (const item of d1) {
     try {
-      const elements = await e.bot.getMsg(e.contact, item)
+      if (isAtLeast(Date.now(), item.time)) return
+      const elements = await e.bot.getMsg(e.contact, item.messageId)
       const index = elements.elements.findIndex((item) => item.type === 'longMsg')
       if (index !== -1) elements.elements.splice(index, 1)
       const img = elements.elements.filter((item) => item.type === 'image')
@@ -28,13 +33,14 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
       if (face) {
         (face.id as any) = String(face.id)
       }
-      list.unshift(segment.node(elements.sender.userId, elements.sender.nick, elements.elements))
+      msg.unshift(segment.node(elements.sender.userId, elements.sender.nick, elements.elements))
     } catch (err) {
       logger.error(`获取消息id[${item}]的记录失败,跳过该消息\n${err}`)
       continue
     }
   }
-  e.bot.sendForwardMsg(e.contact, list)
+  await e.bot.sendForwardMsg(e.contact, msg)
+  await redis.set(`Ling:at:${e.groupId}:${userId}`, JSON.stringify(d1))
 }, { event: 'message.group' })
 
 export const clearAt = karin.command(/^#?清除(艾特|@|at)(记录|数据)$/, async (e) => {

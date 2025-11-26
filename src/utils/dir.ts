@@ -20,3 +20,4 @@ export const Root: {
   pluginVersion: pkg.version,
   pluginPath: filePath
 }
+
