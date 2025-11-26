@@ -16,7 +16,6 @@ lerna-debug.log*
 # 依赖
 node_modules/
 /lib/
-@karinjs/
 plugins/
 logs/
 resources/help/changelogs.html
