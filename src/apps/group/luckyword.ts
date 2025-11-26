@@ -4,6 +4,7 @@ import { QQApi, luckyWord, luckyWordList } from '@/models/api'
 import { Root } from '@/utils/dir'
 import karin, { common, segment } from 'node-karin'
 
+const aPath = '[group/luckyword]'
 export const luckylist = karin.command(/^#(查)?(幸运)?字符(列表)?$/, async (e) => {
   const data = await new QQApi(e).luckylist(e.groupId)
   if (!data) return e.reply('❌请稍后再试')
@@ -33,7 +34,7 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   if (data.retcode === 11004 && (data.msg === 'over svip max times' || data.msg === 'over member max times')) return e.reply('❌今日抽取次数已达上限')
   if (data.retcode === 11001 && data.msg === 'group lucky word has closed') return e.reply('❌本群未开启幸运字符功能')
   if (data.retcode !== 0) return e.reply('❌发送数据错误')
-  if (Object.keys(data.data).length === 0) return e.reply(segment.image(`file://${Root.pluginPath}/resources/html/luckword/null.png`))
+  if (Object.keys(data.data).length === 0) return e.reply(segment.image(`file://${Root.pluginPath}/resources/luckword/null.png`))
   const luckdata = data.data as luckyWord
   const item = {
     url: `https://tianquan.gtimg.cn/groupluckyword/item/${luckdata.word_info.word_info.word_id}/pic-0.png?m=${luckdata.word_info.word_info.mtime}`,
@@ -48,7 +49,7 @@ export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   })
   e.reply(img)
   return true
-}, { name: '抽幸运字符', priority: -1, event: 'message.group' })
+}, { name: aPath + '抽幸运字符', priority: -1, event: 'message.group' })
 
 export const lucksetting = karin.command(/^#(开启|关闭)(幸运)?字符$/, async (e) => {
   const info = await e.bot.getGroupMemberInfo(e.groupId, e.selfId)
@@ -78,4 +79,4 @@ export const luckequip = karin.command(/^#替换(幸运)?字符(\d+)$/, async (e
   if (data.retcode === 11201 && data.retmsg === 'word same with equiped') return e.reply('❌已经装备了当前id的幸运字符')
   if (data.retcode !== 0) return e.reply('❌发送数据错误')
   return e.reply('✅替换成功')
-}, { name: '替换幸运字符', priority: -1, event: 'message.group', perm: 'group.admin' })
+}, { name: aPath + '替换幸运字符', priority: -1, event: 'message.group', perm: 'group.admin' })

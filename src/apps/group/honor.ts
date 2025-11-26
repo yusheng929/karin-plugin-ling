@@ -1,6 +1,7 @@
 import { isAdmin } from '@/utils/common'
 import karin, { logger } from 'node-karin'
 
+const aPath = '[group/honor]'
 /**
  * 申请群头衔
  */
@@ -23,7 +24,7 @@ export const ApplyGroupTitle = karin.command(/^#(申请|我要)头衔/, async (e
     logger.error(error)
     return true
   }
-}, { name: '申请头衔', priority: -1, event: 'message.group' })
+}, { name: aPath + '申请头衔', priority: -1, event: 'message.group' })
 
 /**
  * 设置头衔
@@ -48,4 +49,4 @@ export const setGroupTitle = karin.command(/^#设置头衔/, async (e) => {
     logger.error(error)
     return true
   }
-}, { name: '设置头衔', priority: -1, permission: 'master', event: 'message.group' })
+}, { name: aPath + '设置头衔', priority: -1, permission: 'master', event: 'message.group' })

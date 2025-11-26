@@ -63,23 +63,17 @@ export const ModifyMemberCard = karin.command(/^#(?:改|设置|修改)(bot)?群�
   if (!isSelf && !await isAdmin(e)) return false
   if (!id) return await e.reply('请@需要修改群名片的人')
   if (!Name) return await e.reply('群名片不能为空', { reply: true })
-
-  try {
-    await e.bot.setGroupMemberCard(e.groupId, id, Name)
-    await e.reply(`已经将${isSelf ? '自己' : `用户[${id}]`}的群名片修改为『${Name}』`)
-  } catch (error) {
-    await e.reply('\n错误: 未知原因❌', { at: true })
-    return true
-  }
+  await e.bot.setGroupMemberCard(e.groupId, id, Name)
+  await e.reply(`已经将${isSelf ? '自己' : `用户[${id}]`}的群名片修改为『${Name}』`)
   return true
-}, { name: '改群名片', priority: -1, permission: 'group.admin', event: 'message.group' })
+}, { name: aPath + '改群名片', priority: -1, permission: 'group.admin', event: 'message.group' })
 
-export const SetEssence = karin.command(/^#?((取消|移除?)(全部)?|(添?加|设置?))群?精华?(.*)$/, async (e) => {
+export const SetEssence = karin.command(/^#?(?:(?:取消|移除?)|(添?加|设置?))群?精华?(.*)$/, async (e) => {
   if (!await isAdmin(e)) return false
-  const reg = /^#?((取消|移除?)(全部)?|(添?加|设置?))群?精华?(.*)$/
+  const reg = /^#?(?:(?:取消|移除?)|(添?加|设置?))群?精华?(.*)$/
   const match = e.msg.match(reg)!
-  const action = match[4] !== undefined
-  const msgId = match[5].trim()
+  const action = !!match[1]
+  const msgId = match[2].trim()
   if (!msgId && !e.replyId) {
     e.reply('请回复需要设置精华的消息')
     return true
@@ -95,7 +89,7 @@ export const SetEssence = karin.command(/^#?((取消|移除?)(全部)?|(添?加|
   }
 
   return true
-}, { name: '处理精华消息', priority: -1, event: 'message.group', perm: 'group.admin' })
+}, { name: aPath + '处理精华消息', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 export const EssenceList = karin.command(/^#(获取|查看)?(群)?精华列表$/, async (e) => {
   const list = await e.bot.getGroupHighlights(e.groupId, 1, 50)
@@ -113,9 +107,9 @@ export const EssenceList = karin.command(/^#(获取|查看)?(群)?精华列表$/
   msg.unshift([segment.text(`当前页共有${list.length}精华消息\n您可以使用#取消精华消息 + 消息ID 来取消精华`)])
   const content = common.makeForward(msg, '2854196310', Root.pluginName)
   await e.bot.sendForwardMsg(e.contact, content)
-}, { name: '[group/other]获取精华列表', event: 'message.group' })
+}, { name: aPath + '获取精华列表', event: 'message.group' })
 
-export const segGroupAvatar = karin.command(/^#(改|设置|修改)群头像/i, async (e) => {
+export const segGroupAvatar = karin.command(/^#(改|设置|修改)群头像$/i, async (e) => {
   try {
     if (!await isAdmin(e)) return false
     let file = e.elements.find(item => item.type === 'image')?.file
@@ -138,26 +132,26 @@ export const segGroupAvatar = karin.command(/^#(改|设置|修改)群头像/i, a
     logger.error(error)
     return false
   }
-}, { name: '修改群头像', priority: -1, event: 'message.group', perm: 'group.admin' })
+}, { name: aPath + '修改群头像', priority: -1, event: 'message.group', perm: 'group.admin' })
 
 export const recall = karin.command(/^#?撤回$/, async (e) => {
   if (!e.replyId) {
     e.reply('请回复需要撤回的消息~')
     return true
   }
-
   e.bot.recallMsg(e.contact, e.replyId)
   e.bot.recallMsg(e.contact, e.messageId)
   return true
-}, { name: '撤回', priority: -1, perm: 'group.admin' })
+}, { name: aPath + '撤回', priority: -1, perm: 'group.admin' })
 
-export const clearScreenRecall = karin.command(/^#清屏(\d+)?/, async (e) => {
-  const match = Number(e.msg.replace(/#清屏/, '').trim() || 50)
-  const list = await e.bot.getHistoryMsg(e.contact, e.messageId, match)
+export const clearScreenRecall = karin.command(/^#清屏(\d+)?$/, async (e) => {
+  const reg = /^#清屏(\d+)?$/
+  const count = +(e.msg.match(reg)![1].trim() || 50)
+  const list = await e.bot.getHistoryMsg(e.contact, e.messageId, count)
   const msgIds = list.map(item => item.messageId)
   await e.reply('开始执行清屏操作，请确保我有管理员')
   for (const id of msgIds) {
     await e.bot.recallMsg(e.contact, id)
   }
   return true
-}, { name: '清屏', priority: -1, event: 'message.group', perm: 'group.admin' })
+}, { name: aPath + '清屏', priority: -1, event: 'message.group', perm: 'group.admin' })
