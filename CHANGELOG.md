@@ -1,5 +1,17 @@
 # 更新日志
 
+## [1.29.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.28.1...v1.29.0) (2025-12-12)
+
+
+### Features
+
+* 重构代码结构，重构html样式 ([2d64026](https://github.com/yusheng929/karin-plugin-ling/commit/2d64026382ffd899beb1c53e5211766c6342ecc2))
+
+
+### Bug Fixes
+
+* 更新CLI ([5d7425b](https://github.com/yusheng929/karin-plugin-ling/commit/5d7425b22d122816db6527e2d8dddbc57fcd319d))
+
 ## [1.28.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.28.0...v1.28.1) (2025-11-26)
 
 
