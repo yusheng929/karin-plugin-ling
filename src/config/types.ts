@@ -27,14 +27,14 @@ export interface Group {
       /** 是否开启通知 */
       enable: boolean
       /** 通知黑名单 */
-      disable_list: string[]
+      disable_list: Array<string>
       /** 进群通知文本 */
       joinText: string
       /** 退群通知文本 */
       quitText: string
     }
     /** 进群验证列表 */
-    joinVerify: string[]
+    joinVerify: Array<string>
   }
   /** 邀请bot加群 */
   Invite: {
@@ -49,7 +49,7 @@ export interface Group {
     autoInvite: boolean
   }
   /** 申请加群通知列表 */
-  Apply_list: string[]
+  Apply_list: Array<string>
 
   /** 自动退群配置 */
   AutoQuitGroup: {
@@ -67,6 +67,15 @@ export interface Group {
       [key: string]: AutoQuitEntry
     }
   }
+  /** 权限相关 */
+  Perm: {
+    /** Bot无群主权限时的文本 */
+    notOwnerText: string
+    /** Bot无管理员权限时的文本 */
+    notAdminText: string
+    /** 用户权限比Bot大的文本 */
+    higherUserText: string
+  }
 }
 
 /** `other.yaml` 文件的类型定义 */
@@ -74,11 +83,9 @@ export interface Other {
   /** 抽幸运字符成功后是否渲染图片 */
   word_render: boolean
   /** 上下班 */
-  noWork: string[]
+  noWork: Array<string>
   /** 谁艾特我 */
   whoat: boolean
-  /** 自动更新 */
-  autoUpdate: boolean
 }
 
 export interface AutoQuitEntry {
@@ -86,4 +93,10 @@ export interface AutoQuitEntry {
   disable_list: string[]
   /** 白名单列表 */
   enable_list: string[]
+}
+
+export interface DefCfgTypes {
+  group: Group
+  friend: Friend
+  other: Other
 }

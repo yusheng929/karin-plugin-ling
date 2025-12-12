@@ -14,65 +14,12 @@
 
 ## ⬇️ 安装
 
-* 使用编译产物 **`build 分支`**
-   <details>
-   <summary>点击展开</summary>
-
-   1. 克隆源码
-   ```sh
-   git clone --depth=1 -b build https://github.com/yusheng929/karin-plugin-ling.git ./plugins/karin-plugin-ling/
-   ```
-   <details>
-   <summary>如果你的 git 无法访问至 Github...点击打开查看解决方法</summary>
-
-   > ```sh
-   > git clone --depth=1 -b build https://gitee.com/yusheng929/karin-plugin-ling.git ./plugins/karin-plugin-ling/
-   > ```
-
-   </details>
-   <br>
-
-   2. 安装依赖
-   安装依赖，在 **Karin 根目录** 下运行
-   ```sh
-   pnpm install --filter=karin-plugin-ling
-   ```
-
-   </details>
-
 * 使用 **`包管理器`** 安装（非常推荐）
-   <details>
-   <summary>点击展开</summary>
 
    在 **Karin 根目录** 下运行
-   ```sh
+      ```sh
    pnpm add karin-plugin-ling@latest -w
-   ```
-   </details>
-
-* 使用 Release **`发行版`**（不推荐）
-    <details>
-    <summary>点击展开</summary>
-
-    <p style="color: red; font-weight: 700;">不推荐该方式，后续只能重复下载 Release 包进行更新，且无法通过 Git 或 包管理器 进行更新</p>
-    
-    1. 打开 Release 页面: https://github.com/yusheng929/karin-plugin-ling/releases
-    2. 找到最新的版本，下载名为 `build.zip` 的压缩包
-    3. 在 `plugins/` 目录下解压该压缩包，选择替换所有文件。
-
-    * 完成后相关源码应在 `Karin根目录/plugins/karin-plugin-ling/` 内<br><br>
-
-    解压完成后在插件目录下运行
-    ```sh
-    pnpm install   
-    ```
-
-    或者在 **Karin 根目录** 下运行
-    ```sh
-    pnpm install --filter=karin-plugin-ling
-    ```
-
-    </details>
+      ```
 
 ## 📖 功能
 

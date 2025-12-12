@@ -1,4 +1,4 @@
-import { translateChinaNum } from '@/components/Number'
+import { translateChinaNum } from '@/models/Number'
 import { GroupMemberExist, isAdmin, JudgePerim } from '@/utils/common'
 import karin, { config, logger } from 'node-karin'
 

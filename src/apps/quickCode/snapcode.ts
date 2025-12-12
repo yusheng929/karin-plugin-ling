@@ -10,7 +10,7 @@ import css from 'highlight.js/lib/languages/css'
 import bash from 'highlight.js/lib/languages/bash'
 import shell from 'highlight.js/lib/languages/shell'
 import powershell from 'highlight.js/lib/languages/powershell'
-import { render } from '@/components/puppeteer'
+import { render } from '@/utils/render'
 
 // 注册常用语言高亮
 hljs.registerLanguage('typescript', typescript)

@@ -146,7 +146,7 @@ export const sleep = (ms: number) => {
  * @param t2 旧时间戳
  * @param n 间隔时间
  * @param unit 间隔单位
- * @returns 
+ * @returns
  */
 export const isAtLeast = (
   t1: number,

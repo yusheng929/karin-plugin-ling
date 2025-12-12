@@ -13,7 +13,7 @@ import { sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
 
 /** 进群事件 */
 export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
-  const group = await cfg.getGroup()
+  const group = await cfg.get('group')
   if (e.sender.userId === e.selfId && group.AutoQuitGroup.enable) {
     const data = group.AutoQuitGroup.autoQuit
     e.selfId in data ? await autoquit(e, e.selfId, e.groupId) : await autoquit(e, 'default', e.groupId)
@@ -67,7 +67,7 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
 
 /** 退群事件 */
 export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
-  const Cfg = (await cfg.getGroup()).MemberChange
+  const Cfg = (await cfg.get('group')).MemberChange
   if (Cfg.notice.enable && e.sender.userId !== e.selfId) {
     if (!Cfg.notice.disable_list.includes(e.groupId)) {
       let msg = Cfg.notice.quitText || '用户『{{Id}}』已离开本群'
@@ -81,7 +81,7 @@ export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
 /** 申请进群事件 */
 export const groupApply = karin.accept('request.groupApply', async (e) => {
   logger.info(`${e.content.applierId} 申请加入群 ${e.groupId}: ${e.content.flag}`)
-  const opts = await cfg.getGroup()
+  const opts = await cfg.get('group')
   if (!opts.Apply_list.includes(e.groupId)) return false
   const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
 
@@ -105,7 +105,7 @@ export const groupApply = karin.accept('request.groupApply', async (e) => {
 /** 邀请Bot进群事件 */
 export const groupInvite = karin.accept('request.groupInvite', async (e) => {
   logger.info(`${e.content.inviterId} 邀请Bot进群: ${e.content.flag}`)
-  const opt = (await cfg.getGroup()).Invite
+  const opt = (await cfg.get('group')).Invite
   if (e.isMaster) {
     await e.bot.setInvitedJoinGroupResult(e.content.flag, true)
     const contact = contactFriend(e.userId)
@@ -141,7 +141,7 @@ export const groupInvite = karin.accept('request.groupInvite', async (e) => {
 }, { name: '处理邀请Bot加群申请' })
 
 const autoquit = async (e: GroupMemberIncreaseNotice, id: string, groupId: string) => {
-  const quit = (await cfg.getGroup()).AutoQuitGroup
+  const quit = (await cfg.get('group')).AutoQuitGroup
   const data = quit.autoQuit
   const a = data[id]
   if (a.enable_list.length > 0 && !a.enable_list.includes(groupId)) {

@@ -108,7 +108,7 @@ export const QuitGroup = karin.command(/^#退群/, async (e) => {
 }, { name: '退群', priority: -1, permission: 'master', event: 'message.group' })
 
 export const command = karin.command(/^#?赞我$/, async e => {
-  const opt = await cfg.getFriend()
+  const opt = await cfg.get('friend')
   if (opt.closeLike) {
     return false
   }

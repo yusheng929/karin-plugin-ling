@@ -1,7 +1,7 @@
 import karin from 'node-karin'
 import fs from 'node:fs'
-import { render } from '@/components/puppeteer'
-import { Root } from '@/utils/dir'
+import { render } from '@/utils/render'
+import { dir } from '@/utils/dir'
 const helpList = [
   {
     group: '群聊功能',
@@ -196,12 +196,12 @@ export const help = karin.command(/^#?(铃|ling)(帮助|菜单|help)$/i, async (
 }, { name: '帮助', priority: -1 })
 
 export const version = karin.command(/^#?(铃|ling)(版本|version)$/i, async (e) => {
-  await e.reply(`当前版本:${Root.pluginVersion}`, { reply: true })
+  await e.reply(`当前版本:${dir.version}`, { reply: true })
   return true
 })
 
 export const changelog = karin.command(/^#?(铃|ling)(更新日志|changelog)$/i, async (e) => {
-  const changelogMarkdown = fs.readFileSync(Root.pluginPath + '/CHANGELOG.md', 'utf8')
+  const changelogMarkdown = fs.readFileSync(dir.version + '/CHANGELOG.md', 'utf8')
   const versions = parseChangelogForLatest(changelogMarkdown, 5)
   const img = await render('version/index', { versions })
   await e.reply(img, { reply: true })

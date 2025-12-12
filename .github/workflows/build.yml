@@ -4,12 +4,15 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch: # 允许手动触发
 
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: 拉取代码
         uses: actions/checkout@v4
@@ -19,80 +22,27 @@ jobs:
         with:
           node-version: 21
           registry-url: "https://registry.npmjs.org"
-
-      - name: 安装pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9.7.1
-
+      - name: 更新npm到最新版本
+        run: npm install -g npm@latest
       - name: 安装依赖
-        run: pnpm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-
-      - name: 删除 pnpm-lock.yaml
-        run: rm -rf pnpm-lock.yaml
-
+        run: npm install
       - name: 编译
-        run: pnpm build
-
-      - name: 设置时区
-        run: |
-          sudo timedatectl set-timezone Asia/Shanghai
-
-      - name: 设置git用户名和邮箱
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: 删除开发依赖 
-        run: npm run pr clean
-
-      - name: 删除文件
-        run: |
-          rm -rf src .github tsconfig.json eslint.config.mjs
-
-      - name: 推送build分支
-        run: |
-          sed -i '19d' .gitignore
-          git checkout -b build || git checkout build
-          git add .
-          if [ -z "$(git diff --cached --name-only)" ]; then
-            echo "No changes detected"
-            exit 0
-          else
-            git commit -m "chore(build): ${{ github.event.head_commit.message }}"
-          fi
-          git push origin build --force
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 打包
-        run: |
-          zip -r build.zip lib package.json README.md LICENSE CHANGELOG.md config resources
-
-      - name: 上传 build.zip
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-zip
-          path: build.zip
+        run: npm run build
+      - name: 删除开发依赖
+        run: npm pkg delete devDependencies
 
       - name: 更新版本号
         uses: google-github-actions/release-please-action@v3
-        id: release_please
+        id: release
         with:
           release-type: node
-          package-name: 'karin-plugin-ling'
+          package-name: "karin-plugin-ling"
 
       - name: 发布到 npm
-        run: npm run pub
-        if: ${{ steps.release_please.outputs.release_created }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-
-      - name: 上传 release
-        if: ${{ steps.release_please.outputs.release_created }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{ steps.release_please.outputs.tag_name }} build.zip
+        id: publish-to-npm
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          registry: https://registry.npmjs.org/
+          access: public
+          provenance: true
+        if: ${{ steps.release.outputs.release_created }}

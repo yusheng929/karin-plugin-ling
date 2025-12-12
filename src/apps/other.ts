@@ -1,9 +1,8 @@
-import { Root } from './../utils/dir'
+import { dir } from './../utils/dir'
 import path from 'node:path'
 import { finished } from 'stream/promises'
 import fs from 'fs'
 import { karin, segment, common, logger, ImageElement, system, VideoElement } from 'node-karin'
-import { karinPathBase } from 'node-karin/root'
 import { refreshRkey, sleep } from '@/utils/common'
 import axios from 'node-karin/axios'
 
@@ -91,7 +90,7 @@ export const getVideoToAudio = karin.command(/^#取音频/, async (e) => {
   if (!url && e.replyId) url = (await e.bot.getMsg(e.contact, e.replyId)).elements.find(i => i.type === 'video')?.file
   if (!url) return e.reply('没有找到视频')
   try {
-    const temp = path.join(karinPathBase, Root.pluginName, 'temp')
+    const temp = path.join(dir.TempDir)
     const VideoPath = path.join(temp, `video_${Date.now()}.mp4`)
     const res = await axios({
       method: 'get',

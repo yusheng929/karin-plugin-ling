@@ -2,24 +2,27 @@ import { components, LocalApiResponse } from 'node-karin'
 import { cfg } from '@/config'
 import _ from 'node-karin/lodash'
 
-const group = await cfg.getGroup()
-const friend = await cfg.getFriend()
-const other = await cfg.getOther()
+const group = await cfg.get('group')
+const friend = await cfg.get('friend')
+const other = await cfg.get('other')
 interface Config {
   group: [
     {
-      'MemberChange:notice:enable': boolean,
-      'MemberChange:notice:disable_list': string[],
-      'MemberChange:notice:joinText': string,
-      'MemberChange:notice:quitText': string,
-      'MemberChange:joinVerify': string[],
-      'Invite:notify:enable': boolean,
-      'Invite:notify:allow': boolean,
-      'Invite:autoInvite': boolean,
-      Apply_list: string[],
-      'AutoQuitGroup:enable': boolean,
-      'AutoQuitGroup:enableText': string,
+      'MemberChange:notice:enable': boolean
+      'MemberChange:notice:disable_list': string[]
+      'MemberChange:notice:joinText': string
+      'MemberChange:notice:quitText': string
+      'MemberChange:joinVerify': string[]
+      'Invite:notify:enable': boolean
+      'Invite:notify:allow': boolean
+      'Invite:autoInvite': boolean
+      Apply_list: string[]
+      'AutoQuitGroup:enable': boolean
+      'AutoQuitGroup:enableText': string
       'AutoQuitGroup:disableText': string
+      'Perm:notOwnerText': string
+      'Perm:notAdminText': string
+      'Perm:higherUserText': string
     }
   ],
   friend: [
@@ -147,6 +150,31 @@ export default {
                   value: ''
                 })
             }),
+            components.divider.create('a-d-3', {
+              description: 'Bot权限不足提示词',
+              descPosition: 0
+            }),
+            components.input.string('Perm:notOwnerText', {
+              label: 'Bot无群主权限提管理员',
+              description: '设置后,当Bot无群主权限时,则发送文本',
+              defaultValue: group.Perm.notOwnerText,
+              isRequired: false,
+              color: 'success'
+            }),
+            components.input.string('Perm:notAdminText', {
+              label: 'Bot无管理员权限提示词',
+              description: '设置后,当Bot无管理员权限时,则发送文本',
+              defaultValue: group.Perm.notAdminText,
+              isRequired: false,
+              color: 'success'
+            }),
+            components.input.string('Perm:higherUserText', {
+              label: '用户权限大于Bot提示词',
+              description: '设置后,当用户的权限比Bot大时,则发送文本',
+              defaultValue: group.Perm.higherUserText,
+              isRequired: false,
+              color: 'success'
+            })
           ]
         })
       ]
@@ -261,20 +289,11 @@ export default {
         autoInvite: config.group[0]['Invite:autoInvite']
       },
       Apply_list: config.group[0].Apply_list,
-      AutoQuitGroup: {
-        enable: config.group[0]['AutoQuitGroup:enable'],
-        enableText: config.group[0]['AutoQuitGroup:enableText'],
-        disableText: config.group[0]['AutoQuitGroup:disableText'],
-        autoQuit: {
-          default: {
-            disable_list: [],
-            enable_list: []
-          },
-          114514: {
-            disable_list: [],
-            enable_list: []
-          }
-        }
+      AutoQuitGroup: group.AutoQuitGroup,
+      Perm: {
+        notOwnerText: config.group[0]['Perm:notOwnerText'],
+        notAdminText: config.group[0]['Perm:notAdminText'],
+        higherUserText: config.group[0]['Perm:higherUserText']
       }
     }
     const Friend = {
@@ -289,9 +308,9 @@ export default {
       likeStart: config.friend[0].likeStart,
       likeEnd: config.friend[0].likeEnd
     }
-    if (!_.isEqual(friend, Friend)) cfg.saveJson('friend', Friend)
-    if (!_.isEqual(group, Group)) cfg.saveJson('group', Group)
-    if (!_.isEqual(other, Other)) cfg.saveJson('other', Other)
+    if (!_.isEqual(friend, Friend)) cfg.save('friend', Friend)
+    if (!_.isEqual(group, Group)) cfg.save('group', Group)
+    if (!_.isEqual(other, Other)) cfg.save('other', Other)
     return {
       success: true,
       message: '配置保存成功',

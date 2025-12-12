@@ -3,7 +3,7 @@ import { WhoAtType } from '@/types/types'
 import { hooks, logger, redis } from 'node-karin'
 
 hooks.message.group(async (e, next) => {
-  const opt = await cfg.getOther()
+  const opt = await cfg.get('other')
   try {
     if (opt.whoat) {
       if (e.at.length > 0) {

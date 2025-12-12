@@ -1,10 +1,9 @@
 import { logger } from 'node-karin'
-import { pkg } from '@/config'
-import { Root } from './utils/dir'
+import { dir } from './utils/dir'
 
 /** 请不要在这编写插件 不会有任何效果~ */
 
 logger.info('-----------------')
-logger.info(`\x1b[38;2;255;182;193m${Root.pluginName}${pkg().version}初始化~\x1b[0m`)
+logger.info(`\x1b[38;2;255;182;193m${dir.name}v${dir.version}初始化~\x1b[0m`)
 logger.info('\x1b[38;2;173;216;230m少女祈祷中...\x1b[0m')
 logger.info('-------^_^-------')

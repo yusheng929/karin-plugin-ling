@@ -1,11 +1,11 @@
-import { Root } from '@/utils/dir'
+import { dir } from '@/utils/dir'
 import { exec, karin, logger, restart } from 'node-karin'
 
 let isupdate = false
 
 export const update = karin.command(/^#(铃|ling)(插件)?更新$/i, async (e) => {
   if (isupdate) return e.reply('正在更新中,请稍后再试')
-  const isNPM = !!Root.pluginPath.includes('node_modules')
+  const isNPM = !!dir.pluginPath.includes('node_modules')
   if (!isNPM) return e.reply('未检测到NPM插件')
 
   isupdate = true

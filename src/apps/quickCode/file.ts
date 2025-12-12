@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { karin, common, logger } from 'node-karin'
-import { Size } from '@/components/Size'
+import { Size } from '@/models/Size'
 
 export const FileDownload = karin.command(/^文件下载/, async (e) => {
   e.reply('请发送文件', { at: true })

@@ -1,194 +1,172 @@
-:root {
-  --bg: #0b0f17;
-  --bg-accent: #0e1320;
-  --surface: rgba(255, 255, 255, 0.06);
-  --surface-strong: rgba(255, 255, 255, 0.12);
-  --text: rgba(255, 255, 255, 0.95);
-  --text-muted: rgba(255, 255, 255, 0.70);
-  --border: rgba(255, 255, 255, 0.12);
-  --shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
-  --radius-lg: 14px;
-  --radius-sm: 10px;
-  --accent: #6ea8fe;
-  --accent-2: #9b7bff;
-  --success: #3dd6d0;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f6f8fc;
-    --bg-accent: #ffffff;
-    --surface: rgba(12, 18, 28, 0.06);
-    --surface-strong: rgba(12, 18, 28, 0.1);
-    --text: rgba(20, 24, 32, 0.95);
-    --text-muted: rgba(20, 24, 32, 0.70);
-    --border: rgba(12, 18, 28, 0.12);
-    --shadow: 0 10px 32px rgba(12, 18, 28, 0.10);
-  }
-}
-
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-html,
 body {
-  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fce4ec 0%, #e0f7fa 50%, #e3f2fd 100%);
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  padding: 20px;
 }
 
-body {
-  margin: 0;
-  color: var(--text);
-  background:
-    radial-gradient(1200px 800px at 10% 10%, rgba(110, 168, 254, 0.10), transparent 40%),
-    radial-gradient(1200px 800px at 90% 20%, rgba(155, 123, 255, 0.10), transparent 42%),
-    radial-gradient(1200px 800px at 50% 100%, rgba(61, 214, 208, 0.10), transparent 45%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-accent) 100%);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-image:
-    radial-gradient(1200px 800px at 10% 10%, rgba(110, 168, 254, 0.10), transparent 40%),
-    radial-gradient(1200px 800px at 90% 20%, rgba(155, 123, 255, 0.10), transparent 42%),
-    radial-gradient(1200px 800px at 50% 100%, rgba(61, 214, 208, 0.10), transparent 45%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-accent) 100%),
-    url("bg.png");
-  background-size: auto, auto, auto, auto, cover;
-  background-position: center center;
-  background-attachment: fixed;
+.terminal-container {
+  width: 700px;
+  filter: drop-shadow(0 20px 40px rgba(176, 190, 197, 0.4));
 }
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 36px 22px 24px;
+.terminal {
+  background: linear-gradient(180deg, #fafafa 0%, #f5f5f5 100%);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid #f8bbd9;
 }
 
-.title {
-  margin: 0 0 14px;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: 0.3px;
-  background: linear-gradient(90deg, var(--text) 0%, rgba(255, 255, 255, 0.75) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 2px 18px rgba(110, 168, 254, 0.16);
+/* 标题栏 */
+.terminal-header {
+  background: linear-gradient(90deg, #fce4ec 0%, #e1f5fe 50%, #f3e5f5 100%);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid #f8bbd9;
 }
 
-.code-content {
-  position: relative;
-  margin-top: 10px;
-  padding: 18px 18px 20px 18px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
-  box-shadow: var(--shadow);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Fira Code",
-    "JetBrains Mono", Consolas, "Liberation Mono", Courier, monospace;
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: var(--text);
-  white-space: pre-wrap;
-  /* 保留换行 */
-  word-break: break-word;
-  /* 长行断词 */
-  overflow: auto;
+.window-controls {
+  display: flex;
+  gap: 8px;
 }
 
-/* 顶部终端条装饰 */
-.code-content::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 34px;
-  border-bottom: 1px solid var(--border);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.03));
-  border-top-left-radius: var(--radius-lg);
-  border-top-right-radius: var(--radius-lg);
-}
-
-/* 三色窗口按钮 */
-.code-content::after {
-  content: "";
-  position: absolute;
-  top: 11px;
-  left: 14px;
-  width: 10px;
-  height: 10px;
+.control {
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: #ff5f56;
-  /* red */
-  box-shadow:
-    16px 0 0 #ffbd2e,
-    /* yellow */
-    32px 0 0 #27c93f;
-  /* green */
-  opacity: 0.9;
+  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
-/* 让正文不被顶部条覆盖 */
-.code-content {
-  padding-top: 48px;
+.control.close {
+  background: linear-gradient(135deg, #ffab91 0%, #ff8a80 100%);
 }
 
-/* 高亮库（若输出包含 <code>/<pre>）的优化 */
-pre,
-code {
-  font-family: inherit;
-  font-size: inherit;
+.control.minimize {
+  background: linear-gradient(135deg, #fff59d 0%, #ffee58 100%);
 }
 
-.code-content pre {
-  margin: 0;
-  background: transparent !important;
+.control.maximize {
+  background: linear-gradient(135deg, #a5d6a7 0%, #81c784 100%);
 }
 
-/* 自定义滚动条（可选，兼容现代浏览器） */
-.code-content::-webkit-scrollbar {
-  height: 10px;
-  width: 10px;
-}
-
-.code-content::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
-  border: 1px solid var(--border);
-  border-radius: 999px;
-}
-
-.code-content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* 选中文本颜色 */
-::selection {
-  background: rgba(110, 168, 254, 0.35);
-  color: #fff;
-}
-
-.copyright {
-  margin-top: 16px;
-  padding-top: 4px;
+.terminal-title {
+  flex: 1;
   text-align: center;
-  color: var(--text-muted);
-  font-size: 12.5px;
+  font-size: 13px;
+  color: #7986cb;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
-/* 小屏优化 */
-@media (max-width: 640px) {
-  .container {
-    padding: 22px 14px 18px;
+.terminal-title span {
+  background: linear-gradient(90deg, #f48fb1 0%, #81d4fa 50%, #b39ddb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.terminal-body {
+  background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
+  padding: 20px;
+  min-height: 300px;
+}
+
+.command-line {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.prompt {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.prompt-user {
+  color: #f48fb1;
+  font-weight: 600;
+}
+
+.prompt-at {
+  color: #b0bec5;
+}
+
+.prompt-host {
+  color: #81d4fa;
+  font-weight: 600;
+}
+
+.prompt-colon {
+  color: #b0bec5;
+}
+
+.prompt-path {
+  color: #b39ddb;
+  font-weight: 600;
+}
+
+.prompt-symbol {
+  color: #a5d6a7;
+  font-weight: bold;
+  margin-left: 2px;
+}
+
+.command {
+  color: #5c6bc0;
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+.output {
+  margin-bottom: 16px;
+  padding-left: 0;
+}
+
+.output-line {
+  color: #546e7a;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+  font-size: 13px;
+}
+
+/* 状态栏 */
+.copyright {
+  background: linear-gradient(90deg, #fce4ec 0%, #e1f5fe 50%, #f3e5f5 100%);
+  padding: 8px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  color: #90a4ae;
+  border-top: 1px solid #f0f0f0;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 
-  .title {
-    font-size: 24px;
-  }
-
-  .code-content {
-    font-size: 13px;
-    padding: 44px 12px 14px 12px;
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
   }
 }

@@ -2,7 +2,7 @@ import { isAdmin } from '@/utils/common'
 import moment from 'node-karin/moment'
 import karin, { common, logger, segment } from 'node-karin'
 import type { Client } from 'icqq'
-import { Root } from '@/utils/dir'
+import { dir } from '@/utils/dir'
 
 const aPath = '[group/other]'
 /**
@@ -48,7 +48,7 @@ export const MuteList = karin.command(/^#(获取|查看)?禁言列表$/, async (
   }
 
   lsit.unshift(segment.text(`禁言列表如下(共${result.length}人):`))
-  const content = common.makeForward(lsit, '2854196310', Root.pluginName)
+  const content = common.makeForward(lsit, '2854196310', dir.name)
   await e.bot.sendForwardMsg(e.contact, content)
   return true
 }, { name: aPath + '获取禁言列表', priority: -1, event: 'message.group' })
@@ -105,7 +105,7 @@ export const EssenceList = karin.command(/^#(获取|查看)?(群)?精华列表$/
     ])
   }
   msg.unshift([segment.text(`当前页共有${list.length}精华消息\n您可以使用#取消精华消息 + 消息ID 来取消精华`)])
-  const content = common.makeForward(msg, '2854196310', Root.pluginName)
+  const content = common.makeForward(msg, '2854196310', dir.name)
   await e.bot.sendForwardMsg(e.contact, content)
 }, { name: aPath + '获取精华列表', event: 'message.group' })
 

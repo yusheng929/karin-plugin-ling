@@ -4,16 +4,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>命令执行结果</title>
+  <title>代码执行展示框</title>
   <link rel="stylesheet" href="{{pluResPath}}runcode/index.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
 </head>
 
 <body>
-  <div id="container" class="container">
-    <div class="title">命令执行结果</div>
-    <div class="code-content">{{@ data.output}}</div>
-    <div class="copyright">{{@ sys.copyright}}</div>
+  <div class="terminal-container">
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="window-controls">
+          <div class="control close"></div>
+          <div class="control minimize"></div>
+          <div class="control maximize"></div>
+        </div>
+        <div class="terminal-title">
+          <span>代码执行展示框</span>
+        </div>
+        <div style="width: 54px;"></div>
+      </div>
+      <div class="terminal-body">
+        <div class="command-line">
+          <div class="prompt">
+            {{@ data.title}}
+          </div>
+          <div class="command">{{@ data.cmd}}</div>
+        </div>
+
+        <!-- 真实的 ls -la 输出格式 -->
+        <div class="output">
+          {{each data.output}}
+          <div class="output-line">{{$value}}</div>
+          {{/each}}
+        </div>
+      </div>
+
+      <!-- 状态栏 -->
+      <div class="copyright">
+        <span>{{sys.copyright}}</span>
+      </div>
+    </div>
   </div>
 </body>
 

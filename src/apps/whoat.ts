@@ -4,7 +4,7 @@ import { isAtLeast, refreshRkey } from '@/utils/common'
 import { karin, logger, redis, segment } from 'node-karin'
 
 export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, async (e) => {
-  const opt = await cfg.getOther()
+  const opt = await cfg.get('other')
   if (!opt.whoat) return e.reply('没有开启谁艾特我功能', { reply: true })
   let userId = e.userId
   const isMe = e.msg.match(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/)![2] === '我'
