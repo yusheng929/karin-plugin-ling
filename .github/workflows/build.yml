@@ -40,9 +40,5 @@ jobs:
 
       - name: 发布到 npm
         id: publish-to-npm
-        uses: JS-DevTools/npm-publish@v3
-        with:
-          registry: https://registry.npmjs.org/
-          access: public
-          provenance: true
+        run: npm publish --access public
         if: ${{ steps.release.outputs.release_created }}
