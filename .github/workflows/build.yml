@@ -1,4 +1,4 @@
-name: Build, Bump Version, and Commit
+name: CLI
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
       - name: 安装node
         uses: actions/setup-node@v4
         with:
-          node-version: 21
+          node-version: 24
           registry-url: "https://registry.npmjs.org"
       - name: 更新npm到最新版本
         run: npm install -g npm@latest
