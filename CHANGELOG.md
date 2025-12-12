@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.29.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.29.0...v1.29.1) (2025-12-12)
+
+
+### Bug Fixes
+
+* cli ([100b6d8](https://github.com/yusheng929/karin-plugin-ling/commit/100b6d882d139c6886fc8f0f33d0c1615df94bd6))
+
 ## [1.29.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.28.1...v1.29.0) (2025-12-12)
 
 
