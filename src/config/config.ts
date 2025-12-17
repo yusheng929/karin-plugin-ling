@@ -156,7 +156,7 @@ class Config {
     }
     if (op === 'del') {
       if (Array.isArray(val)) {
-        cur[last] = val.filter(i => _.isEqual(i, value))
+        cur[last] = val.filter(i => !_.isEqual(i, value))
       } else {
         logger.error('目标非数组,无法删除')
         return false
