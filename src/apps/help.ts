@@ -196,14 +196,23 @@ export const help = karin.command(/^#?(铃|ling)(帮助|菜单|help)$/i, async (
 }, { name: '帮助', priority: -1 })
 
 export const version = karin.command(/^#?(铃|ling)(版本|version)$/i, async (e) => {
-  await e.reply(`当前版本:${dir.version}`, { reply: true })
+  const changelogMarkdown = fs.readFileSync(dir.pluginPath + '/CHANGELOG.md', 'utf8')
+  const versions = parseChangelogForLatest(changelogMarkdown, 1)
+  const img = await render('version/index', {
+    versions,
+    title: '当前版本'
+  })
+  await e.reply(img, { reply: true })
   return true
 })
 
 export const changelog = karin.command(/^#?(铃|ling)(更新日志|changelog)$/i, async (e) => {
-  const changelogMarkdown = fs.readFileSync(dir.version + '/CHANGELOG.md', 'utf8')
+  const changelogMarkdown = fs.readFileSync(dir.pluginPath + '/CHANGELOG.md', 'utf8')
   const versions = parseChangelogForLatest(changelogMarkdown, 5)
-  const img = await render('version/index', { versions })
+  const img = await render('version/index', {
+    versions,
+    title: '更新日志'
+  })
   await e.reply(img, { reply: true })
   return true
 })
@@ -226,8 +235,8 @@ function parseChangelogForLatest (markdown: string, limit: number): ChangelogEnt
   let current: ChangelogEntry | null = null
   let currentSection: ChangelogSection | null = null
 
-  const versionHeaderRegex = /^##\s+\[(?<version>[^\]]+)\][^()]*\((?<date>[^)]+)\)/
-  const versionHeaderAltRegex = /^##\s+(?<version>\S+)/
+  const versionHeaderRegex = /^##\s+\[?(?<version>[^\]\s]+)\]?(?:\([^)]+\))?\s+\((?<date>\d{4}-\d{2}-\d{2})\)/
+  const versionHeaderAltRegex = /^##\s+(?<version>\S+)(?:\s+\((?<date>\d{4}-\d{2}-\d{2})\))?/
   const sectionHeaderRegex = /^###\s+(?<title>.+)$/
   const listItemRegex = /^\*\s+(?<text>.+)$/
 
@@ -242,7 +251,7 @@ function parseChangelogForLatest (markdown: string, limit: number): ChangelogEnt
       }
       const m = line.match(versionHeaderRegex) || line.match(versionHeaderAltRegex)
       const version = (m && (m.groups?.version || '').trim()) || ''
-      const date = (m && (m.groups?.date || '').trim()) || undefined
+      const date = (m && (m.groups?.date || '').trim()) || ''
       current = { version, date, sections: [] }
       currentSection = null
       continue
@@ -261,14 +270,13 @@ function parseChangelogForLatest (markdown: string, limit: number): ChangelogEnt
     // List item
     const li = line.match(listItemRegex)
     if (li && currentSection) {
-      const raw = (li.groups?.text || '').trim()
-      // 1) Collapse Markdown links like [hash](url) -> [hash]
-      // 2) Remove wrapping parentheses around bracketed tokens: ([hash]) -> [hash]
-      // 3) Trim any remaining trailing parentheses blocks
-      let text = raw
-        .replace(/\[([^\]]+)\]\((?:https?:\/\/|\/)[^)]*\)/gi, '[$1]')
-        .replace(/\((\[[^\]]+\])\)/g, '$1')
-        .replace(/\s*\([^)]*\)\s*$/, '')
+      let text = (li.groups?.text || '').trim()
+      // Remove commit links and hashes at the end of the line
+      // e.g. "fix bug ([hash](url))" -> "fix bug"
+      // or "fix bug ([hash])" -> "fix bug"
+      text = text.replace(/\s*\(\[[^\]]+\](?:\([^)]+\))?\)\s*$/, '')
+      // Remove standalone links at the end
+      text = text.replace(/\s*\(\[[^\]]+\]\)\s*$/, '')
 
       text = text.trim()
       if (text) currentSection.items.push(text)

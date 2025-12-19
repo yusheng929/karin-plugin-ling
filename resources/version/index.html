@@ -6,39 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>更新日志</title>
   <link rel="stylesheet" href="{{pluResPath}}version/index.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 </head>
 
 <body>
-  <div id="container" class="container">
+  <div class="container">
     <div class="header">
-      <h1 class="title">铃 · 更新日志（最近 5 条）</h1>
+      <div class="header-content">
+        <div class="plugin-name">更新日志</div>
+        <div class="page-title">{{title}}</div>
+      </div>
+      <div class="header-decoration"></div>
     </div>
 
-    <div class="content">
+    <div class="timeline">
       {{each versions}}
-      <div class="version-card">
-        <div class="version-header">
-          <span class="version-tag">v{{$value.version}}</span>
+      <div class="version-item">
+        <div class="version-meta">
+          <div class="version-number">v{{$value.version}}</div>
           {{if $value.date}}
-          <span class="version-date">{{$value.date}}</span>
+          <div class="version-date">{{$value.date}}</div>
           {{/if}}
         </div>
 
-        {{each $value.sections}}
-        <div class="section">
-          <div class="section-title">{{$value.title}}</div>
-          <ul class="section-list">
-            {{each $value.items}}
-            <li class="section-item">{{$value}}</li>
-            {{/each}}
-          </ul>
+        <div class="version-content">
+          {{each $value.sections}}
+          <div class="change-group">
+            <div class="group-type">{{$value.title}}</div>
+            <ul class="change-list">
+              {{each $value.items}}
+              <li>{{$value}}</li>
+              {{/each}}
+            </ul>
+          </div>
+          {{/each}}
         </div>
-        {{/each}}
       </div>
       {{/each}}
     </div>
 
-    <div class="copyright">{{@ sys.copyright}}</div>
+    <div class="footer">
+      <div class="copyright">{{@ sys.copyright}}</div>
+    </div>
   </div>
 </body>
 
