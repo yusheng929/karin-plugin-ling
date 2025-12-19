@@ -7,7 +7,7 @@ let isupdate = false
 export const update = karin.command(/^#(铃|ling)(插件)?更新$/i, async (e) => {
   if (isupdate) return e.reply('正在更新中,请稍后再试')
   isupdate = true
-  await e.reply('开始更新插件')
+  await e.reply('开始执行更新操作')
   const res = await updatePkg('karin-plugin-ling')
   if (res.status === 'failed') {
     isupdate = false
@@ -59,7 +59,7 @@ export const TaskUpdate = karin.task('Ling-定时更新检查', '*/10 * * * *', 
 
   const msg = [
     segment.text(
-      `检测到插件 [karin-plugin-ling] 有新版本~\n当前版本: v${res.local}\n最新版本: v${res.remote}\n请发送 #铃插件更新 进行更新。`
+      `检测到插件 [karin-plugin-ling] 有新版本~\n当前版本: v${res.local}\n最新版本: v${res.remote}\n请发送 #铃更新 进行更新。`
     ),
   ] as Parameters<typeof karin.sendMsg>[2]
 
