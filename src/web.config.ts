@@ -37,9 +37,10 @@ interface Config {
   ],
   other: [
     {
-      noWork: string[],
-      word_render: boolean,
+      noWork: string[]
+      word_render: boolean
       whoat: boolean
+      autoUpdate: boolean
     }
   ]
 }
@@ -257,7 +258,13 @@ export default {
               label: '谁艾特我',
               description: '开启后将开始统计艾特消息(注: 开启时，群多可能会对性能产生影响)',
               defaultSelected: other.whoat
+            }),
+            components.switch.create('autoUpdate', {
+              label: '自动更新',
+              description: '开启后,插件将自动更新',
+              defaultSelected: other.autoUpdate
             })
+
           ]
         })
       ]
@@ -269,7 +276,8 @@ export default {
     const Other = {
       noWork: config.other[0].noWork,
       whoat: config.other[0].whoat,
-      word_render: config.other[0].word_render
+      word_render: config.other[0].word_render,
+      autoUpdate: config.other[0].autoUpdate
     }
     const Group = {
       MemberChange: {

@@ -86,6 +86,8 @@ export interface Other {
   noWork: Array<string>
   /** 谁艾特我 */
   whoat: boolean
+  /** 是否自动检查并推送插件更新 */
+  autoUpdate: boolean
 }
 
 export interface AutoQuitEntry {
@@ -96,7 +98,10 @@ export interface AutoQuitEntry {
 }
 
 export interface DefCfgTypes {
+  /** 群聊相关配置 */
   group: Group
+  /** 好友相关配置 */
   friend: Friend
+  /** 其他相关配置 */
   other: Other
 }

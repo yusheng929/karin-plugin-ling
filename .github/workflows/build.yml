@@ -17,26 +17,31 @@ jobs:
       - name: 拉取代码
         uses: actions/checkout@v4
 
-      - name: 安装node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          registry-url: "https://registry.npmjs.org"
-      - name: 更新npm到最新版本
-        run: npm install -g npm@latest
-      - name: 安装依赖
-        run: npm install
-      - name: 编译
-        run: npm run build
-      - name: 删除开发依赖
-        run: npm pkg delete devDependencies
-
       - name: 更新版本号
         uses: google-github-actions/release-please-action@v3
         id: release
         with:
           release-type: node
           package-name: "karin-plugin-ling"
+
+      - name: 安装node
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+      - name: 更新npm到最新版本
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm install -g npm@latest
+      - name: 安装依赖
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm install
+      - name: 编译
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm run build
+      - name: 删除开发依赖
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm pkg delete devDependencies
 
       - name: 发布到 npm
         id: publish-to-npm

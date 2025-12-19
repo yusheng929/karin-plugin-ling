@@ -63,7 +63,8 @@ const defCfg: DefCfgTypes = {
   other: {
     noWork: [],
     word_render: true,
-    whoat: false
+    whoat: false,
+    autoUpdate: false
   }
 }
 const merge = (defObj: any, userObj: any) => _.mergeWith({}, defObj, userObj, (dst, src) => {
