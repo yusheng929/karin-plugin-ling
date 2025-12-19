@@ -5,27 +5,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>代码快照</title>
-  <link rel="stylesheet" href="{{pluResPath}}common/common.css">
   <link rel="stylesheet" href="{{pluResPath}}snapcode/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css">
+    href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap">
 </head>
 
 <body>
-  <div id="container" class="container">
-    <div class="header">
-      <div class="traffic">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
+  <div class="window">
+    <div class="title-bar">
+      <div class="controls">
+        <div class="control close"></div>
+        <div class="control minimize"></div>
+        <div class="control maximize"></div>
       </div>
-      <div class="title">{{data.fileName}} <span class="muted">({{data.filePath}})</span></div>
-      <div class="range">行: {{data.rangeText}} / 共 {{data.totalLines}}</div>
+      <div class="title">{{data.fileName}} <span class="title-range">({{data.rangeText}} / {{data.totalLines}})</span>
+      </div>
     </div>
-    <div class="code-wrap">
-      <pre class="code"><code class="hljs">{{@ data.codeHtml}}</code></pre>
+    <div class="content">
+      <pre class="code-block"><code class="hljs">{{@ data.codeHtml}}</code></pre>
     </div>
-    <div class="copyright">{{@ sys.copyright}}</div>
+    <div class="footer">
+      <div class="copyright">{{@ sys.copyright}}</div>
+    </div>
   </div>
 </body>
 

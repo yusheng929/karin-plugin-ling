@@ -10,6 +10,23 @@ import css from 'highlight.js/lib/languages/css'
 import bash from 'highlight.js/lib/languages/bash'
 import shell from 'highlight.js/lib/languages/shell'
 import powershell from 'highlight.js/lib/languages/powershell'
+import python from 'highlight.js/lib/languages/python'
+import java from 'highlight.js/lib/languages/java'
+import c from 'highlight.js/lib/languages/c'
+import cpp from 'highlight.js/lib/languages/cpp'
+import csharp from 'highlight.js/lib/languages/csharp'
+import go from 'highlight.js/lib/languages/go'
+import rust from 'highlight.js/lib/languages/rust'
+import php from 'highlight.js/lib/languages/php'
+import ruby from 'highlight.js/lib/languages/ruby'
+import swift from 'highlight.js/lib/languages/swift'
+import kotlin from 'highlight.js/lib/languages/kotlin'
+import sql from 'highlight.js/lib/languages/sql'
+import yaml from 'highlight.js/lib/languages/yaml'
+import ini from 'highlight.js/lib/languages/ini'
+import dockerfile from 'highlight.js/lib/languages/dockerfile'
+import makefile from 'highlight.js/lib/languages/makefile'
+import markdown from 'highlight.js/lib/languages/markdown'
 import { render } from '@/utils/render'
 
 // 注册常用语言高亮
@@ -22,6 +39,23 @@ hljs.registerLanguage('css', css)
 hljs.registerLanguage('bash', bash)
 hljs.registerLanguage('shell', shell)
 hljs.registerLanguage('powershell', powershell)
+hljs.registerLanguage('python', python)
+hljs.registerLanguage('java', java)
+hljs.registerLanguage('c', c)
+hljs.registerLanguage('cpp', cpp)
+hljs.registerLanguage('csharp', csharp)
+hljs.registerLanguage('go', go)
+hljs.registerLanguage('rust', rust)
+hljs.registerLanguage('php', php)
+hljs.registerLanguage('ruby', ruby)
+hljs.registerLanguage('swift', swift)
+hljs.registerLanguage('kotlin', kotlin)
+hljs.registerLanguage('sql', sql)
+hljs.registerLanguage('yaml', yaml)
+hljs.registerLanguage('ini', ini)
+hljs.registerLanguage('dockerfile', dockerfile)
+hljs.registerLanguage('makefile', makefile)
+hljs.registerLanguage('markdown', markdown)
 
 const extToLanguage: Record<string, string> = {
   ts: 'typescript',
@@ -34,11 +68,36 @@ const extToLanguage: Record<string, string> = {
   html: 'html',
   htm: 'html',
   css: 'css',
+  scss: 'css',
+  less: 'css',
   sh: 'bash',
   bash: 'bash',
+  zsh: 'bash',
   ps1: 'powershell',
   xml: 'xml',
+  svg: 'xml',
   md: 'markdown',
+  py: 'python',
+  java: 'java',
+  c: 'c',
+  cpp: 'cpp',
+  h: 'c',
+  hpp: 'cpp',
+  cs: 'csharp',
+  go: 'go',
+  rs: 'rust',
+  php: 'php',
+  rb: 'ruby',
+  swift: 'swift',
+  kt: 'kotlin',
+  kts: 'kotlin',
+  sql: 'sql',
+  yaml: 'yaml',
+  yml: 'yaml',
+  ini: 'ini',
+  dockerfile: 'dockerfile',
+  makefile: 'makefile',
+  mk: 'makefile'
 }
 
 function detectLanguageByExt (filePath: string): string | undefined {

@@ -1,101 +1,156 @@
 body {
   margin: 0;
-  background: #0d1117;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Fira Code", "JetBrains Mono", Consolas, "Liberation Mono", Courier, monospace;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.container {
-  width: 1200px;
-  background: #0d1117;
-  color: #c9d1d9;
-  border-radius: 12px;
-  padding: 24px;
-  margin: 0 auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 12px;
-  background: #161b22;
-  border-radius: 8px;
-  margin-bottom: 12px;
-}
-
-.traffic {
-  display: flex;
-  gap: 8px;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+  padding: 40px;
+  background: transparent;
+  font-family: 'Source Code Pro', monospace;
   display: inline-block;
 }
 
-.dot.red {
+.window {
+  background: #282c34;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  min-width: 600px;
+  max-width: 1200px;
+}
+
+.title-bar {
+  background: #21252b;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-bottom: 1px solid #181a1f;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+}
+
+.control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.close {
   background: #ff5f56;
 }
 
-.dot.yellow {
+.minimize {
   background: #ffbd2e;
 }
 
-.dot.green {
+.maximize {
   background: #27c93f;
 }
 
 .title {
-  font-weight: 600;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #9da5b4;
+  font-size: 13px;
+  font-weight: 500;
 }
 
-.title .muted {
-  color: #8b949e;
-  font-weight: 400;
+.content {
+  padding: 20px 0;
+  background: #282c34;
 }
 
-.range {
-  color: #8b949e;
-}
-
-.code-wrap {
-  background: #0b1220;
-  border-radius: 10px;
-  padding: 16px 0 8px 0;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.code {
+.code-block {
   margin: 0;
-  padding: 0 16px 16px 16px;
-  line-height: 1.65;
-  font-size: 13.5px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Fira Code", "JetBrains Mono", Consolas, "Liberation Mono", Courier, monospace;
-  overflow-x: auto;
+  padding: 0;
+  background: transparent;
+  font-family: 'Source Code Pro', monospace !important;
 }
 
 .code-line {
   display: flex;
-  gap: 16px;
+  line-height: 1.6;
+  padding: 0 10px;
+  font-family: 'Source Code Pro', monospace !important;
+}
+
+.code-line:hover {
+  background: #2c313a;
 }
 
 .line-number {
-  display: inline-block;
-  width: 48px;
-  color: #6e7681;
+  color: #495162;
   text-align: right;
-  -webkit-user-select: none;
+  padding-right: 15px;
+  min-width: 40px;
   user-select: none;
-  padding-right: 8px;
+  font-size: 13px;
+  font-family: 'Source Code Pro', monospace !important;
 }
 
 .line-content {
-  flex: 1;
+  color: #abb2bf;
+  font-size: 14px;
+  font-weight: 500;
   white-space: pre;
+  font-family: 'Source Code Pro', monospace !important;
+}
+
+.footer {
+  background: #21252b;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: center;
+  color: #5c6370;
+  font-size: 12px;
+  border-top: 1px solid #181a1f;
+}
+
+.title-range {
+  opacity: 0.6;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+/* Override highlight.js background */
+.hljs {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* Force straight quotes and non-italic strings */
+.hljs-string,
+.hljs-title,
+.hljs-section,
+.hljs-attribute,
+.hljs-literal,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-addition,
+.hljs-deletion,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-meta,
+.hljs-comment,
+.hljs-quote {
+  font-style: normal !important;
+  font-family: 'Source Code Pro', monospace !important;
+}
+
+.hljs-section,
+.hljs-attribute,
+.hljs-literal,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-addition,
+.hljs-deletion,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-meta {
+  font-style: normal !important;
 }
