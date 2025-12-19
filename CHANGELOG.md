@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.30.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.2...v1.30.3) (2025-12-19)
+
+
+### Bug Fixes
+
+* 更新tsup配置文件 ([7af8e1b](https://github.com/yusheng929/karin-plugin-ling/commit/7af8e1bedb208a9bd4934b2fdd011903d6a6d2fd))
+
 ## [1.30.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.1...v1.30.2) (2025-12-19)
 
 
