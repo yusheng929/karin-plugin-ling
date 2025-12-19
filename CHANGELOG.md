@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.30.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.29.2...v1.30.0) (2025-12-19)
+
+
+### Features
+
+* 新增定时检查更新，自动更新 ([e654d9d](https://github.com/yusheng929/karin-plugin-ling/commit/e654d9d831022b9da50e66f04c2e98ce540f2c15))
+
 ## [1.29.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.29.1...v1.29.2) (2025-12-17)
 
 
