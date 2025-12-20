@@ -80,8 +80,8 @@ body {
   content: '';
   position: absolute;
   left: 98px;
-  top: 32px;
-  bottom: -32px;
+  top: 19px;
+  bottom: -51px;
   width: 2px;
   background: #e2e8f0;
 }
