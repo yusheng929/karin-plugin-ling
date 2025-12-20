@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.30.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.3...v1.30.4) (2025-12-20)
+
+
+### Bug Fixes
+
+* 优化runcode样式 ([df5f36b](https://github.com/yusheng929/karin-plugin-ling/commit/df5f36baf7603b2f2521c4e15306ad4a482e39f3))
+* 字体本地化 ([df704d8](https://github.com/yusheng929/karin-plugin-ling/commit/df704d8840a65d43e5e345fc9a0118a5065510f8))
+
 ## [1.30.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.2...v1.30.3) (2025-12-19)
 
 
