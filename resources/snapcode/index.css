@@ -95,7 +95,8 @@ body {
   color: #abb2bf;
   font-size: 14px;
   font-weight: 500;
-  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-all;
   font-family: 'Source Code Pro', monospace !important;
 }
 
