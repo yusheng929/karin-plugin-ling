@@ -1,172 +1,188 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --mac-red: #ff5f56;
+  --mac-yellow: #ffbd2e;
+  --mac-green: #27c93f;
+  --theme-blue: #e3f2fd;
+  --theme-pink: #fce4ec;
+  --theme-cyan: #e0f7fa;
+  --font-family: 'Source Code Pro', monospace;
+}
+
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #fce4ec 0%, #e0f7fa 50%, #e3f2fd 100%);
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  margin: 0;
   padding: 20px;
+  background-color: transparent;
+  font-family: var(--font-family);
+  display: inline-block;
 }
 
-.terminal-container {
-  width: 700px;
-  filter: drop-shadow(0 20px 40px rgba(176, 190, 197, 0.4));
-}
-
-.terminal {
-  background: linear-gradient(180deg, #fafafa 0%, #f5f5f5 100%);
-  border-radius: 16px;
+.window {
+  width: 900px;
+  /* Fixed width */
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  border: 2px solid #f8bbd9;
+  border: 1px solid #f0f0f0;
 }
 
-/* 标题栏 */
-.terminal-header {
-  background: linear-gradient(90deg, #fce4ec 0%, #e1f5fe 50%, #f3e5f5 100%);
-  padding: 14px 16px;
+/* Mac-style Title Bar with Theme Colors */
+.title-bar {
+  height: 28px;
+  background: var(--theme-blue);
+  /* Light Blue */
   display: flex;
   align-items: center;
-  gap: 10px;
-  border-bottom: 2px solid #f8bbd9;
+  padding: 0 10px;
+  position: relative;
 }
 
-.window-controls {
+.controls {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .control {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .control.close {
-  background: linear-gradient(135deg, #ffab91 0%, #ff8a80 100%);
+  background-color: var(--mac-red);
 }
 
 .control.minimize {
-  background: linear-gradient(135deg, #fff59d 0%, #ffee58 100%);
+  background-color: var(--mac-yellow);
 }
 
 .control.maximize {
-  background: linear-gradient(135deg, #a5d6a7 0%, #81c784 100%);
+  background-color: var(--mac-green);
 }
 
-.terminal-title {
-  flex: 1;
+.title {
+  position: absolute;
+  left: 0;
+  right: 0;
   text-align: center;
-  font-size: 13px;
-  color: #7986cb;
+  font-size: 11px;
+  color: #666;
   font-weight: 600;
-  letter-spacing: 1px;
+  pointer-events: none;
+  letter-spacing: 0.5px;
 }
 
-.terminal-title span {
-  background: linear-gradient(90deg, #f48fb1 0%, #81d4fa 50%, #b39ddb 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Content Area */
+.content {
+  padding: 10px 14px;
+  font-size: 12px;
+  /* Small font */
+  line-height: 1.25;
+  /* Compact lines (Pwsh style) */
+  color: var(--text-color);
+  font-family: var(--font-family);
 }
 
-.terminal-body {
-  background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
-  padding: 20px;
-  min-height: 300px;
-}
-
+/* Command Line */
 .command-line {
   display: flex;
-  align-items: flex-start;
-  margin-bottom: 8px;
-  line-height: 1.6;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 2px;
 }
 
 .prompt {
+  margin-right: 6px;
+  white-space: nowrap;
   display: flex;
   align-items: center;
-  gap: 0;
-  flex-shrink: 0;
 }
 
-.prompt-user {
-  color: #f48fb1;
-  font-weight: 600;
-}
-
-.prompt-at {
-  color: #b0bec5;
-}
-
-.prompt-host {
-  color: #81d4fa;
-  font-weight: 600;
-}
-
-.prompt-colon {
-  color: #b0bec5;
-}
-
-.prompt-path {
-  color: #b39ddb;
-  font-weight: 600;
-}
-
-.prompt-symbol {
-  color: #a5d6a7;
+/* Prompt Colors - Single Color for Whole Title */
+.prompt-text {
+  color: #0097a7;
+  /* Cyan 700 - A nice readable teal/cyan */
   font-weight: bold;
-  margin-left: 2px;
 }
 
 .command {
-  color: #5c6bc0;
-  margin-left: 8px;
+  color: #263238;
+  word-break: break-all;
   font-weight: 500;
 }
 
+/* Output */
 .output {
-  margin-bottom: 16px;
-  padding-left: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .output-line {
-  color: #546e7a;
-  line-height: 1.5;
   white-space: pre-wrap;
-  word-wrap: break-word;
+  /* Auto wrap */
   word-break: break-all;
-  font-size: 13px;
+  margin-bottom: 0;
+  /* Compact */
 }
 
-/* 状态栏 */
-.copyright {
-  background: linear-gradient(90deg, #fce4ec 0%, #e1f5fe 50%, #f3e5f5 100%);
-  padding: 8px 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 11px;
-  color: #90a4ae;
+/* Status Bar */
+.status-bar {
+  height: 22px;
+  background-color: var(--theme-pink);
+  /* Light Pink */
   border-top: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  font-size: 10px;
+  color: #888;
 }
 
-@keyframes pulse {
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+.status-dot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--mac-green);
+  border-radius: 50%;
+}
 
-  50% {
-    transform: scale(1.2);
-    opacity: 0.7;
-  }
+/* Highlight.js overrides for light theme to match "Simple White" aesthetic */
+.hljs-variable {
+  color: #d32f2f;
+}
+
+.hljs-string {
+  color: #2e7d32;
+}
+
+.hljs-keyword {
+  color: #1565c0;
+  font-weight: bold;
+}
+
+.hljs-number {
+  color: #e65100;
+}
+
+.hljs-comment {
+  color: #90a4ae;
+  font-style: italic;
+}
+
+.hljs-function {
+  color: #6a1b9a;
 }

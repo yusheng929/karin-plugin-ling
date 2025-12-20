@@ -175,12 +175,17 @@ const helpList = [
       },
       {
         title: '#铃更新',
-        desc: '更新铃插件(仅限NPM安装的用户)',
+        desc: '更新铃插件',
         master: true
       },
       {
         title: '#上班/下班',
         desc: '开启或关闭工作状态，下班状态功能将无法使用',
+        master: true
+      },
+      {
+        title: '#铃(版本|更新日志)',
+        desc: '查看插件当前版本或更新日志',
         master: true
       }
     ]

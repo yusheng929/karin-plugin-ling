@@ -6,20 +6,11 @@ import hljs from 'highlight.js'
 import shell from 'highlight.js/lib/languages/powershell'
 hljs.registerLanguage('powershell', shell)
 
-const createTitle = (user: string, host: string, path: string, render: boolean = false) => {
+const createTitle = (user: string, host: string, path: string) => {
   const isWindows = os.platform() === 'win32'
   const Path = isWindows ? path + '>' : path.replace(/^\/root/, '~')
   const symbol = user === 'root' ? '#' : '$'
-  return render
-    ? `
-<span class="prompt-user">${user}</span>
-<span class="prompt-at">@</span>
-<span class="prompt-host">${host}</span>
-<span class="prompt-colon">:</span>
-<span class="prompt-path">${Path}</span>
-<span class="prompt-symbol">${symbol}</span>
-`
-    : `${user}@${host}:${Path}${symbol} `
+  return `${user}@${host}:${Path}${symbol} `
 }
 export const runjs = karin.karin.command(/^rjs/, async (e) => {
   const code = e.msg.replace(/^rjs/, '').trim()
@@ -67,14 +58,14 @@ export const runcode = karin.karin.command(/^rc(p)?(.*)$/, async (e) => {
   if (isPic) {
     const cmd = hljs.highlight(code, { language: 'powershell' }).value
     const data = {
-      title: createTitle(username, hostname, Path, true),
+      title: createTitle(username, hostname, Path),
       cmd,
       output: output.split('\n').filter(i => i.trim() !== '')
     }
     const img = await render('runcode/index', { data })
     e.reply(img, { reply: true })
   } else {
-    output = createTitle(username, hostname, Path, false) + code + '\n' + output
+    output = createTitle(username, hostname, Path) + code + '\n' + output
     e.reply(output, { reply: true })
   }
   return true
