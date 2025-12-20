@@ -79,7 +79,7 @@ body {
 .version-item::before {
   content: '';
   position: absolute;
-  left: 105px;
+  left: 98px;
   top: 32px;
   bottom: -32px;
   width: 2px;
