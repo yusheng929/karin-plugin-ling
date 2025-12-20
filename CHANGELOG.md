@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.30.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.5...v1.30.6) (2025-12-20)
+
+
+### Bug Fixes
+
+* 优化样式，修复sc功能文本显示不全 ([5300700](https://github.com/yusheng929/karin-plugin-ling/commit/53007008192e673ca4aa62a5847896b9e5ef69d8))
+* 细节优化 ([bceaf4d](https://github.com/yusheng929/karin-plugin-ling/commit/bceaf4dc55f35941e78b7551ea4ee6c3d4fe8243))
+
 ## [1.30.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.4...v1.30.5) (2025-12-20)
 
 
