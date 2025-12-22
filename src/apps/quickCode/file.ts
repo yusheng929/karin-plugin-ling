@@ -4,15 +4,23 @@ import { common, GroupFileUploadedNotice, karin, logger, PrivateFileUploadedNoti
 import { Size } from '@/models/Size'
 import { LING_KEY } from '@/utils/common'
 
-const FileDownloadReg = /^#文件下载(.*)?$/
+const FileDownloadReg = /^#(取消)?文件下载(.*)?$/
 const FileUploadReg = /^#文件上传(.*)?$/
 export const FileDownload = karin.command(FileDownloadReg, async (e) => {
-  const Path = e.msg.replace(FileDownloadReg, '$1').trim() || process.cwd()
-  await e.reply('请在三分钟内发送需要下载到本地的文件', { at: true })
+  const [, cancel, Path = process.cwd()] = e.msg.match(FileDownloadReg)!
+  if (cancel) {
+    const key = `${e.isGroup ? LING_KEY.GroupUploadFile : LING_KEY.FriendUploadFile}:${e.selfId}:${e.contact.peer}:${e.userId}`
+    const event = karin.emit(key, null)
+    if (event) {
+      await e.reply('已取消文件下载', { reply: true })
+    }
+    return true
+  }
+  await e.reply('请在三分钟内发送需要下载到本地的文件', { reply: true })
   const key = `${e.isGroup ? LING_KEY.GroupUploadFile : LING_KEY.FriendUploadFile}:${e.selfId}:${e.contact.peer}:${e.userId}`
   const timeout = setTimeout(async () => {
     karin.emit(key, null)
-    await e.reply('文件下载已超时', { at: true })
+    await e.reply('文件下载已超时', { reply: true })
   }, 3 * 60 * 1000)
   await karin.once(key, async (event?: GroupFileUploadedNotice | PrivateFileUploadedNotice) => {
     try {
@@ -21,9 +29,20 @@ export const FileDownload = karin.command(FileDownloadReg, async (e) => {
       await event.reply('开始下载文件', { reply: true })
       let url
       if (event.bot.adapter.protocol === 'napcat') {
-        url = (await event.bot.sendApi!(`get_${event.contact.scene === 'group' ? 'group' : 'private'}_file_url`, {
+        const param: {
+          group_id?: number
+          file_id: string
+        } = {
           file_id: event.content.fid
-        })).url
+        }
+        let action
+        if (event.contact.scene === 'group') {
+          param.group_id = +event.contact.peer
+          action = 'get_group_file_url'
+        } else {
+          action = 'get_private_file_url'
+        }
+        url = (await event.bot.sendApi!(action, param)).url
       } else {
         url = await event.bot.getFileUrl(event.contact, event.content.fid)
       }
