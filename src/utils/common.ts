@@ -1,5 +1,13 @@
 import { karin, config, logger, GroupMessage, ImageElement } from 'node-karin'
 
+export const LING_KEY = (() => {
+  const base = 'Ling'
+  return {
+    base,
+    get GroupUploadFile () { return `${base}:GroupUploadFile` },
+    get FriendUploadFile () { return `${base}:FriendUploadFile` }
+  }
+})()
 const UNIT_MS = {
   seconds: 1000,
   minutes: 60000,

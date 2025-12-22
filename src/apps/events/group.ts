@@ -9,7 +9,7 @@ import {
   segment
 } from 'node-karin'
 import lodash from 'node-karin/lodash'
-import { sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
+import { LING_KEY, sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
 
 /** 进群事件 */
 export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
@@ -155,3 +155,8 @@ const autoquit = async (e: GroupMemberIncreaseNotice, id: string, groupId: strin
   }
   return false
 }
+
+export const UploadFile = karin.accept('notice.groupFileUploaded', async (e) => {
+  karin.emit(`${LING_KEY.GroupUploadFile}:${e.selfId}:${e.contact.peer}:${e.userId}`, e)
+  return false
+}, { name: '文件上传监听', priority: -1 })

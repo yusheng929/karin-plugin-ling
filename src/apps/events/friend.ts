@@ -37,3 +37,7 @@ export const friendApply = karin.accept('request.friendApply', async (e) => {
   }
   return true
 }, { name: '处理加好友申请', priority: 100, })
+
+export const UploadFile = karin.accept('notice.privateFileUploaded', async (e) => {
+  return false
+}, { name: '好友文件上传监听', priority: -1 })
