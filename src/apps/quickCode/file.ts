@@ -14,12 +14,19 @@ export const FileDownload = karin.command(FileDownloadReg, async (e) => {
     karin.emit(key, null)
     await e.reply('文件下载已超时', { at: true })
   }, 3 * 60 * 1000)
-  await karin.once(key, async (event: GroupFileUploadedNotice | PrivateFileUploadedNotice) => {
+  await karin.once(key, async (event?: GroupFileUploadedNotice | PrivateFileUploadedNotice) => {
     try {
       if (timeout) clearTimeout(timeout)
       if (!event) return false
       await event.reply('开始下载文件', { reply: true })
-      const url = await event.bot.getFileUrl(event.contact, event.content.fid)
+      let url
+      if (event.bot.adapter.protocol === 'napcat') {
+        url = (await event.bot.sendApi!(`get_${event.contact.scene === 'group' ? 'group' : 'private'}_file_url`, {
+          file_id: event.content.fid
+        })).url
+      } else {
+        url = await event.bot.getFileUrl(event.contact, event.content.fid)
+      }
       if (!url) {
         await event.reply('获取文件链接失败', { reply: true })
         return true
