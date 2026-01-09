@@ -1,5 +1,14 @@
 # 更新日志
 
+## [1.30.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.6...v1.30.7) (2025-12-22)
+
+
+### Bug Fixes
+
+* napcat兼容 ([3e7ffcd](https://github.com/yusheng929/karin-plugin-ling/commit/3e7ffcdea563b919f00f73ca547a627775e7f6bc))
+* 修复下载文件不兼容除icqq外的协议 ([e498cdb](https://github.com/yusheng929/karin-plugin-ling/commit/e498cdb29e0fe33cbca0166a72093576e47dab96))
+* 针对nc做文件下载兼容 ([a20aef2](https://github.com/yusheng929/karin-plugin-ling/commit/a20aef2a14c8c319c37c9fbfbe639234f3c0be44))
+
 ## [1.30.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.5...v1.30.6) (2025-12-20)
 
 
