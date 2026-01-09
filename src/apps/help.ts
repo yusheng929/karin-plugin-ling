@@ -24,8 +24,7 @@ const helpList = [
       },
       {
         title: '#禁言<时间><@QQ>',
-        desc: '禁言被@的成员，默认单位秒，支持中文数字',
-        perm: 'GroupAdmin',
+        desc: '禁言被@的成员，默认单位秒，支持中文数字'
       },
       {
         title: '#发(群)?公告',

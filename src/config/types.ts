@@ -91,6 +91,8 @@ export interface Other {
 }
 
 export interface AutoQuitEntry {
+  /** 是否启用自动退群 */
+  enable: boolean
   /** 黑名单列表 */
   disable_list: string[]
   /** 白名单列表 */

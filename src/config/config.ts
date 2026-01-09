@@ -33,10 +33,12 @@ const defCfg: DefCfgTypes = {
       disableText: '当前群在黑名单,已自动退出',
       autoQuit: {
         default: {
+          enable: true,
           disable_list: [],
           enable_list: []
         },
         114514: {
+          enable: false,
           disable_list: [],
           enable_list: []
         }
@@ -70,6 +72,23 @@ const defCfg: DefCfgTypes = {
 const merge = (defObj: any, userObj: any) => _.mergeWith({}, defObj, userObj, (dst, src) => {
   if (Array.isArray(dst)) return _.cloneDeep(src)
 })
+
+type IsArray<T> = T extends any[] ? true : false
+
+type PathInternal<T, Prev extends string = ''> =
+  T extends object ? {
+    [K in keyof T & string]: IsArray<T[K]> extends true ? `${Prev}${K}` : `${Prev}${K}` | PathInternal<T[K], `${Prev}${K}.`>
+  }[keyof T & string] : never
+
+type PathOf<T> = PathInternal<T>
+
+type PathValue<T, P extends string> =
+  P extends `${infer K}.${infer Rest}` ? K extends keyof T ? PathValue<T[K], Rest> : never : P extends keyof T ? T[P] : never
+
+type ArrayPathOf<T> = {
+  [P in PathOf<T>]: PathValue<T, P> extends any[] ? P : never
+}[PathOf<T>]
+
 type CfgKey = keyof typeof defCfg
 class Config {
   #isinit = false
@@ -137,9 +156,22 @@ class Config {
    * @param value 值
    * @returns
    */
-  async set<T extends CfgKey> (name: T, op: 'add' | 'del' | 'set', key: string, value: any) {
+  async set<
+    T extends CfgKey,
+    P extends PathOf<DefCfgTypes[T]>
+  > (name: T, op: 'set', key: P, value: PathValue<DefCfgTypes[T], P>): Promise<boolean>
+
+  async set<
+    T extends CfgKey,
+    P extends ArrayPathOf<DefCfgTypes[T]>
+  > (name: T, op: 'add' | 'del', key: P, value: PathValue<DefCfgTypes[T], P> extends Array<infer U> ? U : never): Promise<boolean>
+
+  async set<
+    T extends CfgKey,
+    P extends PathOf<DefCfgTypes[T]>
+  > (name: T, op: 'add' | 'del' | 'set', key: P, value: any): Promise<boolean> {
     const data = _.cloneDeep(await this.get(name, true))
-    const keys = key.split('.')
+    const keys = (key as string).split('.')
     const last = keys.pop()!
     let cur: Record<string, any> = data
     for (const k of keys) {

@@ -1,6 +1,7 @@
-import { components, LocalApiResponse } from 'node-karin'
+import { components, defineConfig } from 'node-karin'
 import { cfg } from '@/config'
 import _ from 'node-karin/lodash'
+import { dir } from './utils/dir'
 
 const group = await cfg.get('group')
 const friend = await cfg.get('friend')
@@ -45,22 +46,25 @@ interface Config {
   ]
 }
 
-export default {
+export default defineConfig({
   info: {
+    id: 'karin-plugin-ling',
     name: '铃插件',
-    description: '多功能插件',
+    version: dir.version,
+    description: '一个主为群聊管理和方便快捷所编写的插件',
     icon: {
-      name: 'tag',
+      name: 'Extension',
+      size: 24,
       color: '#FFB6C1'
     },
     author: [
       {
         name: '瑜笙',
         home: 'https://github.com/yusheng929',
-        avatar: 'https://q1.qlogo.cn/g?b=qq&s=0&nk=2624367622'
+        avatar: 'https://avatars.githubusercontent.com/u/149318528?v=4'
       }
     ]
-  } as LocalApiResponse,
+  },
   /** 动态渲染的组件 */
   components: () => [
     components.accordion.create('group', {
@@ -156,7 +160,7 @@ export default {
               descPosition: 0
             }),
             components.input.string('Perm:notOwnerText', {
-              label: 'Bot无群主权限提管理员',
+              label: 'Bot无群主权限提示词',
               description: '设置后,当Bot无群主权限时,则发送文本',
               defaultValue: group.Perm.notOwnerText,
               isRequired: false,
@@ -268,7 +272,58 @@ export default {
           ]
         })
       ]
-    })
+    }),
+    components.accordionPro.create('autoQuit',
+      Object.entries(group.AutoQuitGroup.autoQuit).map(([key, value]) => {
+        return {
+          title: key === 'default' ? '全局默认配置' : key,
+          subtitle: key === 'defaule' ? '该配置为全局默认配置,所有Bot共享这个配置,但是优先级比单独Bot配置低' : '单独Bot配置',
+          Id: key,
+          ...value
+        }
+      }).sort((a, b) => a.Id === 'default' ? -1 : b.Id === 'default' ? 1 : 0),
+      {
+        label: '自动退群配置',
+        description: '当指定Bot加入黑名单或者白名单群时,自动退出',
+        children: components.accordion.createItem('autoQuit-item', {
+          children: [
+            components.switch.create('enable', {
+              label: '是否启用',
+              description: '开启后,当Bot加入黑名单或者非白名单群时,会自动退出',
+              size: 'sm'
+            }),
+            components.input.string('Id', {
+              label: 'Bot账号Id'
+            }),
+            components.input.group('enable_list', {
+              label: '白名单配置',
+              description: '配置后,后续进入群聊将自动退出非白名单的群聊',
+              data: [],
+              template:
+                components.input.string('autoQuit-string-1', {
+                  color: 'success',
+                  label: '群号',
+                  placeholder: '请输入群号',
+                  isRequired: true,
+                  value: '',
+                })
+            }),
+            components.input.group('disable_list', {
+              label: '黑名单配置',
+              description: '配置后,后续进入群聊将自动退出黑名单的群聊',
+              data: [],
+              template:
+                components.input.string('autoQuit-string-2', {
+                  color: 'success',
+                  label: '群号',
+                  placeholder: '请输入群号',
+                  isRequired: true,
+                  value: '',
+                })
+            })
+          ]
+        })
+      })
   ],
 
   /** 前端点击保存之后调用的方法 */
@@ -316,12 +371,23 @@ export default {
       likeStart: config.friend[0].likeStart,
       likeEnd: config.friend[0].likeEnd
     }
-    if (!_.isEqual(friend, Friend)) cfg.save('friend', Friend)
-    if (!_.isEqual(group, Group)) cfg.save('group', Group)
-    if (!_.isEqual(other, Other)) cfg.save('other', Other)
+    let success = false
+    if (!_.isEqual(friend, Friend)) {
+      cfg.save('friend', Friend)
+      success = true
+    }
+    if (!_.isEqual(group, Group)) {
+      cfg.save('group', Group)
+      success = true
+    }
+
+    if (!_.isEqual(other, Other)) {
+      cfg.save('other', Other)
+      success = true
+    }
     return {
-      success: true,
-      message: '配置保存成功',
+      success,
+      message: success ? '配置保存成功' : '配置无变化',
     }
   }
-}
+})

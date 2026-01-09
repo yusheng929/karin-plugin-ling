@@ -11,15 +11,11 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
   if (!isMe) userId = e.at[0]
   if (!userId) return e.reply('请艾特需要查询的对象', { reply: true })
   const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${userId}`) || '[]') as WhoAtType
-  if (data.length === 0) return e.reply('没有人艾特过你哦~', { reply: true })
   const msg = []
-  const d1 = data.filter(i => {
-    if (isAtLeast(Date.now(), i.time, 1, 'days')) return false
-    return true
-  })
+  const d1 = data.filter(i => !isAtLeast(Date.now(), i.time, 1, 'days'))
+  if (data.length === 0) return e.reply('没有人艾特过你哦~', { reply: true })
   for (const item of d1) {
     try {
-      if (isAtLeast(Date.now(), item.time)) return
       const elements = await e.bot.getMsg(e.contact, item.messageId)
       const index = elements.elements.findIndex((item) => item.type === 'longMsg')
       if (index !== -1) elements.elements.splice(index, 1)

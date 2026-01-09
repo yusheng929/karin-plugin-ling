@@ -14,6 +14,7 @@ import { LING_KEY, sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
 /** 进群事件 */
 export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
   const group = await cfg.get('group')
+  /** 执行自动退群逻辑 */
   if (e.sender.userId === e.selfId && group.AutoQuitGroup.enable) {
     const data = group.AutoQuitGroup.autoQuit
     e.selfId in data ? await autoquit(e, e.selfId, e.groupId) : await autoquit(e, 'default', e.groupId)
@@ -80,11 +81,11 @@ export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
 
 /** 申请进群事件 */
 export const groupApply = karin.accept('request.groupApply', async (e) => {
+  logger.info(e.content)
   logger.info(`${e.content.applierId} 申请加入群 ${e.groupId}: ${e.content.flag}`)
   const opts = await cfg.get('group')
   if (!opts.Apply_list.includes(e.groupId)) return false
   const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
-
   const msg = await e.reply([
     segment.image(AvatarUrl),
     segment.text([
@@ -143,7 +144,8 @@ export const groupInvite = karin.accept('request.groupInvite', async (e) => {
 const autoquit = async (e: GroupMemberIncreaseNotice, id: string, groupId: string) => {
   const quit = (await cfg.get('group')).AutoQuitGroup
   const data = quit.autoQuit
-  const a = data[id]
+  let a = data[id]
+  if (!a) a = data.default
   if (a.enable_list.length > 0 && !a.enable_list.includes(groupId)) {
     await e.reply('当前群不在白名单,已自动退出')
     await e.bot.setGroupQuit(groupId, false)

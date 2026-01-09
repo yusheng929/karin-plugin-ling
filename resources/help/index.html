@@ -4,38 +4,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>铃 - 功能列表</title>
+  <title>Karin Help</title>
+  <link rel="stylesheet" href="{{pluResPath}}font/Inter/index.css">
   <link rel="stylesheet" href="{{pluResPath}}help/index.css">
 </head>
 
 <body>
-  <div id="container" class="container">
-    <div class="header">
-      <h1 class="title">铃 · 功能列表</h1>
-    </div>
+  <div class="app">
+    <header class="header">
+      <div class="header-content">
+        <h1>功能菜单</h1>
+        <p>Command List</p>
+      </div>
+    </header>
 
-    <div class="content">
+    <main class="main">
       {{each helpList}}
-      <div class="group-card">
-        <div class="group-title">{{$value.group}}</div>
-        <div class="function-grid">
+      <section class="group">
+        <h2 class="group-title">
+          <span>{{$value.group}}</span>
+        </h2>
+        <div class="grid">
           {{each $value.list}}
-          <div class="function-card">
+          <div class="card {{if $value.master}}has-master{{/if}}">
             {{if $value.master}}
-            <div class="master-badge">仅主人</div>
+            <span class="badge">MASTER</span>
             {{/if}}
-            <div class="card-content">
-              <div class="function-title">{{$value.title}}</div>
-              <div class="function-desc">{{$value.desc}}</div>
+            <div class="card-body">
+              <h3 class="cmd">{{$value.title}}</h3>
+              <p class="desc">{{$value.desc}}</p>
             </div>
           </div>
           {{/each}}
         </div>
-      </div>
+      </section>
       {{/each}}
-    </div>
+    </main>
 
-    <div class="copyright">{{@ sys.copyright}}</div>
+    <footer class="footer">
+      <p>{{@ sys.copyright}}</p>
+    </footer>
   </div>
 </body>
 
