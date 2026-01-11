@@ -35,7 +35,7 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
     /** 加乘 不要减、除 过于混乱 */
     const type = lodash.random(1, 2)
     const result = type === 1 ? num1 + num2 : num1 * num2
-    await e.reply(`\n为确保你不是机器人\n请在3分钟内输入下方计算结果\n『${num1} ${type === 1 ? '+' : '×'} ${num2} = ？』`, { at: true })
+    await e.reply(`\n为确保你不是机器人\n请在3分钟内输入下方计算结果\n『${num1} ${type === 1 ? '+' : 'x'} ${num2} = ？』`, { at: true })
 
     /**
      * @returns 返回`true`继续循环，返回`false`结束循环
@@ -82,7 +82,6 @@ export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
 
 /** 申请进群事件 */
 export const groupApply = karin.accept('request.groupApply', async (e) => {
-  logger.info(e.content)
   logger.info(`${e.content.applierId} 申请加入群 ${e.groupId}: ${e.content.flag}`)
   const opts = await cfg.get('group')
   if (!opts.Apply_list.includes(e.groupId)) return false
