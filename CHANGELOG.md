@@ -1,5 +1,14 @@
 # 更新日志
 
+## [1.31.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.31.0...v1.31.1) (2026-01-11)
+
+
+### Bug Fixes
+
+* 优化自动退群逻辑 ([301cf72](https://github.com/yusheng929/karin-plugin-ling/commit/301cf72d9c6dacd56a755d41bf637dca586d6480))
+* 修复rjs无法动态执行import的问题 ([64f5e73](https://github.com/yusheng929/karin-plugin-ling/commit/64f5e73c5f7a76ae0713ce276a726aedb05344fc))
+* 细节优化 ([a2571e3](https://github.com/yusheng929/karin-plugin-ling/commit/a2571e346999953f08b1731962e65d58ca68bb5b))
+
 ## [1.31.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.7...v1.31.0) (2026-01-09)
 
 
