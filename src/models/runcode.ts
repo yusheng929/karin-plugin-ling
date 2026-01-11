@@ -10,8 +10,12 @@ export const RunJs = async (code: string, sandbox: any, repeat: boolean = false,
   try {
     logger.info(`执行代码: \n${code}`)
     const vmContext = vm.createContext(sandbox)
-    const script = new vm.Script(`(async () => { ${a ? `return (${code})` : code} })()`)
-    return await script.runInContext(vmContext, { timeout: 30000 })
+    const script = new vm.Script(`(async () => { ${a ? `return (${code})` : code} })()`, {
+      importModuleDynamically: vm.constants.USE_MAIN_CONTEXT_DEFAULT_LOADER,
+    })
+    return await script.runInContext(vmContext, {
+      timeout: 30000
+    })
   } catch (e) {
     if (!repeat && String(e).includes('SyntaxError: Unexpected')) {
       return RunJs(code, sandbox, true, false)
