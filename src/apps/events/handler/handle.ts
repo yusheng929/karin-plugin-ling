@@ -22,3 +22,5 @@ export function createHookMessageHandler (func: Function[]) {
     await dispatch(0)
   }
 }
+
+export function createGroupHandler (func: Function[]) { }

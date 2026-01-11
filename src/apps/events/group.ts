@@ -19,6 +19,7 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
     const data = group.AutoQuitGroup.autoQuit
     e.selfId in data ? await autoquit(e, e.selfId, e.groupId) : await autoquit(e, 'default', e.groupId)
   }
+  /** 检查是否开启入群通知 */
   if (group.MemberChange.notice.enable && e.sender.userId !== e.selfId) {
     if (!group.MemberChange.notice.disable_list.includes(e.groupId)) {
       let msg = group.MemberChange.notice.joinText || '用户『{{Id}}』已加入本群'
@@ -141,16 +142,22 @@ export const groupInvite = karin.accept('request.groupInvite', async (e) => {
   return true
 }, { name: '处理邀请Bot加群申请' })
 
+/** 自动退群处理
+ * @param e 群事件
+ * @param id 配置ID
+ * @param groupId 群号
+ */
 const autoquit = async (e: GroupMemberIncreaseNotice, id: string, groupId: string) => {
   const quit = (await cfg.get('group')).AutoQuitGroup
   const data = quit.autoQuit
   let a = data[id]
   if (!a) a = data.default
+  if (!quit.enable || !a.enable) return false
   if (a.enable_list.length > 0 && !a.enable_list.includes(groupId)) {
     await e.reply('当前群不在白名单,已自动退出')
     await e.bot.setGroupQuit(groupId, false)
     return true
-  } else if (a.enable_list.length === 0 && a.disable_list.includes(groupId)) {
+  } else if (a.enable_list.length === 0 && a.disable_list.length > 0 && a.disable_list.includes(groupId)) {
     await e.reply('当前群处于黑名单,已自动退出')
     await e.bot.setGroupQuit(groupId, false)
     return true
