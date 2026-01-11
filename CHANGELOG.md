@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.31.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.7...v1.31.0) (2026-01-09)
+
+
+### Features
+
+* 优化代码逻辑，修复谁艾特功能失效的问题 ([7769696](https://github.com/yusheng929/karin-plugin-ling/commit/776969626b6fe557ffa72bb21cfeb8624b609478))
+
 ## [1.30.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.30.6...v1.30.7) (2025-12-22)
 
 
