@@ -3,11 +3,12 @@ import path from 'node:path'
 import { common, GroupFileUploadedNotice, karin, logger, PrivateFileUploadedNotice } from 'node-karin'
 import { Size } from '@/models/Size'
 import { LING_KEY } from '@/utils/common'
+import { D } from 'node_modules/node-karin/dist/types-hAhbXJDZ'
 
 const FileDownloadReg = /^#(取消)?文件下载(.*)?$/
 const FileUploadReg = /^#文件上传(.*)?$/
 export const FileDownload = karin.command(FileDownloadReg, async (e) => {
-  const [, cancel, Path = process.cwd()] = e.msg.match(FileDownloadReg)!
+  let [, cancel, Path = process.cwd()] = e.msg.match(FileDownloadReg)!
   if (cancel) {
     const key = `${e.isGroup ? LING_KEY.GroupUploadFile : LING_KEY.FriendUploadFile}:${e.selfId}:${e.contact.peer}:${e.userId}`
     const event = karin.emit(key, null)
@@ -50,8 +51,9 @@ export const FileDownload = karin.command(FileDownloadReg, async (e) => {
         await event.reply('获取文件链接失败', { reply: true })
         return true
       }
+      Path = path.join(Path, event.content.name || Date.now().toString())
       await common.downFile(url, Path)
-      await event.reply('文件下载完成', { reply: true })
+      await event.reply('文件下载完成' + `\n文件下载链接: ${url}`, { reply: true })
     } catch (error: any) {
       logger.error(`文件下载错误：${error}`)
       await e.reply(`文件下载错误: ${error.message}`, { reply: true })
