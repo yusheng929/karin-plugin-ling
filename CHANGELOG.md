@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.31.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.31.1...v1.31.2) (2026-01-12)
+
+
+### Bug Fixes
+
+* 修复功能文件下载无法正常下载文件的问题 ([203a289](https://github.com/yusheng929/karin-plugin-ling/commit/203a2897ce891e2fdf9d4aa48db2232c1f262899))
+* 修复远程命令无法使用换行的问题 ([eebc523](https://github.com/yusheng929/karin-plugin-ling/commit/eebc523029e16cdcd3810f574e3c23f5af0fbcca))
+
 ## [1.31.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.31.0...v1.31.1) (2026-01-11)
 
 
