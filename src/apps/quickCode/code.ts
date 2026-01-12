@@ -43,13 +43,13 @@ export const runjs = karin.karin.command(/^rjs/, async (e) => {
   return true
 }, { name: 'RunJs', permission: 'master', priority: -1 })
 
-export const runcode = karin.karin.command(/^rc(p)?(.*)$/, async (e) => {
-  const [, isPic, code] = e.msg.match(/^rc(p)?(.*)$/) || []
+export const runcode = karin.karin.command(/^rc(p)?(.*)$/s, async (e) => {
+  const [, isPic, code] = e.msg.match(/^rc(p)?(.*)$/s) || []
   if (!code) return false
   const username = os.userInfo().username
   const hostname = os.hostname()
   const Path = process.cwd()
-  const { error, stdout, stderr } = await karin.exec(code, { timeout: 60000 })
+  const { error, stdout, stderr } = await karin.exec(code, { timeout: 60000, log: true })
   let output = stderr + (error || stdout)
   if (isPic) {
     const cmd = hljs.highlight(code, { language: 'powershell' }).value
