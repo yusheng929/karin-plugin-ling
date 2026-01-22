@@ -1,7 +1,7 @@
 import { hooks } from 'node-karin'
 import { createHookMessageHandler } from './handler/handle'
-import { commute, whoat } from './func/message'
+import { commute, setRequestResult, whoat } from './func/message'
 
 hooks.message.group(
-  createHookMessageHandler([commute, whoat]),
+  createHookMessageHandler([commute, whoat, setRequestResult]),
   { priority: -Infinity })

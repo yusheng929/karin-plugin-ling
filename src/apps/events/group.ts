@@ -10,6 +10,7 @@ import {
 } from 'node-karin'
 import lodash from 'node-karin/lodash'
 import { LING_KEY, sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
+import { RequestResult } from '@/types/types'
 
 /** 进群事件 */
 export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
@@ -82,10 +83,18 @@ export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
 
 /** 申请进群事件 */
 export const groupApply = karin.accept('request.groupApply', async (e) => {
-  logger.info(`${e.content.applierId} 申请加入群 ${e.groupId}: ${e.content.flag}`)
+  logger.bot('info', e.selfId, `${e.content.applierId} 申请加入群 ${e.groupId} flag: ${e.content.flag}`)
   const opts = await cfg.get('group')
   if (!opts.Apply_list.includes(e.groupId)) return false
   const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
+  let isQuestion = false
+  const reasonReg = /^问题：(.*?)\n答案：(.*)/
+  const rea = (e.content.reason as string).match(reasonReg)
+  if (rea) {
+    const question = rea[1]
+    const answer = rea[2]
+    if (question && answer) isQuestion = true
+  }
   const msg = await e.reply([
     segment.image(AvatarUrl),
     segment.text([
@@ -93,13 +102,16 @@ export const groupApply = karin.accept('request.groupApply', async (e) => {
       `QQ号: ${e.userId}`,
       `昵称: ${e.sender.nick || '未知'}`,
       `flag: ${e.content.flag}`,
-      `申请理由: ${e.content.reason}`,
+      isQuestion ? e.content.reason : `申请理由: ${e.content.reason}`,
       '管理员可引用回复: 同意/拒绝 进行处理'
     ].join('\n'))
   ])
   const messageId = msg.messageId
-  const key = `Ling:groupinvite:${messageId}`
-  redis.set(key, e.content.flag, { EX: 86400 })
+  const key = `Ling:Request:${messageId}`
+  redis.set(key, JSON.stringify({
+    type: 'groupApply',
+    flag: e.content.flag
+  }), { EX: 86400 })
   return true
 }, { name: '加群申请通知' })
 
@@ -129,14 +141,25 @@ export const groupInvite = karin.accept('request.groupInvite', async (e) => {
       `${opt.notify ? '已自动同意' : '可引用回复: 同意/拒绝进行处理'}`
     ].join('\n'))
   ]
-  if (!opt.notify.allow) {
-    await sendToAllAdmin(e.selfId, message)
-  } else {
-    await sendToFirstAdmin(e.selfId, message)
+  const data: RequestResult = {
+    type: 'groupInvite',
+    flag: e.content.flag
   }
-  if (!opt.autoInvite) {
-    const key = `Ling:groupinvite:${e.groupId}:${e.userId}`
-    redis.set(key, e.content.flag, { EX: 86400 })
+
+  const msgIds: string[] = []
+  if (!opt.notify.allow) {
+    const ids = await sendToAllAdmin(e.selfId, message)
+    msgIds.push(...ids)
+  } else {
+    const msgId = await sendToFirstAdmin(e.selfId, message)
+    if (msgId) msgIds.push(msgId)
+  }
+
+  if (!opt.autoInvite && msgIds.length > 0) {
+    for (const msgId of msgIds) {
+      const key = `Ling:Request:${msgId}`
+      await redis.set(key, JSON.stringify(data), { EX: 86400 })
+    }
   }
   return true
 }, { name: '处理邀请Bot加群申请' })

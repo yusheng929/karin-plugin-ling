@@ -1,4 +1,5 @@
 import { cfg } from '@/config'
+import { RequestResult } from '@/types/types'
 import { sendToAllAdmin, sendToFirstAdmin } from '@/utils/common'
 import { karin, logger, redis, segment } from 'node-karin'
 
@@ -26,14 +27,25 @@ export const friendApply = karin.accept('request.friendApply', async (e) => {
       `${opt.autoAgree ? '已自动同意' : '可引用回复: 同意/拒绝进行处理'}`
     ].join('\n'))
   ]
-  if (!opt.notify.allow) {
-    await sendToAllAdmin(e.selfId, message)
-  } else {
-    await sendToFirstAdmin(e.selfId, message)
+  const data: RequestResult = {
+    type: 'friendApply',
+    flag: e.content.flag
   }
-  if (!opt.autoAgree) {
-    const key = `Ling:friendapply:${e.userId}`
-    redis.set(key, e.content.flag, { EX: 86400 })
+
+  const msgIds: string[] = []
+  if (!opt.notify.allow) {
+    const ids = await sendToAllAdmin(e.selfId, message)
+    msgIds.push(...ids)
+  } else {
+    const msgId = await sendToFirstAdmin(e.selfId, message)
+    if (msgId) msgIds.push(msgId)
+  }
+
+  if (!opt.autoAgree && msgIds.length > 0) {
+    for (const msgId of msgIds) {
+      const key = `Ling:Request:${msgId}`
+      await redis.set(key, JSON.stringify(data), { EX: 86400 })
+    }
   }
   return true
 }, { name: '处理加好友申请', priority: 100, })

@@ -14,7 +14,7 @@ export const RunJs = async (code: string, sandbox: any, repeat: boolean = false,
       importModuleDynamically: vm.constants.USE_MAIN_CONTEXT_DEFAULT_LOADER,
     })
     return await script.runInContext(vmContext, {
-      timeout: 30000
+      timeout: 30000,
     })
   } catch (e) {
     if (!repeat && String(e).includes('SyntaxError: Unexpected')) {

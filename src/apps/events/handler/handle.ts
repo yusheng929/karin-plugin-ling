@@ -23,4 +23,3 @@ export function createHookMessageHandler (func: Function[]) {
   }
 }
 
-export function createGroupHandler (func: Function[]) { }
