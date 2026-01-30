@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.32.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.32.0...v1.32.1) (2026-01-30)
+
+
+### Bug Fixes
+
+* 修复'谁艾特我'会记录发言人对自己艾特的消息 close [#218](https://github.com/yusheng929/karin-plugin-ling/issues/218) ([4bfa76b](https://github.com/yusheng929/karin-plugin-ling/commit/4bfa76b1619ad824abd4b6b4e6d6f9074e3deb81))
+
 ## [1.32.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.31.1...v1.32.0) (2026-01-22)
 
 
