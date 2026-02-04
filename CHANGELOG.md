@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.32.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.32.1...v1.32.2) (2026-02-04)
+
+
+### Bug Fixes
+
+* 修复同意拒绝触发异常的问题 ([1bb5481](https://github.com/yusheng929/karin-plugin-ling/commit/1bb5481e303f536880a0c9fa6fdb76c02fd878b7))
+
 ## [1.32.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.32.0...v1.32.1) (2026-01-30)
 
 
