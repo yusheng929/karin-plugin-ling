@@ -45,6 +45,8 @@ export const whoat = async (e: GroupMessage, next: NextType) => {
 export const setRequestResult = async (e: Message, next: NextType) => {
   const reg = /^#?(同意|拒绝)$/
   if (!reg.test(e.msg) || !e.replyId) return await next()
+  const Id = (await e.bot.getMsg(e.replyId)).sender.userId
+  if (e.selfId !== Id) return await next()
 
   if (!e.isMaster) {
     /** 如果是群聊 还需要判断是否是管理员 */
