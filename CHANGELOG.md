@@ -1,5 +1,13 @@
 # 更新日志
 
+## [1.32.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.32.2...v1.32.3) (2026-03-13)
+
+
+### Bug Fixes
+
+* tips ([d836c42](https://github.com/yusheng929/karin-plugin-ling/commit/d836c42485288d3f1b36461961ffd585354d2e37))
+* 新增拒绝入群理由/同意好友申请备注 close [#221](https://github.com/yusheng929/karin-plugin-ling/issues/221) ([95cf8d7](https://github.com/yusheng929/karin-plugin-ling/commit/95cf8d73bf9607ea20f819c9d1d4520e1d334a14))
+
 ## [1.32.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.32.1...v1.32.2) (2026-02-04)
 
 
