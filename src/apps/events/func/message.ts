@@ -43,7 +43,7 @@ export const whoat = async (e: GroupMessage, next: NextType) => {
 
 /** 设置加群申请/好友申请/邀请加群结果 */
 export const setRequestResult = async (e: Message, next: NextType) => {
-  const reg = /^#?(同意|拒绝)(?::.*)?$/
+  const reg = /^#?(同意|拒绝)(?::(.*))?$/
   const match = e.msg.match(reg)
   if (!match || !e.replyId) return await next()
   const action = match[1]
