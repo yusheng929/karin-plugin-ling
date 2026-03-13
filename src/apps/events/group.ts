@@ -103,7 +103,7 @@ export const groupApply = karin.accept('request.groupApply', async (e) => {
       `昵称: ${e.sender.nick || '未知'}`,
       `flag: ${e.content.flag}`,
       isQuestion ? e.content.reason : `申请理由: ${e.content.reason}`,
-      '管理员可引用回复: 同意/拒绝 进行处理'
+      '管理员可引用回复: 同意/拒绝 进行处理, 或者 拒绝:拒绝理由'
     ].join('\n'))
   ])
   const messageId = msg.messageId
@@ -138,7 +138,7 @@ export const groupInvite = karin.accept('request.groupInvite', async (e) => {
       `群号: ${e.groupId}`,
       `昵称: ${e.sender.nick || '未知'}`,
       `QQ号: ${e.userId}`,
-      `${opt.notify ? '已自动同意' : '可引用回复: 同意/拒绝进行处理'}`
+      `${opt.notify ? '已自动同意' : '可引用回复: 同意/拒绝 进行处理'}`
     ].join('\n'))
   ]
   const data: RequestResult = {

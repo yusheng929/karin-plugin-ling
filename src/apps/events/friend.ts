@@ -24,7 +24,7 @@ export const friendApply = karin.accept('request.friendApply', async (e) => {
       '接到用户好友申请',
       `QQ号: ${e.userId}`,
       `昵称: ${e.sender.nick || '未知'}`,
-      `${opt.autoAgree ? '已自动同意' : '可引用回复: 同意/拒绝进行处理'}`
+      `${opt.autoAgree ? '已自动同意' : '可引用回复: 同意/拒绝 进行处理, 或者 同意:好友备注'}`
     ].join('\n'))
   ]
   const data: RequestResult = {
