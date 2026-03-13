@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.32.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.32.3...v1.32.4) (2026-03-13)
+
+
+### Bug Fixes
+
+* bug ([9db2d41](https://github.com/yusheng929/karin-plugin-ling/commit/9db2d4121c9096d8821c7f001ea9f646f06b3d01))
+
 ## [1.32.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.32.2...v1.32.3) (2026-03-13)
 
 
