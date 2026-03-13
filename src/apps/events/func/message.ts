@@ -43,13 +43,15 @@ export const whoat = async (e: GroupMessage, next: NextType) => {
 
 /** 设置加群申请/好友申请/邀请加群结果 */
 export const setRequestResult = async (e: Message, next: NextType) => {
-  const reg = /^#?(同意|拒绝)$/
-  if (!reg.test(e.msg) || !e.replyId) return await next()
+  const reg = /^#?(同意|拒绝)(?::.*)?$/
+  const match = e.msg.match(reg)
+  if (!match || !e.replyId) return await next()
+  const action = match[1]
+  const isAgree = action === '同意'
+  const reason = match[2] || ''
   const Id = (await e.bot.getMsg(e.replyId)).sender.userId
   if (e.selfId !== Id) return await next()
-
   if (!e.isMaster) {
-    /** 如果是群聊 还需要判断是否是管理员 */
     if (e.isGroup) {
       if (!['owner', 'admin'].includes(e.sender.role)) {
         return await e.reply('暂无权限，仅群主或管理员可操作')
@@ -58,31 +60,31 @@ export const setRequestResult = async (e: Message, next: NextType) => {
       return await e.reply('暂无权限，仅主人可操作')
     }
   }
-
   const key = `Ling:Request:${e.replyId}`
   const data = await redis.get(key)
 
   if (!data) return await next()
 
   logger.bot('info', e.selfId, logger.yellow(`[${dir.name}]处理申请结果`))
-  const agree = e.msg.includes('同意')
   const req: RequestResult = JSON.parse(data)
-
+  let msg = `已${isAgree ? '同意' : '拒绝'}申请`
   switch (req.type) {
     case 'groupApply':
-      await e.bot.setGroupApplyResult(req.flag, agree)
+      await e.bot.setGroupApplyResult(req.flag, isAgree, reason)
+      if (!isAgree && reason) msg += `\n拒绝理由: ${reason}`
       break
     case 'friendApply':
-      await e.bot.setFriendApplyResult(req.flag, agree)
+      await e.bot.setFriendApplyResult(req.flag, isAgree, reason)
+      if (isAgree && reason) msg += `\n备注: ${reason}`
       break
     case 'groupInvite':
-      await e.bot.setInvitedJoinGroupResult(req.flag, agree)
+      await e.bot.setInvitedJoinGroupResult(req.flag, isAgree)
       break
     default:
       return await next()
   }
 
-  await e.reply(`已${agree ? '同意' : '拒绝'}申请`)
+  await e.reply(msg)
   await redis.del(key)
   return true
 }
