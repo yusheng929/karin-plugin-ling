@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.33.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.32.4...v1.33.0) (2026-03-30)
+
+
+### Features
+
+* 优化代码执行展示框样式 ([366fc2b](https://github.com/yusheng929/karin-plugin-ling/commit/366fc2bff9d6f36f7dde10f0fd32e749dcdb17da))
+
 ## [1.32.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.32.3...v1.32.4) (2026-03-13)
 
 
