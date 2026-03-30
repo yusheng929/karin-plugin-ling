@@ -4,40 +4,176 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>代码执行展示框</title>
-  <link rel="stylesheet" href="{{pluResPath}}runcode/index.css">
+  <title>Karin Code Runner</title>
+  <link rel="preconnect" href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="{{pluResPath}}font/SourceCodePro/index.css">
+  <link rel="stylesheet" href="{{pluResPath}}runcode/index.css">
 </head>
 
 <body>
-  <div class="window">
-    <div class="title-bar">
-      <div class="controls">
-        <div class="control close"></div>
-        <div class="control minimize"></div>
-        <div class="control maximize"></div>
-      </div>
-      <div class="title">代码执行展示框</div>
-    </div>
-    <div class="content">
-      <div class="command-line">
-        <div class="prompt">
-          <span class="prompt-text">{{data.title}}</span>
+  <div class="canvas">
+    <div class="card">
+      <!-- Gradient top edge -->
+      <div class="top-bar"></div>
+
+      <!-- Hero banner with brand identity -->
+      <div class="hero">
+        <div class="hero-bg">
+          <div class="hero-mesh"></div>
+          <div class="hero-glow"></div>
         </div>
-        <div class="command">{{@ data.cmd}}</div>
+        <div class="hero-content">
+          <div class="hero-left">
+            <div class="brand-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+                <line x1="14.5" y1="4" x2="9.5" y2="20" opacity="0.5" />
+              </svg>
+            </div>
+            <div class="brand-lockup">
+              <div class="brand-title">Karin<span class="brand-dot">.</span></div>
+              <div class="brand-sub">CODE RUNNER</div>
+            </div>
+          </div>
+          <div class="hero-right">
+            <span class="stat">
+              <span class="stat-num stat-font-sm" id="exec-time-val">--:--:--</span>
+              <span class="stat-label">CST +8</span>
+            </span>
+            <span class="divider-v"></span>
+            <span class="stat">
+              <span class="stat-num">{{data.output.length}}</span>
+              <span class="stat-label">lines</span>
+            </span>
+            <span class="divider-v"></span>
+            <span class="badge-exec">
+              <span class="badge-dot"></span>
+              EXEC
+            </span>
+          </div>
+        </div>
+        <!-- Large watermark -->
+        <div class="hero-watermark">RUN</div>
       </div>
 
-      <div class="output">
-        {{each data.output}}
-        <div class="output-line">{{$value}}</div>
-        {{/each}}
+      <!-- Command Section -->
+      <div class="section">
+        <div class="section-tag">
+          <span class="tag-line"></span>
+          <span class="tag-text">COMMAND</span>
+          <span class="tag-fade"></span>
+        </div>
+        <div class="code-panel cmd-panel">
+          <div class="cmd-path">{{data.title}}</div>
+          <pre class="cmd-source">{{@ data.cmd}}</pre>
+        </div>
       </div>
-    </div>
 
-    <div class="status-bar">
-      <div class="copyright">{{sys.copyright}}</div>
+      <!-- Execution flow divider -->
+      <div class="section-divider">
+        <div class="exec-flow">
+          <div class="flow-step">
+            <span class="flow-icon flow-icon-cmd">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="4 17 10 11 4 5" />
+                <line x1="12" y1="19" x2="20" y2="19" />
+              </svg>
+            </span>
+            <span class="flow-label">CMD</span>
+          </div>
+          <div class="flow-arrow">
+            <div class="flow-dots"></div>
+            <span class="flow-chevron">›</span>
+            <span class="flow-chevron">›</span>
+          </div>
+          <div class="flow-step">
+            <span class="flow-icon flow-icon-out">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+            </span>
+            <span class="flow-label">STDOUT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Output Section -->
+      <div class="section">
+        <div class="section-tag">
+          <span class="tag-line tag-line-alt"></span>
+          <span class="tag-text">OUTPUT</span>
+          <span class="tag-fade"></span>
+        </div>
+        <div class="code-panel out-panel">
+          {{if data.output.length}}
+          <div class="out-lines">
+            {{each data.output}}
+            <div class="out-row">
+              <span class="ln">{{$index + 1}}</span>
+              <span class="lt">{{$value}}</span>
+            </div>
+            {{/each}}
+          </div>
+          {{else}}
+          <div class="out-empty">— no output —</div>
+          {{/if}}
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div class="footer-left">
+          <span class="footer-logo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="url(#gFoot)" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+              <defs>
+                <linearGradient id="gFoot" x1="0" y1="0" x2="24" y2="24">
+                  <stop stop-color="#FF6B6B" />
+                  <stop offset="1" stop-color="#4ECDC4" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          <span class="footer-name">karin-plugin-ling</span>
+        </div>
+        <span class="footer-copy">{{sys.copyright}}</span>
+      </div>
     </div>
   </div>
+
+  <script>
+    // Beijing time (UTC+8)
+    ; (function () {
+      var el = document.getElementById('exec-time-val')
+      if (el) {
+        el.textContent = new Date().toLocaleTimeString('zh-CN', {
+          timeZone: 'Asia/Shanghai',
+          hour12: false,
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        })
+      }
+    })()
+
+    document.querySelectorAll('.lt').forEach(function (el) {
+      var h = el.innerHTML
+      h = h.replace(/(https?:\/\/[^\s&<]+)/g, '<b class="hl-url">$1</b>')
+      h = h.replace(/\b(Error|error|ERROR|Exception|exception|Fatal|fatal|FAIL|fail|Failed|failed)\b/g, '<b class="hl-err">$1</b>')
+      h = h.replace(/\b(Warning|warning|WARN|warn)\b/g, '<b class="hl-warn">$1</b>')
+      h = h.replace(/\b(Success|success|OK|ok|Done|done|PASS|pass|Completed|completed)\b/g, '<b class="hl-ok">$1</b>')
+      el.innerHTML = h
+    })
+  </script>
 </body>
 
 </html>
