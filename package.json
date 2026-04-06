@@ -18,12 +18,12 @@
     "url": "git+https://github.com/yusheng929/karin-plugin-ling.git"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "clean": "npm lib/cli/pr.js clean",
     "pub-beta": "npm publish --tag beta",
     "pr": "node lib/cli/pr.js",
     "commit": "node lib/cli/commit.js",
-    "dev": "tsx src/app.ts",
+    "dev": "tsx watch src/app.ts",
     "karin": "karin",
     "app": "karin app"
   },
@@ -33,13 +33,13 @@
     "@types/node": "^24.10.3",
     "@types/punycode": "^2.1.4",
     "@types/qs": "^6.14.0",
+    "cross-env": "^10.1.0",
     "eslint": "^9.39.1",
     "icqq": "^0.6.10",
     "neostandard": "^0.12.2",
     "node-karin": "^1.13.0",
     "tsc-alias": "^1.8.16",
-    "tsdown": "^0.19.0",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.21.7",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
