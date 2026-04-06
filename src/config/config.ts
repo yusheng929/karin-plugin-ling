@@ -58,9 +58,13 @@ const defCfg: DefCfgTypes = {
         allow: false
       }
     },
-    closeLike: false,
+    enableLike: true,
     likeStart: '已为你点赞{{likeCount}}次',
-    likeEnd: '已经给你赞过了'
+    likeEnd: '已经给你赞过了',
+    timedLike: {
+      enable: false,
+      targets: []
+    }
   },
   other: {
     noWork: [],
@@ -136,6 +140,18 @@ class Config {
       try {
         const raw = await fs.readFile(file, 'utf8')
         userCfg = JSON.parse(raw)
+        /**
+         * 向后兼容旧字段 `closeLike`
+         * 老版本: closeLike=true 表示关闭点赞
+         * 新版本: enableLike=false 表示关闭点赞
+         */
+        if (name === 'friend' && typeof userCfg.closeLike === 'boolean' && typeof userCfg.enableLike !== 'boolean') {
+          userCfg.enableLike = !userCfg.closeLike
+        }
+        /** 向后兼容旧字段 timedLike.ownerTargets */
+        if (name === 'friend' && Array.isArray(userCfg?.timedLike?.ownerTargets) && !Array.isArray(userCfg?.timedLike?.targets)) {
+          userCfg.timedLike.targets = userCfg.timedLike.ownerTargets
+        }
       } catch (e) {
         logger.error(`解析${name}配置失败，将使用默认配置`, e)
       }

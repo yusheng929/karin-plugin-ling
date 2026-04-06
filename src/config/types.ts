@@ -11,12 +11,19 @@ export interface Friend {
       allow: boolean
     }
   }
-  /** 关闭点赞 */
-  closeLike: boolean
+  /** 是否启用点赞功能（包含手动点赞与定时点赞） */
+  enableLike: boolean
   /** 点赞文本 */
   likeStart: string
   /** 已点赞的文本 */
   likeEnd: string
+  /** 定时赞配置 */
+  timedLike: {
+    /** 定时点赞总开关 */
+    enable: boolean
+    /** 定时点赞用户UID列表 */
+    targets: string[]
+  }
 }
 
 export interface Group {

@@ -31,9 +31,11 @@ interface Config {
       'Apply:autoAgree': boolean,
       'Apply:notify:enable': boolean,
       'Apply:notify:allow': boolean,
-      closeLike: boolean,
+      enableLike: boolean,
       likeStart: string,
       likeEnd: string
+      'timedLike:enable': boolean
+      'timedLike:targets': string[]
     }
   ],
   other: [
@@ -210,10 +212,14 @@ export default defineConfig({
               description: '开启后,Bot收到好友申请,会自动同意(主人无视该规则)',
               defaultSelected: friend.Apply.autoAgree
             }),
-            components.switch.create('closeLike', {
-              label: '关闭点赞',
-              description: '开启后,将无法触发功能#赞我',
-              defaultSelected: friend.closeLike
+            components.divider.create('b-d-2', {
+              description: '点赞配置（手动 + 定时）',
+              descPosition: 0
+            }),
+            components.switch.create('enableLike', {
+              label: '启用点赞功能',
+              description: '关闭后,将无法触发 #赞我 且不会执行定时赞',
+              defaultSelected: friend.enableLike
             }),
             components.input.string('likeStart', {
               label: '点赞成功发送的消息',
@@ -228,6 +234,26 @@ export default defineConfig({
               defaultValue: friend.likeEnd,
               isRequired: false,
               color: 'success'
+            }),
+            components.switch.create('timedLike:enable', {
+              label: '定时点赞开关',
+              description: '开启后,每天 00:00 按下方UID列表依次执行点赞',
+              defaultSelected: friend.timedLike.enable,
+              isDisabled: !friend.enableLike
+            }),
+            components.input.group('timedLike:targets', {
+              label: '定时点赞UID列表',
+              description: '已配置的用户UID会显示在这里，可直接增删',
+              data: friend.timedLike.targets,
+              template:
+                components.input.string('b-number-1', {
+                  color: 'success',
+                  label: '用户UID',
+                  placeholder: '请输入用户UID',
+                  isRequired: true,
+                  isDisabled: !friend.enableLike,
+                  value: ''
+                })
             })
           ]
         })
@@ -327,7 +353,7 @@ export default defineConfig({
   ],
 
   /** 前端点击保存之后调用的方法 */
-  save: (config: Config) => {
+  save: async (config: Config) => {
     const Other = {
       noWork: config.other[0].noWork,
       whoat: config.other[0].whoat,
@@ -367,22 +393,27 @@ export default defineConfig({
           allow: config.friend[0]['Apply:notify:allow']
         }
       },
-      closeLike: config.friend[0].closeLike,
+      enableLike: config.friend[0].enableLike,
       likeStart: config.friend[0].likeStart,
-      likeEnd: config.friend[0].likeEnd
+      likeEnd: config.friend[0].likeEnd,
+      timedLike: {
+        // 点赞总开关关闭时，强制关闭定时赞，避免配置出现不一致状态
+        enable: config.friend[0].enableLike ? config.friend[0]['timedLike:enable'] : false,
+        targets: config.friend[0]['timedLike:targets']
+      }
     }
     let success = false
     if (!_.isEqual(friend, Friend)) {
-      cfg.save('friend', Friend)
+      await cfg.save('friend', Friend)
       success = true
     }
     if (!_.isEqual(group, Group)) {
-      cfg.save('group', Group)
+      await cfg.save('group', Group)
       success = true
     }
 
     if (!_.isEqual(other, Other)) {
-      cfg.save('other', Other)
+      await cfg.save('other', Other)
       success = true
     }
     return {
