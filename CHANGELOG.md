@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.34.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.33.0...v1.34.0) (2026-04-06)
+
+
+### Features
+
+* 定时点赞 ([#225](https://github.com/yusheng929/karin-plugin-ling/issues/225)) ([002fe9f](https://github.com/yusheng929/karin-plugin-ling/commit/002fe9fe6d05b079f33316d451fe04912eb34851))
+
 ## [1.33.0](https://github.com/yusheng929/karin-plugin-ling/compare/v1.32.4...v1.33.0) (2026-03-30)
 
 
