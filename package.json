@@ -18,7 +18,7 @@
     "url": "git+https://github.com/yusheng929/karin-plugin-ling.git"
   },
   "scripts": {
-    "build": "tsdown",
+    "build": "tsup",
     "clean": "npm lib/cli/pr.js clean",
     "pub-beta": "npm publish --tag beta",
     "pr": "node lib/cli/pr.js",
@@ -39,7 +39,7 @@
     "neostandard": "^0.12.2",
     "node-karin": "^1.13.0",
     "tsc-alias": "^1.8.16",
-    "tsdown": "^0.21.7",
+    "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
