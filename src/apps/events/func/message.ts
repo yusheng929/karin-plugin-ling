@@ -6,6 +6,7 @@ import { GroupMessage, logger, Message, redis } from 'node-karin'
 type NextType = () => Promise<void>
 /** 群聊上下班事件处理 */
 export const commute = async (e: GroupMessage, next: NextType) => {
+  if (!e.isGroup) return await next()
   const opt = await cfg.get('other')
   if (opt.noWork.includes(e.groupId) && (!e.msg.includes('上班') && !e.msg.includes('下班'))) {
     return logger.debug(`[${dir.name}]群[${e.groupId}]处于下班状态,拦截消息`)

@@ -101,6 +101,7 @@ export const groupApply = karin.accept('request.groupApply', async (e) => {
       '接到新的的加群申请',
       `QQ号: ${e.userId}`,
       `昵称: ${e.sender.nick || '未知'}`,
+      `等级: ${e.sender.level || '未知'}`,
       `flag: ${e.content.flag}`,
       isQuestion ? e.content.reason : `申请理由: ${e.content.reason}`,
       '管理员可引用回复: 同意/拒绝 进行处理, 或者 拒绝:拒绝理由'

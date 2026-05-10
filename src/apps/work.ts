@@ -2,6 +2,7 @@ import { cfg } from '@/config'
 import karin from 'node-karin'
 
 export const work = karin.command(/^#(上班|下班)$/, async (e) => {
+  if (!e.isMaster) return false
   const opt = await cfg.get('other')
   if (e.msg.includes('上班')) {
     if (!opt.noWork.includes(e.groupId)) return e.reply('已经在工作了')
@@ -13,4 +14,4 @@ export const work = karin.command(/^#(上班|下班)$/, async (e) => {
     cfg.set('other', 'add', 'noWork', e.groupId)
     return e.reply('开始下班')
   }
-}, { event: 'message.group', perm: 'master' })
+}, { event: 'message.group' })
