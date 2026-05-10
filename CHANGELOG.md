@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.34.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.1...v1.34.2) (2026-05-10)
+
+
+### Bug Fixes
+
+* 优化通知逻辑,申请加群事件新增申请人等级 ([309911b](https://github.com/yusheng929/karin-plugin-ling/commit/309911bd0385e659c5c4163ade885e49a5fb13b5))
+
 ## [1.34.1](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.0...v1.34.1) (2026-04-07)
 
 
