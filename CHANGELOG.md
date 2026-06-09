@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.34.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.2...v1.34.3) (2026-06-09)
+
+
+### Bug Fixes
+
+* 增强操作超时处理，添加平台支持检查 ([c0a7a47](https://github.com/yusheng929/karin-plugin-ling/commit/c0a7a479f0287c285b9737f4e7c5f295392de764))
+
 ## [1.34.2](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.1...v1.34.2) (2026-05-10)
 
 
