@@ -89,6 +89,7 @@ export const QuitGroup = karin.command(/^#退群/, async (e) => {
     if (['owner'].includes(info.role)) {
       await e.reply(`Bot是群[${groupId}]的群主,如果退群会直接解散群聊,请发送\n#确认退群${groupId}\n以退出群聊`)
       const event = await karin.ctx(e)
+      if (!event) return e.reply('操作超时', { at: true })
       if (event.msg.trim() !== `#确认退群${groupId}`) return true
     }
     if (groupId === e.groupId) {
@@ -183,6 +184,7 @@ export const command = karin.command(/^#?赞我$/, async e => {
     return true
   }
 
+  if (e.bot.adapter.platform !== 'qq' || e.bot.adapter.protocol === 'qqbot') return e.reply('当前协议不支持点赞', { at: true })
   const count = await sendLikeUntilFail(e.bot, e.userId)
   if (count === 0) {
     const likeEnd = opt.likeEnd || '已经给你赞过了'
@@ -214,6 +216,7 @@ export const timedLikeTask = karin.task('Ling-定时点赞', '0 0 * * *', async 
   for (const selfId of bots) {
     const bot = karin.getBot(selfId)
     if (!bot) continue
+    if (bot.adapter.platform !== 'qq' || bot.adapter.protocol === 'qqbot') continue
     for (const targetUserId of targets) {
       try {
         const likeCount = await sendLikeUntilFail(bot, targetUserId)
@@ -300,6 +303,7 @@ export const setAvatar = karin.command(/^#设置头像(\d*)$/, async (e) => {
   if (!img) {
     await e.reply('请发送需要设置的头像', { reply: true })
     const msg = await karin.ctx(e)
+    if (!msg) return e.reply('操作超时', { at: true })
     img = msg.elements.find(i => i.type === 'image')?.file
     if (!img) return e.reply('未检测到图片,已取消操作', { reply: true })
   }
