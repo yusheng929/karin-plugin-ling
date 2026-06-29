@@ -3,6 +3,7 @@ import moment from 'node-karin/moment'
 import karin, { common, logger, segment } from 'node-karin'
 import type { Client } from 'icqq'
 import { dir } from '@/utils/dir'
+// import { cfg } from '@/config'
 
 const aPath = '[group/other]'
 /**
@@ -116,6 +117,7 @@ export const segGroupAvatar = karin.command(/^#(改|设置|修改)群头像$/i, 
     if (!file) {
       await e.reply('请发送需要更换的图片')
       const event = await karin.ctx(e)
+      if (!event) return await e.reply('操作超时')
       file = event.elements.find(item => item.type === 'image')?.file
       if (!file) return await e.reply('未检测到图片')
     }
@@ -155,3 +157,10 @@ export const clearScreenRecall = karin.command(/^#清屏(\d+)?$/, async (e) => {
   }
   return true
 }, { name: aPath + '清屏', priority: -1, event: 'message.group', perm: 'group.admin' })
+
+// export const EnableGroupNotice = karin.command(/^#(开启|关闭)进退群通知$/, async (ctx) => {
+//   const match = ctx.msg.match(EnableGroupNotice.reg)
+//   const action = match![1] === '开启'
+//   await cfg.set('group', 'set', 'MemberChange.notice.enable', action)
+//   ctx.reply(`已${action}`)
+// })

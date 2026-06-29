@@ -34,7 +34,7 @@ export default class {
     const bkn = (await this.e.bot.getCSRFToken()).token
     const request = {
       method: 'POST',
-      url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/word_list?bkn=${bkn}`,
+      url: `https://qun.qq.com/cgi-bin/group_lucky_word/word_list?bkn=${bkn}`,
       headers: this.headers,
       data
     }
@@ -57,7 +57,7 @@ export default class {
     const bkn = (await this.e.bot.getCSRFToken()).token
     const request = {
       method: 'POST',
-      url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/draw_lottery?bkn=${bkn}`,
+      url: `https://qun.qq.com/cgi-bin/group_lucky_word/draw_lottery?bkn=${bkn}`,
       headers: this.headers,
       data
     }
@@ -82,7 +82,7 @@ export default class {
     const bkn = (await this.e.bot.getCSRFToken()).token
     const request = {
       method: 'POST',
-      url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/setting?bkn=${bkn}`,
+      url: `https://qun.qq.com/cgi-bin/group_lucky_word/setting?bkn=${bkn}`,
       headers: this.headers,
       data
     }
@@ -107,7 +107,7 @@ export default class {
     const bkn = (await this.e.bot.getCSRFToken()).token
     const request = {
       method: 'POST',
-      url: `https://qun.qq.com/v2/luckyword/proxy/domain/qun.qq.com/cgi-bin/group_lucky_word/equip?bkn=${bkn}`,
+      url: `https://qun.qq.com/cgi-bin/group_lucky_word/equip?bkn=${bkn}`,
       headers: this.headers,
       data
     }
