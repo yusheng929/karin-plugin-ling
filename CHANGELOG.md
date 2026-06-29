@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.34.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.3...v1.34.4) (2026-06-29)
+
+
+### Bug Fixes
+
+* 修复抽幸运字符接口失效的问题 ([7c31826](https://github.com/yusheng929/karin-plugin-ling/commit/7c31826718e8973402a720e5ee382aabed3e4084))
+
 ## [1.34.3](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.2...v1.34.3) (2026-06-09)
 
 
