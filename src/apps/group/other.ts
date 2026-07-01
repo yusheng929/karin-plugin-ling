@@ -3,7 +3,7 @@ import moment from 'node-karin/moment'
 import karin, { common, logger, segment } from 'node-karin'
 import type { Client } from 'icqq'
 import { dir } from '@/utils/dir'
-// import { cfg } from '@/config'
+import { cfg } from '@/config'
 
 const aPath = '[group/other]'
 /**
@@ -158,9 +158,46 @@ export const clearScreenRecall = karin.command(/^#清屏(\d+)?$/, async (e) => {
   return true
 }, { name: aPath + '清屏', priority: -1, event: 'message.group', perm: 'group.admin' })
 
-// export const EnableGroupNotice = karin.command(/^#(开启|关闭)进退群通知$/, async (ctx) => {
-//   const match = ctx.msg.match(EnableGroupNotice.reg)
-//   const action = match![1] === '开启'
-//   await cfg.set('group', 'set', 'MemberChange.notice.enable', action)
-//   ctx.reply(`已${action}`)
-// })
+export const EnableGroupNotice = karin.command(/^#(开启|关闭)进退群通知$/, async (ctx) => {
+  const match = ctx.msg.match(EnableGroupNotice.reg)
+  const msg = match![1]
+  const action = msg === '开启'
+  const Cfg = cfg.get('group')
+  if (Cfg.MemberChange.notice.enable === action) {
+    ctx.reply(`进退群通知已${msg}，无需重复操作`)
+    return true
+  }
+  await cfg.set('group', 'MemberChange.notice.enable', action)
+  ctx.reply(`已${msg}进退群通知`)
+  return true
+}, { name: aPath + '开启关闭进退群通知', priority: -1, perm: 'admin' })
+
+export const AddGroupNotice = karin.command(/^#(添加|移除)进退群(?:通知)?(黑|白)名单(.*)?$/, async (ctx) => {
+  const Cfg = cfg.get('group').MemberChange.notice
+  const match = ctx.msg.match(AddGroupNotice.reg)!
+  const action = match[1]
+  const type = match[2] === '黑' ? 'disable_list' : 'white_list'
+  let ID = match[3]?.trim()
+  if (!ID) {
+    if (!ctx.isGroup) {
+      ctx.reply(`请指定需要${action}${match[2]}名单的群号`)
+      return true
+    }
+    ID = ctx.groupId
+  }
+  if (action === '添加') {
+    if (Cfg[type].includes(ID)) {
+      ctx.reply(`群号${ID}已在${match[2]}名单中，无需重复添加`)
+      return true
+    }
+    cfg.push('group', `MemberChange.notice.${type}`, ID)
+    ctx.reply(`已将群号${ID}添加至${match[2]}名单`)
+  } else {
+    if (!Cfg[type].includes(ID)) {
+      ctx.reply(`群号${ID}不在${match[2]}名单中，无需移除`)
+      return true
+    }
+    cfg.remove('group', `MemberChange.notice.${type}`, ID)
+    ctx.reply(`已将群号${ID}从${match[2]}名单中移除`)
+  }
+})

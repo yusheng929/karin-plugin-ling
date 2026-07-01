@@ -35,6 +35,8 @@ export interface Group {
       enable: boolean
       /** 通知黑名单 */
       disable_list: Array<string>
+      /** 通知白名单 */
+      white_list: Array<string>
       /** 进群通知文本 */
       joinText: string
       /** 退群通知文本 */

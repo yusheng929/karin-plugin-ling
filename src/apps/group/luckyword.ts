@@ -29,7 +29,7 @@ export const luckylist = karin.command(/^#(查)?(幸运)?字符(列表)?$/, asyn
 
 export const luckyword = karin.command(/^#抽(幸运)?字符$/, async (e) => {
   const data = await new QQApi(e).luckyword(e.groupId)
-  const opt = await cfg.get('other')
+  const opt = cfg.get('other')
   if (!data) return e.reply('❌请稍后再试')
   if (data.retcode === 11004 && (data.msg === 'over svip max times' || data.msg === 'over member max times')) return e.reply('❌今日抽取次数已达上限')
   if (data.retcode === 11001 && data.msg === 'group lucky word has closed') return e.reply('❌本群未开启幸运字符功能')

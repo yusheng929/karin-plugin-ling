@@ -7,19 +7,19 @@ type NextType = () => Promise<void>
 /** 群聊上下班事件处理 */
 export const commute = async (e: GroupMessage, next: NextType) => {
   if (!e.isGroup) return await next()
-  const opt = await cfg.get('other')
+  const opt = cfg.get('other')
   if (opt.noWork.includes(e.groupId) && (!e.msg.includes('上班') && !e.msg.includes('下班'))) {
-    return logger.debug(`[${dir.name}]群[${e.groupId}]处于下班状态,拦截消息`)
+    logger.debug(`[${dir.name}]群[${e.groupId}]处于下班状态,拦截消息`)
+    return true
   }
   return await next()
 }
 /** 谁艾特我 */
 export const whoat = async (e: GroupMessage, next: NextType) => {
   try {
-    const opt = await cfg.get('other')
+    const opt = cfg.get('other')
     if (opt.whoat) {
       if (e.at.length > 0) {
-
         for (const id of e.at) {
           if (id === e.userId) continue
           const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${id}`) || '[]') as WhoAtType
@@ -37,9 +37,8 @@ export const whoat = async (e: GroupMessage, next: NextType) => {
     }
   } catch (err) {
     logger.error(`[${dir.name}]谁艾特我记录失败`, err)
-  } finally {
-    return await next()
   }
+  return await next()
 }
 
 /** 设置加群申请/好友申请/邀请加群结果 */

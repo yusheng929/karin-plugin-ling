@@ -22,4 +22,3 @@ export function createHookMessageHandler (func: Function[]) {
     await dispatch(0)
   }
 }
-

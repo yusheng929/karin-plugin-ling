@@ -14,7 +14,7 @@ import { RequestResult } from '@/types/types'
 
 /** 进群事件 */
 export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
-  const group = await cfg.get('group')
+  const group = cfg.get('group')
   /** 执行自动退群逻辑 */
   if (e.sender.userId === e.selfId && group.AutoQuitGroup.enable) {
     const data = group.AutoQuitGroup.autoQuit
@@ -22,9 +22,17 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
   }
   /** 检查是否开启入群通知 */
   if (group.MemberChange.notice.enable && e.sender.userId !== e.selfId) {
-    if (!group.MemberChange.notice.disable_list.includes(e.groupId)) {
-      let msg = group.MemberChange.notice.joinText || '用户『{{Id}}』已加入本群'
-      msg = msg.replace(/{{Id}}/gi, e.userId.toString())
+    const P = () => {
+      /** 先判断白名单 */
+      if (group.MemberChange.notice.white_list.length > 0) {
+        return group.MemberChange.notice.white_list.includes(e.groupId)
+      }
+      return !group.MemberChange.notice.disable_list.includes(e.groupId)
+    }
+
+    if (P()) {
+      const msg = (group.MemberChange.notice.joinText || '用户『{{Id}}』已加入本群')
+        .replace(/{{Id}}/gi, e.userId.toString())
       await e.reply(msg, { at: true })
     }
   }
@@ -70,7 +78,7 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
 
 /** 退群事件 */
 export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
-  const Cfg = (await cfg.get('group')).MemberChange
+  const Cfg = (cfg.get('group')).MemberChange
   if (Cfg.notice.enable && e.sender.userId !== e.selfId) {
     if (!Cfg.notice.disable_list.includes(e.groupId)) {
       let msg = Cfg.notice.quitText || '用户『{{Id}}』已离开本群'
@@ -84,7 +92,7 @@ export const unaccept = karin.accept('notice.groupMemberRemove', async (e) => {
 /** 申请进群事件 */
 export const groupApply = karin.accept('request.groupApply', async (e) => {
   logger.bot('info', e.selfId, `${e.content.applierId} 申请加入群 ${e.groupId} flag: ${e.content.flag}`)
-  const opts = await cfg.get('group')
+  const opts = cfg.get('group')
   if (!opts.Apply_list.includes(e.groupId)) return false
   const AvatarUrl = await e.bot.getAvatarUrl(e.userId)
   let isQuestion = false
@@ -119,7 +127,7 @@ export const groupApply = karin.accept('request.groupApply', async (e) => {
 /** 邀请Bot进群事件 */
 export const groupInvite = karin.accept('request.groupInvite', async (e) => {
   logger.info(`${e.content.inviterId} 邀请Bot进群: ${e.content.flag}`)
-  const opt = (await cfg.get('group')).Invite
+  const opt = (cfg.get('group')).Invite
   if (e.isMaster) {
     await e.bot.setInvitedJoinGroupResult(e.content.flag, true)
     const contact = contactFriend(e.userId)
@@ -171,7 +179,7 @@ export const groupInvite = karin.accept('request.groupInvite', async (e) => {
  * @param groupId 群号
  */
 const autoquit = async (e: GroupMemberIncreaseNotice, id: string, groupId: string) => {
-  const quit = (await cfg.get('group')).AutoQuitGroup
+  const quit = (cfg.get('group')).AutoQuitGroup
   const data = quit.autoQuit
   let a = data[id]
   if (!a) a = data.default

@@ -143,7 +143,7 @@ const canManageTimedLikeTargets = (e: GroupMessage) => {
  * @param targets 目标UID列表
  */
 const saveTimedLikeTargets = async (targets: string[]) => {
-  const friendCfg = await cfg.get('friend', true)
+  const friendCfg = cfg.get('friend')
   const next = [...new Set(targets.map(item => String(item).trim()).filter(Boolean))]
   await cfg.save('friend', {
     ...friendCfg,
@@ -268,7 +268,7 @@ export const setTimedLike = karin.command(/^#(设置|开启)定时点赞/, async
  * - 普通用户: 无@时只取消自己
  */
 export const delTimedLike = karin.command(/^#(取消|关闭)定时点赞/, async (e: GroupMessage) => {
-  const friendCfg = await cfg.get('friend')
+  const friendCfg = cfg.get('friend')
   const atList = [...new Set(e.at.map(item => String(item).trim()).filter(Boolean))]
   let targets = atList
 

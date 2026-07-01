@@ -23,7 +23,7 @@
     "pub-beta": "npm publish --tag beta",
     "pr": "node lib/cli/pr.js",
     "commit": "node lib/cli/commit.js",
-    "dev": "tsx watch src/app.ts",
+    "dev": "cross-env EBV_FILE=\"development.env\" node --import tsx src/app.ts",
     "karin": "karin",
     "app": "karin app"
   },

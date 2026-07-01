@@ -11,6 +11,7 @@ interface Config {
     {
       'MemberChange:notice:enable': boolean
       'MemberChange:notice:disable_list': string[]
+      'MemberChange:notice:white_list': string[]
       'MemberChange:notice:joinText': string
       'MemberChange:notice:quitText': string
       'MemberChange:joinVerify': string[]
@@ -85,9 +86,22 @@ export default defineConfig({
               description: '开启后会监听群聊的群成员变动事件并推送',
               defaultSelected: group.MemberChange.notice.enable
             }),
+            components.input.group('MemberChange:notice:white_list', {
+              label: '通知白名单',
+              description: '填写后只会监听白名单群聊,且无视黑名单',
+              data: group.MemberChange.notice.white_list,
+              template:
+                components.input.string('a-number-2', {
+                  color: 'success',
+                  label: '群号',
+                  placeholder: '请输入群号',
+                  isRequired: true,
+                  value: ''
+                })
+            }),
             components.input.group('MemberChange:notice:disable_list', {
               label: '通知黑名单',
-              description: '开启后不会监听黑名单群聊',
+              description: '填写后不会监听黑名单群聊',
               data: group.MemberChange.notice.disable_list,
               template:
                 components.input.string('a-number-2', {
@@ -365,6 +379,7 @@ export default defineConfig({
         notice: {
           enable: config.group[0]['MemberChange:notice:enable'],
           disable_list: config.group[0]['MemberChange:notice:disable_list'],
+          white_list: config.group[0]['MemberChange:notice:white_list'],
           joinText: config.group[0]['MemberChange:notice:joinText'],
           quitText: config.group[0]['MemberChange:notice:quitText']
         },
