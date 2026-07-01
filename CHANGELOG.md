@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.34.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.4...v1.34.5) (2026-07-01)
+
+
+### Bug Fixes
+
+* 新增进退群通知白名单，优化配置文件处理逻辑 ([b8b23f4](https://github.com/yusheng929/karin-plugin-ling/commit/b8b23f4b8b98b7c23c01435e0f6f6d31be7a60aa))
+
 ## [1.34.4](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.3...v1.34.4) (2026-06-29)
 
 
