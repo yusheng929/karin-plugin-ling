@@ -29,10 +29,11 @@ export const whoat = async (e: GroupMessage, next: NextType) => {
       } else if (e.replyId) {
         const elem = await e.bot.getMsg(e.contact, e.replyId)
         const id = elem.sender.userId
-        if (e.userId === id) return
-        const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${id}`) || '[]') as WhoAtType
-        data.push({ time: Date.now(), messageId: e.messageId })
-        await redis.set(`Ling:at:${e.groupId}:${id}`, JSON.stringify(data), { EX: 86400 })
+        if (e.userId !== id) {
+          const data = JSON.parse(await redis.get(`Ling:at:${e.groupId}:${id}`) || '[]') as WhoAtType
+          data.push({ time: Date.now(), messageId: e.messageId })
+          await redis.set(`Ling:at:${e.groupId}:${id}`, JSON.stringify(data), { EX: 86400 })
+        }
       }
     }
   } catch (err) {

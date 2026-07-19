@@ -20,7 +20,7 @@ export const whoat = karin.command(/^#?谁(at|@|艾特)(我|ta|他|她|它)$/, a
       const index = elements.elements.findIndex((item) => item.type === 'longMsg')
       if (index !== -1) elements.elements.splice(index, 1)
       const img = elements.elements.filter((item) => item.type === 'image')
-      if (img.length > 0) {
+      if (img.length > 0 && ['icqq', 'napcat', 'llonebot', 'lagrange', 'yogurt'].includes(e.bot.adapter.protocol)) {
         for (const i of img) {
           i.file = await refreshRkey(e, i) || ''
         }

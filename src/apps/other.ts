@@ -77,7 +77,7 @@ export const getimg = karin.command(/#?取直链/, async (e) => {
       msg.push([segment.text(`视频链接: ${i.file}`)])
       continue
     }
-    i.file = await refreshRkey(e, i) || ''
+    i.file = ['icqq', 'napcat', 'llonebot', 'lagrange', 'yogurt'].includes(e.bot.adapter.protocol) ? await refreshRkey(e, i) : i.file || ''
     msg.push([segment.image(i.file), segment.text(`图片链接: ${i.file}`)])
   }
   const content = common.makeForward(msg, e.selfId, e.bot.account.name)

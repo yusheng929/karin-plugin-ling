@@ -44,6 +44,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "chokidar": "^5.0.0",
     "highlight.js": "^11.11.1",
     "napcat.protobuf": "^1.1.4",
     "punycode": "^2.3.1",
