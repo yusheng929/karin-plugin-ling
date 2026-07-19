@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.34.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.5...v1.34.6) (2026-07-19)
+
+
+### Bug Fixes
+
+* 修复除QQ外协议，无法使用取直链的问题 ([e48c037](https://github.com/yusheng929/karin-plugin-ling/commit/e48c0370b32ec68958dab58b4410a52e427c9b0c))
+
 ## [1.34.5](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.4...v1.34.5) (2026-07-01)
 
 
