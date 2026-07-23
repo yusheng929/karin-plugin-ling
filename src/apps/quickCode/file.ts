@@ -3,7 +3,6 @@ import path from 'node:path'
 import { common, GroupFileUploadedNotice, karin, logger, PrivateFileUploadedNotice } from 'node-karin'
 import { Size } from '@/models/Size'
 import { LING_KEY } from '@/utils/common'
-import { D } from 'node_modules/node-karin/dist/types-hAhbXJDZ'
 
 const FileDownloadReg = /^#(取消)?文件下载(.*)?$/
 const FileUploadReg = /^#文件上传(.*)?$/
@@ -67,6 +66,7 @@ export const UploadDownload = karin.command(FileUploadReg, async (e) => {
   if (!Path) {
     await e.reply('请发送路径', { at: true })
     const event = await karin.ctx(e)
+    if (!event) return e.reply('操作超时', { reply: true })
     Path = event.msg
   }
 
