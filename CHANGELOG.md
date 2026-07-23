@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.34.7](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.6...v1.34.7) (2026-07-23)
+
+
+### Bug Fixes
+
+* 重构rcp样式，修复部分代码 ([a9b972f](https://github.com/yusheng929/karin-plugin-ling/commit/a9b972f8cdd1321da7fa71126a5cf95e86bc6ae6))
+
 ## [1.34.6](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.5...v1.34.6) (2026-07-19)
 
 
