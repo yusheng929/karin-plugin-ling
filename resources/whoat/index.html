@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>谁艾特我</title>
+  <link rel="preconnect" href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="{{pluResPath}}whoat/index.css">
+</head>
+
+<body>
+  <div class="page">
+    <!-- 顶部标题栏 -->
+    <div class="navbar">
+      <div class="navbar-back">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </div>
+      <div class="navbar-title">{{data.title}}</div>
+      <div class="navbar-more">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="5" cy="12" r="1.8" />
+          <circle cx="12" cy="12" r="1.8" />
+          <circle cx="19" cy="12" r="1.8" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- 提示条 -->
+    <div class="notice">{{data.subtitle}}</div>
+
+    <!-- 消息列表 -->
+    <div class="chat">
+      {{each data.list}}
+      <div class="msg-row">
+        {{if $value.avatar}}
+        <img class="avatar" src="{{$value.avatar}}" alt=""
+          onerror="this.outerHTML='<div class=&quot;avatar avatar-text&quot;>{{$value.nickFirst}}</div>'">
+        {{else}}
+        <div class="avatar avatar-text">{{$value.nickFirst}}</div>
+        {{/if}}
+        <div class="msg-main">
+          <div class="msg-meta">
+            <span class="nick">{{$value.nick}}</span>
+            <span class="time">{{$value.time}}</span>
+          </div>
+          <div class="bubble">
+            {{each $value.parts}}
+            {{if $value.type == 'text'}}<span class="text">{{$value.text}}</span>{{else if
+            $value.type == 'at'}}<span class="at">{{$value.text}}</span>{{else if
+            $value.type == 'image'}}<img class="msg-img" src="{{$value.url}}" alt="[图片]"
+              onerror="this.outerHTML=this.alt">{{else if
+            $value.type == 'face'}}<img class="face{{if $value.big}} face-big{{/if}}" src="{{$value.url}}" alt="[表情]"
+              onerror="this.outerHTML=this.alt">{{else}}<span class="ph">{{$value.text}}</span>{{/if}}
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer">{{sys.copyright}}</div>
+  </div>
+</body>
+
+</html>

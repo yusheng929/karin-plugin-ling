@@ -1,0 +1,194 @@
+/* ============================================
+   谁艾特我 · 仿 QQ 安卓端聊天页面
+   ============================================ */
+
+:root {
+  --bg: #f2f2f2;
+  --card: #ffffff;
+  --t1: #1a1a1a;
+  --t2: #999999;
+  --blue: #0099ff;
+  --sans: 'Noto Sans SC', system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: transparent;
+}
+
+body {
+  background: transparent;
+  margin: 0;
+  display: inline-block;
+  width: 750px;
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  background: var(--bg);
+  min-height: 100%;
+}
+
+/* ——— 顶部标题栏 ——— */
+.navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 96px;
+  padding: 0 24px;
+  background: var(--card);
+  color: var(--t1);
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.navbar-back,
+.navbar-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  color: #666;
+}
+
+.navbar-title {
+  flex: 1;
+  text-align: center;
+  font-size: 34px;
+  font-weight: 700;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ——— 提示条 ——— */
+.notice {
+  padding: 20px 0 4px;
+  text-align: center;
+  font-size: 22px;
+  color: var(--t2);
+}
+
+/* ——— 消息列表 ——— */
+.chat {
+  padding: 16px 24px 8px;
+}
+
+.msg-row {
+  display: flex;
+  align-items: flex-start;
+  margin: 18px 0;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #e0e0e0;
+}
+
+.avatar-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #7ec3ff, #4a90e2);
+  user-select: none;
+}
+
+.msg-main {
+  margin-left: 20px;
+  max-width: 560px;
+  min-width: 0;
+}
+
+.msg-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.nick {
+  font-size: 24px;
+  color: var(--t2);
+}
+
+.time {
+  font-size: 20px;
+  color: #bfbfbf;
+}
+
+/* ——— 气泡 ——— */
+.bubble {
+  position: relative;
+  display: inline-block;
+  padding: 18px 22px;
+  background: var(--card);
+  border-radius: 8px;
+  font-size: 30px;
+  line-height: 1.5;
+  color: var(--t1);
+  word-break: break-word;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* 气泡小尾巴 */
+.bubble::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 26px;
+  border: 8px solid transparent;
+  border-right-color: var(--card);
+}
+
+.text {
+  white-space: pre-wrap;
+}
+
+.at {
+  color: var(--blue);
+}
+
+.face {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+}
+
+.face-big {
+  width: 96px;
+  height: 96px;
+}
+
+.msg-img {
+  display: block;
+  max-width: 460px;
+  max-height: 600px;
+  border-radius: 8px;
+  margin: 4px 0;
+}
+
+.ph {
+  color: var(--t2);
+}
+
+/* ——— 底部 ——— */
+.footer {
+  padding: 24px 0 32px;
+  text-align: center;
+  font-size: 20px;
+  color: #c8c8c8;
+}
