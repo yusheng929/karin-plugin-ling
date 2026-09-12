@@ -34,6 +34,7 @@ export const render = async (
     setViewport: {
       deviceScaleFactor: 4
     },
+    selector: 'body'
   })
   return segment.image(`${img.includes('base64://') ? img : `base64://${img}`}`)
 }

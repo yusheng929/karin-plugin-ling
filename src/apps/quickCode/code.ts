@@ -178,7 +178,7 @@ export const runcode = karin.karin.command(/^rc(p)?(.*)$/s, async (e) => {
       symbol: username === 'root' ? '#' : '$',
       time: new Date().toTimeString().slice(0, 8),
       cmd,
-      output: output.split('\n').filter(i => i.trim() !== '').map(formatLine)
+      output: output.split(/\r?\n/).filter(i => i.trim() !== '').map(formatLine)
     }
     const img = await render('runcode/index', { data })
     e.reply(img, { reply: true })

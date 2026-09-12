@@ -28,7 +28,7 @@
     "app": "karin app"
   },
   "devDependencies": {
-    "@karinjs/plugin-puppeteer": "^1.1.2",
+    "@karinjs/plugin-shotium": "^0.3.1",
     "@types/lodash": "^4.17.21",
     "@types/node": "^24.10.3",
     "@types/punycode": "^2.1.4",
