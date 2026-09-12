@@ -1,5 +1,12 @@
 # 更新日志
 
+## [1.34.9](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.8...v1.34.9) (2026-09-12)
+
+
+### Bug Fixes
+
+* 优化rcp输出，修复使用shotium截图不完整的问题 ([1aed3d8](https://github.com/yusheng929/karin-plugin-ling/commit/1aed3d8693d9410675941d1028ab749011fe9542))
+
 ## [1.34.8](https://github.com/yusheng929/karin-plugin-ling/compare/v1.34.7...v1.34.8) (2026-07-26)
 
 
